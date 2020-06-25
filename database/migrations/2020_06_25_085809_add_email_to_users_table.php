@@ -14,10 +14,11 @@ class AddEmailToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->bigInteger('role_id')->unsigned();
+            
+            $table->bigInteger('role_id')->after('id')->unsigned();
             $table->foreign('role_id')->references('id')->on('vms_roles')->onDelete('cascade');
-            $table->string('username')->length('50');
-            $table->boolean('is_verified');
+            $table->string('username')->length('50')->after('role_id');
+            $table->boolean('is_verified')->after('username');
             $table->softDeletes();
         });
     }

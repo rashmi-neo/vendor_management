@@ -17,11 +17,17 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Route::get('dashboard', function () {
-    return view('layouts.master');
+
+/**
+* Routes for dashboard.
+* @author Bharti<bharati.tadvi@neosofttech.com>
+* 
+* @return void
+*/
+Route::middleware('auth')->group(function () {
+    Route::get('dashboard', function () {
+        return view('layouts.master');
+    });
 });
 
-
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repositories\Category;
 use App\Model\Category;
+use App\Repositories\Category\CategoryInterface;
 
 class CategoryRepository implements CategoryInterface{
 
@@ -28,7 +29,7 @@ class CategoryRepository implements CategoryInterface{
     public function all()
     {
     	$category = Category::all();
-    	return $category
+    	return $category;
     }
 
 
@@ -39,7 +40,7 @@ class CategoryRepository implements CategoryInterface{
      * @param  $data
      * @return $category
      */
-    public function save($data)
+    public function save(array $data)
     {
     	Category::create($data);
     }
@@ -49,9 +50,9 @@ class CategoryRepository implements CategoryInterface{
      * Updates a category.
      *
      * @param int
-     * @param array
+     * @param $array
      */
-    public function update($id, array $data)
+    public function update($id,array $data)
     {
         Category::find($id)->update($data);
     }
@@ -64,6 +65,6 @@ class CategoryRepository implements CategoryInterface{
      */
     public function delete($id)
     {
-        Category::destroy($id)
+        Category::destroy($id);
     }
 }

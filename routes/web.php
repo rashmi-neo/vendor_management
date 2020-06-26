@@ -24,10 +24,15 @@ Route::get('/', function () {
 * 
 * @return void
 */
+Auth::routes();
 Route::middleware('auth')->group(function () {
-    Route::get('dashboard', function () {
-        return view('layouts.master');
-    });
+	Route::get('dashboard', function () {
+	        return view('layouts.master');
+	 });
+// -----------Admin Route Start------------------------------
+Route::resource('categories', 'Admin\CategoryController');
+// --------------Admin Route End----------------------------
+
 });
 
-Auth::routes();
+

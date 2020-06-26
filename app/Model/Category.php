@@ -9,6 +9,9 @@ class Category extends Model
 {
     use SoftDeletes;
 
+    protected $table = 'vms_categories';
+
+
     protected $fillable = [
         'name','status'
     ];

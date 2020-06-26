@@ -9,6 +9,7 @@ class Document extends Model
 {
     use SoftDeletes;
 
+    protected $table = 'vms_documents';
     
     protected $fillable = [
         'name','is_mandetory'

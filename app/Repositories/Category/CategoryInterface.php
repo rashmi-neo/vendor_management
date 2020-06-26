@@ -27,7 +27,7 @@ interface CategoryInterface{
      *
      * @param array
      */
-    public function save($data);
+    public function save(array $data);
 
     /**
      * Updates a category.
@@ -35,7 +35,7 @@ interface CategoryInterface{
      * @param int
      * @param array
      */
-    public function update($id, $data);
+    public function update($id,array $data);
 
     /**
      * Deletes a category.

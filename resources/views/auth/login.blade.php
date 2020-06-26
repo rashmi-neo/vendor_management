@@ -21,7 +21,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="#"><b>Admin Login</a>
+    <a href="#"><b>Login</a>
   </div>
   <!-- /.login-logo -->
   <div class="card">
@@ -69,9 +69,12 @@
         </div>
         <div class="row">
           <div class="col-4">
+            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
           </div>
           <div class="col-4">
-            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+          </div>
+          <div class="col-4">
+            <a href="{{url('vendor/registration')}}" class="btn btn-primary btn-block">Sign up</a>
           </div>
         </div>
       </form>

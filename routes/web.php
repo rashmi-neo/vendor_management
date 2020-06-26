@@ -17,6 +17,9 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
+Route::get('vendor/registration', function () {
+    return view('vendor.registration');
+});
 
 /**
 * Routes for dashboard.

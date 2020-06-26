@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Role extends Model
 {
+
+    
     protected $table = 'vms_roles';
 
     /**
@@ -13,6 +15,7 @@ class Role extends Model
      *
      * @var array
      */
+
     protected $fillable = [
         'role_name'
     ];

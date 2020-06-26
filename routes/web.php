@@ -17,6 +17,9 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
+Route::get('vendor/registration', function () {
+    return view('vendor.registration');
+});
 
 /**
 * Routes for dashboard.
@@ -34,5 +37,8 @@ Route::resource('categories', 'Admin\CategoryController');
 // --------------Admin Route End----------------------------
 
 });
+Route::get('vendor/registration', 'VendorRegistrationController@register')->name('vendor.register');
+Route::post('vendor/register', 'VendorRegistrationController@store')->name('vendor.store');
+
 
 

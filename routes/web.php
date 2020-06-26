@@ -32,5 +32,8 @@ Route::middleware('auth')->group(function () {
         return view('layouts.master');
     });
 });
+Route::get('vendor/registration', 'VendorRegistrationController@register')->name('vendor.register');
+Route::post('vendor/register', 'VendorRegistrationController@store')->name('vendor.store');
+
 
 Auth::routes();

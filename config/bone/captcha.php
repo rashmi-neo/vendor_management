@@ -129,7 +129,7 @@ return [
     | You can specify an array or string.
     |
     */
-    'background' => 'f2f2f2',
+    'background' => 'ffffff',
 
     /*
     |--------------------------------------------------------------------------
@@ -138,7 +138,7 @@ return [
     | You can specify an array or string.
     |
     */
-    'colors' => '2980b9',
+    'colors' => 'black',
 
     /*
     |--------------------------------------------------------------------------

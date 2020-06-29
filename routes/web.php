@@ -27,13 +27,18 @@ Route::get('vendor/registration', function () {
 * 
 * @return void
 */
+Auth::routes();
 Route::middleware('auth')->group(function () {
-    Route::get('dashboard', function () {
-        return view('layouts.master');
-    });
+	Route::get('dashboard', function () {
+	        return view('layouts.master');
+	 });
+// -----------Admin Route Start------------------------------
+Route::resource('categories', 'Admin\CategoryController');
+// --------------Admin Route End----------------------------
+
 });
 Route::get('vendor/registration', 'VendorController@register')->name('vendor.register');
 Route::post('vendor/register', 'VendorController@store')->name('vendor.store');
 
 
-Auth::routes();
+

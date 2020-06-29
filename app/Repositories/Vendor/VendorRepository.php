@@ -4,6 +4,8 @@ namespace App\Repositories\Vendor;
 use App\Model\Vendor;
 use App\Model\User;
 use App\Model\Company;
+use Illuminate\Support\Str;
+
 
 class VendorRepository implements VendorInterface{
 
@@ -23,7 +25,10 @@ class VendorRepository implements VendorInterface{
     public function save($data)
     {
 		
-        $user = User::create(['role_id'=>$data->role_id,'is_verified'=>0,'username'=>$data->first_name,'email'=>$data->email_address,'password'=>'vendor']);
+        $randomPassword = Str::random(10);
+        
+        $user = User::create(['role_id'=>2,'is_verified'=>0,'username'=>$data->first_name,
+        'email'=>$data->email,'password'=>bcrypt($randomPassword)]);
         
         $vendorObj = new Vendor();
         $vendorObj->user_id = $user->id;

@@ -15,6 +15,7 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
   <link rel="stylesheet" href="{{ asset('css/customize.css') }}">
+  <link rel="stylesheet" type="text/css" href="https://parsleyjs.org/src/parsley.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
@@ -26,10 +27,10 @@
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">
-      <form role="form" method="post" action="{{route('login')}}" id="loginForm">
+      <form role="form" method="post" action="{{route('login')}}" data-parsley-validate="parsley" id="loginForm">
         @csrf
         <div class="input-group mb-3">
-          <input type="email" name ="email" class="form-control" placeholder="Email">
+          <input type="email" name ="email" class="form-control" placeholder="Email" data-parsley-errors-container="#emailError" data-parsley-required="true" data-parsley-error-message="Please enter email address">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
@@ -43,10 +44,12 @@
           </span>
         <div>
         @enderror
+        <span id="emailError"></span>
         <div class="input-group mb-3">
-          <input type="password" name="password" class="form-control" placeholder="Password">
+          <input type="password" name="password" class="form-control" placeholder="Password" data-parsley-errors-container="#passwordError" data-parsley-required="true" data-parsley-error-message="Please enter password">
           <div class="input-group-append">
             <div class="input-group-text">
+          <span id="emailError"></span>
               <span class="fas fa-lock"></span>
             </div>
           </div>
@@ -58,14 +61,16 @@
           </span>
           </div>
         @enderror
+        <span id="passwordError"></span>
         <div class="input-group mb-3">
         @captcha
-          <input type="text" id="captcha" style="border-radius:5px" class="form-controll" name="captcha" autocomplete="off">
+          <input type="text" id="captcha" style="border-radius:5px" class="form-controll" name="captcha" autocomplete="off" data-parsley-errors-container="#captchaError" data-parsley-required="true" data-parsley-error-message="Please enter captcha">
           @error('captcha')
           <span class="text-danger errormsg" role="alert">
            <p>{{ $message }}</p>
           </span>
          @enderror
+         <span id="captchaError"></span>
         </div>
         <div class="row">
           <div class="col-4">
@@ -84,11 +89,9 @@
 <!-- /.login-box -->
 <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
 <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-<script src="{{ asset('plugins/jquery-validation/jquery.validate.min.js') }}"></script>
-<script src="{{ asset('plugins/jquery-validation/additional-methods.min.js') }}"></script>
+<script src="https://parsleyjs.org/dist/parsley.min.js"></script>
 <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
 <script src="{{ asset('dist/js/demo.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/loginvalidation.js') }}"></script>
 <script>
   $(function(){
     setTimeout(function() {

@@ -3,7 +3,7 @@
    <head>
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <title>vendor| Registration</title>
+      <title>Vendor| Registration</title>
       <!-- Tell the browser to be responsive to screen width -->
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <!-- Font Awesome -->
@@ -47,6 +47,11 @@
                                  <span class="fas fa-user"></span>
                               </div>
                            </div>
+                           @error('first_name')
+                           <span class="text-danger errormsg" role="alert">
+                           <p>{{ $message }}</p>
+                           </span>
+                           @enderror
                         </div>
                      </div>
                      <div class= "col-sm-6">
@@ -57,6 +62,11 @@
                                  <span class="fas fa-user"></span>
                               </div>
                            </div>
+                           @error('middle_name')
+                           <span class="text-danger errormsg" role="alert">
+                           <p>{{ $message }}</p>
+                           </span>
+                           @enderror
                         </div>
                      </div>
                      <div class= "col-sm-6">
@@ -67,6 +77,11 @@
                                  <span class="fas fa-user"></span>
                               </div>
                            </div>
+                           @error('last_name')
+                           <span class="text-danger errormsg" role="alert">
+                           <p>{{ $message }}</p>
+                           </span>
+                           @enderror
                         </div>
                      </div>
                      <div class= "col-sm-6">
@@ -77,6 +92,11 @@
                                  <span class="fas fa-mobile"></span>
                               </div>
                            </div>
+                           @error('mobile_number')
+                           <span class="text-danger errormsg" role="alert">
+                           <p>{{ $message }}</p>
+                           </span>
+                           @enderror
                         </div>
                      </div>
                      <div class= "col-sm-6">
@@ -87,6 +107,11 @@
                                  <span class="fas fa-envelope"></span>
                               </div>
                            </div>
+                           @error('email_address')
+                           <span class="text-danger errormsg" role="alert">
+                           <p>{{ $message }}</p>
+                           </span>
+                           @enderror
                         </div>
                      </div>
                      <div class= "col-sm-6">
@@ -99,6 +124,11 @@
                               <span class="input-group-text" id="">Upload Image</span>
                            </div>
                         </div>
+                        @error('profile_image')
+                           <span class="text-danger errormsg" role="alert">
+                           <p>{{ $message }}</p>
+                           </span>
+                        @enderror
                      </div>
                      <div class= "col-sm-6">
                         <div class="input-group mb-3">
@@ -108,6 +138,11 @@
                                  <span class="fas fa-building"></span>
                               </div>
                            </div>
+                           @error('company_name')
+                           <span class="text-danger errormsg" role="alert">
+                           <p>{{ $message }}</p>
+                           </span>
+                           @enderror
                         </div>
                      </div>
                      <div class= "col-sm-6">
@@ -118,67 +153,102 @@
                                  <span class="fas fa-building"></span>
                               </div>
                            </div>
+                           @error('address')
+                           <span class="text-danger errormsg" role="alert">
+                           <p>{{ $message }}</p>
+                           </span>
+                           @enderror
                         </div>
                      </div>
                      <div class= "col-sm-6">
                         <div class="input-group mb-3">
-                           <input type="text" class="form-control" name="state" placeholder="State">
+                           <input type="text" class="form-control" name="state" placeholder="Company state">
                            <div class="input-group-append">
                               <div class="input-group-text">
                                  <span class="fas fa-tag"></span>
                               </div>
                            </div>
+                           @error('state')
+                           <span class="text-danger errormsg" role="alert">
+                           <p>{{ $message }}</p>
+                           </span>
+                           @enderror
                         </div>
                      </div>
                      <div class= "col-sm-6">
                         <div class="input-group mb-3">
-                           <input type="text" class="form-control" name="city" placeholder="city">
+                           <input type="text" class="form-control" name="city" placeholder="Company city">
+                           <div class="input-group-append">
+                              <div class="input-group-text">
+                                 <span class="fas fa-building"></span>
+                              </div>
+                           </div>
+                           @error('city')
+                           <span class="text-danger errormsg" role="alert">
+                           <p>{{ $message }}</p>
+                           </span>
+                           @enderror
+                        </div>
+                     </div>
+                     <div class= "col-sm-6">
+                        <div class="input-group mb-3">
+                           <input type="text" class="form-control" name="pincode" placeholder="Company pincode">
+                           <div class="input-group-append">
+                              <div class="input-group-text">
+                                 <span class="fas fa-building"></span>
+                              </div>
+                           </div>
+                           @error('pincode')
+                           <span class="text-danger errormsg" role="alert">
+                           <p>{{ $message }}</p>
+                           </span>
+                           @enderror
+                        </div>
+                     </div>
+                     <div class= "col-sm-6">
+                        <div class="input-group mb-3">
+                           <input type="text" class="form-control" name="contact_number" placeholder="Company contact number">
+                           <div class="input-group-append">
+                              <div class="input-group-text">
+                                 <span class="fas fa-building"></span>
+                              </div>
+                           </div>
+                           @error('contact_number')
+                           <span class="text-danger errormsg" role="alert">
+                           <p>{{ $message }}</p>
+                           </span>
+                           @enderror
+                        </div>
+                     </div>
+                     <div class= "col-sm-6">
+                        <div class="input-group mb-3">
+                           <input type="text" class="form-control" name="fax" placeholder="Company fax">
+                           <div class="input-group-append">
+                              <div class="input-group-text">
+                                 <span class="fas fa-building"></span>
+                              </div>
+                           </div>
+                           @error('fax')
+                           <span class="text-danger errormsg" role="alert">
+                           <p>{{ $message }}</p>
+                           </span>
+                           @enderror
+                        </div>
+                     </div>
+                     <div class= "col-sm-6">
+                        <div class="input-group mb-3">
+                           <input type="text" class="form-control" name="website" placeholder="Company website URL">
                            <div class="input-group-append">
                               <div class="input-group-text">
                                  <span class="fas fa-building"></span>
                               </div>
                            </div>
                         </div>
-                     </div>
-                     <div class= "col-sm-6">
-                        <div class="input-group mb-3">
-                           <input type="text" class="form-control" name="pincode" placeholder="Pincode">
-                           <div class="input-group-append">
-                              <div class="input-group-text">
-                                 <span class="fas fa-building"></span>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                     <div class= "col-sm-6">
-                        <div class="input-group mb-3">
-                           <input type="text" class="form-control" name="contact_number" placeholder="Contact number">
-                           <div class="input-group-append">
-                              <div class="input-group-text">
-                                 <span class="fas fa-building"></span>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                     <div class= "col-sm-6">
-                        <div class="input-group mb-3">
-                           <input type="text" class="form-control" name="fax" placeholder="Fax">
-                           <div class="input-group-append">
-                              <div class="input-group-text">
-                                 <span class="fas fa-building"></span>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                     <div class= "col-sm-6">
-                        <div class="input-group mb-3">
-                           <input type="text" class="form-control" name="website" placeholder="Website">
-                           <div class="input-group-append">
-                              <div class="input-group-text">
-                                 <span class="fas fa-building"></span>
-                              </div>
-                           </div>
-                        </div>
+                           @error('website')
+                           <span class="text-danger errormsg" role="alert">
+                           <p>{{ $message }}</p>
+                           </span>
+                           @enderror
                      </div>
                   </div>
                   <div class="row">
@@ -204,6 +274,16 @@
       <!-- AdminLTE App -->
       <script src="{{ asset('plugins/jquery-validation/jquery.validate.min.js') }}"></script>
       <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
-      <script type="text/javascript" src="{{ asset('js/vendor_registration.js') }}"></script>
+      <script type="text/javascript" src="{{ asset('js/vendor_registration1.js') }}"></script>
+      <script>
+         $(function(){
+            setTimeout(function() {
+               $('#errorMessage').fadeOut('fast');
+            }, 3000);  
+            setTimeout(function() {
+               $('#successMessage').fadeOut('fast');
+            }, 3000);   
+         });
+      </script>
    </body>
 </html>

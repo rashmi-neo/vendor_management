@@ -46,7 +46,7 @@ class VendorRepository implements VendorInterface{
         
         $vendorObj->save();
 
-        $companyDetails = Company::create(['vendor_id'=>$vendorObj->id,'company_name'=>$data->company_name,
+        $companyDetail = Company::create(['vendor_id'=>$vendorObj->id,'company_name'=>$data->company_name,
         'address'=>$data->address,'state'=>$data->state,'city'=>$data->city,'pincode'=>$data->pincode,'contact_number'=>$data->contact_number
         ,'fax'=>$data->fax,'website'=>$data->website]);
         

@@ -5,19 +5,18 @@ namespace App\Model;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-
-class Vendor extends Model
+class VendorCategory extends Model
 {
     use SoftDeletes;
     
-    protected $table = 'vms_vendors';
-    
-     /**
+    protected $table = 'vms_vendor_categories';
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'user_id','first_name','middle_name','last_name','mobile_number','profile_image'
+        'vendor_id','category_id'
     ];
 }

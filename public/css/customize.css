@@ -15,3 +15,7 @@
   #vendor-head{
     font-size: 24px;
   }
+
+  .parsley-errors-list{
+    margin:1px 0 6px !important;
+  }

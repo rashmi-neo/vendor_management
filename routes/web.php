@@ -37,8 +37,8 @@ Route::resource('categories', 'Admin\CategoryController');
 // --------------Admin Route End----------------------------
 
 });
-Route::get('vendor/registration', 'VendorRegistrationController@register')->name('vendor.register');
-Route::post('vendor/register', 'VendorRegistrationController@store')->name('vendor.store');
+Route::get('vendor/registration', 'VendorController@register')->name('vendor.register');
+Route::post('vendor/register', 'VendorController@store')->name('vendor.store');
 
 
 

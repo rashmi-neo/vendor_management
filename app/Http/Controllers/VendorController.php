@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Repositories\Vendor\VendorInterface as VendorInterface;
+use Illuminate\Http\Request;
+use App\Http\Requests\VendorStoreRequest;
+use App\Model\Category;
 
-class VendorRegistrationController extends Controller
+
+
+class VendorController extends Controller
 {
     /**
     * Initialize Repository
@@ -26,7 +30,10 @@ class VendorRegistrationController extends Controller
     *@return void
     */
     public function register(){
-        return view('vendor.registration');
+
+        $categories = Category::where('status',1)->get();
+        
+        return view('vendorUser.registration',compact('categories'));
     }
 
     /**
@@ -35,10 +42,12 @@ class VendorRegistrationController extends Controller
     * 
     *@return 
     */
-    public function store(Request $request){
+    public function store(VendorStoreRequest $request){
+        
+        $requestData =$request;
         
         try {
-            $vendorRegister = $this->vendorRepository->save($request);
+            $vendorRegister = $this->vendorRepository->save($requestData);
             return redirect()->back()->with('success','Registration done successfully');
         } catch (Exception $e) {
             return redirect()->back()->with('error',$ex->getMessage);

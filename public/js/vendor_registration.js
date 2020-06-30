@@ -63,7 +63,28 @@ $(document).ready(function () {
 				required: "Please enter last name",
 			},
 			mobile_number: {
-				required: "Please enter last name",
+				required: "Please enter mobile number",
+			},
+			profile_image: {
+				required: "Please upload profile image",
+			},
+			company_name: {
+				required: "Please enter company name",
+			},
+			address: {
+				required: "Please enter company address",
+			},
+			contact_number: {
+				required: "Please enter contact number",
+			},
+			website: {
+				required: "Please enter website url",
+			},
+			city: {
+				required: "Please enter city",
+			},
+			state: {
+				required: "Please enter state",
 			},
 		},
 		errorElement: 'span',

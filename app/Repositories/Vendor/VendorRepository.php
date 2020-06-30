@@ -4,6 +4,9 @@ namespace App\Repositories\Vendor;
 use App\Model\Vendor;
 use App\Model\User;
 use App\Model\Company;
+use App\Model\VendorCategory;
+use Illuminate\Support\Str;
+
 
 class VendorRepository implements VendorInterface{
 
@@ -16,14 +19,17 @@ class VendorRepository implements VendorInterface{
     /**
      * Save a Vendor details.
      *
-     * @Author Pooja <pooja.lavhat@neosofttech.com>
+     * @Author Bharti <bharati.tadvi@neosofttech.com>
      * @param  $data
-     * @return $vendorRegister
+     * @return $vendorObj
      */
     public function save($data)
     {
 		
-        $user = User::create(['role_id'=>$data->role_id,'is_verified'=>0,'username'=>$data->first_name,'email'=>$data->email_address,'password'=>'vendor']);
+        $randomPassword = Str::random(10);
+        
+        $user = User::create(['role_id'=>2,'is_verified'=>0,'username'=>$data->first_name,
+        'email'=>$data->email,'password'=>bcrypt($randomPassword)]);
         
         $vendorObj = new Vendor();
         $vendorObj->user_id = $user->id;
@@ -46,9 +52,11 @@ class VendorRepository implements VendorInterface{
         
         $vendorObj->save();
 
-        $companyDetails = Company::create(['vendor_id'=>$vendorObj->id,'company_name'=>$data->company_name,
+        $companyDetail = Company::create(['vendor_id'=>$vendorObj->id,'company_name'=>$data->company_name,
         'address'=>$data->address,'state'=>$data->state,'city'=>$data->city,'pincode'=>$data->pincode,'contact_number'=>$data->contact_number
         ,'fax'=>$data->fax,'website'=>$data->website]);
+        
+        $vendorCategory = vendorCategory::create(['vendor_id'=>$vendorObj->id,'category_id'=>$data->category]);
         
         return $vendorObj;
     }

@@ -28,12 +28,12 @@ Route::get('vendor/registration', function () {
 * @return void
 */
 Auth::routes();
-Route::middleware('auth')->group(function () {
+Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => 'auth'], function () {
 	Route::get('dashboard', function () {
 	        return view('layouts.master');
 	 });
 // -----------Admin Route Start------------------------------
-Route::resource('categories', 'Admin\CategoryController');
+Route::resource('categories', 'CategoryController');
 // --------------Admin Route End----------------------------
 
 });

@@ -71,7 +71,7 @@ class CategoryController extends Controller
     {
     	$category = $request->all();
         $this->categoryRepository->save($category);
-        return redirect('/categories')->with('success', 'Category  is successfully saved');
+        return redirect('admin/categories')->with('success', 'Category  is successfully saved');
     }
 
     /**
@@ -116,7 +116,7 @@ class CategoryController extends Controller
         //     'cases' => 'required|numeric',
         // ]);
     	$this->categoryRepository->update($id,$categoryUpdate);
-        return redirect('/categories')->with('success', 'Category is successfully updated');
+        return redirect('admin/categories')->with('success', 'Category is successfully updated');
     }
 
     /**

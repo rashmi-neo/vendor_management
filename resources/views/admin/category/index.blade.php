@@ -52,10 +52,10 @@ function delete_com(id){
                 $.ajax({
                     id: catid,
         			type: 'DELETE',
-                    url: "/categories/"+catid,
+                    url: "/admin/categories/"+catid,
                     data: {_token:  '{{ csrf_token() }}' , id: catid  },
                        success: function(result){
-                         window.location.replace('/categories'); 
+                         window.location.replace('/admin/categories'); 
                     }
                 });
             },

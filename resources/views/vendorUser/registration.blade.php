@@ -193,7 +193,7 @@
                                  <option value="">No categories</option>
                               @endforelse
                            </select>
-                           @error('address')
+                           @error('category')
                            <span class="text-danger errormsg" role="alert">
                            <p>{{ $message }}</p>
                            </span>

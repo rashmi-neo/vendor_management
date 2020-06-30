@@ -7,49 +7,63 @@
 		</div>
 	<div class="card-body">
 		 @if(session()->get('success'))
-		    <div class="alert alert-success">
-		      {{ session()->get('success') }}  
-		    </div><br />
+		    <div class="alert alert-success alert-dismissible">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+				<i class="icon fa fa-check"></i>{{ Session::get('success') }}
+			</div><br />
   		 @endif
-		<table id="example2" class="table table-bordered table-hover">
-			<thead>
-				<tr>
-					<th>SrNo</th>
-					<th>Category Name</th>
-					<th>Status</th>
-					<th>Action</th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php $i = 0;?>
-				@foreach($categories as $category)
-				<tr>
-					<td>{{++$i}}</td>
-					<td>{{$category->name}}</td>
-					<td>
-						@if($category->status == 1)
-							Active
-						@else
-							Inactive
-						@endif
-					</td>
-					<td>
-						<div class="form-group">
-							<div class="row">
-								<a href="{{ route('categories.edit', $category->id)}}" class="edit btn btn-primary btn-sm editProduct">Edit</a>
-								&nbsp;
-					 			 <form action="{{ route('categories.destroy', $category->id)}}" method="post">
-		                  			@csrf
-		                  			@method('DELETE')
-                  					<button class="btn btn-danger btn-sm" type="submit">Delete</button>
-                	 			</form>
-							</div>
-						</div>
-					</td>
-				</tr>
-				@endforeach
-			</tbody>
-		</table>
+			<table id="example2" class="table table-bordered table-hover">
+				<thead>
+					<tr>
+						<th>SrNo</th>
+						<th>Category Name</th>
+						<th>Status</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+			</table>
 	</div>
 </div>
+@endsection
+@section('scripts')
+<script type="text/javascript">
+  $(function () {
+    var table = $('#example2').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: "{{ route('categories.index') }}",
+        columns: [
+            {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+            {data: 'name', name: 'name'},
+            {data: 'status', name: 'status'},
+            {data: 'action', name: 'action', orderable: false, searchable: false},
+        ]
+    });
+    
+  });
+
+function delete_com(id){
+ 	var catid = id;
+  	$.confirm({
+        title: 'Confirmation',
+        content: 'Are You Sure?',
+        buttons: {
+            confirm: function () {
+                $.ajax({
+                    id: catid,
+        			type: 'DELETE',
+                    url: "/categories/"+catid,
+                    data: {_token:  '{{ csrf_token() }}' , id: catid  },
+                       success: function(result){
+                         window.location.replace('/categories'); 
+                    }
+                });
+            },
+            cancel: function () {
+                    
+                } 
+        }
+    });
+ }
+</script>
 @endsection

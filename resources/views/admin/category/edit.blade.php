@@ -20,13 +20,13 @@
 					 <label for="inputStatus" class="col-sm-2 col-form-label">Status</label>
 					 	<div class="col-sm-2">
 					 		<div class="form-check">
-					 			<input type="radio" class="form-check-input" id="activeCheck" name="status" value="1" @if($category->status= 1) checked @endif>
+					 			<input type="radio" class="form-check-input" id="activeCheck" name="status"  value="1" {{ ($category->status=="1")? "checked" : "" }}>
 					 			<label class="form-check-label" for="activeCheck">Active</label>
 					 		</div>
 					 	</div>
 					 	<div class="col-sm-1">
 					 		<div class="form-check">
-					 			<input type="radio" class="form-check-input" id="inactiveCheck" name="status" value="0" @if($category->status= 0) checked @endif>
+					 			<input type="radio" class="form-check-input" id="inactiveCheck" name="status" value="0" {{ ($category->status=="0")? "checked" : "" }}>
 					 			<label class="form-check-label" for="inactiveCheck">Inactive</label>
 					 		</div>
 					 	</div>
@@ -34,7 +34,7 @@
 				 <div class="form-group row">
 					<div class="col-sm-2"></div>
 					<div class="col-sm-6">	
-						 <button type="submit" class="btn btn-primary">Submit</button>
+						 <button type="submit" class="btn btn-primary">Save</button>
 						 <a href="{{route('categories.index')}}" class="btn btn-default">Cancel</a>
 					</div>
 				 </div>      

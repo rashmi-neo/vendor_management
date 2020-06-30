@@ -40,3 +40,7 @@
 <script src="{{ asset('plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js') }}"></script>
 <!-- Select2 -->
 <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
+<!-- Parsley js -->
+<script src="http://parsleyjs.org/dist/parsley.js"></script>
+<!-- bootstrap confirmation -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>

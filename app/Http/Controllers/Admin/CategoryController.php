@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Model\Category;
 use Auth;
+use DataTables;
 use App\Repositories\Category\CategoryInterface as CategoryInterface;
+use App\Http\Requests\VendorCategory;
 
 class CategoryController extends Controller
 {
@@ -30,9 +32,26 @@ class CategoryController extends Controller
     * 
     * @param void
     * @return void
+    * @return \Illuminate\Http\Response
     */
-    public function index(){
-    	$categories = $this->categoryRepository->all();
+    public function index(Request $request){
+        if($request->ajax()){
+            $data = $this->categoryRepository->all();
+            return Datatables::of($data)
+                    ->addIndexColumn()
+                    ->addColumn('action', function($row){
+                        return view('admin.category.actions', compact('row'));
+                    })
+                    ->editColumn('status', function($row){
+                        if($row->status == 1){
+                            return 'Active';
+                        }else{
+                            return 'Inactive';
+                        }
+                    })
+                    ->rawColumns(['action'])
+                    ->make(true);
+        }
     	return view('admin.category.index',compact('categories'));
     }
 
@@ -48,14 +67,9 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(VendorCategory $request)
     {
     	$category = $request->all();
-        // $validatedData = $request->validate([
-        //     'country_name' => 'required|max:255',
-        //     'symptoms' => 'required',
-        //     'cases' => 'required|numeric',
-        // ]);
         $this->categoryRepository->save($category);
         return redirect('/categories')->with('success', 'Category  is successfully saved');
     }
@@ -115,6 +129,6 @@ class CategoryController extends Controller
     {
     	$categoryId = $id; 
     	$this->categoryRepository->delete($categoryId);
-       return redirect('/categories')->with('success', 'Category is successfully deleted');
+        return 'success';
     }
 }

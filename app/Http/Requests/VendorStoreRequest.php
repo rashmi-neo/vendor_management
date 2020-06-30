@@ -24,7 +24,6 @@ class VendorStoreRequest extends FormRequest
     public function rules(Request $request)
     {
         
-            // dd($request->all());
             
         return [
            'email' => 'required|email|unique:users',
@@ -35,6 +34,7 @@ class VendorStoreRequest extends FormRequest
             'profile_image' => 'required',
             'company_name' => 'required',
             'address' => 'required',
+            'category' => 'required',
             'state' => 'required',
             'city' => 'required',
             'pincode' => 'required|integer',
@@ -61,6 +61,7 @@ class VendorStoreRequest extends FormRequest
             'profile_image.required' => 'Please upload profile image',
             'company_name.required' => 'Please enter company name',
             'address.required' => 'Please enter address',
+            'category.required' => 'Please select category',
             'state.required' => 'Please enter state',
             'city.required' => 'Please enter city',
             'pincode.required' => 'Please enter pincode',

@@ -181,6 +181,26 @@
                         </div>
                         <span id="addressError"><span>
                      </div>
+                     <div class="col-sm-6">
+                        <div class="mb-3">
+                           <select class="form-control" style="width: 100%;" name="category" id="category"
+                           data-parsley-errors-container="#categoryError" data-parsley-required="true" 
+                           data-parsley-error-message="Please enter category">
+                              <option value="">Select Category</option>
+                              @forelse($categories as $category)replies
+                                 <option value="{{$category->id}}">{{ $category->name }}</option>
+                              @empty
+                                 <option value="">No categories</option>
+                              @endforelse
+                           </select>
+                           @error('address')
+                           <span class="text-danger errormsg" role="alert">
+                           <p>{{ $message }}</p>
+                           </span>
+                           @enderror
+                        </div>
+                        <span id="categoryError"><span>
+                     </div>
                      <div class= "col-sm-6">
                         <div class="input-group mb-3">
                            <input type="text" class="form-control" name="state" placeholder="Company state" 
@@ -268,7 +288,7 @@
                      </div>
                      <div class= "col-sm-6">
                         <div class="input-group mb-3">
-                           <input type="text" class="form-control" name="website" placeholder="Company website URL" data-parsley-errors-container="#websiteError" data-parsley-required="true" data-parsley-error-message="Please enter website url">
+                           <input type="text" class="form-control" name="website" placeholder="Company website URL" data-parsley-errors-container="#websiteError" data-parsley-required="true"  data-parsley-type="url">
                            <div class="input-group-append">
                               <div class="input-group-text">
                                  <span class="fas fa-globe"></span>
@@ -284,15 +304,13 @@
                      </div>
                   </div>
                   <div class="row">
-                     <div class="col-4">
-                     </div>
-                     <div class="col-4">
-                        <button type="submit" class="btn btn-primary btn-block">Register</button>
+                     <div class="col-md-6">
+                        <button type="submit" class="btn btn-primary btn-md">Register</button>
+                        <a href="{{route('login')}}" class="btn btn-md btn-default">Cancel</a>
                      </div>
                      <!-- /.col -->
                   </div>
                </form>
-               <a href="{{url('/login')}}" class="text-center">I already have a membership</a>
             </div>
             <!-- /.form-box -->
          </div>

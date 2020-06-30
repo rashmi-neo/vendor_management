@@ -4,6 +4,7 @@ namespace App\Repositories\Vendor;
 use App\Model\Vendor;
 use App\Model\User;
 use App\Model\Company;
+use App\Model\VendorCategory;
 use Illuminate\Support\Str;
 
 
@@ -18,9 +19,9 @@ class VendorRepository implements VendorInterface{
     /**
      * Save a Vendor details.
      *
-     * @Author Pooja <pooja.lavhat@neosofttech.com>
+     * @Author Bharti <bharati.tadvi@neosofttech.com>
      * @param  $data
-     * @return $vendorRegister
+     * @return $vendorObj
      */
     public function save($data)
     {
@@ -54,6 +55,8 @@ class VendorRepository implements VendorInterface{
         $companyDetail = Company::create(['vendor_id'=>$vendorObj->id,'company_name'=>$data->company_name,
         'address'=>$data->address,'state'=>$data->state,'city'=>$data->city,'pincode'=>$data->pincode,'contact_number'=>$data->contact_number
         ,'fax'=>$data->fax,'website'=>$data->website]);
+        
+        $vendorCategory = vendorCategory::create(['vendor_id'=>$vendorObj->id,'category_id'=>$data->category]);
         
         return $vendorObj;
     }

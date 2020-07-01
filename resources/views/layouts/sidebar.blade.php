@@ -29,6 +29,14 @@
                </a>
             </li>
             <li class="nav-item">
+                <a href="{{route('vendors.index')}}" class="nav-link">
+                  <i class="nav-icon far fa-image"></i>
+                  <p>
+                     Vendors
+                  </p>
+               </a>
+            </li>
+            <li class="nav-item">
                <a href="#" class="nav-link  {{ (request()->is('admin/requirements*')) ? 'active' : '' }}">
                   <i class="nav-icon far fa-image"></i>
                   <p>

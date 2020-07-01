@@ -60,4 +60,30 @@ class VendorRepository implements VendorInterface{
         
         return $vendorObj;
     }
+
+    /**
+     * Get's all vendor.
+     *
+     * @Author Bharti <bharati.tadvi@neosofttech.com>
+     *@param  void
+     *@return $vendors
+     */
+    public function all()
+    {
+        // $vendors = Vendor::all();
+        $vendors = Vendor::with('vendorCategory','vendorCategory.category','company')->get();
+    	return $vendors;
+    }
+
+    /**
+     * Get's a vendor by it's ID
+     *
+     * @Author Bharti <bharati.tadvi@neosofttech.com>
+     * @param $id
+     * @return collection
+     */
+    public function find($id)
+    {
+        return Vendor::with('vendorCategory','vendorCategory.category','company')->find($id);
+    }
 }

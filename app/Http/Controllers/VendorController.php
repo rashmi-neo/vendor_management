@@ -30,9 +30,9 @@ class VendorController extends Controller
     *@return void
     */
     public function register(){
-
-        $categories = Category::where('status',1)->get();
         
+        $categories = Category::where('status',1)->get();
+         
         return view('vendorUser.registration',compact('categories'));
     }
 

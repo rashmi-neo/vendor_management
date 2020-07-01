@@ -35,6 +35,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
 // -----------Admin Route Start------------------------------
 Route::resource('categories', 'CategoryController');
 Route::resource('requirements', 'RequirementController');
+Route::resource('vendors', 'VendorController');
 // --------------Admin Route End----------------------------
 
 });
@@ -47,5 +48,6 @@ Route::group(['prefix' => 'vendor','middleware' => ['auth']],
 	        return view('layouts.master');
 	 });
 });
+
 
 

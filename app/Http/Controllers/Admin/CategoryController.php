@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Model\Category;
 use Auth;
 use DataTables;
 use App\Repositories\Category\CategoryInterface as CategoryInterface;
@@ -52,7 +51,7 @@ class CategoryController extends Controller
                     ->rawColumns(['action'])
                     ->make(true);
         }
-    	return view('admin.category.index',compact('categories'));
+    	return view('admin.category.index');
     }
 
 
@@ -64,7 +63,7 @@ class CategoryController extends Controller
 	/**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\VendorCategory $request
      * @return \Illuminate\Http\Response
      */
     public function store(VendorCategory $request)
@@ -102,19 +101,13 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\VendorCategory  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(VendorCategory $request, $id)
     {
     	$categoryUpdate = $request->all();
-    	$categoryId = $id;
-        // $validatedData = $request->validate([
-        //     'country_name' => 'required|max:255',
-        //     'symptoms' => 'required',
-        //     'cases' => 'required|numeric',
-        // ]);
     	$this->categoryRepository->update($id,$categoryUpdate);
         return redirect('admin/categories')->with('success', 'Category is successfully updated');
     }
@@ -127,8 +120,8 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-    	$categoryId = $id; 
+        $categoryId = $id; 
     	$this->categoryRepository->delete($categoryId);
-        return 'success';
+        return response()->json(['success' => true],200);
     }
 }

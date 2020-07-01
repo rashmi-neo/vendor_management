@@ -25,6 +25,12 @@
     <a href="#"><b>Login</a>
   </div>
   <!-- /.login-logo -->
+  @if(session()->get('error'))
+        <p class="alert alert-danger alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <i class="icon fa fa-check"></i>{{ Session::get('error') }}
+      </p><br />
+  @endif
   <div class="card">
     <div class="card-body login-card-body">
       <form role="form" method="post" action="{{route('login')}}" data-parsley-validate="parsley" id="loginForm">

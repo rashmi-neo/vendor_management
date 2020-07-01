@@ -27,10 +27,11 @@
 @endsection
 @section('scripts')
 <script type="text/javascript">
-  $(function () {
+$(function () {
     var table = $('#example2').DataTable({
         processing: true,
         serverSide: true,
+        bLengthChange: false,
         ajax: "{{ route('categories.index') }}",
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
@@ -65,5 +66,8 @@ function delete_com(id){
         }
     });
  }
+ $(document).ready(function(){
+        $("[rel=tooltip]").tooltip();
+    });
 </script>
 @endsection

@@ -12,19 +12,27 @@
 					 <label for="inputName" class="col-sm-2 col-form-label">Name</label>
 					 	<div class="col-sm-8">
 	                      <input type="text" class="form-control {{ $errors->has('name') ? 'is-invalid' : ''}}" id="inputName" placeholder="Category Name" name="name" value="" data-parsley-required="true" data-parsley-error-message="Please Enter Category  name">
-	                      {!! $errors->first('name', '<p class="invalid-feedback">:message</p>') !!}
+	                      @error('name')
+	                           <span class="text-danger errormsg" role="alert">
+	                           <p>{{ $message }}</p>
+	                           </span>
+                           @enderror
 	                    </div>
 				 </div>
 				 <div class="form-group row">
 					 <label for="inputStatus" class="col-sm-2 col-form-label">Status</label>
-					<div class="col-sm-8">
+					<div class="col-sm-1">
 					 	<div class="form-check">
 					 		<input type="radio" class="form-check-input" id="activeCheck" name="status" value="1">
-					 		<label class="form-check-label" for="activeCheck">Active</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					 		<label class="form-check-label" for="activeCheck">Active</label>
+					 	</div>
+					 </div>
+					 <div class="col-sm-2">
+					 	<div class="form-check">
 					 		<input type="radio" class="form-check-input" id="inactiveCheck" name="status" value="0">
 					 		<label class="form-check-label" for="inactiveCheck">Inactive</label>
 					 	</div>
-					 	{!! $errors->first('status', '<p class="errormsg">:message</p>') !!}
+					 </div>
 					</div>
 				 </div>
 				 <div class="form-group row">

@@ -24,8 +24,7 @@ class VendorCategory extends FormRequest
     public function rules()
     {
         return [
-            'name'=> 'required',
-            'status'=> 'required'
+            'name'=> 'required|max:50'
         ];
     }
 
@@ -37,8 +36,7 @@ class VendorCategory extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'The Category Name is required',
-            'status.required'  => 'The Status is required'
+            'name.required' => 'The Category Name is required'
         ];
     }
 }

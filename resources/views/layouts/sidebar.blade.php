@@ -11,22 +11,34 @@
       <!-- Sidebar Menu -->
       <nav class="mt-2">
          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+         @if(Auth::check() && Auth::user()->role_id == 1)
             <li class="nav-item">
-               <a href="#" class="nav-link">
+               <a href="{{url('admin/dashboard')}}" class="nav-link {{ (request()->is('admin/dashboard')) ? 'active' : '' }}">
                   <i class="nav-icon far fa-image"></i>
                   <p>
-                     Manage
+                     Dashboard
                   </p>
                </a>
             </li>
             <li class="nav-item">
-               <a href="{{route('categories.index')}}" class="nav-link">
+               <a href="{{route('categories.index')}}" class="nav-link {{ (request()->is('admin/categories*')) ? 'active' : '' }}">
                   <i class="nav-icon far fa-image"></i>
                   <p>
                      Vendor Category
                   </p>
                </a>
             </li>
+            <li class="nav-item">
+               <a href="#" class="nav-link  {{ (request()->is('admin/requirements*')) ? 'active' : '' }}">
+                  <i class="nav-icon far fa-image"></i>
+                  <p>
+                     Requirements
+                  </p>
+               </a>
+            </li>
+         @endif
+         @if(Auth::check() && Auth::user()->role_id == 2)  
+         @endif
          </ul>
       </nav>
       <!-- /.sidebar-menu -->

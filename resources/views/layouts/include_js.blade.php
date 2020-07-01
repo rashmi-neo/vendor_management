@@ -44,3 +44,5 @@
 <script src="http://parsleyjs.org/dist/parsley.js"></script>
 <!-- bootstrap confirmation -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+
+<script src="{{ asset('/js/custom.js') }}"></script>

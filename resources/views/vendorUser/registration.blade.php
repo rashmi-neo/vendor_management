@@ -38,7 +38,7 @@
                <p class="login-box-msg"><strong id="vendor-head">Register a new vendor</strong></p>
                <form role="form" action="{{route('vendor.store')}}" method="post" data-parsley-validate="parsley" id="registrationForm" enctype="multipart/form-data">
                   @csrf
-                  <input type="hidden" class="form-control" name="role_id" value="2">
+                  <input type="hidden" class="form-control" name="verify_status" value="0">
                   <div class="row">
                      <div class= "col-sm-6">
                         <div class="input-group mb-3">
@@ -60,21 +60,13 @@
                      </div>
                      <div class= "col-sm-6">
                         <div class="input-group mb-3">
-                           <input type="text" class="form-control" name="middle_name" placeholder="Middle name" 
-                           data-parsley-errors-container="#middleNameError" data-parsley-required="true" 
-                           data-parsley-error-message="Please enter middle name">
+                           <input type="text" class="form-control" name="middle_name" placeholder="Middle name">
                            <div class="input-group-append">
                               <div class="input-group-text">
                                  <span class="fas fa-user"></span>
                               </div>
                            </div>
-                           @error('middle_name')
-                           <span class="text-danger errormsg" role="alert">
-                           <p>{{ $message }}</p>
-                           </span>
-                           @enderror
                         </div>
-                        <span id="middleNameError"><span>
                      </div>
                      <div class= "col-sm-6">
                         <div class="input-group mb-3">
@@ -185,9 +177,9 @@
                         <div class="mb-3">
                            <select class="form-control" style="width: 100%;" name="category" id="category"
                            data-parsley-errors-container="#categoryError" data-parsley-required="true" 
-                           data-parsley-error-message="Please enter category">
+                           data-parsley-error-message="Please select category">
                               <option value="">Select Category</option>
-                              @forelse($categories as $category)replies
+                              @forelse($categories as $category)
                                  <option value="{{$category->id}}">{{ $category->name }}</option>
                               @empty
                                  <option value="">No categories</option>

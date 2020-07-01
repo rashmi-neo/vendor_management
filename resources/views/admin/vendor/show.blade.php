@@ -12,6 +12,11 @@
          <p class="card-text">Category : {{$vendor->vendorCategory->category->name}}</p>
          <p class="card-text">Company Name : {{$vendor->company->company_name  }}</p>
          <p class="card-text">Contact Number : {{$vendor->company->contact_number }}</p>
+         @if($vendor->user->is_verified == 1)
+            <p class="card-text">Verification status : Approved</p>
+         @else
+            <p class="card-text">Verification status : Pending</p>
+         @endif
       </div>
       <div class="card-footer text-muted">
          <div class="pull-right">

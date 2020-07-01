@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Http\Requests;
+
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class VendorStoreRequest extends FormRequest
+class UpdateVendorRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,14 +25,11 @@ class VendorStoreRequest extends FormRequest
      */
     public function rules(Request $request)
     {
-        
-            
         return [
-            'email' => 'required|email|unique:users',
+            'email' => 'required',Rule::unique('users')->ignore($this->id),
             'first_name' => 'required|alpha|max:50',
             'last_name' => 'required|alpha|max:50',
             'mobile_number' => 'required|integer',
-            'profile_image' => 'required|max:200',
             'company_name' => 'required|max:50',
             'address' => 'required|max:50',
             'category' => 'required',
@@ -56,7 +55,6 @@ class VendorStoreRequest extends FormRequest
             'first_name.required' => 'Please enter first name',
             'last_name.required' => 'Please enter last name',
             'mobile_number.required' => 'Please enter mobile number',
-            'profile_image.required' => 'Please upload profile image',
             'company_name.required' => 'Please enter company name',
             'address.required' => 'Please enter address',
             'category.required' => 'Please select category',

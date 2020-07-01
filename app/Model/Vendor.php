@@ -23,7 +23,7 @@ class Vendor extends Model
 
     public function category()
     {
-        return $this->hasOne('App\Model\VendorCategory','user_id','user_id');
+        return $this->hasOne('App\Model\VendorCategory','vendor_id');
     }
 
     public function vendorCategory() 
@@ -34,5 +34,9 @@ class Vendor extends Model
     public function company()
     {
         return $this->hasOne('App\Model\Company','vendor_id');
+    }
+    public function user() 
+    {   
+     return $this->belongsTo('App\User','user_id');
     }
 }

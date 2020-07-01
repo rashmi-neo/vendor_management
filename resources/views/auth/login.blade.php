@@ -63,13 +63,13 @@
         @enderror
         <span id="passwordError"></span>
         <div class="input-group mb-3">
-        @captcha
+        <!-- @captcha
           <input type="text" id="captcha" style="border-radius:5px" class="form-controll" name="captcha" autocomplete="off" data-parsley-errors-container="#captchaError" data-parsley-required="true" data-parsley-error-message="Please enter captcha">
           @error('captcha')
           <span class="text-danger errormsg" role="alert">
            <p>{{ $message }}</p>
           </span>
-         @enderror
+         @enderror -->
          <span id="captchaError"></span>
         </div>
         <div class="row">

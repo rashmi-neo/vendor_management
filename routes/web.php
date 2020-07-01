@@ -35,18 +35,10 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => 'auth
 // -----------Admin Route Start------------------------------
 Route::resource('categories', 'CategoryController');
 Route::resource('vendors', 'VendorController');
-// Route::get('vendor/view/{id}', 'Admin\VendorController@view')->name('vendors.view'/);
-
-
 // --------------Admin Route End----------------------------
-
 });
 Route::get('vendor/registration', 'VendorController@register')->name('vendor.register');
 Route::post('vendor/register', 'VendorController@store')->name('vendor.store');
-
-// Route::get('vendor/index', 'Admin\VendorController@index')->name('vendor.index');
-// Route::get('vendor/edit/{id}', 'Admin\VendorController@edit')->name('vendor.edit');
-// Route::get('vendor/view/{id}', 'Admin\VendorController@view')->name('vendor.view');
 
 
 

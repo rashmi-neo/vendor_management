@@ -29,6 +29,13 @@ interface VendorInterface{
      */
     public function find($id);
 
-
+    /**
+     * Updates a vendor.
+     *
+     * @Author Bharti <bharati.tadvi@neosofttech.com>
+     * @param $id,$data
+     * @param array
+     */
+    public function update($id,$data);
 
 }

@@ -12,6 +12,12 @@
 				<i class="icon fa fa-check"></i>{{ Session::get('success') }}
 			</div><br />
   		 @endif
+		 @if(session()->get('error'))
+		    <div class="alert alert-danger alert-dismissible">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+				<i class="icon fa fa-check"></i>{{ Session::get('error') }}
+			</div><br />
+  		 @endif
 			<table id="vendorTable" class="table table-bordered table-hover">
 				<thead>
 					<tr>
@@ -20,6 +26,7 @@
 						<th>Category</th>
 						<th>Contact Number</th>
 						<th>Company Name</th>
+						<th>Verification status</th>
 						<th>Action</th>
 					</tr>
 				</thead>
@@ -40,6 +47,7 @@
             {data: 'category', name: 'category'},
             {data: 'contact_number', name: 'contact_number'},
             {data: 'company_name', name: 'company_name'},
+            {data: 'verification_status', name: 'verification_status'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ]
     });

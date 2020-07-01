@@ -13,4 +13,22 @@ interface VendorInterface{
      */
     public function save($requestData);
 
+    /**
+     * Get's all vendor.
+     *
+     * @Author Bharti <bharati.tadvi@neosofttech.com>
+     * @return void
+     */
+    public function all();
+
+    /**
+     * Get's a vendor by it's ID
+     *
+     * @Author Bharti <bharati.tadvi@neosofttech.com>
+     * @param $id
+     */
+    public function find($id);
+
+
+
 }

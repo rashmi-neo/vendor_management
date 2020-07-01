@@ -16,4 +16,9 @@ class Category extends Model
         'name','status'
     ];
 
+    public function vendorCategory() 
+    {   
+     return $this->hasOne('App\Model\VendorCategory','category_id');
+    }
+
 }

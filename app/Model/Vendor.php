@@ -20,4 +20,19 @@ class Vendor extends Model
     protected $fillable = [
         'user_id','first_name','middle_name','last_name','mobile_number','profile_image'
     ];
+
+    public function category()
+    {
+        return $this->hasOne('App\Model\VendorCategory','user_id','user_id');
+    }
+
+    public function vendorCategory() 
+    {   
+     return $this->hasOne('App\Model\VendorCategory','vendor_id');
+    }
+
+    public function company()
+    {
+        return $this->hasOne('App\Model\Company','vendor_id');
+    }
 }

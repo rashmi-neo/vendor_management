@@ -19,4 +19,15 @@ class VendorCategory extends Model
     protected $fillable = [
         'vendor_id','category_id'
     ];
+
+    public function vendor() 
+    {   
+     return $this->belongsTo('App\Model\Vendor','vendor_id');
+    }
+ 
+    public function category() 
+    {   
+     return $this->belongsTo('App\Model\Category','category_id');
+    }
+ 
 }

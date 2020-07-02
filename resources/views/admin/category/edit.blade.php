@@ -6,14 +6,19 @@
 			<h3 class="card-title">Edit Category</h3>
 		</div>
 		<div class="card-body">
-			<form class="form-horizontal" method="post" action="{{ route('categories.update', $category->id ) }}">
+			<form class="form-horizontal" method="post" action="{{ route('categories.update', $category->id ) }}" data-parsley-validate="parsley">
 				 @csrf
 				 @method('PUT')
 				 <input type="hidden" name="id" value="{{ $category->id}}">
 				 <div class="form-group row">
 					 <label for="inputName" class="col-sm-2 col-form-label">Name</label>
 					 	<div class="col-sm-8">
-	                      <input type="text" class="form-control" id="inputName" placeholder="Category Name" name="name" value="{{$category->name}}">
+	                      <input type="text" class="form-control" id="inputName" placeholder="Category Name" name="name" value="{{$category->name}}"data-parsley-required="true" data-parsley-error-message="Please Enter Category  name">
+	                      @error('name')
+	                           <span class="text-danger errormsg" role="alert">
+	                           <p>{{ $message }}</p>
+	                           </span>
+                           @enderror
 	                    </div>
 				 </div>
 				 <div class="form-group row">

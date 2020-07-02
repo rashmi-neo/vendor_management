@@ -16,7 +16,7 @@ class CreateVmsCategoriesTable extends Migration
         Schema::create('vms_categories', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name',50);
-            $table->boolean('status')->default(0);
+            $table->boolean('status')->default(1);
             $table->timestamps();
             $table->softDeletes();
         });

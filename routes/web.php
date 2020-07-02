@@ -28,21 +28,25 @@ Route::get('vendor/registration', function () {
 * @return void
 */
 Auth::routes();
-Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => 'auth'], function () {
+Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['auth'] ], function () {
 	Route::get('dashboard', function () {
 	        return view('layouts.master');
 	 });
 // -----------Admin Route Start------------------------------
 Route::resource('categories', 'CategoryController');
+Route::resource('requirements', 'RequirementController');
 Route::resource('vendors', 'VendorController');
 // --------------Admin Route End----------------------------
 });
 Route::get('vendor/registration', 'VendorController@register')->name('vendor.register');
 Route::post('vendor/register', 'VendorController@store')->name('vendor.store');
 
-
-
-
+Route::group(['prefix' => 'vendor','middleware' => ['auth']],
+	function(){
+	Route::get('dashboard', function () {
+	        return view('layouts.master');
+	 });
+});
 
 
 

@@ -29,7 +29,7 @@
                </a>
             </li>
             <li class="nav-item">
-                <a href="{{route('vendors.index')}}" class="nav-link">
+                <a href="{{route('vendors.index')}}" class="nav-link {{ (request()->is('admin/vendors*')) ? 'active' : '' }}">
                   <i class="nav-icon far fa-image"></i>
                   <p>
                      Vendors

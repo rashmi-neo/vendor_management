@@ -28,6 +28,11 @@
                   <div class="form-group">
                      <input type="text" class="form-control" name="middle_name" placeholder="Middle name" value="{{$vendor->middle_name}}">
                   </div>
+                  @error('middle_name')
+                  <span class="text-danger errormsg" role="alert">
+                     <p>{{ $message }}</p>
+                  </span>
+                  @enderror
                </div>
                <div class= "col-sm-6">
                
@@ -67,11 +72,7 @@
                   @enderror
                   <span id="emailError"><span>
                </div>
-               <div class= "col-sm-6">
-                  <div class="form-group">
-                     <input type="file" class="form-control"placeholder="Profile image" name="profile_image" value="{{$vendor->profile_image}}">
-                  </div>
-               </div>
+            
                <div class= "col-sm-6">
                   <div class="form-group">
                      <input type="text" class="form-control" name="company_name" placeholder="Company name" data-parsley-errors-container="#companyNameError" 
@@ -201,9 +202,18 @@
                      <span id="statusError"><span>
                   </div>
                </div>
+               <div class= "col-sm-6">
+                  <div class="form-group">
+                     <input type="file" class="form-control"placeholder="Profile image" name="profile_image" value="{{$vendor->profile_image}}">
+                  </div>
+               </div>
+               <div class= "col-sm-6">
+                  <div class="form-group">
+                     <img src="{{asset('/storage/images/'.$vendor->profile_image)}}" class="profile-image" alt="profile Image" height= "100px" height= "100px">
+                  </div>
+               </div>
             </div>
             <div class="form-group row">
-               <div class="col-sm-2"></div>
                <div class="col-sm-6">	
                   <button type="submit" class="btn btn-primary">Update</button>
                   <a href="{{route('vendors.index')}}" class="btn btn-default">Cancel</a>

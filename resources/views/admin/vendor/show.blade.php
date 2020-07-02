@@ -8,14 +8,15 @@
          <h3 class="card-title">View Vendor</h3>
       </div>
       <div class="card-body">
-         <p class="card-text">Name : {{$vendor->first_name. ' ' .$vendor->last_name }}</p>
-         <p class="card-text">Category : {{$vendor->vendorCategory->category->name}}</p>
-         <p class="card-text">Company Name : {{$vendor->company->company_name  }}</p>
-         <p class="card-text">Contact Number : {{$vendor->company->contact_number }}</p>
+         <p class="card-text"><strong>Vendor Name :</strong>  {{$vendor->first_name. ' ' .$vendor->last_name }}</p>
+         <p class="card-text"><strong>Category : </strong> {{$vendor->vendorCategory->category->name}}</p>
+         <p class="card-text"><strong>Company Name : </strong> {{$vendor->company->company_name  }}</p>
+         <p class="card-text"><strong>Company Address : </strong> {{$vendor->company->address  }}</p>
+         <p class="card-text"><strong>Contact Number : </strong>{{$vendor->company->contact_number }}</p>
          @if($vendor->user->is_verified == 1)
-            <p class="card-text">Verification status : Approved</p>
+            <p class="card-text"><strong>Verification status : </strong> Approved</p>
          @else
-            <p class="card-text">Verification status : Pending</p>
+            <p class="card-text"><strong>Verification status : </strong> Pending</p>
          @endif
       </div>
       <div class="card-footer text-muted">

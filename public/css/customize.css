@@ -22,3 +22,6 @@
   .label_class{
     max-width: 13% !important;
   }
+  .cancelButton{
+    margin:0px 0px 0px 10px;
+  }

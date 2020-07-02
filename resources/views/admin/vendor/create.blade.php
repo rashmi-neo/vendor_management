@@ -28,6 +28,11 @@
                      <input type="text" class="form-control" name="middle_name" placeholder="Middle name">
                   </div>
                </div>
+               @error('middle_name')
+                  <span class="text-danger errormsg" role="alert">
+                     <p>{{ $message }}</p>
+                  </span>
+               @enderror
                <div class= "col-sm-6">
                   <div class="form-group">
                      <input type="text" class="form-control" name="last_name" placeholder="Last name" 

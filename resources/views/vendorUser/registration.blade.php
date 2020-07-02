@@ -303,7 +303,7 @@
                   <div class="row">
                      <div class="col-md-6">
                         <button type="submit" class="btn btn-primary btn-md">Register</button>
-                        <a href="{{route('login')}}" class="btn btn-md btn-default">Cancel</a>
+                        <a href="{{route('login')}}" class="btn btn-md btn-default cancelButton">Cancel</a>
                      </div>
                      <!-- /.col -->
                   </div>

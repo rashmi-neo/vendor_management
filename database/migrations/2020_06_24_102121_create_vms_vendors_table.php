@@ -17,7 +17,7 @@ class CreateVmsVendorsTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('user_id')->unsigned();
             $table->string('first_name',50);
-            $table->string('middle_name',50);
+            $table->string('middle_name',50)->nullable();
             $table->string('last_name',50);
             $table->string('mobile_number',20);
             $table->string('profile_image',50);

@@ -28,6 +28,7 @@ class VendorStoreRequest extends FormRequest
         return [
             'email' => 'required|email|unique:users',
             'first_name' => 'required|alpha|max:50',
+            'middle_name' => 'alpha|max:50',
             'last_name' => 'required|alpha|max:50',
             'mobile_number' => 'required|integer',
             'profile_image' => 'required|max:200',

@@ -8,6 +8,7 @@
       <div class="card-body">
          <form class="form-horizontal" method="post" action="{{route('vendors.store')}}" data-parsley-validate="parsley" enctype="multipart/form-data">
             @csrf
+            <input type="hidden" class="form-control" name="verify_status" value="1">
             <div class="row">
                <div class= "col-sm-6">
                   <div class="form-group">
@@ -188,7 +189,6 @@
                </div>
             </div>
             <div class="form-group row">
-               <div class="col-sm-2"></div>
                <div class="col-sm-6">	
                   <button type="submit" class="btn btn-primary">Save</button>
                   <a href="{{route('vendors.index')}}" class="btn btn-default">Cancel</a>

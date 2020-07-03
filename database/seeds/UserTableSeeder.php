@@ -17,7 +17,7 @@ class UserTableSeeder extends Seeder
                 'id'=>1,
                 'role_id'=>1,
                 'username'=>"admin",
-                'is_verified'=>1,
+                'is_verified'=>"approved",
                 'email'=>"admin@gmail.com",
                 'password'=>bcrypt("admin123"),
             ],

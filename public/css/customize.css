@@ -19,10 +19,11 @@
   .parsley-errors-list{
     margin:1px 0 6px !important;
   }
-  .label_class{
-    max-width: 13% !important;
   }
   .cancelButton{
     margin:0px 0px 0px 10px;
   }
-  .login-page{background: #d7dbe6ed !important;}
+  .login-page{
+    background: #d7dbe6ed !important;
+  }
+

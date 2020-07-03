@@ -8,7 +8,7 @@
       <div class="card-body">
          <form class="form-horizontal" method="post" action="{{route('vendors.store')}}" data-parsley-validate="parsley" enctype="multipart/form-data">
             @csrf
-            <input type="hidden" class="form-control" name="verify_status" value="1">
+            <input type="hidden" class="form-control" name="verify_status" value="Approved">
             <div class="row">
                <div class= "col-sm-6">
                   <div class="form-group">
@@ -71,9 +71,15 @@
                   <span id="emailError"><span>
                </div>
                <div class= "col-sm-6">
-                  <div class="form-group">
-                     <input type="file" class="form-control"placeholder="Profile image" name="profile_image" data-parsley-errors-container="#profileError" 
+                  <div class="input-group  mb-3">
+                     <div class="custom-file">
+                        <input type="file" class="custom-file-input" name="profile_image" id="profileImage" data-parsley-errors-container="#profileError" 
                         data-parsley-required="true" data-parsley-error-message="Please upload profile picture">
+                        <label class="custom-file-label" for="profileImage">Choose file</label>
+                     </div>
+                     <div class="input-group-append">
+                        <span class="input-group-text" id="">Upload Image</span>
+                     </div>
                   </div>
                   @error('profile_image')
                   <span class="text-danger errormsg" role="alert">
@@ -181,7 +187,7 @@
                   @enderror
                   <span id="faxError"><span>
                </div>
-               <div class= "col-sm-6">
+               <div class= "col-sm-12">
                   <div class="form-group">
                      <input type="text" class="form-control" name="website" placeholder="Company website URL" data-parsley-errors-container="#websiteError" data-parsley-required="true"  data-parsley-type="url">
                   </div>
@@ -193,10 +199,12 @@
                   @enderror
                </div>
             </div>
-            <div class="form-group row">
+            <div class="form-group row mt-4">
                <div class="col-sm-6">	
                   <button type="submit" class="btn btn-primary">Save</button>
                   <a href="{{route('vendors.index')}}" class="btn btn-default">Cancel</a>
+               </div>
+               <div class="col-sm-6">	
                </div>
             </div>
          </form>

@@ -18,7 +18,7 @@ class AddEmailToUsersTable extends Migration
             $table->bigInteger('role_id')->after('id')->unsigned();
             $table->foreign('role_id')->references('id')->on('vms_roles')->onDelete('cascade');
             $table->string('username')->length('50')->after('role_id');
-            $table->boolean('is_verified')->after('username')->default(0);
+            $table->enum('is_verified', ['pending','approved', 'rejected'])->after('username')->default('pending');
             $table->softDeletes();
         });
     }

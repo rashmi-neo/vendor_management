@@ -96,14 +96,12 @@ class VendorRepository implements VendorInterface{
     public function update($id,$data)
     {
         
-
         $vendor = Vendor::with('vendorCategory','vendorCategory.category','company','user')->find($id);
         
         $vendor->first_name = $data->first_name;
         $vendor->middle_name = $data->middle_name;
         $vendor->last_name = $data->last_name;
         $vendor->mobile_number = $data->mobile_number;
-
         if ($image = $data->file('profile_image')) {
             
             $destinationPath = storage_path('app/public/images');
@@ -126,7 +124,9 @@ class VendorRepository implements VendorInterface{
         ,'fax'=>$data->fax,'website'=>$data->website]);
         
         $vendorCategory = vendorCategory::where('vendor_id','=',$id)->update(['vendor_id'=>$vendor->id,'category_id'=>$data->category]);
+       
         return $vendor;
+
     }
 
 

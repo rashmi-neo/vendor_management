@@ -51,10 +51,13 @@ class VendorController extends Controller
                 return $data->company->company_name;
             })
             ->addColumn('verification_status', function($data){
-                if($data->user->is_verified == 1){
+                
+                if($data->user->is_verified == "pending"){
+                    return "Pending";
+                }elseif($data->user->is_verified == "approved"){
                     return "Approved";
                 }
-                return "Pending";
+                return "Rejected";
             })
             ->addColumn('action', function($row){
                 return view('admin.vendor.actions', compact('row'));
@@ -129,6 +132,7 @@ class VendorController extends Controller
     public function update(UpdateVendorRequest $request, $id)
     {
         $requestData = $request;
+        
         try{
             $vendor = $this->vendorRepository->update($id,$requestData);
             if($vendor){

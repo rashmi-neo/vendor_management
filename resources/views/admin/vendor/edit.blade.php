@@ -191,8 +191,9 @@
                         data-parsley-errors-container="#statusError" data-parsley-required="true" 
                         data-parsley-error-message="Please select verification status">
                         <option value="">Select Verification status</option>
-                        <option value="0"@if($vendor->user->is_verified == 0) selected="selected" @endif>Pending</option>
-                        <option value="1"@if($vendor->user->is_verified == 1) selected="selected" @endif>Approved</option>
+                        <option value="pending"@if($vendor->user->is_verified == "pending") selected="selected" @endif>Pending</option>
+                        <option value="approved"@if($vendor->user->is_verified == "approved") selected="selected" @endif>Approved</option>
+                        <option value="rejected"@if($vendor->user->is_verified == "rejected") selected="selected" @endif>Rejected</option>
                      </select>
                      @error('category')
                      <span class="text-danger errormsg" role="alert">
@@ -203,8 +204,14 @@
                   </div>
                </div>
                <div class= "col-sm-6">
-                  <div class="form-group">
-                     <input type="file" class="form-control"placeholder="Profile image" name="profile_image" value="{{$vendor->profile_image}}">
+                  <div class="input-group  mb-3">
+                     <div class="custom-file">
+                        <input type="file" class="custom-file-input" name="profile_image" id="profileImage">
+                        <label class="custom-file-label" for="profileImage">Choose file</label>
+                     </div>
+                     <div class="input-group-append">
+                        <span class="input-group-text" id="">Upload Image</span>
+                     </div>
                   </div>
                </div>
                <div class= "col-sm-6">
@@ -213,10 +220,10 @@
                   </div>
                </div>
             </div>
-            <div class="form-group row">
+            <div class="form-group row mt-3">
                <div class="col-sm-6">	
-                  <button type="submit" class="btn btn-primary">Update</button>
-                  <a href="{{route('vendors.index')}}" class="btn btn-default">Cancel</a>
+                  <button type="submit" class="btn btn-primary btn-md">Update</button>
+                  <a href="{{route('vendors.index')}}" class="btn btn-default btn-md">Cancel</a>
                </div>
             </div>
          </form>

@@ -21,9 +21,8 @@
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
-  <div class="login-logo">
-    <a href="#"><b>Login</a>
-  </div>
+ <p class="text-center h2 mb-5">Vendor Management</p>
+  
   <!-- /.login-logo -->
   @if(session()->get('error'))
         <p class="alert alert-danger alert-dismissible">
@@ -33,6 +32,7 @@
   @endif
   <div class="card">
     <div class="card-body login-card-body">
+    <p class="login-box-msg h3">Log in </p>
       <form role="form" method="post" action="{{route('login')}}" data-parsley-validate="parsley" id="loginForm">
         @csrf
         <div class="input-group mb-3">
@@ -78,16 +78,24 @@
          @enderror -->
          <span id="captchaError"></span>
         </div>
+
+        <div class="social-auth-links text-center mb-3">
+          
+        <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+        <a href="{{route('vendor.register')}}" class="btn btn-danger btn-block">Sign Up as Vendor</a>
+          
+        </div>
+<!--         
         <div class="row">
           <div class="col-4">
             <button type="submit" class="btn btn-primary btn-block">Sign In</button>
           </div>
-          <div class="col-4">
+          <div class="col-2">
           </div>
-          <div class="col-4">
-            <a href="{{route('vendor.register')}}" class="btn btn-primary btn-block">Sign up</a>
+          <div class="col-6">
+            <a href="{{route('vendor.register')}}" class="btn btn-primary btn-block">Vendor Sign up</a>
           </div>
-        </div>
+        </div> -->
       </form>
       <!-- /.login-card-body -->
   </div>

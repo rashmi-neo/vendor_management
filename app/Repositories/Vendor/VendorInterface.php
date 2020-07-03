@@ -34,7 +34,6 @@ interface VendorInterface{
      *
      * @Author Bharti <bharati.tadvi@neosofttech.com>
      * @param $id,$data
-     * @param array
      */
     public function update($id,$data);
 

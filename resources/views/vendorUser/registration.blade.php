@@ -33,12 +33,12 @@
             <span class="glyphicon glyphicon-ok">{{ Session::get( 'error' ) }}</span>
          </div>
          @endif
-         <div class="card">
+         <div class="card mt-5">
             <div class="card-body register-card-body">
-               <p class="login-box-msg"><strong id="vendor-head">Register a new vendor</strong></p>
+               <p class="login-box-msg h3">Vendor Sign Up </p>
                <form role="form" action="{{route('vendor.store')}}" method="post" data-parsley-validate="parsley" id="registrationForm" enctype="multipart/form-data">
                   @csrf
-                  <input type="hidden" class="form-control" name="verify_status" value="0">
+                  <input type="hidden" class="form-control" name="verify_status" value="pending">
                   <div class="row">
                      <div class= "col-sm-6">
                         <div class="input-group mb-3">
@@ -283,7 +283,7 @@
                         </div>
                         <span id="faxError"><span>
                      </div>
-                     <div class= "col-sm-6">
+                     <div class= "col-sm-12">
                         <div class="input-group mb-3">
                            <input type="text" class="form-control" name="website" placeholder="Company website URL" data-parsley-errors-container="#websiteError" data-parsley-required="true"  data-parsley-type="url">
                            <div class="input-group-append">
@@ -300,10 +300,12 @@
                            @enderror
                      </div>
                   </div>
-                  <div class="row">
+                  <div class="row mt-4">
                      <div class="col-md-6">
-                        <button type="submit" class="btn btn-primary btn-md">Register</button>
-                        <a href="{{route('login')}}" class="btn btn-md btn-default cancelButton">Cancel</a>
+                        <button type="submit" class="btn btn-primary col-12">Register</button>
+                     </div>
+                     <div class="col-md-6">
+                        <a href="{{route('login')}}" class="btn btn-md btn-default  col-12">Cancel</a>
                      </div>
                      <!-- /.col -->
                   </div>

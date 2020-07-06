@@ -26,9 +26,9 @@ interface RequirementInterface{
     /**
      * Save a requirement.
      *
-     * @param array
+     * @param $data
      */
-    public function save(array $data);
+    public function save($data);
 
     /**
      * Updates a requirement.

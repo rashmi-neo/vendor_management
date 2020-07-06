@@ -6,8 +6,8 @@ use App\Repositories\Category\CategoryInterface;
 use App\Repositories\Category\CategoryRepository;
 use App\Repositories\Vendor\VendorInterface;
 use App\Repositories\Vendor\VendorRepository;
-use App\Repositories\Vendor\RequirementInterface;
-use App\Repositories\Vendor\RequirementRepository;
+use App\Repositories\Requirement\RequirementInterface;
+use App\Repositories\Requirement\RequirementRepository;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider

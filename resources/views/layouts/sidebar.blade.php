@@ -37,7 +37,7 @@
                </a>
             </li>
             <li class="nav-item">
-               <a href="{{route('requirements.create')}}" class="nav-link  {{ (request()->is('admin/requirements*')) ? 'active' : '' }}">
+               <a href="{{route('requirements.index')}}" class="nav-link  {{ (request()->is('admin/requirements*')) ? 'active' : '' }}">
                   <i class="nav-icon far fa-image"></i>
                   <p>
                      Requirements

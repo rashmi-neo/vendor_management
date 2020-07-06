@@ -40,7 +40,6 @@ $(function () {
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ]
     });
-    
   });
  $(document).ready(function(){
         $("[rel=tooltip]").tooltip();

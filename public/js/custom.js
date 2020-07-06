@@ -21,3 +21,17 @@
 //         }
 //     });
 //  }
+
+function markAsRead(id)
+  {
+    $.ajax({
+            type: "GET",
+            url:  "notification/markAsRead/"+id,
+            data: {id:id},
+            success: function(response)
+            {
+                console.log("success");
+            }
+       });
+    
+  }

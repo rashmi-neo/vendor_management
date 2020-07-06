@@ -36,6 +36,17 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
 Route::resource('categories', 'CategoryController');
 Route::resource('requirements', 'RequirementController');
 Route::resource('vendors', 'VendorController');
+
+
+/**
+* Routes for Notifications.
+* @author Sukanya<sukanya.dharangaonkar@neosofttech.com>
+* 
+* @return void
+*/
+Route::resource('notification', 'NotificationController');
+Route::get('notification/markAsRead/{id}','NotificationController@markAsRead')->name('notification.markAsRead');
+
 // --------------Admin Route End----------------------------
 });
 Route::get('vendor/registration', 'VendorController@register')->name('vendor.register');

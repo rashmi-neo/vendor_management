@@ -44,5 +44,5 @@
 <script src="http://parsleyjs.org/dist/parsley.js"></script>
 <!-- bootstrap confirmation -->
 <script src="{{ asset('js/jquery-confirm.min.js') }}"></script>
-<script src="{{ asset('/js/custom.js') }}"></script>
+<script src="{{ asset('js/custom.js') }}"></script>
 

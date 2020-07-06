@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Repositories\Requirement;
+namespace App\Repositories\Notifications;
 use Illuminate\Http\Request;
 
-interface RequirementInterface{
+interface NotificationsInterface{
 
 
 	/**
@@ -26,9 +26,9 @@ interface RequirementInterface{
     /**
      * Save a requirement.
      *
-     * @param $data
+     * @param array
      */
-    public function save($data);
+    public function save(array $data);
 
     /**
      * Updates a requirement.

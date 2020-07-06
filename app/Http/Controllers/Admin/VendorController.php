@@ -29,7 +29,7 @@ class VendorController extends Controller
     * Index page of vendor.
     *@Author Bharti <bharati.tadvi@neosofttech.com>
     * 
-    * @param void
+    *@param  Illuminate\Http\Request;
     * @return void
     */
     public function index(Request $request){
@@ -92,7 +92,7 @@ class VendorController extends Controller
         
         try {
             $vendor = $this->vendorRepository->save($requestData);
-            return redirect()->route('vendors.index')->with('success','Vendor details save successfully');
+            return redirect()->route('requirements.index')->with('success','Vendor details save successfully');
         } catch (Exception $e) {
             return redirect()->back()->with('error',$ex->getMessage);
         }

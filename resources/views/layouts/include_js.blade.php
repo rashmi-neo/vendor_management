@@ -40,3 +40,11 @@
 <script src="{{ asset('plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js') }}"></script>
 <!-- Select2 -->
 <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
+<!-- Parsley js -->
+<script src="http://parsleyjs.org/dist/parsley.js"></script>
+<!-- bootstrap confirmation -->
+<script src="{{ asset('js/jquery-confirm.min.js') }}"></script>
+<script src="{{asset('js/toastr.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('js/ui-toastr.min.js')}}" type="text/javascript"></script>
+<script src="{{ asset('/js/custom.js') }}"></script>
+<script src="{{ asset('/js/jquery.multi-select.js') }}"></script>

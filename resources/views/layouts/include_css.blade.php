@@ -23,6 +23,15 @@
 <link rel="stylesheet" href="{{ asset('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
 <!-- Bootstrap4 Duallistbox -->
 <link rel="stylesheet" href="{{ asset('plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css') }}">
+<!-- Parsley.css -->
+<link rel="stylesheet" type="text/css" href="https://parsleyjs.org/src/parsley.css">
+<!-- Datatable css -->
+<link rel="stylesheet" href="{{ asset('css/dataTables.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('css/responsive.bootstrap4.min.css') }}">
+<!-- ---- -->
 <!-- SweetAlert2 -->
 <link rel="stylesheet" href="{{ asset('plugins/sweetalert2/sweetalert2.min.css') }}">
+<link rel="stylesheet" href="{{ asset('css/jquery-confirm.min.css') }}">
+<link href="{{asset('css/toastr.min.css')}}" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="{{ asset('css/customize.css') }}">
+<link rel="stylesheet" href="{{ asset('/css/example-styles.css') }}">

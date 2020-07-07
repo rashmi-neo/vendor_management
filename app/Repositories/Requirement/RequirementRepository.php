@@ -3,6 +3,8 @@
 namespace App\Repositories\Requirement;
 use App\Model\Requirement;
 use App\Model\AssignVendor;
+use App\Model\Vendor;
+use App\Model\VendorCategory;
 use App\Repositories\Requirement\RequirementInterface;
 
 class RequirementRepository implements RequirementInterface{
@@ -13,7 +15,7 @@ class RequirementRepository implements RequirementInterface{
     function __construct(Requirement $requirement) {
 	$this->requirement = $requirement;
 	}
-    
+
     /**
      * Get's a requirement by it's ID
      *
@@ -21,7 +23,7 @@ class RequirementRepository implements RequirementInterface{
      * @return collection
      */
     public function get($id)
-    {   
+    {
         return Requirement::find($id);
     }
 
@@ -49,43 +51,33 @@ class RequirementRepository implements RequirementInterface{
      */
     public function save($data)
     {
-        
+
         $requirementObj = new Requirement();
         $requirementObj->category_id = $data->category_id;
-        $requirementObj->code = insertCode();
+        $requirementObj->code = getRequirementCode();
         $requirementObj->title = $data->title;
         $requirementObj->description = $data->description;
         $requirementObj->comment = $data->comment;
         $requirementObj->budget = $data->budget;
-        $requirementObj->from_date = "12/02/2020";
-        $requirementObj->to_date = "26/02/2020";
-        
-        if ($document = $data->file('proposal_document')) {
-            
-            $destinationPath = storage_path('app/public/images');
-            if(!is_dir($destinationPath)) {
-                mkdir($destinationPath, 0755, true);
-            }
-            $extension = $document->getClientOriginalExtension();
-            $documentOriginalName = $document->getClientOriginalName();
-            $documentName = md5(uniqid($documentOriginalName)).'.'.$extension;
-            $document->move($destinationPath, $documentName);
-            $requirementObj->proposal_document = $documentName;
-        }
-        
-        $requirementObj->save();
-        
+        $requirementObj->from_date =  $data->fromDate;
+        $requirementObj->to_date = $data->toDate;
         $vendors = $data->vendor_id;
-        
+
+        if ($document = $data->file('proposal_document')) {
+            $path = 'images';
+            $data = uploadFile($document,$path);
+            $requirementObj->proposal_document = $data;
+        }
+        $requirementObj->save();
+
         foreach($vendors as $vendor){
-            
             $assignVendor = new AssignVendor();
             $assignVendor->vendor_id = $vendor;
             $assignVendor->requirement_id = $requirementObj->id;
             $assignVendor->save();
-            
+
         }
-        
+
         return  $requirementObj;
     }
 
@@ -110,5 +102,17 @@ class RequirementRepository implements RequirementInterface{
     public function delete($id)
     {
         Requirement::destroy($id);
+    }
+
+    /**
+     * get vendors details as per category id.
+     *
+     * @Author Vikas <vikas.salekar@neosofttech.com>
+     * @param int
+     */
+    public function getVendorDetails($id)
+    {
+         return VendorCategory::with('vendor')->where('category_id',$id)->where('deleted_at',NULL)->get();
+       // return Vendor::join('vms_vendor_categories','vms_vendors.id','=','vms_vendor_categories.vendor_id')->where('category_id',$id)->get();
     }
 }

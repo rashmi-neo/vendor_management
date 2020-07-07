@@ -44,4 +44,6 @@ interface RequirementInterface{
      * @param int
      */
     public function delete($id);
+
+    public function getVendorDetails($id);
 }

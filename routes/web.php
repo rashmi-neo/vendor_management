@@ -24,7 +24,7 @@ Route::get('vendor/registration', function () {
 /**
 * Routes for dashboard.
 * @author Bharti<bharati.tadvi@neosofttech.com>
-* 
+*
 * @return void
 */
 Auth::routes();
@@ -41,12 +41,13 @@ Route::resource('vendors', 'VendorController');
 /**
 * Routes for Notifications.
 * @author Sukanya<sukanya.dharangaonkar@neosofttech.com>
-* 
+*
 * @return void
 */
 Route::resource('notification', 'NotificationController');
 Route::get('notification/markAsRead/{id}','NotificationController@markAsRead')->name('notification.markAsRead');
 
+Route::get('requirements/vendors/{id}','RequirementController@getVendorDetails');
 // --------------Admin Route End----------------------------
 });
 Route::get('vendor/registration', 'VendorController@register')->name('vendor.register');

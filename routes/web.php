@@ -52,11 +52,18 @@ Route::get('notification/markAsRead/{id}','NotificationController@markAsRead')->
 Route::get('vendor/registration', 'VendorController@register')->name('vendor.register');
 Route::post('vendor/register', 'VendorController@store')->name('vendor.store');
 
-Route::group(['prefix' => 'vendor','middleware' => ['auth']],
+Route::group(['namespace' => 'Vendor','prefix' => 'vendor','middleware' => ['auth']],
 	function(){
 	Route::get('dashboard', function () {
 	        return view('layouts.master');
 	 });
+
+Route::resource('accounts', 'AccountController');
+Route::post('accounts/company/update/{id}', 'AccountController@updateCompanyDetail')->name('accounts.company.update');
+Route::post('accounts/document/store', 'AccountController@documentStore')->name('accounts.document.store');
+Route::post('accounts/contact-details/store', 'AccountController@supportContactStore')->name('accounts.contact.detail.store');
+Route::post('accounts/bank-details/store', 'AccountController@bankDetailStore')->name('accounts.bank.detail.store');
+Route::post('accounts/update/{id}', 'AccountController@updateVendorDetail')->name('accounts.vendor.update');
 });
 
 

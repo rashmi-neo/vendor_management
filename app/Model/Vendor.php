@@ -39,4 +39,8 @@ class Vendor extends Model
     {   
      return $this->belongsTo('App\User','user_id');
     }
+
+    public function document(){
+        return $this->hasOne('App\Model\VendorDocument','vendor_id');
+    }
 }

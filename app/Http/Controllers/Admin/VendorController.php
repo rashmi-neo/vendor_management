@@ -91,7 +91,7 @@ class VendorController extends Controller
         $requestData =$request;
         
         try {
-            $vendor = $this->vendorRepository->save($requestData);
+            $vendor = $this->accountRepository->save($requestData);
             return redirect()->route('requirements.index')->with('success','Vendor details save successfully');
         } catch (Exception $e) {
             return redirect()->back()->with('error',$ex->getMessage);

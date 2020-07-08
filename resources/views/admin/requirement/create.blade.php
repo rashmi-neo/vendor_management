@@ -18,22 +18,23 @@
 					<div class="form-group row">
 					 <label for="inputTitle" class="col-sm-3 label_class">Title</label>
 					 	<div class="col-sm-7">
-	                      <input type="text" class="form-control {{ $errors->has('name') ? 'is-invalid' : ''}}" id="inputTitle" placeholder="Title" name="title" value="{{old("title")}}" >
+	                      <input type="text" class="form-control {{ $errors->has('name') ? 'is-invalid' : ''}}" id="inputTitle" data-parsley-errors-container="#titleError" data-parsley-required="true" data-parsley-error-message="Please enter title" placeholder="Title" name="title" value="{{old("title")}}" >
                           @error('title')
                           <span class="text-danger errormsg" role="alert">
                              <p>{{ $message }}</p>
                           </span>
                           @enderror
+                          <span id="titleError"><span>
                         </div>
                      </div>
 
 				 	<div class="form-group row">
 				 		<label for="category" class="col-sm-3 label_class">Category</label>
 				 		<div class="col-sm-7">
-				 			<select class="form-control" name="category_id"  id="category">
+				 			<select class="form-control" name="category_id"  id="category" data-parsley-errors-container="#categoryError" data-parsley-required="true" data-parsley-error-message="Please select category">
 				 				<option value="">Select Category</option>
 								@forelse($categories as $category)
-								<option value="{{$category->id}}">{{ $category->name }}</option>
+								<option value="{{$category->id}}" >{{ $category->name }}</option>
 								@empty
 								<option value="">No categories</option>
 								@endforelse
@@ -43,78 +44,86 @@
                                 <p>{{ $message }}</p>
                             </span>
                             @enderror
+                            <span id="categoryError"><span>
 				 		</div>
 				 	</div>
 					 <div class="form-group row">
 				 		<label class="col-sm-3 label_class">Select Vendors</label>
 				 		<div class="col-sm-7">
-				 			<select class="form-control" id="vendor" name="vendor_id[]"  multiple="multiple">
+				 			<select class="form-control" id="vendor" name="vendor_id[]"  multiple="multiple" data-parsley-errors-container="#vendorError" data-parsley-required="true" data-parsley-error-message="Please select vendor">
+                            <option value="" disabled>Select vendor</option>
                             </select>
                             @error('vendor_id')
                             <span class="text-danger errormsg" role="alert">
                                 <p>{{ $message }}</p>
                             </span>
                           @enderror
+                          <span id="vendorError"><span>
 				 		</div>
                     </div>
                     <div class="form-group row">
                         <label for="budget" class="col-sm-3 label_class">Budget</label>
                             <div class="col-sm-7">
-                             <input type="text" placeholder="Budget" name="budget" class="form-control">
+                             <input type="text" placeholder="Budget" name="budget" class="form-control" data-parsley-errors-container="#budgetError" data-parsley-required="true" data-parsley-error-message="Please enter budget" value="{{old("budget")}}">
                              @error('budget')
                              <span class="text-danger errormsg" role="alert">
                                 <p>{{ $message }}</p>
                              </span>
                              @enderror
+                             <span id="budgetError"><span>
                             </div>
                     </div>
                     <div class="form-group row">
                         <label for="budget" class="col-sm-3 label_class">From Date</label>
                             <div class="col-sm-7">
-                             <input type="text" placeholder="select from date" data-date-format="yyyy-mm-dd"  name="fromDate" class="form-control datepicker">
+                             <input type="text" placeholder="select from date" data-date-format="yyyy-mm-dd"  name="fromDate" class="form-control datepicker" data-parsley-errors-container="#fromDateError" data-parsley-required="true" data-parsley-error-message="Please select from date" value="{{old("fromDate")}}">
                              @error('fromDate')
                              <span class="text-danger errormsg" role="alert">
                                 <p>{{ $message }}</p>
                              </span>
                              @enderror
+                             <span id="fromDateError"><span>
                             </div>
                     </div>
                     <div class="form-group row">
                         <label for="budget" class="col-sm-3 label_class">To Date</label>
                             <div class="col-sm-7">
-                             <input type="text" placeholder="select to date" data-date-format="yyyy-mm-dd"   name="toDate" class="form-control datepicker" >
+                             <input type="text" placeholder="select to date" data-date-format="yyyy-mm-dd"   name="toDate" class="form-control datepicker" data-parsley-errors-container="#toDateError" data-parsley-required="true" data-parsley-error-message="Please select to date"  value="{{old("toDate")}}">
                              @error('toDate')
                              <span class="text-danger errormsg" role="alert">
                                 <p>{{ $message }}</p>
                              </span>
                              @enderror
+                             <span id="toDateError"><span>
                             </div>
                     </div>
                     <div class="form-group row">
                         <label for="priority" class="col-sm-3 label_class">Priority</label>
                         <div class="col-sm-7">
-                            <select class="form-control" name="priority">
+                            <select class="form-control" name="priority" data-parsley-errors-container="#priorityError" data-parsley-required="true" data-parsley-error-message="Please select priority">
                                 <option value="">Select Priority</option>
-                                <option value="low">Low</option>
-                                <option value="medium">Medium</option>
-                                <option value="high">High</option>
+                                <option value="low" {{ old('priority')=='low' ? 'selected' : ''  }}>Low</option>
+                                <option value="medium"  {{ old('priority')=='medium' ? 'selected' : ''  }}>Medium</option>
+                                <option value="high"  {{ old('priority')=='high' ? 'selected' : ''  }}>High</option>
                             </select>
                             @error('priority')
                              <span class="text-danger errormsg" role="alert">
                                 <p>{{ $message }}</p>
                              </span>
                              @enderror
+                             <span id="priorityError"><span>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="document" class="col-sm-3 label_class">Proposal Document(if/any)</label>
                         <div class="col-sm-7">
-                            <input type="file" class="form-control"placeholder="Proposal Document" name="proposal_document">
+                            <input type="file" class="form-control"placeholder="Proposal Document" name="proposal_document" data-parsley-errors-container="#proposalDocumentError" data-parsley-required="true" data-parsley-error-message="Please select proposal document" value="{{old("proposal_document")}}">
                             @error('proposal_document')
                             <span class="text-danger errormsg" role="alert">
                                <p>{{ $message }}</p>
                             </span>
                             @enderror
+                            <span id="proposalDocumentError"><span>
                         </div>
                     </div>
 				 	<div class="form-group row">
@@ -148,9 +157,6 @@
         $('#vendor').select2({
             theme: 'bootstrap4'
         })
-        // $('#vendor').multiSelect({
-        //     width:"100px"
-        // });
          $(".datepicker").datepicker();
     });
 
@@ -158,7 +164,6 @@
    $("#category").click(function (e) {
         e.preventDefault();
         var id= $(this).val();
-      //  alert(id);
         $.ajax({
         type: "GET",
         url: "vendors/"+id,

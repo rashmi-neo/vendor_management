@@ -51,16 +51,30 @@ class RequirementRepository implements RequirementInterface{
      */
     public function save($data)
     {
-
         $requirementObj = new Requirement();
         $requirementObj->category_id = $data->category_id;
         $requirementObj->code = getRequirementCode();
         $requirementObj->title = $data->title;
+        // if($data->description != null)
+        // {
+        //     $requirementObj->description =$data->description;
+        // }else
+        // {
+        //     unset($requirementObj->description);
+        // }
+        // if($data->comment != null)
+        // {
+        //     $requirementObj->description =$data->comment;
+        // }else
+        // {
+        //     unset($requirementObj->comment);
+        // }
         $requirementObj->description = $data->description;
         $requirementObj->comment = $data->comment;
         $requirementObj->budget = $data->budget;
         $requirementObj->from_date =  $data->fromDate;
         $requirementObj->to_date = $data->toDate;
+        $requirementObj->priority = $data->priority;
         $vendors = $data->vendor_id;
 
         if ($document = $data->file('proposal_document')) {
@@ -113,6 +127,5 @@ class RequirementRepository implements RequirementInterface{
     public function getVendorDetails($id)
     {
          return VendorCategory::with('vendor')->where('category_id',$id)->where('deleted_at',NULL)->get();
-       // return Vendor::join('vms_vendor_categories','vms_vendors.id','=','vms_vendor_categories.vendor_id')->where('category_id',$id)->get();
     }
 }

@@ -89,9 +89,10 @@ class RequirementController extends Controller
     *@return void
     */
     public function edit($id){
-        $requirementDetails = $this->requirementRepository->get($id);
-        dd($requirementDetails);
-        return view('admin.requirement.edit',compact('requirementDetails'));
+        $requirementEditDetails = $this->requirementRepository->get($id);
+        //dd($requirementEditDetails);
+        $categories = Category::where('status',1)->get();
+        return view('admin.requirement.edit',compact('requirementEditDetails','categories'));
     }
 
     /**

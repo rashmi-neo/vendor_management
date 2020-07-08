@@ -9,9 +9,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Requirement extends Model
 {
     use SoftDeletes;
-    
+
     protected $table = 'vms_requirements';
-    
+
      /**
      * The attributes that are mass assignable.
      *

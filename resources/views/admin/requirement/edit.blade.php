@@ -3,10 +3,10 @@
 <div class="col-md-12">
  	<div class="card">
  		 <div class="card-header" >
-			<h3 class="card-title">Add Requirement</h3>
+			<h3 class="card-title">Edit Requirement</h3>
 		 </div>
 			<div class="card-body">
-				<form role="form" action="{{route('requirements.store')}}" method="post" data-parsley-validate="parsley" id="requirementForm" enctype="multipart/form-data">
+				<form role="form" action="{{route('requirements.update',$requirementEditDetails->id)}}" method="post" data-parsley-validate="parsley" id="requirementForm" enctype="multipart/form-data">
                     @csrf
                     @if (\Session::has('success'))
                         <div class="alert alert-success">
@@ -18,7 +18,7 @@
 					<div class="form-group row">
 					 <label for="inputTitle" class="col-sm-3 label_class">Title</label>
 					 	<div class="col-sm-7">
-	                      <input type="text" class="form-control {{ $errors->has('name') ? 'is-invalid' : ''}}" id="inputTitle" data-parsley-errors-container="#titleError" data-parsley-required="true" data-parsley-error-message="Please enter title" placeholder="Title" name="title" value="{{old("title")}}" >
+	                      <input type="text" class="form-control {{ $errors->has('name') ? 'is-invalid' : ''}}" id="inputTitle" data-parsley-errors-container="#titleError" data-parsley-required="true" data-parsley-error-message="Please enter title" placeholder="Title" name="title" value="{{$requirementEditDetails->title}}" >
                           @error('title')
                           <span class="text-danger errormsg" role="alert">
                              <p>{{ $message }}</p>
@@ -34,7 +34,7 @@
 				 			<select class="form-control" name="category_id"  id="category" data-parsley-errors-container="#categoryError" data-parsley-required="true" data-parsley-error-message="Please select category">
 				 				<option value="">Select Category</option>
 								@forelse($categories as $category)
-								<option value="{{$category->id}}" >{{ $category->name }}</option>
+								<option value="{{$category->id}}" @if($requirementEditDetails->category_id == $category->id) selected="selected" @endif>{{ $category->name }}</option>
 								@empty
 								<option value="">No categories</option>
 								@endforelse
@@ -64,7 +64,7 @@
                     <div class="form-group row">
                         <label for="budget" class="col-sm-3 label_class">Budget</label>
                             <div class="col-sm-7">
-                             <input type="text" placeholder="Budget" name="budget" class="form-control" data-parsley-errors-container="#budgetError" data-parsley-required="true" data-parsley-error-message="Please enter budget" value="{{old("budget")}}">
+                             <input type="text" placeholder="Budget" name="budget" class="form-control" data-parsley-errors-container="#budgetError" data-parsley-required="true" data-parsley-error-message="Please enter budget" value="{{$requirementEditDetails->budget}}">
                              @error('budget')
                              <span class="text-danger errormsg" role="alert">
                                 <p>{{ $message }}</p>
@@ -76,7 +76,7 @@
                     <div class="form-group row">
                         <label for="budget" class="col-sm-3 label_class">From Date</label>
                             <div class="col-sm-7">
-                             <input type="text" placeholder="select from date" data-date-format="yyyy-mm-dd"  name="fromDate" class="form-control datepicker" data-parsley-errors-container="#fromDateError" data-parsley-required="true" data-parsley-error-message="Please select from date" value="{{old("fromDate")}}">
+                             <input type="text" placeholder="select from date" data-date-format="yyyy-mm-dd"  name="fromDate" class="form-control datepicker" data-parsley-errors-container="#fromDateError" data-parsley-required="true" data-parsley-error-message="Please select from date" value="{{$requirementEditDetails->from_date}}">
                              @error('fromDate')
                              <span class="text-danger errormsg" role="alert">
                                 <p>{{ $message }}</p>
@@ -88,7 +88,7 @@
                     <div class="form-group row">
                         <label for="budget" class="col-sm-3 label_class">To Date</label>
                             <div class="col-sm-7">
-                             <input type="text" placeholder="select to date" data-date-format="yyyy-mm-dd"   name="toDate" class="form-control datepicker" data-parsley-errors-container="#toDateError" data-parsley-required="true" data-parsley-error-message="Please select to date"  value="{{old("toDate")}}">
+                             <input type="text" placeholder="select to date" data-date-format="yyyy-mm-dd"   name="toDate" class="form-control datepicker" data-parsley-errors-container="#toDateError" data-parsley-required="true" data-parsley-error-message="Please select to date"  value="{{$requirementEditDetails->to_date}}">
                              @error('toDate')
                              <span class="text-danger errormsg" role="alert">
                                 <p>{{ $message }}</p>
@@ -102,9 +102,9 @@
                         <div class="col-sm-7">
                             <select class="form-control" name="priority" data-parsley-errors-container="#priorityError" data-parsley-required="true" data-parsley-error-message="Please select priority">
                                 <option value="">Select Priority</option>
-                                <option value="low" {{ old('priority')=='low' ? 'selected' : ''  }}>Low</option>
-                                <option value="medium"  {{ old('priority')=='medium' ? 'selected' : ''  }}>Medium</option>
-                                <option value="high"  {{ old('priority')=='high' ? 'selected' : ''  }}>High</option>
+                                <option value="low"  @if($requirementEditDetails->priority == "low") selected="selected" @endif>Low</option>
+                                <option value="medium" @if($requirementEditDetails->priority == "medium") selected="selected" @endif>Medium</option>
+                                <option value="high"  @if($requirementEditDetails->priority == "high") selected="selected" @endif>High</option>
                             </select>
                             @error('priority')
                              <span class="text-danger errormsg" role="alert">
@@ -117,7 +117,7 @@
                     <div class="form-group row">
                         <label for="document" class="col-sm-3 label_class">Proposal Document(if/any)</label>
                         <div class="col-sm-7">
-                            <input type="file" class="form-control"placeholder="Proposal Document" name="proposal_document" data-parsley-errors-container="#proposalDocumentError" data-parsley-required="true" data-parsley-error-message="Please select proposal document" value="{{old("proposal_document")}}">
+                            <input type="file" class="form-control"placeholder="Proposal Document" name="proposal_document" data-parsley-errors-container="#proposalDocumentError" data-parsley-required="true" data-parsley-error-message="Please select proposal document" value="{{$requirementEditDetails->proposal_document}}">
                             @error('proposal_document')
                             <span class="text-danger errormsg" role="alert">
                                <p>{{ $message }}</p>
@@ -129,13 +129,13 @@
 				 	<div class="form-group row">
 						 <label for="description" class="col-sm-3 label_class">Description</label>
 						   <div class="col-sm-7">
-						 		<textarea class="form-control" rows="4" cols="80" placeholder="Brief description" name="description"></textarea>
+						 		<textarea class="form-control" rows="4" cols="80" placeholder="Brief description" name="description">{{ $requirementEditDetails->description }}</textarea>
 		                   </div>
 				 	</div>
 				 	<div class="form-group row">
 						 <label for="comment" class="col-sm-3 label_class">Note/Special Comment</label>
 						   <div class="col-sm-7">
-						 		<textarea class="form-control" rows="4" cols="80" placeholder="Special Comment" name="comment"></textarea>
+						 		<textarea class="form-control" rows="4" cols="80" placeholder="Special Comment" name="comment">{{ $requirementEditDetails->comment }}</textarea>
 		                   </div>
 				 	</div>
 				 	<div class="form-group row">

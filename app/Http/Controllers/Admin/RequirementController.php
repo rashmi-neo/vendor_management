@@ -5,19 +5,21 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Model\Category;
 use App\Model\Vendor;
+use App\Http\Requests\StoreRequirementRequest;
 use DataTables;
+use Exception;
 use App\Repositories\Requirement\RequirementInterface as RequirementInterface;
 
 
 class RequirementController extends Controller
 {
-	
+
 	/**
     * Initialize Repository
     *@Author Bharti <bharati.tadvi@neosofttech.com>
     *
     * @return \App\Repositories\RequirementRepository
-    */ 
+    */
     private $requirementRepository;
 
     public function __construct(RequirementInterface $requirementRepository){
@@ -28,14 +30,14 @@ class RequirementController extends Controller
     /**
     * Index page of vendor.
     *@Author Bharti <bharati.tadvi@neosofttech.com>
-    * 
+    *
     *@param  Illuminate\Http\Request;
     * @return void
     */
     public function index(Request $request){
         if($request->ajax()){
             $data = $this->requirementRepository->all();
-            
+
             return Datatables::of($data)
             ->addIndexColumn()
             ->addColumn('action', function($row){
@@ -49,34 +51,60 @@ class RequirementController extends Controller
 
      /**
     * Create requirement form.
-    *@author Bharti<bharati.tadvi@neosofttech.com> 
-    * 
+    *@author Bharti<bharati.tadvi@neosofttech.com>
+    *
     *@return $categories,$vendors
     */
     public function create()
 	{
 		$categories = Category::where('status',1)->get();
-        $vendors = Vendor::get();
-		
-		return view('admin.requirement.create',compact('categories','vendors'));
+     //   $vendors = Vendor::get();
+
+		return view('admin.requirement.create',compact('categories'));
 	}
 
 	/**
     * Store Requirement details.
-    *@author Bharti<bharati.tadvi@neosofttech.com> 
+    *@author Bharti<bharati.tadvi@neosofttech.com>
     *
     *@param  Illuminate\Http\Request
     *@return void
     */
-    public function store(Request $request){
-        
+    public function store(StoreRequirementRequest $request){
+
         $requestData =$request;
-        
         try {
             $requirement = $this->requirementRepository->save($requestData);
-            return redirect()->route('requirements.index')->with('success','Vendor details save successfully');
+            return redirect()->route('requirements.index')->with('success','Requirement details saved successfully');
         } catch (Exception $e) {
-            return redirect()->back()->with('error',$ex->getMessage);
+            return redirect()->back()->with('error',$e->getMessage());
         }
+    }
+
+    /**
+    * showing edit requirement page.
+    *@author Vikas<vikas.salekar@neosofttech.com>
+    *
+    *@param  Illuminate\Http\Request
+    *@return void
+    */
+    public function edit($id){
+        $requirementEditDetails = $this->requirementRepository->get($id);
+        //dd($requirementEditDetails);
+        $categories = Category::where('status',1)->get();
+        return view('admin.requirement.edit',compact('requirementEditDetails','categories'));
+    }
+
+    /**
+    * getting vendors as per category id.
+    *@author Vikas<vikas.salekar@neosofttech.com>
+    *
+    *@param  Illuminate\Http\Request
+    *@return void
+    */
+    public function getVendorDetails($id)
+    {
+        $vendorDetails = $this->requirementRepository->getVendorDetails($id);
+        return response()->json($vendorDetails);
     }
 }

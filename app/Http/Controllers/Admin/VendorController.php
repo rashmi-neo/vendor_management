@@ -65,7 +65,7 @@ class VendorController extends Controller
             ->rawColumns(['action'])
             ->make(true);
         }
-    	return view('admin.vendor.index',compact('vendors'));
+    	return view('admin.vendor.index');
     }
 
     /**

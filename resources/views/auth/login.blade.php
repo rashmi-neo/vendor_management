@@ -97,6 +97,8 @@
           </div>
         </div> -->
       </form>
+
+      <a href="{{route('password.request')}}" class="">Forgotten Password?</a>
       <!-- /.login-card-body -->
   </div>
 </div>

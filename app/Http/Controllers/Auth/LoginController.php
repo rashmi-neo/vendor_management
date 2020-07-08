@@ -68,7 +68,7 @@ class LoginController extends Controller
     {
         $this->validator($request);
         
-        if(Auth::attempt(['email' => $request->email, 'password' => $request->password, 'is_verified' => "approved"])){
+        if(Auth::attempt(['email' => $request->email, 'password' => $request->password, 'is_verified' => 1])){
             if(Auth::user()->role_id == 1){
                 return redirect()->to('admin/dashboard')
                         ->with('status','You are Logged in as Admin!');

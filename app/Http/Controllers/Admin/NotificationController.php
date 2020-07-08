@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Repositories\Notifications\NotificationsInterface as NotificationsInterface;
 use Illuminate\Http\Request;
+use DataTables;
 
 class NotificationController extends Controller
 {
@@ -21,9 +22,45 @@ class NotificationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        if($request->ajax()){
+
+            //get the current user_id and fetch the notifications related to that id
+            $currentUser = \Auth::user();
+            $whereData = ['user_id'=>$currentUser->id];
+            $data = $this->notificationRepository->getWhereData($whereData);
+            
+            return Datatables::of($data)
+            ->addIndexColumn()
+            ->addColumn('title', function($data){
+                return $data->title;
+            })
+            ->addColumn('text', function($data){
+                return $data->text;
+            })
+            ->addColumn('company_name', function($data){
+                return $data->type;
+            })
+            ->addColumn('status', function($data){
+                
+                if($data->status == "read"){
+                    return "Read";
+                }elseif($data->status == "unread"){
+                    return "Unread";
+                }
+                return "Rejected";
+            })
+            ->addColumn('created_at', function($data){
+                return \Carbon\Carbon::parse($data->created_at)->toFormattedDateString();
+            })
+            ->addColumn('action', function($row){
+                return view('admin.notifications.actions', compact('row'));
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+        }
+        return view('admin.notifications.index');
     }
 
     /**

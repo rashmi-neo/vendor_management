@@ -20,25 +20,25 @@ class NotificationsRepository implements NotificationsInterface{
 
 
     /**
-     * Get's all requirement.
+     * Get's all notification.
      *
      *@Author Sukanya 
      *@param  void
-     *@return $requirement
+     *@return $notification
      */
     public function all()
     {
-    	$requirement = Notifications::all();
-    	return $requirement;
+    	$notification = Notifications::all();
+    	return $notification;
     }
 
 
     /**
-     * Save a requirement.
+     * Save a notification.
      *
      * @Author Sukanya 
      * @param  $data
-     * @return $requirement
+     * @return $notification
      */
     public function save(array $data)
     {
@@ -47,7 +47,7 @@ class NotificationsRepository implements NotificationsInterface{
 
 
     /**
-     * Updates a Requirement.
+     * Updates a notification.
      *
      * @param int
      * @param $array
@@ -58,7 +58,7 @@ class NotificationsRepository implements NotificationsInterface{
     }
 
     /**
-     * Deletes a Requirement.
+     * Deletes a notification.
      *
      * @Author Sukanya 
      * @param int
@@ -67,4 +67,18 @@ class NotificationsRepository implements NotificationsInterface{
     {
         Notifications::destroy($id);
     }
+
+    /**
+     * Get the notification data with condition
+     *
+     * @Author Sukanya 
+     * @param int
+     */
+    public function getWhereData($data)
+    {
+        $notification = Notifications::where($data)->get();
+        return $notification;
+    }
+
+
 }

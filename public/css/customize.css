@@ -55,3 +55,12 @@
 .dropdown-header, .dropdown-footer {
     height: auto!important;
   }
+
+ .headerModal{
+   background-color:#0062cc;
+   border-color:#0062cc;
+   color:white;
+}
+.closeButton{
+  color:white;
+}

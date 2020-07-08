@@ -44,8 +44,32 @@
                   </p>
                </a>
             </li>
+            <li class="nav-item">
+               <a href="{{route('notification.index')}}" class="nav-link  {{ (request()->is('admin/notification*')) ? 'active' : '' }}">
+                  <i class="nav-icon far fa-image"></i>
+                  <p>
+                     Notifications
+                  </p>
+               </a>
+            </li>
          @endif
-         @if(Auth::check() && Auth::user()->role_id == 2)  
+         @if(Auth::check() && Auth::user()->role_id == 2) 
+         <li class="nav-item">
+            <a href="{{url('vendor/dashboard')}}" class="nav-link {{ (request()->is('admin/dashboard')) ? 'active' : '' }}">
+               <i class="nav-icon far fa-image"></i>
+               <p>
+                  Dashboard
+               </p>
+            </a>
+         </li>
+         <li class="nav-item">
+               <a href="{{route('accounts.index')}}" class="nav-link  {{ (request()->is('admin/requirements*')) ? 'active' : '' }}">
+                  <i class="nav-icon far fa-image"></i>
+                  <p>
+                     My Account
+                  </p>
+               </a>
+            </li>
          @endif
          </ul>
       </nav>

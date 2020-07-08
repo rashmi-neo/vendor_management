@@ -15,7 +15,7 @@ class Document extends Model
 
     public function vendorDocument() 
     {   
-     return $this->hasOne('App\Model\VendorDocument','document_id','id');
+        return $this->hasOne('App\Model\VendorDocument','document_id','id');
     }
-
+    
 }

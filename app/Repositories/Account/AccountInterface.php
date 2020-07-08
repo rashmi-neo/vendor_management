@@ -5,7 +5,18 @@ use Illuminate\Http\Request;
 
 interface AccountInterface{ 
 	
-	/**
+    
+    
+    
+    /**
+     * Find specific  vendor .
+     *
+     * @Author Bharti <bharati.tadvi@neosofttech.com>
+     * @param void
+     */
+    public function findVendor();
+    
+    /**
      * Save vendor document .
      *
      * @Author Bharti <bharati.tadvi@neosofttech.com>

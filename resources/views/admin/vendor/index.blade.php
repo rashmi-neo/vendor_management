@@ -7,13 +7,13 @@
 		</div>
 	<div class="card-body">
 		 @if(session()->get('success'))
-		    <div class="alert alert-success alert-dismissible">
+		    <div class="alert alert-success alert-dismissible" id="successMessage">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 				<i class="icon fa fa-check"></i>{{ Session::get('success') }}
 			</div><br/>
   		 @endif
 		 @if(session()->get('error'))
-		    <div class="alert alert-danger alert-dismissible">
+		    <div class="alert alert-danger alert-dismissible" id="errorsMessage">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 				<i class="icon fa fa-check"></i>{{ Session::get('error') }}
 			</div><br/>
@@ -36,23 +36,32 @@
 @endsection
 @section('scripts')
 <script type="text/javascript">
-  $(function () {
-    var table = $('#vendorTable').DataTable({
-        processing: true,
-        serverSide: true,
-        bLengthChange: false,
-        ajax: "{{ route('vendors.index') }}",
-        columns: [
-            {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-            {data: 'name', name: 'name'},
-            {data: 'category', name: 'category'},
-            {data: 'contact_number', name: 'contact_number'},
-            {data: 'company_name', name: 'company_name'},
-            {data: 'verification_status', name: 'verification_status'},
-            {data: 'action', name: 'action', orderable: false, searchable: false},
-        ]
-    });
-    
-  });
+	$(function () {
+		var table = $('#vendorTable').DataTable({
+			processing: true,
+			serverSide: true,
+			bLengthChange: false,
+			ajax: "{{ route('vendors.index') }}",
+			columns: [
+				{data: 'DT_RowIndex', name: 'DT_RowIndex'},
+				{data: 'name', name: 'name'},
+				{data: 'category', name: 'category'},
+				{data: 'contact_number', name: 'contact_number'},
+				{data: 'company_name', name: 'company_name'},
+				{data: 'verification_status', name: 'verification_status'},
+				{data: 'action', name: 'action', orderable: false, searchable: false},
+			]
+		});  
+	});
+	$(function(){
+		setTimeout(function() {
+			$('#successMessage').fadeOut('fast');
+		}, 3000);     
+	});
+	$(function(){
+		setTimeout(function() {
+			$('#errorMessage').fadeOut('fast');
+		}, 3000);     
+	});
 </script>
 @endsection

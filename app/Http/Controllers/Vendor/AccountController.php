@@ -4,13 +4,11 @@ namespace App\Http\Controllers\Vendor;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Auth;
 use App\Http\Requests\DocumentRequest;
 use App\Http\Requests\BankDetailRequest;
 use App\Http\Requests\SupportContactRequest;
 use App\Http\Requests\CompanyRequest;
 use App\Http\Requests\VendorRequest;
-use App\Model\Vendor;
 use App\Model\Document;
 use App\Repositories\Account\AccountInterface as AccountInterface;
 
@@ -39,12 +37,16 @@ class AccountController extends Controller
     *@return $vendor,$document
     */
     public function index(){
-
-        $userId = Auth::user()->id;
         
-        $vendor = Vendor::with('vendorCategory','vendorCategory.category','company')->where('user_id',$userId)->first();
+        $vendor = $this->accountRepository->findVendor();
         
-        $documents = Document::with('vendorDocument')->get();
+        $vendorId =$vendor->id;
+        
+        if(!empty($vendorId)){
+            $documents = Document::with(['vendorDocument' => function ($query) use ($vendorId){
+                $query->where('vendor_id', $vendorId);
+            }])->get();
+        }
         
         return view('vendorUser.account.account',compact('vendor','documents'));
     }
@@ -62,7 +64,7 @@ class AccountController extends Controller
             $vendor = $this->accountRepository->documentSave($request);
             return redirect()->route('accounts.index')->with('success','Document save successfully');
         } catch (Exception $e) {
-            return redirect()->back()->with('error',$ex->getMessage);
+            return redirect()->back()->with('error','Something went wrong');
         }
 
     }

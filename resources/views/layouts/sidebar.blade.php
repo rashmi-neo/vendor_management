@@ -44,6 +44,14 @@
                   </p>
                </a>
             </li>
+            <li class="nav-item">
+               <a href="{{route('notification.index')}}" class="nav-link  {{ (request()->is('admin/notification*')) ? 'active' : '' }}">
+                  <i class="nav-icon far fa-image"></i>
+                  <p>
+                     Notifications
+                  </p>
+               </a>
+            </li>
          @endif
          @if(Auth::check() && Auth::user()->role_id == 2) 
          <li class="nav-item">

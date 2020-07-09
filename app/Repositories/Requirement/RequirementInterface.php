@@ -36,7 +36,7 @@ interface RequirementInterface{
      * @param int
      * @param array
      */
-    public function update($id,array $data);
+    public function update($id,$data);
 
     /**
      * Deletes a requirement.

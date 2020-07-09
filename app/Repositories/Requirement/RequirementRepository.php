@@ -3,6 +3,7 @@
 namespace App\Repositories\Requirement;
 use App\Model\Requirement;
 use App\Model\AssignVendor;
+use App\Model\Category;
 use App\Model\Vendor;
 use App\Model\VendorCategory;
 use App\Repositories\Requirement\RequirementInterface;
@@ -37,7 +38,7 @@ class RequirementRepository implements RequirementInterface{
      */
     public function all()
     {
-    	$requirement = Requirement::all();
+    	$requirement = Requirement::with("category")->get();
     	return $requirement;
     }
 
@@ -55,20 +56,6 @@ class RequirementRepository implements RequirementInterface{
         $requirementObj->category_id = $data->category_id;
         $requirementObj->code = getRequirementCode();
         $requirementObj->title = $data->title;
-        // if($data->description != null)
-        // {
-        //     $requirementObj->description =$data->description;
-        // }else
-        // {
-        //     unset($requirementObj->description);
-        // }
-        // if($data->comment != null)
-        // {
-        //     $requirementObj->description =$data->comment;
-        // }else
-        // {
-        //     unset($requirementObj->comment);
-        // }
         $requirementObj->description = $data->description;
         $requirementObj->comment = $data->comment;
         $requirementObj->budget = $data->budget;
@@ -102,9 +89,67 @@ class RequirementRepository implements RequirementInterface{
      * @param int
      * @param $array
      */
-    public function update($id,array $data)
+    public function update($id,$data)
     {
-        Requirement::find($id)->update($data);
+
+        $requirementObj = Requirement::find($id);
+        //$requirementObj = Requirement::find($id)->update($data);
+
+        $requirementObj->category_id = $data->category_id;
+     //   $requirementObj->code = getRequirementCode();
+        $requirementObj->title = $data->title;
+        $requirementObj->description = $data->description;
+        $requirementObj->comment = $data->comment;
+        $requirementObj->budget = $data->budget;
+        $requirementObj->from_date =  $data->fromDate;
+        $requirementObj->to_date = $data->toDate;
+        $requirementObj->priority = $data->priority;
+        $vendors = $data->vendor_id;
+        if ($document = $data->file('proposal_document')) {
+            $path = 'images';
+            $fileName = uploadFile($document,$path);
+            $requirementObj->proposal_document = $fileName;
+        }
+        $requirementObj->save();
+
+        foreach($vendors as $vendor){
+           // dd($vendor);
+            $assignVendor = AssignVendor::where('vendor_id',$vendor)->where('requirement_id',$requirementObj->id)->where('deleted_at',null)->get();
+          //  dd(count($assignVendor));
+            if ((count($assignVendor)>0)) {
+                // echo "ok";
+                // die;
+                $assignVendor =AssignVendor::where('vendor_id',$vendor)->where('requirement_id',$requirementObj->id)->delete();
+            }
+            else
+            {
+                // echo "oasssk";
+                // die;
+                // $assignVendor->vendor_id = $vendor;
+                // $assignVendor->requirement_id = $requirementObj->id;
+                // $assignVendor->save();
+                AssignVendor::create(['vendor_id'=>$vendor,'requirement_id'=>$requirementObj->id]);
+            }
+
+            //    $assignVendor->delete();
+                // dd($assignVendor);
+            // $assignVendor = AssignVendor::find($vendor);
+
+             /* if($assignVendor->vendor_id == $vendor  && $assignVendor->requirement_id == $requirementObj->id)
+             {
+                if ($assignVendor != null) {
+                $assignVendor->delete();
+                // $assignVendor->vendor_id = $vendor;
+                // $assignVendor->requirement_id = $requirementObj->id;
+                // $assignVendor->save();
+                }
+            } */
+            // $assignVendor->vendor_id = $vendor;
+            // $assignVendor->requirement_id = $requirementObj->id;
+            // $assignVendor->save();
+          //  AssignVendor::where('requirement_id',$requirementObj->id)->update(['vendor_id'=>$vendor,'requirement_id'=>$requirementObj->id]);
+        }
+        return  $requirementObj;
     }
 
     /**

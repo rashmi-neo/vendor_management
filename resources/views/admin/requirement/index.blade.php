@@ -22,8 +22,10 @@
 				<thead>
 					<tr>
 						<th>SrNo</th>
-						<th>Title</th>
-						<th>Budget</th>
+                        <th>Title</th>
+                        <th>Category</th>
+                        <th>Priority</th>
+						<th>Date</th>
 						<th>status</th>
 						<th>Action</th>
 					</tr>
@@ -43,7 +45,9 @@
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 {data: 'title', name: 'title'},
-                {data: 'budget', name: 'budget'},
+                {data: 'category', name: 'category'},
+                {data: 'priority', name: 'priority'},
+                {data: 'created_at', name: 'date'},
                 {data: 'status', name: 'status'},
                 {data: 'action', name: 'action'},
             ]

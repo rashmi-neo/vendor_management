@@ -8,6 +8,7 @@
 			<div class="card-body">
 				<form role="form" action="{{route('requirements.update',$requirementEditDetails->id)}}" method="post" data-parsley-validate="parsley" id="requirementForm" enctype="multipart/form-data">
                     @csrf
+                    @method('PUT')
                     @if (\Session::has('success'))
                         <div class="alert alert-success">
                             <ul>
@@ -46,12 +47,16 @@
                             @enderror
                             <span id="categoryError"><span>
 				 		</div>
-				 	</div>
+                     </div>
+
 					 <div class="form-group row">
 				 		<label class="col-sm-3 label_class">Select Vendors</label>
 				 		<div class="col-sm-7">
 				 			<select class="form-control" id="vendor" name="vendor_id[]"  multiple="multiple" data-parsley-errors-container="#vendorError" data-parsley-required="true" data-parsley-error-message="Please select vendor">
-                            <option value="" disabled>Select vendor</option>
+                            {{-- <option value="" disabled>Select vendor</option> --}}
+                            @foreach ($vendorDetails as $vendors)
+                            <option value="{{ $vendors->id }}"  selected>{{ $vendors->first_name }}</option>
+                            @endforeach
                             </select>
                             @error('vendor_id')
                             <span class="text-danger errormsg" role="alert">
@@ -166,13 +171,13 @@
         var id= $(this).val();
         $.ajax({
         type: "GET",
-        url: "vendors/"+id,
+        url: "../vendors/"+id,
         dataType: "json",
         success: function(result){
+            alert(id);
             $("#vendor").empty();
             $.each(result,function(key,val){
                 $("#vendor").append('<option value='+val.vendor.id+' selected>'+val.vendor.first_name+'</option>');
-                //$("#vendor").append('<option value='+val.id+' selected>'+val.first_name+'</option>');
             });
          }});
     });

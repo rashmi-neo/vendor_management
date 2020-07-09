@@ -9,9 +9,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Vendor extends Model
 {
     use SoftDeletes;
-    
+
     protected $table = 'vms_vendors';
-    
+
      /**
      * The attributes that are mass assignable.
      *
@@ -26,8 +26,8 @@ class Vendor extends Model
         return $this->hasOne('App\Model\VendorCategory','vendor_id');
     }
 
-    public function vendorCategory() 
-    {   
+    public function vendorCategory()
+    {
      return $this->hasOne('App\Model\VendorCategory','vendor_id');
     }
 
@@ -35,12 +35,16 @@ class Vendor extends Model
     {
         return $this->hasOne('App\Model\Company','vendor_id');
     }
-    public function user() 
-    {   
+    public function user()
+    {
      return $this->belongsTo('App\User','user_id');
     }
 
     public function document(){
         return $this->hasOne('App\Model\VendorDocument','vendor_id');
+    }
+    public function requirement()
+    {
+        return $this->belongsToMany('App\Model\Requirement','vms_assign_vendors','vendor_id','requirement_id');
     }
 }

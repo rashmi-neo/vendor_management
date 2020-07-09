@@ -16,9 +16,13 @@ class Category extends Model
         'name','status'
     ];
 
-    public function vendorCategory() 
-    {   
+    public function vendorCategory()
+    {
      return $this->hasOne('App\Model\VendorCategory','category_id');
     }
 
+    public function requirement()
+    {
+      return $this->hasMany('App\Model\Requirement','category_id');
+    }
 }

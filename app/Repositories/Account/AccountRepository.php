@@ -6,6 +6,7 @@ use App\Model\VendorDocument;
 use App\Model\SupportContactDetail;
 use App\Model\BankDetail;
 use App\User;
+use Auth;
 use App\Model\Company;
 
 
@@ -18,6 +19,13 @@ class AccountRepository implements AccountInterface{
 	$this->vendor = $vendor;
 	}
     
+    public function findVendor(){
+        $userId = Auth::user()->id;
+        
+        $vendorUser = Vendor::with('vendorDocument','vendorDocument.document')->where('user_id',$userId)->first();
+       
+        return $vendorUser;
+    }
     /**
      * Save a Vendor document.
      *

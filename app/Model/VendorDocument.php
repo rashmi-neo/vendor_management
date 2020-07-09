@@ -22,6 +22,12 @@ class VendorDocument extends Model
 
     public function document() 
     {   
-     return $this->belongsTo('App\Model\Document','document_id');
+        return $this->belongsTo('App\Model\Document','document_id','id');
     }
+
+    public function vendor() 
+    {   
+        return $this->belongsTo('App\Model\Vendor','vendor_id','id');
+    }
+ 
 }

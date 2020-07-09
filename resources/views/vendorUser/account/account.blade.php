@@ -2,14 +2,14 @@
 @section('main-content')
 <div class="col-12">
 @if(session()->get('success'))
-		    <div class="alert alert-success alert-dismissible">
-				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+		    <div class="alert alert-success alert-dismissible" id="successMessage">
+				<button type="button"  class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 				<i class="icon fa fa-check"></i>{{ Session::get('success') }}
 			</div><br/>
   		 @endif
 		 @if(session()->get('error'))
-		    <div class="alert alert-danger alert-dismissible">
-				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+		    <div class="alert alert-danger alert-dismissible" id="errorMessage">
+				<button type="button"  class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 				<i class="icon fa fa-check"></i>{{ Session::get('error') }}
 			</div><br/>
   		 @endif
@@ -393,6 +393,16 @@
          $('#documentFile').val(document_id);
       });
    });
-  
+
+   $(function(){
+      setTimeout(function() {
+         $('#successMessage').fadeOut('fast');
+      }, 3000);     
+  });
+  $(function(){
+      setTimeout(function() {
+         $('#errorMessage').fadeOut('fast');
+      }, 3000);     
+  });
 </script>
 @endsection

@@ -77,6 +77,7 @@ class VendorController extends Controller
     public function create()
 	{   
         $categories = Category::where('status',1)->get();
+        
         return view('admin.vendor.create',compact('categories'));
     }
     
@@ -94,7 +95,7 @@ class VendorController extends Controller
             $vendor = $this->vendorRepository->save($requestData);
             return redirect()->route('requirements.index')->with('success','Vendor details save successfully');
         } catch (Exception $e) {
-            return redirect()->back()->with('error',$ex->getMessage);
+            return redirect()->back()->with('error','Something went wrong');
         }
     }
 
@@ -140,7 +141,7 @@ class VendorController extends Controller
             }
             return redirect()->route('vendors.index')->with('error','Vendor not found');
         }catch(\Exception $ex){
-            return redirect()->route('vendors.index')->with('error',$ex->getMessage);
+            return redirect()->route('vendors.index')->with('error','Something went wrong');
         }
     }
 

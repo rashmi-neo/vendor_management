@@ -1,7 +1,7 @@
 <?php
 use App\Model\Requirement;
 
-  function getRequirementCode()
+ function getRequirementCode()
   {
     $lastRequirementCode  =   Requirement::orderBy('created_at', 'desc')->first();
 
@@ -21,11 +21,12 @@ use App\Model\Requirement;
     }
   }
 
-  function uploadFile($document,$url)
-  {
-      $path = Config::get('constants.UPLOAD_PATH');
-      $destinationPath = $path['path'].$url;
-
+    function uploadFile($document,$url)
+    {
+        $path = Config::get('constants.UPLOAD_PATH');
+       
+        $destinationPath = $path['path'].$url;
+    
         if(!is_dir($destinationPath)) {
             mkdir($destinationPath, 0755, true);
         }
@@ -39,3 +40,4 @@ use App\Model\Requirement;
         }
         return $documentName;
     }
+

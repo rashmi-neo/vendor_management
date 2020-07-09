@@ -36,7 +36,8 @@
       <div class="card-body">
          <div class="tab-content" id="custom-tabs-four-tabContent">
             <div class="tab-pane fade active show" id="myProfile" role="tabpanel" aria-labelledby="custom-tabs-profile-tab">
-            <form class="form-horizontal" method="post" action="{{ route('accounts.vendor.update', $vendor->id ) }}" data-parsley-validate="parsley">
+            <form class="form-horizontal" method="post" action="{{ route('accounts.vendor.update', $vendor->id ) }}" data-parsley-validate="parsley"
+            enctype="multipart/form-data">
                   @csrf
                   <div class="form-group row">
                      <label for="firstName" class="col-sm-2 col-form-label">First Name</label>
@@ -53,7 +54,6 @@
                      <label for="middleName" class="col-sm-2 col-form-label">Middle Name</label>
                      <div class="col-sm-8">
                         <input type="text" class="form-control" id="middle_name" placeholder="Middle Name" name="middle_name" value="{{$vendor->middle_name}}">
-
                      </div>
                   </div>
                   <div class="form-group row">
@@ -68,7 +68,7 @@
                      </div>
                   </div>
                   <div class="form-group row">
-                     <label for="phone_number" class="col-sm-2 col-form-label">Phone number</label>
+                     <label for="phone_number" class="col-sm-2 col-form-label">Phone Number</label>
                      <div class="col-sm-8">
                         <input type="text" class="form-control" id="phone_number" placeholder="Phone Number" name="phone_number" value="{{$vendor->mobile_number}}"data-parsley-required="true" data-parsley-type="digits">
                         @error('phone_number')
@@ -79,7 +79,7 @@
                      </div>
                   </div>
                   <div class="form-group row">
-                     <label for="email_address" class="col-sm-2 col-form-label">Email address</label>
+                     <label for="email_address" class="col-sm-2 col-form-label">Email Address</label>
                      <div class="col-sm-8">
                         <input type="text" class="form-control" id="email_address" placeholder="Email Address" name="email" value="{{$vendor->user->email}}"data-parsley-required="true" data-parsley-error-message="Please Enter Email Address ">
                         @error('email')
@@ -90,7 +90,29 @@
                      </div>
                   </div>
                   <div class="form-group row">
-                     <label for="image" class="col-sm-2 col-form-label">Upload image</label>
+                     <label for="current_password" class="col-sm-2 col-form-label">Current Password</label>
+                     <div class="col-sm-8">
+                        <input type="password" class="form-control" id="current_password" placeholder="Password" value="" name="current_password" data-parsley-required="true" data-parsley-error-message="Please Enter current password">
+                        @error('current_password')
+                        <span class="text-danger errormsg" role="alert">
+                           <p>{{ $message }}</p>
+                        </span>
+                        @enderror
+                     </div>
+                  </div>
+                  <div class="form-group row">
+                     <label for="new_password" class="col-sm-2 col-form-label">New Password</label>
+                     <div class="col-sm-8">
+                        <input type="password" class="form-control" id="new_password" placeholder="New Password" value="" name="new_password" data-parsley-required="true" data-parsley-error-message="Please Enter new password">
+                        @error('new_password')
+                        <span class="text-danger errormsg" role="alert">
+                           <p>{{ $message }}</p>
+                        </span>
+                        @enderror
+                     </div>
+                  </div>
+                  <div class="form-group row">
+                     <label for="image" class="col-sm-2 col-form-label">Upload Image</label>
                      <div class="col-sm-8">
                         <div class="input-group  mb-3">
                            <div class="custom-file">
@@ -227,7 +249,7 @@
                </table>
             </div>
             <div class="tab-pane fade" id="supportContactDetail" role="tabpanel" aria-labelledby="custom-tabs-four-support-contact-tab">
-            <form class="form-horizontal" method="post" action="{{ route('accounts.contact.detail.store') }}" data-parsley-validate="parsley">
+               <form class="form-horizontal" method="post" action="{{ route('accounts.contact.detail.store') }}" data-parsley-validate="parsley">
                   @csrf
                   <input type="hidden" name="vendor_id" value="{{$vendor->id}}"/>
                   <div class="form-group row">
@@ -242,7 +264,7 @@
                      </div>
                   </div>
                   <div class="form-group row">
-                     <label for="phone_number" class="col-sm-2 col-form-label">Phone number</label>
+                     <label for="phone_number" class="col-sm-2 col-form-label">Phone Number</label>
                      <div class="col-sm-8">
                         <input type="text" class="form-control" id="contact_number" placeholder="Phone Number" name="contact_number" data-parsley-type="digits" data-parsley-required="true" >
                         @error('contact_number')
@@ -253,7 +275,7 @@
                      </div>
                   </div>
                   <div class="form-group row">
-                     <label for="email_address" class="col-sm-2 col-form-label">Email address</label>
+                     <label for="email_address" class="col-sm-2 col-form-label">Email Address</label>
                      <div class="col-sm-8">
                         <input type="email" class="form-control" id="email_address" placeholder="Email Address" name="email_address" value="" data-parsley-required="true" data-parsley-error-message="Please Enter Email Address">
                         @error('email_address')
@@ -273,10 +295,10 @@
                </form>
             </div>
             <div class="tab-pane fade" id="bankDetail" role="tabpanel" aria-labelledby="custom-tabs-four-bank-detail-tab">
-            <form class="form-horizontal" method="post" action="{{ route('accounts.bank.detail.store') }}" data-parsley-validate="parsley">
+               <form class="form-horizontal" method="post" action="{{ route('accounts.bank.detail.store') }}" data-parsley-validate="parsley">
                   @csrf
                   <input type="hidden" name="vendor_id" value="{{$vendor->id}}"/>
-                  <div class="form-group row ml-5">
+                  <div class="form-group row">
                      <label for="bank_name" class="col-sm-2 col-form-label">Bank Name</label>
                      <div class="col-sm-8">
                         <input type="text" class="form-control" id="bank_name" placeholder="Bank name" name="bank_name" value="" data-parsley-required="true" data-parsley-error-message="Please Enter Bank Name">
@@ -287,7 +309,7 @@
                         @enderror 
                      </div>
                   </div>
-                  <div class="form-group row ml-5">
+                  <div class="form-group row">
                      <label for="account_holder_name" class="col-sm-2 col-form-label">Account name</label>
                      <div class="col-sm-8">
                         <input type="text" class="form-control" id="account_holder_name" placeholder="Account holder Name" name="account_holder_name" value="" data-parsley-required="true" data-parsley-error-message="Please Enter Account Holder Name">
@@ -298,7 +320,7 @@
                         @enderror
                      </div>
                   </div>
-                  <div class="form-group row ml-5">
+                  <div class="form-group row">
                      <label for="account_number" class="col-sm-2 col-form-label">Account Number</label>
                      <div class="col-sm-8">
                         <input type="text" class="form-control" id="account_number" placeholder="Account Number" name="account_number" value="" data-parsley-required="true" data-parsley-error-message="Please Enter Account Number ">
@@ -309,7 +331,7 @@
                         @enderror
                      </div>
                   </div>
-                  <div class="form-group row ml-5">
+                  <div class="form-group row">
                      <label for="ifsc_code" class="col-sm-2 col-form-label">IFSC code</label>
                      <div class="col-sm-8">
                         <input type="text" class="form-control" id="ifsc_code" placeholder="IFSC Code" name="ifsc_code" value="" data-parsley-required="true" data-parsley-error-message="Please Enter IFSC Code">

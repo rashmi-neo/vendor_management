@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
+use App\Rules\MatchOldPassword;
 
 class VendorRequest extends FormRequest
 {
@@ -30,6 +31,8 @@ class VendorRequest extends FormRequest
             'middle_name' => 'max:50',
             'last_name' => 'required|max:50',
             'phone_number' => 'required|max:20',
+            'current_password' => ['required', new MatchOldPassword],
+            'new_password' => ['required'],
         ];
     }
 

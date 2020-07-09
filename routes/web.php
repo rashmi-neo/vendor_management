@@ -36,7 +36,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
 Route::resource('categories', 'CategoryController');
 Route::resource('requirements', 'RequirementController');
 Route::resource('vendors', 'VendorController');
-
+Route::resource('profiles', 'ProfileController');
 
 /**
 * Routes for Notifications.

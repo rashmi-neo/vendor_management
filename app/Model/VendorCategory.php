@@ -22,12 +22,12 @@ class VendorCategory extends Model
 
     public function vendor() 
     {   
-     return $this->belongsTo('App\Model\Vendor','vendor_id');
+        return $this->belongsTo('App\Model\Vendor','vendor_id');
     }
  
     public function category() 
     {   
-     return $this->belongsTo('App\Model\Category','category_id');
+        return $this->belongsTo('App\Model\Category','category_id');
     }
  
 }

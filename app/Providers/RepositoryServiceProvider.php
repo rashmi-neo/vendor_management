@@ -12,6 +12,9 @@ use App\Repositories\Notifications\NotificationsInterface;
 use App\Repositories\Notifications\NotificationsRepository;
 use App\Repositories\Account\AccountInterface;
 use App\Repositories\Account\AccountRepository;
+use App\Repositories\Profile\ProfileRepository;
+use App\Repositories\Profile\ProfileInterface;
+
 
 use Illuminate\Support\ServiceProvider;
 
@@ -29,6 +32,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(RequirementInterface::class, RequirementRepository::class);
         $this->app->bind(NotificationsInterface::class, NotificationsRepository::class);
         $this->app->bind(AccountInterface::class, AccountRepository::class);
+        $this->app->bind(ProfileInterface::class, ProfileRepository::class);
     }
 
     /**

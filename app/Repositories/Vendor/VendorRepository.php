@@ -27,7 +27,6 @@ class VendorRepository implements VendorInterface{
     {
 		
         $randomPassword = Str::random(10);
-        
         $user = User::create(['role_id'=>2,'is_verified'=>$data->verify_status,'username'=>$data->first_name,'email'=>$data->email,'password'=>bcrypt($randomPassword)]);
         
         $vendorObj = new Vendor();
@@ -38,20 +37,13 @@ class VendorRepository implements VendorInterface{
         $vendorObj->mobile_number = $data->mobile_number;
         
         if ($image = $data->file('profile_image')) {
-            
-            $destinationPath = storage_path('app/public/images');
-            if(!is_dir($destinationPath)) {
-                mkdir($destinationPath, 0755, true);
-            }
-            $extension = $image->getClientOriginalExtension();
-            $imageName = $image->getClientOriginalName();
-            $imageConvertName = md5(uniqid($imageName)).'.'.$extension;
-            $image->move($destinationPath, $imageConvertName);
-            $vendorObj->profile_image = $imageConvertName;
+            $path = 'images';
+            $imageData = uploadFile($image,$path);
+            $vendorObj->profile_image = $imageData;
         }
         
         $vendorObj->save();
-
+            
         $companyDetail = Company::create(['vendor_id'=>$vendorObj->id,'company_name'=>$data->company_name,
         'address'=>$data->address,'state'=>$data->state,'city'=>$data->city,'pincode'=>$data->pincode,'contact_number'=>$data->contact_number
         ,'fax'=>$data->fax,'website'=>$data->website]);
@@ -102,23 +94,17 @@ class VendorRepository implements VendorInterface{
         $vendor->middle_name = $data->middle_name;
         $vendor->last_name = $data->last_name;
         $vendor->mobile_number = $data->mobile_number;
+           
         if ($image = $data->file('profile_image')) {
-            
-            $destinationPath = storage_path('app/public/images');
-            if(!is_dir($destinationPath)) {
-                mkdir($destinationPath, 0755, true);
-            }
-            $extension = $image->getClientOriginalExtension();
-            $imageName = $image->getClientOriginalName();
-            $imageConvertName = md5(uniqid($imageName)).'.'.$extension;
-            $image->move($destinationPath, $imageConvertName);
-            $vendor->profile_image = $imageConvertName;
+            $path = 'images';
+            $imageData = uploadFile($image,$path);
+            $vendor->profile_image = $imageData;
         }
-
+        
         $vendor->save();
         
         $user = User::where('id','=',$vendor->user_id)->update(['email'=>$data->email,'is_verified'=>$data->verify_status]);
-
+        
         $company = Company::where('vendor_id','=',$id)->update(['company_name'=>$data->company_name,
         'address'=>$data->address,'state'=>$data->state,'city'=>$data->city,'pincode'=>$data->pincode,'contact_number'=>$data->contact_number
         ,'fax'=>$data->fax,'website'=>$data->website]);
@@ -128,6 +114,5 @@ class VendorRepository implements VendorInterface{
         return $vendor;
 
     }
-
 
 }

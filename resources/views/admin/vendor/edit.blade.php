@@ -216,7 +216,7 @@
                </div>
                <div class= "col-sm-6">
                   <div class="form-group">
-                     <img src="{{asset('/storage/images/'.$vendor->profile_image)}}" class="profile-image" alt="profile Image" height= "100px" height= "100px">
+                     <img src="{{asset('/uploads/images/'.$vendor->profile_image)}}" class="profile-image" alt="profile Image" height= "100px" height= "100px">
                   </div>
                </div>
             </div>

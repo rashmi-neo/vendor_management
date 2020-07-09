@@ -7,6 +7,7 @@ use App\Model\SupportContactDetail;
 use App\Model\BankDetail;
 use App\User;
 use Auth;
+use Illuminate\Support\Facades\Hash;
 use App\Model\Company;
 
 
@@ -41,18 +42,11 @@ class AccountRepository implements AccountInterface{
         $vendorDocument->document_id = $data->document_id;
         $vendorDocument->reason = $data->reason;
 
-        if ($docFile = $data->file('file')) {
-            
-            $destinationPath = storage_path('app/public/uploads');
-            if(!is_dir($destinationPath)) {
-                mkdir($destinationPath, 0755, true);
-            }
-            
-            $extension = $docFile->getClientOriginalExtension();
-            $documentName = $docFile->getClientOriginalName();
-            $documentConvertName = md5(uniqid($documentName)).'.'.$extension;
-            $docFile->move($destinationPath, $documentConvertName);
-            $vendorDocument->file_name = $documentConvertName;
+        
+        if ($document = $data->file('file')) {
+            $path = 'uploads';
+            $data = uploadFile($document,$path);
+            $vendorDocument->file_name = $data;
         }
         
         $vendorDocument->save();
@@ -107,7 +101,6 @@ class AccountRepository implements AccountInterface{
      */
     public function updateVendor($id,$data)
     {
-        
         $vendor = Vendor::with('vendorCategory','vendorCategory.category','company','user')->find($id);
         
         $vendor->first_name = $data->first_name;
@@ -115,24 +108,18 @@ class AccountRepository implements AccountInterface{
         $vendor->last_name = $data->last_name;
         $vendor->mobile_number = $data->phone_number;
         
+        
         if ($image = $data->file('profile_image')) {
-            
-            $destinationPath = storage_path('app/public/images');
-            if(!is_dir($destinationPath)) {
-                mkdir($destinationPath, 0755, true);
-            }
-            $extension = $image->getClientOriginalExtension();
-            $imageName = $image->getClientOriginalName();
-            $imageConvertName = md5(uniqid($imageName)).'.'.$extension;
-            $image->move($destinationPath, $imageConvertName);
-            $vendor->profile_image = $imageConvertName;
+            $path = 'images';
+            $imageData = uploadFile($image,$path);
+            $vendor->profile_image = $imageData;
         }
 
         $vendor->save();
+       
+        $user = User::where('id','=',$vendor->user_id)->update(['email'=>$data->email,'password'=>Hash::make($data->new_password)]);
         
-        $user = User::where('id','=',$vendor->user_id)->update(['email'=>$data->email]);
-        
-        return $vendor;
+        return $user;
     }
 
     /**

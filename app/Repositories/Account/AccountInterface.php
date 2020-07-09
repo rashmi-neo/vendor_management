@@ -5,9 +5,7 @@ use Illuminate\Http\Request;
 
 interface AccountInterface{ 
 	
-    
-    
-    
+
     /**
      * Find specific  vendor .
      *

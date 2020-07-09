@@ -112,6 +112,7 @@ class AccountController extends Controller
     public function updateVendorDetail(VendorRequest $request, $id)
     {
         $requestData = $request;
+       
         try{
             
             $vendorDetail = $this->accountRepository->updateVendor($id,$requestData);

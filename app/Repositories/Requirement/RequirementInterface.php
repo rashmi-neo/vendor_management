@@ -46,4 +46,10 @@ interface RequirementInterface{
     public function delete($id);
 
     public function getVendorDetails($id);
+
+    public function getAllCategories();
+
+    public function getAssignVendors($id);
+
+    public function getVendorDetailsAsPerRequirement($id);
 }

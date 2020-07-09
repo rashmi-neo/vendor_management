@@ -45,7 +45,7 @@
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 {data: 'title', name: 'title'},
-                {data: 'category', name: 'category'},
+                {data: 'category_id', name: 'category'},
                 {data: 'priority', name: 'priority'},
                 {data: 'created_at', name: 'date'},
                 {data: 'status', name: 'status'},

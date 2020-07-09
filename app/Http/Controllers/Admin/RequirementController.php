@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Model\Category;
 use App\Model\Vendor;
 use App\Http\Requests\StoreRequirementRequest;
+use App\Http\Requests\UpdateRequirementRequest;
 use App\Model\AssignVendor;
 use App\Model\Requirement;
 use DataTables;
@@ -37,12 +38,6 @@ class RequirementController extends Controller
     * @return void
     */
     public function index(Request $request){
-        // $data = $this->requirementRepository->all();
-        // dd($data);
-        // foreach($data as $data1)
-        // {
-        //     dd($data1->category->name);
-        // }
         if($request->ajax()){
             $data = $this->requirementRepository->all();
 
@@ -52,10 +47,6 @@ class RequirementController extends Controller
                 return date('d/m/y', strtotime($row->created_at) );
             })
             ->editColumn('category_id', function ($row){
-                // foreach($row as $data1)
-                // {
-                //     return $data1;
-                // }
                return $row->category->name;
             })
             ->addColumn('action', function($row){
@@ -69,15 +60,13 @@ class RequirementController extends Controller
 
      /**
     * Create requirement form.
-    *@author Bharti<bharati.tadvi@neosofttech.com>
+    *@author  Vikas<vikas.salekar@neosofttech.com>
     *
     *@return $categories,$vendors
     */
     public function create()
 	{
-		$categories = Category::where('status',1)->get();
-     //   $vendors = Vendor::get();
-
+        $categories = $this->requirementRepository->getAllCategories();
 		return view('admin.requirement.create',compact('categories'));
 	}
 
@@ -108,29 +97,19 @@ class RequirementController extends Controller
     */
     public function edit($id){
         $requirementEditDetails = $this->requirementRepository->get($id);
-        $categories = Category::where('status',1)->get();
-        // $vendorDetails = Requirement::with('vendor')->where('id',$id)->get();
-        // dd($vendorDetails);
-       // $vendorDetails = AssignVendor::with("vendor")->where('requirement_id',$id)->where('deleted_at',null)->get();
-       $vendorDetails = Vendor::join('vms_assign_vendors','vms_vendors.id','=','vms_assign_vendors.vendor_id')
-       ->join('vms_requirements','vms_assign_vendors.requirement_id','=','vms_requirements.id')
-       ->select('vms_vendors.id','vms_vendors.first_name','vms_vendors.middle_name','vms_vendors.last_name')
-       ->where('vms_assign_vendors.requirement_id',$id)
-       ->where('vms_assign_vendors.deleted_at',null)
-       ->get();
-    //   dd( $vendorDetails);
-        // $vendorDetails = $this->requirementRepository->getVendorDetails($id);
+        $categories = $this->requirementRepository->getAllCategories();
+        $vendorDetails = $this->requirementRepository->getVendorDetailsAsPerRequirement($id);
         return view('admin.requirement.edit',compact('requirementEditDetails','categories','vendorDetails'));
     }
 
         /**
      * Update the specified resource in storage.
-     *
+     *@author Vikas<vikas.salekar@neosofttech.com>
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return void
      */
-    public function update(StoreRequirementRequest $request, $id)
+    public function update(UpdateRequirementRequest $request, $id)
     {
         $requestData = $request;
         try{
@@ -157,8 +136,17 @@ class RequirementController extends Controller
         return response()->json($vendorDetails);
     }
 
-    public function show($id)
+    /**
+    * showing requirements details.
+    *@author Vikas<vikas.salekar@neosofttech.com>
+    *
+    *@param  Illuminate\Http\Request
+    *@return void
+    */
+    public function show(Request $request,$id)
     {
-            return view('admin.requirement.show');
+        $showRequirementDetails = $this->requirementRepository->get($id);
+        $requirementVendors = $this->requirementRepository->getAssignVendors($id);
+        return view('admin.requirement.show',compact("showRequirementDetails","requirementVendors"));
     }
 }

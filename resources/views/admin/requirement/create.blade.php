@@ -157,8 +157,12 @@
         $('#vendor').select2({
             theme: 'bootstrap4'
         })
-         $(".datepicker").datepicker();
-    });
+        $('.datepicker').datetimepicker({
+    format: 'MM/DD/YYYY',
+    locale: 'en'
+  });
+    //      $(".datepicker").datetimepicker();
+     });
 
 // append the vendors as per category id.
    $("#category").click(function (e) {

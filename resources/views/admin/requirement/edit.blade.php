@@ -53,7 +53,6 @@
 				 		<label class="col-sm-3 label_class">Select Vendors</label>
 				 		<div class="col-sm-7">
 				 			<select class="form-control" id="vendor" name="vendor_id[]"  multiple="multiple" data-parsley-errors-container="#vendorError" data-parsley-required="true" data-parsley-error-message="Please select vendor">
-                            {{-- <option value="" disabled>Select vendor</option> --}}
                             @foreach ($vendorDetails as $vendors)
                             <option value="{{ $vendors->id }}"  selected>{{ $vendors->first_name }}</option>
                             @endforeach
@@ -122,13 +121,14 @@
                     <div class="form-group row">
                         <label for="document" class="col-sm-3 label_class">Proposal Document(if/any)</label>
                         <div class="col-sm-7">
-                            <input type="file" class="form-control"placeholder="Proposal Document" name="proposal_document" data-parsley-errors-container="#proposalDocumentError" data-parsley-required="true" data-parsley-error-message="Please select proposal document" value="{{$requirementEditDetails->proposal_document}}">
+
+                            <input type="file" class="form-control"placeholder="Proposal Document" name="proposal_document"  value="{{$requirementEditDetails->proposal_document}}">
+                            <div>{{$requirementEditDetails->proposal_document}}</div>
                             @error('proposal_document')
                             <span class="text-danger errormsg" role="alert">
                                <p>{{ $message }}</p>
                             </span>
                             @enderror
-                            <span id="proposalDocumentError"><span>
                         </div>
                     </div>
 				 	<div class="form-group row">

@@ -53,7 +53,6 @@ class StoreRequirementRequest extends FormRequest
             'priority.required' => 'Please select priority',
             'proposal_document.required' => 'Please upload proposal document',
             'proposal_document.max' => 'Maximum file size to upload is 10MB',
-            'contact_number.mimes' => 'Please select valid file',
         ];
     }
 }

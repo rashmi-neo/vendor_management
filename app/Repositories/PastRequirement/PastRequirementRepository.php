@@ -23,12 +23,23 @@ class  PastRequirementRepository implements PastRequirementInterface{
      */
     public function all()
     {
-        
+        $requirements = [];
         $id =\Auth::user()->id;
         
-        $pastRequirements = Vendor::where('user_id',\Auth::user()->id)->with('vendorCategory','vendorCategory.category',
-        'assignVendor','assignVendor.requirement')->get();
-        return $pastRequirements;
+        $pastRequirements = Vendor::where('user_id',$id)->where('deleted_at',null)
+         ->with(['assignVendor','assignVendor.requirement' => function ($query){
+                $query->where('deleted_at',null)->whereIn('status',['completed','cancelled']);
+            }])->get();
+        
+        foreach($pastRequirements as $pastRequirement){
+            foreach($pastRequirement->assignVendor as $assign){
+                if(isset($assign->requirement)){
+                    $requirements[] = $assign->requirement;
+                }
+            }
+        }
+
+        return $requirements;
     }
 
     /**

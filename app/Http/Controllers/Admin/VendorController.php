@@ -156,6 +156,7 @@ class VendorController extends Controller
     {   
         $vebdorId = $id;
         $vendor = $this->vendorRepository->find($vebdorId);
+        
         try {
             if($vendor){
                 return view('admin.vendor.show',compact('vendor'));

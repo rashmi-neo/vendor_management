@@ -40,7 +40,7 @@ class RequirementController extends Controller
     public function index(Request $request){
         if($request->ajax()){
             $data = $this->requirementRepository->all();
-
+            
             return Datatables::of($data)
             ->addIndexColumn()
             ->editColumn('created_at', function ($row){

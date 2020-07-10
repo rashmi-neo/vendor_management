@@ -18,7 +18,7 @@
                      Title  : 
                   </th>
                   <td>
-                     <span></span>
+                     <span>{{$pastRequirement->title}}</span>
                   </td>
                </tr>
                <tr>
@@ -26,15 +26,15 @@
                     Category  : 
                   </th>
                   <td>
-                     <span></span>
+                     <span>{{$category->vendorCategory->category->name}}</span>
                   </td>
                </tr>
                <tr>
                   <th>
-                    Priority  : 
+                    Priority  :
                   </th>
                   <td>
-                     <span></span>
+                     <span> {{$pastRequirement->priority}}</span>
                   </td>
                </tr>
                <tr>
@@ -42,7 +42,7 @@
                     Status  :
                   </th>
                   <td>
-                     <span></span>
+                     <span>{{$pastRequirement->status}}</span>
                   </td>
                </tr>
             <tbody>

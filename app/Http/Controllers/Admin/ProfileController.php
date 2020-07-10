@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use DataTables;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProfileRequest;
-use App\Model\User;
 use App\Repositories\Profile\ProfileInterface as ProfileInterface;
 
 class ProfileController extends Controller
@@ -91,6 +90,7 @@ class ProfileController extends Controller
         
         try{
             $user = $this->profileRepository->update($id,$request);
+            
             if($user){
                 return redirect()->route('profiles.index')->with('success', 'Profile is successfully updated');
             }

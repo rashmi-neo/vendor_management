@@ -79,12 +79,26 @@ function markAsRead(id)
   }
 
 $(function(){
-    $('.datepicker').daterangepicker({
+    var today = new Date();
+    $('#requirmentFromDate').daterangepicker({
         singleDatePicker: true,
         showDropdowns: true,
+        minDate:today,
         locale: {
         format: 'YYYY-MM-DD'
         },
+    });
+    $('input[id="requirmentFromDate"]').on('apply.daterangepicker', function(ev, picker) {
+         fromMinDate = new Date($('#requirmentFromDate').val());
+       //fromMinDate = moment(minDate1).format('YYYY-MM-DD');
+       $('#requirmentToDate').daterangepicker({
+        singleDatePicker: true,
+        showDropdowns: true,
+        minDate:fromMinDate,
+        locale: {
+        format: 'YYYY-MM-DD'
+        },
+    });
     });
 });
 

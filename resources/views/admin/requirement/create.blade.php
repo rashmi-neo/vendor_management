@@ -76,7 +76,7 @@
                     <div class="form-group row">
                         <label for="budget" class="col-sm-3 label_class">From Date</label>
                             <div class="col-sm-7">
-                             <input type="text" placeholder="select from date" data-date-format="yyyy-mm-dd"  name="fromDate" class="form-control datepicker" data-parsley-errors-container="#fromDateError" data-parsley-required="true" data-parsley-error-message="Please select from date" value="{{old("fromDate")}}">
+                             <input type="text" placeholder="select from date" data-date-format="yyyy-mm-dd"  id="requirmentFromDate" name="fromDate" class="form-control datepicker" data-parsley-errors-container="#fromDateError" data-parsley-required="true" data-parsley-error-message="Please select from date" value="{{old("fromDate")}}">
                              @error('fromDate')
                              <span class="text-danger errormsg" role="alert">
                                 <p>{{ $message }}</p>
@@ -88,7 +88,7 @@
                     <div class="form-group row">
                         <label for="budget" class="col-sm-3 label_class">To Date</label>
                             <div class="col-sm-7">
-                             <input type="text" placeholder="select to date" data-date-format="yyyy-mm-dd"   name="toDate" class="form-control datepicker" data-parsley-errors-container="#toDateError" data-parsley-required="true" data-parsley-error-message="Please select to date"  value="{{old("toDate")}}">
+                             <input type="text" placeholder="select to date" data-date-format="yyyy-mm-dd"  id="requirmentToDate" name="toDate" class="form-control datepicker" data-parsley-errors-container="#toDateError" data-parsley-required="true" data-parsley-error-message="Please select to date"  value="{{old("toDate")}}">
                              @error('toDate')
                              <span class="text-danger errormsg" role="alert">
                                 <p>{{ $message }}</p>

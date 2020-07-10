@@ -80,7 +80,7 @@
                     <div class="form-group row">
                         <label for="budget" class="col-sm-3 label_class">From Date</label>
                             <div class="col-sm-7">
-                             <input type="text" placeholder="select from date" data-date-format="yyyy-mm-dd"  name="fromDate" class="form-control datepicker" data-parsley-errors-container="#fromDateError" data-parsley-required="true" data-parsley-error-message="Please select from date" value="{{$requirementEditDetails->from_date}}">
+                             <input type="text" placeholder="select from date" id="requirmentFromDate" data-date-format="yyyy-mm-dd"  name="fromDate" class="form-control datepicker" data-parsley-errors-container="#fromDateError" data-parsley-required="true" data-parsley-error-message="Please select from date" value="{{$requirementEditDetails->from_date}}">
                              @error('fromDate')
                              <span class="text-danger errormsg" role="alert">
                                 <p>{{ $message }}</p>
@@ -92,7 +92,7 @@
                     <div class="form-group row">
                         <label for="budget" class="col-sm-3 label_class">To Date</label>
                             <div class="col-sm-7">
-                             <input type="text" placeholder="select to date" data-date-format="yyyy-mm-dd"   name="toDate" class="form-control datepicker" data-parsley-errors-container="#toDateError" data-parsley-required="true" data-parsley-error-message="Please select to date"  value="{{$requirementEditDetails->to_date}}">
+                             <input type="text" placeholder="select to date" id="requirmentToDate" data-date-format="yyyy-mm-dd"   name="toDate" class="form-control datepicker" data-parsley-errors-container="#toDateError" data-parsley-required="true" data-parsley-error-message="Please select to date"  value="{{$requirementEditDetails->to_date}}">
                              @error('toDate')
                              <span class="text-danger errormsg" role="alert">
                                 <p>{{ $message }}</p>
@@ -173,7 +173,6 @@
         url: "../vendors/"+id,
         dataType: "json",
         success: function(result){
-            alert(id);
             $("#vendor").empty();
             $.each(result,function(key,val){
                 $("#vendor").append('<option value='+val.vendor.id+' selected>'+val.vendor.first_name+'</option>');

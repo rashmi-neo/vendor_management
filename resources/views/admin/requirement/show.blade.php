@@ -21,6 +21,10 @@
                 <input type="hidden" value="{{ $showRequirementDetails->id }}" id="requirementId" name="requirementId">
                 <table>
                     <tr>
+                        <th>Requirement ID</th>
+                        <td>: {{ $showRequirementDetails->id }}</td>
+                    </tr>
+                    <tr>
                         <th>Title</th>
                         <td>: {{ $showRequirementDetails->title }}</td>
                     </tr>
@@ -55,6 +59,7 @@
                     <thead>
                         <tr>
                             <th>SrNo</th>
+                            <th>Request Id</th>
                             <th>Title</th>
                             <th>Vendor Name</th>
                             <th>Phone Number</th>
@@ -67,10 +72,11 @@
                         @foreach ($requirementVendors as $key=>$vendor)
                         <tr>
                             <td>{{ $key+1 }}</td>
+                            <td>{{ $vendor->code }}</td>
                             <td>{{ $vendor->title }}</td>
                             <td>{{ $vendor->first_name }}</td>
                             <td>{{ $vendor->mobile_number }}</td>
-                            <td>{{ $vendor->proposal_document }}</td>
+                            <td>{{ $vendor->quatation_doc }}</td>
                             <td>{{ $vendor->comment }}</td>
                             <td>
                                 <a href="{{ route('requirements.edit', $vendor->id)}}" rel="tooltip" title="Edit" class="edit btn btn-primary btn-sm editRequirement"><i class="fas fa-pencil-alt"></i></a>&nbsp;

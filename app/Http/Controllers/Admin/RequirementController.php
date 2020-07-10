@@ -12,7 +12,7 @@ use App\Model\Requirement;
 use DataTables;
 use Exception;
 use App\Repositories\Requirement\RequirementInterface as RequirementInterface;
-
+use App\Repositories\Notifications\NotificationsInterface as NotificationsInterface;
 
 class RequirementController extends Controller
 {
@@ -24,9 +24,11 @@ class RequirementController extends Controller
     * @return \App\Repositories\RequirementRepository
     */
     private $requirementRepository;
+    private $notificationRepository;
 
-    public function __construct(RequirementInterface $requirementRepository){
+    public function __construct(RequirementInterface $requirementRepository,NotificationsInterface $notificationRepository){
         $this->requirementRepository = $requirementRepository;
+        $this->notificationRepository = $notificationRepository;
     }
 
 
@@ -82,6 +84,18 @@ class RequirementController extends Controller
         $requestData =$request;
         try {
             $requirement = $this->requirementRepository->save($requestData);
+            $emailResp = $this->sendMailToVendor($requestData);
+
+            //Working on this module
+
+            //send notification to vendors
+             $vendorsIds = $requestData->vendor_id;
+             $getVendorsData = Vendor::whereIn('id',$vendorsIds)->get();
+            foreach($getVendorsData as $vendor)
+            {
+                $data = ['user_id'=>$vendor->user_id,'title'=>'Requirement assign to vendor','text'=>'Assign New Requirement from','type'=>'document_update','status'=>'unread'];
+                $notification = $this->notificationRepository->save($data);
+            }
             return redirect()->route('requirements.index')->with('success','Requirement details saved successfully');
         } catch (Exception $e) {
             return redirect()->back()->with('error',$e->getMessage());
@@ -148,5 +162,21 @@ class RequirementController extends Controller
         $showRequirementDetails = $this->requirementRepository->get($id);
         $requirementVendors = $this->requirementRepository->getAssignVendors($id);
         return view('admin.requirement.show',compact("showRequirementDetails","requirementVendors"));
+    }
+
+    public function sendMailToVendor($requestData)
+    {
+        $vendors = $requestData->vendor_id;
+        $vendorEmail = Vendor::with('user')->whereIn('id',$vendors)->get();
+        foreach($vendorEmail as $vendor)
+        {
+            $details['email'] = $vendor->user->email;
+            $details['subject']='Requirement Assign';
+            $details['body'] = 'please check the requirements';
+            $details['from']='vikas.salekat@neosofttech.com';
+            //$details['requestData']=$requestData;
+            dispatch(new \App\Jobs\SendMailToVendor($details))->delay(now()->addSeconds(10));
+
+        }
     }
 }

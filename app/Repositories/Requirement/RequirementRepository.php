@@ -38,7 +38,7 @@ class RequirementRepository implements RequirementInterface{
      */
     public function all()
     {
-    	$requirement = Requirement::with("category")->get();
+    	$requirement = Requirement::with("category") ->where('deleted_at',null)->get();
     	return $requirement;
     }
 
@@ -83,8 +83,9 @@ class RequirementRepository implements RequirementInterface{
             $assignVendor->vendor_id = $vendor;
             $assignVendor->requirement_id = $requirementObj->id;
             $assignVendor->save();
-
         }
+
+       // $emailResp = $this->sendMailToVendor($data);
 
         return  $requirementObj;
     }
@@ -194,7 +195,7 @@ class RequirementRepository implements RequirementInterface{
      */
     public function getAllCategories()
     {
-        return  Category::where('status',1)->get();
+        return  Category::where('status',1) ->where('deleted_at',null)->get();
     }
 
      /**
@@ -208,8 +209,10 @@ class RequirementRepository implements RequirementInterface{
     {
         return  Requirement::join('vms_assign_vendors','vms_requirements.id','=','vms_assign_vendors.requirement_id')
         ->join('vms_vendors','vms_assign_vendors.vendor_id','=','vms_vendors.id')
+        ->join('vms_vendor_quatation','vms_assign_vendors.id','=','vms_vendor_quatation.assign_vendor_id')
         ->where('vms_assign_vendors.requirement_id',$id)
         ->where('vms_assign_vendors.deleted_at',null)
+        ->where('vms_vendors.deleted_at',null)
         ->get();
     }
 
@@ -226,6 +229,20 @@ class RequirementRepository implements RequirementInterface{
         ->select('vms_vendors.id','vms_vendors.first_name','vms_vendors.middle_name','vms_vendors.last_name')
         ->where('vms_assign_vendors.requirement_id',$id)
         ->where('vms_assign_vendors.deleted_at',null)
+        ->where('vms_requirements.deleted_at',null)
         ->get();
     }
+    // public function sendMailToVendor($data)
+    // {
+    //     $vendors = $data->vendor_id;
+    //     $vendorEmail = Vendor::with('user')->whereIn('id',$vendors)->get();
+    //     foreach($vendorEmail as $vendor)
+    //     {
+    //         $details['email'] = $vendor->user->email;
+    //         $details['subject']='Requirement Assign';
+    //         $details['body'] = 'please check the requirements';
+    //         $details['from']='vikas.salekat@neosofttech.com';
+    //         dispatch(new \App\Jobs\SendEmailJob($details));
+    //     }
+    // }
 }

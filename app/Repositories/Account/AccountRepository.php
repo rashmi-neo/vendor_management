@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Hash;
 use App\Model\Company;
 
 
-
 class AccountRepository implements AccountInterface{
 
     public $vendor;
@@ -42,7 +41,6 @@ class AccountRepository implements AccountInterface{
         $vendorDocument->document_id = $data->document_id;
         $vendorDocument->reason = $data->reason;
 
-        
         if ($document = $data->file('file')) {
             $path = 'uploads';
             $data = uploadFile($document,$path);

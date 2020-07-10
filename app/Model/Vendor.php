@@ -44,4 +44,9 @@ class Vendor extends Model
     {   
      return $this->hasOne('App\Model\VendorDocument','vendor_id');
     }
+
+    public function assignVendor()
+    {
+        return $this->hasMany('App\Model\AssignVendor','vendor_id');
+    }
 }

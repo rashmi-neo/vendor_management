@@ -21,4 +21,9 @@ class Requirement extends Model
         'category_id','code','title','description','proposal_document','comment',
         'status','from_date','to_date','priority','budget'
     ];
+
+    public function assignVendor() 
+    {   
+     return $this->belongsToMany('App\Model\AssignVendor','requirement_id');
+    }
 }

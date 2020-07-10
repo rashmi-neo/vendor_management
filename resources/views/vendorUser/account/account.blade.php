@@ -137,6 +137,7 @@
             <div class="tab-pane fade" id="company-detail" role="tabpanel" aria-labelledby="custom-tabs-four-company-detail-tab">
                <form class="form-horizontal" method="post" action="{{ route('accounts.company.update', $vendor->id ) }}" data-parsley-validate="parsley">
                   @csrf
+                  <input type="hidden" name="tab" value="company-detail">
                   <div class="form-group row">
                      <label for="company_name" class="col-sm-2 col-form-label">Company Name</label>
                      <div class="col-sm-8">
@@ -251,6 +252,7 @@
             <div class="tab-pane fade" id="supportContactDetail" role="tabpanel" aria-labelledby="custom-tabs-four-support-contact-tab">
                <form class="form-horizontal" method="post" action="{{ route('accounts.contact.detail.store') }}" data-parsley-validate="parsley">
                   @csrf
+                  <input type="hidden" name="tab" value="supportContactDetail">
                   <input type="hidden" name="vendor_id" value="{{$vendor->id}}"/>
                   <div class="form-group row">
                      <label for="name" class="col-sm-2 col-form-label">Name</label>
@@ -298,6 +300,7 @@
                <form class="form-horizontal" method="post" action="{{ route('accounts.bank.detail.store') }}" data-parsley-validate="parsley">
                   @csrf
                   <input type="hidden" name="vendor_id" value="{{$vendor->id}}"/>
+                  <input type="hidden" name="tab" value="bankDetail">
                   <div class="form-group row">
                      <label for="bank_name" class="col-sm-2 col-form-label">Bank Name</label>
                      <div class="col-sm-8">
@@ -356,7 +359,7 @@
       <!-- /.card -->
    </div>
 </div>
-<form class="form-horizontal" method="post" action="{{route('accounts.document.store')}}" data-parsley-validate="parsley" enctype="multipart/form-data">
+<form class="form-horizontal" id="documentForm" method="post" action="{{route('accounts.document.store')}}" data-parsley-validate="parsley" enctype="multipart/form-data">
    @csrf
    <div class="modal fade" id="uploadDocument"aria-modal="true">
       <input type="hidden" name="vendor_id" value="{{$vendor->id}}"/>
@@ -387,18 +390,15 @@
                      <p>{{ $message }}</p>
                   </span>
                   @enderror
-                  <span id="document-file"><span>
                </div>
                <div class="form-group mb-3">
                   <label>Reason</label>
-                  <input type="text" class="form-control" placeholder="Enter Reason Detail" id="product_detail" name="product_detail">
-                  <span class="text-danger error-product-detail" role="alert">
-                  </span>
+                  <input type="text" class="form-control" placeholder="Enter Reason Detail" id="reason" name="product_detail">
                </div>
             </div>
             <div class="modal-footer justify-content-between">
                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-               <button type="submit" class="btn btn-primary">Upload</button>
+               <button type="submit" id="saveDocument" class="btn btn-primary">Upload</button>
             </div>
          </div>
          <!-- /.modal-content -->
@@ -408,12 +408,23 @@
 <form>
 @endsection
 @section('scripts')
+
+@if(Session::has('errors'))
+<script>
+   $(document).ready(function(){
+      $('#uploadDocument').modal({show: true});
+   });
+</script>
+@endif
 <script type="text/javascript">
    $(document).ready(function() {
       $('body').on('click', '.uploadDocument', function () {
          var document_id = $(this).data('id');
          $('#documentFile').val(document_id);
       });
+      
+      $('#custom-tabs-four-tab a[href="#{{ old('tab') }}"]').tab('show')
+
    });
 
    $(function(){
@@ -421,10 +432,15 @@
          $('#successMessage').fadeOut('fast');
       }, 3000);     
   });
+  
   $(function(){
       setTimeout(function() {
          $('#errorMessage').fadeOut('fast');
       }, 3000);     
   });
+
+  
+
 </script>
+
 @endsection

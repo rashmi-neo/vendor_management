@@ -65,6 +65,8 @@ Route::post('accounts/document/store', 'AccountController@documentStore')->name(
 Route::post('accounts/contact-details/store', 'AccountController@supportContactStore')->name('accounts.contact.detail.store');
 Route::post('accounts/bank-details/store', 'AccountController@bankDetailStore')->name('accounts.bank.detail.store');
 Route::post('accounts/update/{id}', 'AccountController@updateVendorDetail')->name('accounts.vendor.update');
+Route::get('past/requirements', 'PastRequirementController@index')->name('past.requirement.index');
+Route::get('past/requirements/show/{id}', 'PastRequirementController@show')->name('past.requirement.show');
 });
 
 

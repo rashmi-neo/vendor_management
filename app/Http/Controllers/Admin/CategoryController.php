@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Auth;
 use DataTables;
 use App\Repositories\Category\CategoryInterface as CategoryInterface;
 use App\Http\Requests\VendorCategory;

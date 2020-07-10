@@ -59,7 +59,7 @@ class AccountController extends Controller
     *@return void
     */
     public function documentStore(DocumentRequest $request){
-
+        
         try {
             $vendor = $this->accountRepository->documentSave($request);
             return redirect()->route('accounts.index')->with('success','Document save successfully');
@@ -77,9 +77,11 @@ class AccountController extends Controller
     *@return void
     */
     public function supportContactStore(SupportContactRequest $request){
+        
         try {
+            $tab = $request->get('tab');
             $contactDetail = $this->accountRepository->supportContactSave($request);
-            return redirect()->route('accounts.index')->with('success','Contact detail save successfully');
+            return redirect()->route('accounts.index')->withInput(['tab'=>$tab])->with('success','Contact detail save successfully');
         } catch (Exception $e) {
             return redirect()->back()->with('error','Something went wrong');
         }
@@ -93,9 +95,11 @@ class AccountController extends Controller
     *@return void
     */
     public function bankDetailStore(BankDetailRequest $request){
+                
         try {
+            $tab = $request->get('tab');
             $bankDetail = $this->accountRepository->bankDetailSave($request);
-            return redirect()->route('accounts.index')->with('success','Bank details save successfully');
+            return redirect()->route('accounts.index')->withInput(['tab'=>$tab])->with('success','Bank details save successfully');
         } catch (Exception $e) {
             return redirect()->back()->with('error','Something went wrong');
         }
@@ -137,9 +141,10 @@ class AccountController extends Controller
         $requestData = $request;
         
         try{
+            $tab = $request->get('tab');
             $companyDetail = $this->accountRepository->updateCompany($id,$requestData);
             if($companyDetail){
-                return redirect()->route('accounts.index')->with('success', 'Company Detail is successfully updated');
+                return redirect()->route('accounts.index')->withInput(['tab'=>$tab])->with('success', 'Company Detail is successfully updated');
             }
             return redirect()->route('accounts.index')->with('error','Company not found');
         }catch(\Exception $ex){

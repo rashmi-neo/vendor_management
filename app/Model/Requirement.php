@@ -26,4 +26,14 @@ class Requirement extends Model
     {   
      return $this->belongsToMany('App\Model\AssignVendor','requirement_id');
     }
+    
+    public function vendor()
+    {
+      return $this->belongsToMany('App\Model\Vendor','vms_assign_vendors','vendor_id','requirement_id');
+    }
+    
+    public function category()
+    {
+      return $this->belongsTo('App\Model\Category','category_id');
+    }
 }

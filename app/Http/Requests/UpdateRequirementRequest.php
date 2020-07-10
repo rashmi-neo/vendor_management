@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreRequirementRequest extends FormRequest
+class UpdateRequirementRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -31,9 +31,10 @@ class StoreRequirementRequest extends FormRequest
             'fromDate' => 'required',
             'toDate' => 'required',
             'priority' => 'required',
-            'proposal_document' => 'required|file|max:10000|mimes:xls,pdf,xlsx,doc,docx',
+          //  'proposal_document' => 'required|file|max:10000|mimes:xls,pdf,xlsx,doc,docx',
         ];
     }
+
         /**
      * Custom message for validation
      *
@@ -51,8 +52,9 @@ class StoreRequirementRequest extends FormRequest
             'fromDate.required' => 'Please select from date',
             'toDate.required' => 'Please select to date',
             'priority.required' => 'Please select priority',
-            'proposal_document.required' => 'Please upload proposal document',
-            'proposal_document.max' => 'Maximum file size to upload is 10MB',
+            // 'proposal_document.required' => 'Please upload proposal document',
+            // 'proposal_document.max' => 'Maximum file size to upload is 10MB',
+           // 'contact_number.mimes' => 'Please select valid file',
         ];
     }
 }

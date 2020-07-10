@@ -36,7 +36,7 @@ interface RequirementInterface{
      * @param int
      * @param array
      */
-    public function update($id,array $data);
+    public function update($id,$data);
 
     /**
      * Deletes a requirement.
@@ -46,4 +46,10 @@ interface RequirementInterface{
     public function delete($id);
 
     public function getVendorDetails($id);
+
+    public function getAllCategories();
+
+    public function getAssignVendors($id);
+
+    public function getVendorDetailsAsPerRequirement($id);
 }

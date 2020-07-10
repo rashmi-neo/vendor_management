@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Model\Category;
 use App\Model\Vendor;
 use App\Http\Requests\StoreRequirementRequest;
+use App\Http\Requests\UpdateRequirementRequest;
+use App\Model\AssignVendor;
+use App\Model\Requirement;
 use DataTables;
 use Exception;
 use App\Repositories\Requirement\RequirementInterface as RequirementInterface;
@@ -40,6 +43,12 @@ class RequirementController extends Controller
 
             return Datatables::of($data)
             ->addIndexColumn()
+            ->editColumn('created_at', function ($row){
+                return date('d/m/y', strtotime($row->created_at) );
+            })
+            ->editColumn('category_id', function ($row){
+               return $row->category->name;
+            })
             ->addColumn('action', function($row){
                 return view('admin.requirement.actions', compact('row'));
             })
@@ -51,15 +60,13 @@ class RequirementController extends Controller
 
      /**
     * Create requirement form.
-    *@author Bharti<bharati.tadvi@neosofttech.com>
+    *@author  Vikas<vikas.salekar@neosofttech.com>
     *
     *@return $categories,$vendors
     */
     public function create()
 	{
-		$categories = Category::where('status',1)->get();
-     //   $vendors = Vendor::get();
-
+        $categories = $this->requirementRepository->getAllCategories();
 		return view('admin.requirement.create',compact('categories'));
 	}
 
@@ -90,9 +97,30 @@ class RequirementController extends Controller
     */
     public function edit($id){
         $requirementEditDetails = $this->requirementRepository->get($id);
-        //dd($requirementEditDetails);
-        $categories = Category::where('status',1)->get();
-        return view('admin.requirement.edit',compact('requirementEditDetails','categories'));
+        $categories = $this->requirementRepository->getAllCategories();
+        $vendorDetails = $this->requirementRepository->getVendorDetailsAsPerRequirement($id);
+        return view('admin.requirement.edit',compact('requirementEditDetails','categories','vendorDetails'));
+    }
+
+        /**
+     * Update the specified resource in storage.
+     *@author Vikas<vikas.salekar@neosofttech.com>
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return void
+     */
+    public function update(UpdateRequirementRequest $request, $id)
+    {
+        $requestData = $request;
+        try{
+            $requirements = $this->requirementRepository->update($id,$requestData);
+            if($requirements){
+                return redirect()->route('requirements.index')->with('success', 'Requirement is successfully updated');
+            }
+            return redirect()->route('requirements.index')->with('error','Requirement not found');
+        }catch(Exception $ex){
+            return redirect()->route('requirements.index')->with('error',$ex->getMessage());
+        }
     }
 
     /**
@@ -106,5 +134,19 @@ class RequirementController extends Controller
     {
         $vendorDetails = $this->requirementRepository->getVendorDetails($id);
         return response()->json($vendorDetails);
+    }
+
+    /**
+    * showing requirements details.
+    *@author Vikas<vikas.salekar@neosofttech.com>
+    *
+    *@param  Illuminate\Http\Request
+    *@return void
+    */
+    public function show(Request $request,$id)
+    {
+        $showRequirementDetails = $this->requirementRepository->get($id);
+        $requirementVendors = $this->requirementRepository->getAssignVendors($id);
+        return view('admin.requirement.show',compact("showRequirementDetails","requirementVendors"));
     }
 }

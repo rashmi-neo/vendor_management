@@ -33,8 +33,8 @@ $(document).ready(function(){
 	                                  "hideEasing": "swing",
 	                                  "showMethod": "show",
 	                                  "hideMethod": "hide"
-	                                }  
-                                	Command: toastr.success(data_title+" Deleted Successfully"); 
+	                                }
+                                	Command: toastr.success(data_title+" Deleted Successfully");
                             }else{
 	                                toastr.options = {
 	                                  "closeButton": true,
@@ -49,7 +49,7 @@ $(document).ready(function(){
 	                                  "hideEasing": "swing",
 	                                  "showMethod": "show",
 	                                  "hideMethod": "hide"
-	                                }  
+	                                }
                                  Command: toastr.error("Some Error Occured");
 
                             }
@@ -57,10 +57,10 @@ $(document).ready(function(){
 	                });
 	            },
 	            cancel: function () {
-	                    
-	                } 
+
+	                }
 	        }
-    	});	
+    	});
 	});
 });
 
@@ -75,5 +75,31 @@ function markAsRead(id)
                 console.log("success");
             }
        });
-    
+
   }
+
+$(function(){
+    $('.datepicker').daterangepicker({
+        singleDatePicker: true,
+        showDropdowns: true,
+        locale: {
+        format: 'YYYY-MM-DD'
+        },
+    });
+});
+
+// append the vendors as per category id.
+$("#category").click(function (e) {
+    e.preventDefault();
+    var id= $(this).val();
+    $.ajax({
+    type: "GET",
+    url: "vendors/"+id,
+    dataType: "json",
+    success: function(result){
+        $("#vendor").empty();
+        $.each(result,function(key,val){
+            $("#vendor").append('<option value='+val.vendor.id+' selected>'+val.vendor.first_name+'</option>');
+        });
+     }});
+});

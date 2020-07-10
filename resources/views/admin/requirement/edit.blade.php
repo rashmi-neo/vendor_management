@@ -162,7 +162,6 @@
         $('#vendor').select2({
             theme: 'bootstrap4'
         })
-         $(".datepicker").datepicker();
     });
 
 // append the vendors as per category id.

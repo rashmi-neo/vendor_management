@@ -6,6 +6,7 @@ use App\Model\AssignVendor;
 use App\Model\Category;
 use App\Model\Vendor;
 use App\Model\VendorCategory;
+use App\Model\VendorQuotation;
 use App\Repositories\Requirement\RequirementInterface;
 
 class RequirementRepository implements RequirementInterface{
@@ -52,11 +53,12 @@ class RequirementRepository implements RequirementInterface{
      */
     public function save($data)
     {
+
         $requirementObj = new Requirement();
         $requirementObj->category_id = $data->category_id;
         $requirementObj->code = getRequirementCode();
         $requirementObj->title = $data->title;
-        if( $data->description == "")
+        if( $data->description == "" ||  $data->description == null)
         {
             $requirementObj->description = "";
         }
@@ -103,7 +105,7 @@ class RequirementRepository implements RequirementInterface{
         $requirementObj = Requirement::find($id);
         //$requirementObj = Requirement::find($id)->update($data);
 
-        $requirementObj->category_id = $data->category_id;
+       // $requirementObj->category_id = $data->category_id;
      //   $requirementObj->code = getRequirementCode();
         $requirementObj->title = $data->title;
         if( $data->description == "")
@@ -129,38 +131,37 @@ class RequirementRepository implements RequirementInterface{
             }
         }
 
-
-           $previousCategoryId = Requirement::where('id',$id)->select('category_id')->first();
-           if($previousCategoryId['category_id'] != $data->category_id)
-            {
-                AssignVendor::where('requirement_id',$requirementObj->id)->delete();
-                foreach($vendors as $vendor){
-                    AssignVendor::create(['vendor_id'=>$vendor,'requirement_id'=>$requirementObj->id]);
-                }
-            }
-            else
-            {
-                $previousVendors = AssignVendor::where('requirement_id',$requirementObj->id)->where("deleted_at",null)->select('vendor_id')->get();
-                if(count($vendors) < count($previousVendors))
-                {
-                    AssignVendor::where('requirement_id',$requirementObj->id)->whereNotIn('vendor_id',$vendors)->delete();
-                }
-                elseif(count($vendors) > count($previousVendors)){
-                   foreach($previousVendors as $prevVendors)
-                   {
-                       foreach($vendors as $vendorVal)
-                       {
-                            if($vendorVal != $prevVendors->vendor_id)
-                            {
-                                $newVendors[] =$vendorVal;
-                            }
-                       }
-                   }
-                   foreach($newVendors as $vendor){
-                    AssignVendor::create(['vendor_id'=>$vendor,'requirement_id'=>$requirementObj->id]);
-                }
-            }
-        }
+        //    $previousCategoryId = Requirement::where('id',$id)->select('category_id')->first();
+        //    if($previousCategoryId['category_id'] != $data->category_id)
+        //     {
+        //         AssignVendor::where('requirement_id',$requirementObj->id)->delete();
+        //         foreach($vendors as $vendor){
+        //             AssignVendor::create(['vendor_id'=>$vendor,'requirement_id'=>$requirementObj->id]);
+        //         }
+        //     }
+        //     else
+        //     {
+        //         $previousVendors = AssignVendor::where('requirement_id',$requirementObj->id)->where("deleted_at",null)->select('vendor_id')->get();
+        //         if(count($vendors) < count($previousVendors))
+        //         {
+        //             AssignVendor::where('requirement_id',$requirementObj->id)->whereNotIn('vendor_id',$vendors)->delete();
+        //         }
+        //         elseif(count($vendors) > count($previousVendors)){
+        //            foreach($previousVendors as $prevVendors)
+        //            {
+        //                foreach($vendors as $vendorVal)
+        //                {
+        //                     if($vendorVal != $prevVendors->vendor_id)
+        //                     {
+        //                         $newVendors[] =$vendorVal;
+        //                     }
+        //                }
+        //            }
+        //            foreach($newVendors as $vendor){
+        //             AssignVendor::create(['vendor_id'=>$vendor,'requirement_id'=>$requirementObj->id]);
+        //         }
+        //     }
+        // }
         $requirementObj->save();
         return  $requirementObj;
     }
@@ -195,7 +196,8 @@ class RequirementRepository implements RequirementInterface{
      */
     public function getAllCategories()
     {
-        return  Category::where('status',1) ->where('deleted_at',null)->get();
+      //  return  Category::where('status',1) ->where('deleted_at',null)->get();
+      return Category::where('status',1)->get()->sortBy('name', SORT_NATURAL | SORT_FLAG_CASE)->pluck('name','id');
     }
 
      /**
@@ -209,7 +211,8 @@ class RequirementRepository implements RequirementInterface{
     {
         return  Requirement::join('vms_assign_vendors','vms_requirements.id','=','vms_assign_vendors.requirement_id')
         ->join('vms_vendors','vms_assign_vendors.vendor_id','=','vms_vendors.id')
-        ->join('vms_vendor_quatation','vms_assign_vendors.id','=','vms_vendor_quatation.assign_vendor_id')
+        ->leftjoin('vms_vendor_quatation','vms_assign_vendors.id','=','vms_vendor_quatation.assign_vendor_id')
+        ->select('vms_vendors.first_name','vms_vendors.middle_name','vms_vendors.last_name','vms_vendors.mobile_number','vms_vendor_quatation.comment as vendor_comment','vms_vendor_quatation.admin_comment','vms_vendor_quatation.quatation_doc','vms_requirements.code','vms_requirements.id as requirement_id','vms_assign_vendors.id as assign_vendors_id','vms_assign_vendors.vendor_id','vms_requirements.title')
         ->where('vms_assign_vendors.requirement_id',$id)
         ->where('vms_assign_vendors.deleted_at',null)
         ->where('vms_vendors.deleted_at',null)
@@ -230,19 +233,21 @@ class RequirementRepository implements RequirementInterface{
         ->where('vms_assign_vendors.requirement_id',$id)
         ->where('vms_assign_vendors.deleted_at',null)
         ->where('vms_requirements.deleted_at',null)
-        ->get();
+        ->pluck('first_name','id');
     }
-    // public function sendMailToVendor($data)
-    // {
-    //     $vendors = $data->vendor_id;
-    //     $vendorEmail = Vendor::with('user')->whereIn('id',$vendors)->get();
-    //     foreach($vendorEmail as $vendor)
-    //     {
-    //         $details['email'] = $vendor->user->email;
-    //         $details['subject']='Requirement Assign';
-    //         $details['body'] = 'please check the requirements';
-    //         $details['from']='vikas.salekat@neosofttech.com';
-    //         dispatch(new \App\Jobs\SendEmailJob($details));
-    //     }
-    // }
+    public function addComment($request)
+    {
+        $vendorId = $request->id;
+        $comment = $request->comment;
+        $assignVendorId = $request->assignVendorId;
+        if($vendorId != "" && $comment != "" &&  $assignVendorId != "")
+        {
+            return $vendorQuotationObj = VendorQuotation::where('assign_vendor_id', $assignVendorId)
+            ->update(['admin_comment'=>$comment]);
+        }
+    }
+    public function showAssignVendorDetails($vendorAssignId)
+    {
+        return VendorQuotation::where('deleted_at',null)->where('assign_vendor_id',$vendorAssignId)->get();
+    }
 }

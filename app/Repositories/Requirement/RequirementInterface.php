@@ -52,4 +52,8 @@ interface RequirementInterface{
     public function getAssignVendors($id);
 
     public function getVendorDetailsAsPerRequirement($id);
+
+    public function addComment($request);
+
+    public function showAssignVendorDetails($vendorAssignId);
 }

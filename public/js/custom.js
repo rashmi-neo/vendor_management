@@ -103,7 +103,7 @@ $(function(){
 });
 
 // append the vendors as per category id.
-$("#category").click(function (e) {
+$("#category_id").click(function (e) {
     e.preventDefault();
     var id= $(this).val();
     $.ajax({

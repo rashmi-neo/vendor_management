@@ -12,8 +12,8 @@
             <div class="row">
                <div class= "col-sm-6">
                   <div class="form-group">
-                     <input type="text" class="form-control" name="first_name" placeholder="First name" 
-                        data-parsley-errors-container="#firstNameError" data-parsley-required="true" 
+                     <input type="text" class="form-control" name="first_name" placeholder="First name"
+                        data-parsley-errors-container="#firstNameError" data-parsley-required="true"
                         data-parsley-error-message="Please enter first name">
                   </div>
                   @error('first_name')
@@ -35,8 +35,8 @@
                @enderror
                <div class= "col-sm-6">
                   <div class="form-group">
-                     <input type="text" class="form-control" name="last_name" placeholder="Last name" 
-                        data-parsley-errors-container="#lastNameError" data-parsley-required="true" 
+                     <input type="text" class="form-control" name="last_name" placeholder="Last name"
+                        data-parsley-errors-container="#lastNameError" data-parsley-required="true"
                         data-parsley-error-message="Please enter last name" >
                   </div>
                   @error('last_name')
@@ -48,7 +48,7 @@
                </div>
                <div class= "col-sm-6">
                   <div class="form-group">
-                     <input type="text" class="form-control" name="mobile_number" data-parsley-errors-container="#mobileNumberError" 
+                     <input type="text" class="form-control" name="mobile_number" data-parsley-errors-container="#mobileNumberError"
                         placeholder="Mobile number" data-parsley-required="true" data-parsley-type="digits">
                   </div>
                   @error('mobile_number')
@@ -60,7 +60,7 @@
                </div>
                <div class= "col-sm-6">
                   <div class="form-group">
-                     <input type="email" class="form-control" name="email" placeholder="Email address" data-parsley-errors-container="#emailError" 
+                     <input type="email" class="form-control" name="email" placeholder="Email address" data-parsley-errors-container="#emailError"
                         data-parsley-required="true" data-parsley-error-message="Please enter email address">
                   </div>
                   @error('email')
@@ -73,7 +73,7 @@
                <div class= "col-sm-6">
                   <div class="input-group  mb-3">
                      <div class="custom-file">
-                        <input type="file" class="custom-file-input" name="profile_image" id="profileImage" data-parsley-errors-container="#profileError" 
+                        <input type="file" class="custom-file-input" name="profile_image" id="profileImage" data-parsley-errors-container="#profileError"
                         data-parsley-required="true" data-parsley-error-message="Please upload profile picture">
                         <label class="custom-file-label" for="profileImage">Choose file</label>
                      </div>
@@ -90,7 +90,7 @@
                </div>
                <div class= "col-sm-6">
                   <div class="form-group">
-                     <input type="text" class="form-control" name="company_name" placeholder="Company name" data-parsley-errors-container="#companyNameError" 
+                     <input type="text" class="form-control" name="company_name" placeholder="Company name" data-parsley-errors-container="#companyNameError"
                         data-parsley-required="true" data-parsley-error-message="Please enter company name">
                   </div>
                   @error('company_name')
@@ -102,15 +102,15 @@
                </div>
                <div class= "col-sm-6">
                   <div class="form-group">
-                     <input type="text" class="form-control" name="address" placeholder="Company address" 
-                        data-parsley-errors-container="#addressError" data-parsley-required="true" 
+                     <input type="text" class="form-control" name="address" placeholder="Company address"
+                        data-parsley-errors-container="#addressError" data-parsley-required="true"
                         data-parsley-error-message="Please enter company address">
                   </div>
                </div>
                <div class= "col-sm-6">
                   <div class="form-group">
                      <select class="form-control" style="width: 100%;" name="category" id="category"
-                        data-parsley-errors-container="#categoryError" data-parsley-required="true" 
+                        data-parsley-errors-container="#categoryError" data-parsley-required="true"
                         data-parsley-error-message="Please select category">
                         <option value="">Select Category</option>
                         @forelse($categories as $category)
@@ -129,8 +129,8 @@
                </div>
                <div class= "col-sm-6">
                   <div class="form-group">
-                     <input type="text" class="form-control" name="state" placeholder="Company state" 
-                        data-parsley-errors-container="#stateError" data-parsley-required="true" 
+                     <input type="text" class="form-control" name="state" placeholder="Company state"
+                        data-parsley-errors-container="#stateError" data-parsley-required="true"
                         data-parsley-error-message="Please enter state">
                   </div>
                   @error('state')
@@ -154,7 +154,7 @@
                </div>
                <div class= "col-sm-6">
                   <div class="form-group">
-                     <input type="text" class="form-control" name="pincode" placeholder="Company pincode" data-parsley-errors-container="#pincodeError" 
+                     <input type="text" class="form-control" name="pincode" placeholder="Company pincode" data-parsley-errors-container="#pincodeError"
                         data-parsley-required="true" data-parsley-type="digits">
                   </div>
                   @error('pincode')
@@ -166,7 +166,7 @@
                </div>
                <div class= "col-sm-6">
                   <div class="form-group">
-                     <input type="text" class="form-control" name="contact_number" placeholder="Company contact number" 
+                     <input type="text" class="form-control" name="contact_number" placeholder="Company contact number"
                         data-parsley-errors-container="#contactNoError" data-parsley-required="true" data-parsley-type="digits">
                   </div>
                   @error('contact_number')
@@ -200,11 +200,11 @@
                </div>
             </div>
             <div class="form-group row mt-4">
-               <div class="col-sm-6">	
+               <div class="col-sm-6">
                   <button type="submit" class="btn btn-primary">Save</button>
                   <a href="{{route('vendors.index')}}" class="btn btn-default">Cancel</a>
                </div>
-               <div class="col-sm-6">	
+               <div class="col-sm-6">
                </div>
             </div>
          </form>

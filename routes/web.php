@@ -36,8 +36,9 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
 Route::resource('categories', 'CategoryController');
 Route::resource('requirements', 'RequirementController');
 Route::resource('vendors', 'VendorController');
-Route::resource('profiles', 'ProfileController');
 
+Route::post('addComment', 'RequirementController@addComment');
+Route::get('showAssignVendors/{requirementId}/{vendorAssignId}', 'RequirementController@showAssignVendors');
 /**
 * Routes for Notifications.
 * @author Sukanya<sukanya.dharangaonkar@neosofttech.com>
@@ -59,12 +60,12 @@ Route::group(['namespace' => 'Vendor','prefix' => 'vendor','middleware' => ['aut
 	        return view('layouts.master');
 	 });
 
-Route::resource('accounts', 'AccountController');
-Route::post('accounts/company/update/{id}', 'AccountController@updateCompanyDetail')->name('accounts.company.update');
-Route::post('accounts/document/store', 'AccountController@documentStore')->name('accounts.document.store');
-Route::post('accounts/contact-details/store', 'AccountController@supportContactStore')->name('accounts.contact.detail.store');
-Route::post('accounts/bank-details/store', 'AccountController@bankDetailStore')->name('accounts.bank.detail.store');
-Route::post('accounts/update/{id}', 'AccountController@updateVendorDetail')->name('accounts.vendor.update');
+// Route::resource('accounts', 'AccountController');
+// Route::post('accounts/company/update/{id}', 'AccountController@updateCompanyDetail')->name('accounts.company.update');
+// Route::post('accounts/document/store', 'AccountController@documentStore')->name('accounts.document.store');
+// Route::post('accounts/contact-details/store', 'AccountController@supportContactStore')->name('accounts.contact.detail.store');
+// Route::post('accounts/bank-details/store', 'AccountController@bankDetailStore')->name('accounts.bank.detail.store');
+// Route::post('accounts/update/{id}', 'AccountController@updateVendorDetail')->name('accounts.vendor.update');
 });
 
 

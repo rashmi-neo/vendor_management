@@ -6,27 +6,16 @@
 			<a class="btn btn-success float-right btn-sm" rel="tooltip" title="Add New" href="{{route('requirements.create')}}">Add New</a>
 		</div>
 	<div class="card-body">
-		 @if(session()->get('success'))
-		    <div class="alert alert-success alert-dismissible">
-				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-				<i class="icon fa fa-check"></i>{{ Session::get('success') }}
-			</div><br/>
-  		 @endif
-		 @if(session()->get('error'))
-		    <div class="alert alert-danger alert-dismissible">
-				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-				<i class="icon fa fa-check"></i>{{ Session::get('error') }}
-			</div><br/>
-  		 @endif
 			<table id="requirementTable" class="table table-bordered table-hover">
 				<thead>
 					<tr>
-						<th>SrNo</th>
+                        <th>SrNo</th>
+                        <th>Requirement ID</th>
                         <th>Title</th>
                         <th>Category</th>
                         <th>Priority</th>
 						<th>Date</th>
-						<th>status</th>
+						<th>Status</th>
 						<th>Action</th>
 					</tr>
 				</thead>
@@ -44,6 +33,7 @@
             ajax: "{{ route('requirements.index') }}",
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                {data: 'code', name: 'code'},
                 {data: 'title', name: 'title'},
                 {data: 'category_id', name: 'category'},
                 {data: 'priority', name: 'priority'},
@@ -54,4 +44,16 @@
         });
     });
 </script>
+@if(session()->get('success'))
+<script>
+    var message = "{{ Session::get('success') }}"
+    toastr.success(message);
+</script>
+@endif
+@if(session()->get('error'))
+<script>
+    var message = "{{ Session::get('error') }}"
+    toastr.error(message);
+</script>
+@endif
 @endsection

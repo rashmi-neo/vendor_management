@@ -13,7 +13,7 @@ use DataTables;
 use Exception;
 use App\Repositories\Requirement\RequirementInterface as RequirementInterface;
 use App\Repositories\Notifications\NotificationsInterface as NotificationsInterface;
-
+use Config;
 class RequirementController extends Controller
 {
 
@@ -85,15 +85,12 @@ class RequirementController extends Controller
         try {
             $requirement = $this->requirementRepository->save($requestData);
             $emailResp = $this->sendMailToVendor($requestData);
-
-            //Working on this module
-
             //send notification to vendors
              $vendorsIds = $requestData->vendor_id;
              $getVendorsData = Vendor::whereIn('id',$vendorsIds)->get();
             foreach($getVendorsData as $vendor)
             {
-                $data = ['user_id'=>$vendor->user_id,'title'=>'Requirement assign to vendor','text'=>'Assign New Requirement from','type'=>'document_update','status'=>'unread'];
+                $data = ['user_id'=>$vendor->user_id,'title'=>Config::get('constants.NEW_REQUIREMENT.title'),'text'=>Config::get('constants.NEW_REQUIREMENT.text'),'type'=>Config::get('constants.NEW_REQUIREMENT.type'),'status'=>Config::get('constants.NEW_REQUIREMENT.status')];
                 $notification = $this->notificationRepository->save($data);
             }
             return redirect()->route('requirements.index')->with('success','Requirement details saved successfully');
@@ -171,12 +168,30 @@ class RequirementController extends Controller
         foreach($vendorEmail as $vendor)
         {
             $details['email'] = $vendor->user->email;
-            $details['subject']='Requirement Assign';
-            $details['body'] = 'please check the requirements';
+            $details['subject']='New Requirement';
+            $details['body'] = 'please check the requirement';
             $details['from']='vikas.salekat@neosofttech.com';
-            //$details['requestData']=$requestData;
-            dispatch(new \App\Jobs\SendMailToVendor($details))->delay(now()->addSeconds(10));
+            dispatch(new \App\Jobs\SendMailToVendor($details))->delay(now()->addSeconds(5));
 
         }
+    }
+    public function addComment(Request $request )
+    {
+        try{
+            $addComment = $this->requirementRepository->addComment($request);
+            if($addComment){
+                return redirect()->route('requirements.show')->with('success', 'Comment added successfully');
+            }
+            return redirect()->route('requirements.show')->with('error','Error in add comment');
+        }
+        catch(Exception $ex){
+            return redirect()->route('requirements.index')->with('error',$ex->getMessage());
+        }
+    }
+
+    public function showAssignVendors($requirementId,$vendorAssignId)
+    {
+        $showQuotationDetails = $this->requirementRepository->showAssignVendorDetails($vendorAssignId);
+        return view('admin.requirement.showQuotation',compact("showQuotationDetails"));
     }
 }

@@ -1,6 +1,6 @@
 <?php
 use App\Model\Requirement;
-
+use Carbon\Carbon;
  function getRequirementCode()
   {
     $lastRequirementCode  =   Requirement::orderBy('created_at', 'desc')->first();
@@ -24,18 +24,20 @@ use App\Model\Requirement;
     function uploadFile($document,$url)
     {
         $path = Config::get('constants.UPLOAD_PATH');
-       
+
         $destinationPath = $path['path'].$url;
-    
+
         if(!is_dir($destinationPath)) {
             mkdir($destinationPath, 0755, true);
         }
 
         if(isset($document))
         {
+            $nameWithExtension = $document->getClientOriginalName();
+            $name = explode('.', $nameWithExtension)[0];
             $extension = $document->getClientOriginalExtension();
-            $documentOriginalName = $document->getClientOriginalName();
-            $documentName = md5(uniqid($documentOriginalName)).'.'.$extension;
+            $current = Carbon::now()->format('YmdHs');
+            $documentName = $name.'_'.$current.'.'.$extension;
             $document->move($destinationPath, $documentName);
         }
         return $documentName;

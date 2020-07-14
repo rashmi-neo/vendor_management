@@ -21,6 +21,28 @@ class Requirement extends Model
         'category_id','code','title','description','proposal_document','comment',
         'status','from_date','to_date','priority','budget'
     ];
+
+    public function setPriorityAttribute($value)
+    {
+        $this->attributes['priority'] = strtolower($value);
+    }
+
+    public function getPriorityAttribute($value)
+    {
+        return ucfirst($value);
+    }
+
+    public function setStatusAttribute($value)
+    {
+        $this->attributes['status'] = strtolower($value);
+    }
+
+    public function getStatusAttribute($value)
+    {
+        $value = str_replace("_"," ",$value);
+        return ucfirst($value);
+    }
+
     public function vendor()
     {
       return $this->belongsToMany('App\Model\Vendor','vms_assign_vendors','vendor_id','requirement_id');
@@ -29,4 +51,5 @@ class Requirement extends Model
     {
       return $this->belongsTo('App\Model\Category','category_id');
     }
+
 }

@@ -86,6 +86,14 @@
                </p>
             </a>
          </li>
+         <li class="nav-item">
+            <a href="{{route('new.requirement.index')}}" class="nav-link  {{ (request()->is('vendor/new/requirements*')) ? 'active' : '' }}">
+               <i class="nav-icon far fa-image"></i>
+               <p>
+                  New Requirement
+               </p>
+            </a>
+         </li>
          @endif
          </ul>
       </nav>

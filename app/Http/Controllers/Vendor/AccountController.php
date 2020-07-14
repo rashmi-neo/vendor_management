@@ -117,16 +117,17 @@ class AccountController extends Controller
     {
         $requestData = $request;
        
-        try{
+        // try{
             
             $vendorDetail = $this->accountRepository->updateVendor($id,$requestData);
+                    
             if($vendorDetail){
                 return redirect()->route('accounts.index')->with('success', 'Vendor Detail is successfully updated');
             }
-            return redirect()->route('accounts.index')->with('error','Vendor not found');
-        }catch(\Exception $ex){
-            return redirect()->route('accounts.index')->with('error','Something went wrong');
-        }
+        //     return redirect()->route('accounts.index')->with('error','Vendor not found');
+        // }catch(\Exception $ex){
+        //     return redirect()->route('accounts.index')->with('error','Something went wrong');
+        // }
     }  
     
     /**

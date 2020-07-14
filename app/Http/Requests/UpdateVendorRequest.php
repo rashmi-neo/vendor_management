@@ -26,7 +26,7 @@ class UpdateVendorRequest extends FormRequest
     public function rules(Request $request)
     {
         return [
-            'email' => 'required',Rule::unique('users')->ignore($this->id),
+            'email' => 'required|email|unique:users,email,'.$request->user_id,         
             'first_name' => 'required|alpha|max:50',
             'middle_name' => 'max:50',
             'last_name' => 'required|alpha|max:50',

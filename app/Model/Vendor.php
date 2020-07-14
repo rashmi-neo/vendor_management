@@ -21,6 +21,28 @@ class Vendor extends Model
         'user_id','first_name','middle_name','last_name','mobile_number','profile_image'
     ];
 
+    /**
+     * Get the Vendor Firstname.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getFirstNameAttribute($value)
+    {
+        return ucfirst($value);
+    }
+
+    /**
+     * Get the Vendor Lastname.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getLastNameAttribute($value)
+    {
+        return ucfirst($value);
+    }
+
     public function category()
     {
         return $this->hasOne('App\Model\VendorCategory','vendor_id');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use DataTables;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProfileRequest;
 use App\Repositories\Profile\ProfileInterface as ProfileInterface;
@@ -23,60 +24,26 @@ class ProfileController extends Controller
     }
 
     /**
-    * Index page of User Profile.
-    *@Author Bharti <bharati.tadvi@neosofttech.com>
-    * 
-    * @param Illuminate\Http\Request
-    * @return void
-    */
-    public function index(Request $request){
-        
-        if($request->ajax()){
-            $data = $this->profileRepository->all();
-            
-            return Datatables::of($data)
-            ->addIndexColumn()
-            ->addColumn('verification_status', function($data){
-                
-                if($data->is_verified == "pending"){
-                    return "Pending";
-                }elseif($data->is_verified == "approved"){
-                    return "Approved";
-                }
-                return "Rejected";
-            })
-            ->addColumn('action', function($row){
-                return view('admin.profile.actions', compact('row'));
-            })
-            ->rawColumns(['action'])
-            ->make(true);
-        }
-    	return view('admin.profile.index');
-    }
-    
-    /**
     * Show the form for editing the specified User.
     *@Author Bharti <bharati.tadvi@neosofttech.com>
     *  
-    * @param  $id
     * @return $user
     */
-    public function edit($id)
-    {   
-        $userId = $id;
-            
+    public function index(){
+        
         try {
-            $user = $this->profileRepository->find($userId);
+            $user = $this->profileRepository->findUser();
             
             if($user){
-    	        return view('admin.profile.edit',compact('user'));
-            }else{
+                    return view('admin.profile.edit',compact('user'));
+                }else{
                 return redirect()->route('profiles.index')->with('error', 'User not found');
             }
         }catch(\Throwable $th){
             return redirect()->route('profiles.index')->with('error', 'Something went wrong!');
         }
     }
+    
 
     /**
      * Update the specified resource in storage.

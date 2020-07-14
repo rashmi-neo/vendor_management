@@ -33,9 +33,11 @@ class ProfileRepository implements ProfileInterface{
      * @param $id
      * @return collection
      */
-    public function find($id)
+    public function findUser()
     {
-        return User::where('role_id',1)->find($id);
+       $userId = \Auth::user()->id; 
+       $user = User::where('id',$userId)->first();
+       return $user;
     }
 
     /**

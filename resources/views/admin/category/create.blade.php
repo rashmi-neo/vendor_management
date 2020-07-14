@@ -6,6 +6,7 @@
 			<h3 class="card-title">Add Category</h3>
 		</div>
 		<div class="card-body">
+		
 			<form class="form-horizontal" method="post" action="{{ route('categories.store') }}" data-parsley-validate="parsley">
 				 @csrf
 				 <div class="form-group row">

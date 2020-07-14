@@ -67,6 +67,11 @@ Route::post('accounts/bank-details/store', 'AccountController@bankDetailStore')-
 Route::post('accounts/update/{id}', 'AccountController@updateVendorDetail')->name('accounts.vendor.update');
 Route::get('past/requirements', 'PastRequirementController@index')->name('past.requirement.index');
 Route::get('past/requirements/show/{id}', 'PastRequirementController@show')->name('past.requirement.show');
+Route::get('new/requirements', 'NewRequirementController@index')->name('new.requirement.index');
+Route::get('new/requirements/show/{id}', 'NewRequirementController@show')->name('new.requirement.show');
+Route::get('new/requirements/edit/{id}', 'NewRequirementController@edit')->name('new.requirement.edit');
+Route::post('new/requirements/update/{id}', 'NewRequirementController@update')->name('new.requirement.update');
+Route::get('download/document/{filename}','NewRequirementController@getDocumentDownload')->name('download.document');
 });
 
 

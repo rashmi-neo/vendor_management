@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Rules\MatchOldPassword;
@@ -23,10 +24,11 @@ class VendorRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(Request $request)
     {
+        
         return [
-            'email' => 'required',Rule::unique('users')->ignore($this->id),         
+            'email' => 'required|email|unique:users,email,'.$request->user_id,         
             'first_name' => 'required|max:50',
             'middle_name' => 'max:50',
             'last_name' => 'required|max:50',

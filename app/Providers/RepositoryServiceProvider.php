@@ -16,6 +16,8 @@ use App\Repositories\Profile\ProfileRepository;
 use App\Repositories\Profile\ProfileInterface;
 use App\Repositories\PastRequirement\PastRequirementRepository;
 use App\Repositories\PastRequirement\PastRequirementInterface;
+use App\Repositories\NewRequirement\NewRequirementRepository;
+use App\Repositories\NewRequirement\NewRequirementInterface;
 
 
 use Illuminate\Support\ServiceProvider;
@@ -36,6 +38,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(AccountInterface::class, AccountRepository::class);
         $this->app->bind(ProfileInterface::class, ProfileRepository::class);
         $this->app->bind(PastRequirementInterface::class, PastRequirementRepository::class);
+        $this->app->bind(NewRequirementInterface::class, NewRequirementRepository::class);
     }
 
     /**

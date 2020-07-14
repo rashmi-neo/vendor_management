@@ -1,12 +1,12 @@
 <?php 
 
-namespace App\Repositories\Profile;
+namespace App\Repositories\NewRequirement;
 use Illuminate\Http\Request;
 
-interface ProfileInterface{ 
+interface NewRequirementInterface{ 
 	
     /**
-     * Get's all User profile.
+     * Get's all New requirement.
      *
      * @Author Bharti <bharati.tadvi@neosofttech.com>
      * 
@@ -14,18 +14,19 @@ interface ProfileInterface{
     public function all();
 
     /**
-     * Get's a User profile by it's ID
+     * Get's a New requirement by it's ID
      *
      * @Author Bharti <bharati.tadvi@neosofttech.com>
      * @param $id
      */
-    public function findUser();
+    public function find($id);
 
     /**
-     * Updates a User.
+     * Updates a New requirement.
      *
      * @Author Bharti <bharati.tadvi@neosofttech.com>
      * @param $id,$data
      */
     public function update($id,$data);
+
 }

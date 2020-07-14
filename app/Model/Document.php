@@ -17,5 +17,4 @@ class Document extends Model
     {   
         return $this->hasOne('App\Model\VendorDocument','document_id','id');
     }
-    
 }

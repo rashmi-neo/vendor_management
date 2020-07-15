@@ -16,9 +16,11 @@ class VendorTableSeeder extends Seeder
      */
     public function run()
     {
+        $latestUser = User::latest('id')->first();
+        
         $user = [
             [   
-                'id'=>2,
+                'id'=>$latestUser->id+1,
                 'role_id'=>2,
                 'username'=>"Vendor",
                 'is_verified'=>"approved",
@@ -28,10 +30,12 @@ class VendorTableSeeder extends Seeder
             
         ];
         
+        $latestVendor = Vendor::latest('id')->first();
+        
         $vendor = [
             [   
-                'id'=>1,
-                'user_id'=>2,
+                'id'=>$latestVendor+1,
+                'user_id'=>$latestUser->id+1,
                 'first_name'=>"Vendor",
                 'middle_name'=>"",
                 'last_name'=>"Sharma",
@@ -40,20 +44,24 @@ class VendorTableSeeder extends Seeder
             ],
             
         ];
+       
+        $latestVendorCategory = VendorCategory::latest('id')->first();
         
         $vendorCategory = [
             [   
                 'id'=>1,
-                'vendor_id'=>1,
+                'vendor_id'=>$latestVendor+1,
                 'category_id'=>3,
             ],
             
         ];
 
+        $latestCompany = Company::latest('id')->first();
+
         $company = [
             [   
-                'id'=>1,
-                'vendor_id'=>1,
+                'id'=>$latestCompany+1,
+                'vendor_id'=>$latestVendor+1,
                 'company_name'=>"Neosofttech Private LTD",
                 'address'=>"Hinjewadi",
                 'state'=>"Maharashtra",
@@ -65,6 +73,7 @@ class VendorTableSeeder extends Seeder
             ],
             
         ];
+        
         User::insert($user);
         Vendor::insert($vendor);
         VendorCategory::insert($vendorCategory);

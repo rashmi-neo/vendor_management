@@ -36,6 +36,7 @@
                   'data-parsley-trigger' => "input",
                   'data-parsley-trigger'=>"blur",
                   'data-parsley-maxlength' => '50']) !!}
+                  
                   @error('email')
                   <span class="text-danger errormsg" role="alert">
                      <p>{{ $message }}</p>

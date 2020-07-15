@@ -492,8 +492,7 @@
                {!! Form::label('document','Document:',['class'=>"col-sm-2 col-form-label"],false) !!} 
                   {!! Form::file('file', array('class' => 'form-control ','placeholder' => 'Profile Image',
                   'data-parsley-required' => 'true',
-                  'data-parsley-required-message' => 'Please upload Document',
-                  'data-parsley-container' => '#file_error',
+                  'data-parsley-required-message' => 'Please upload document',
                   'data-parsley-trigger' => "input",
                   'data-parsley-trigger'=>"blur")) !!}
                

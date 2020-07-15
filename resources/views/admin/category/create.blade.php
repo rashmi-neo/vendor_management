@@ -7,7 +7,7 @@
 		</div>
 		<div class="card-body">
 			{!! Form::open(['route' => 'categories.store','class' => 'form-horizontal',
-            'method' => 'post']) !!}
+            'method' => 'post','data-parsley-validate' => 'parsley']) !!}
             	@csrf
 				<div class="form-group row">
 					 <label for="inputName" class="col-sm-2 col-form-label">Name</label>
@@ -29,7 +29,7 @@
 					 <label for="inputStatus" class="col-sm-2 col-form-label">Status</label>
 					<div class="col-sm-1">
 					 	<div class="form-check">
-							{{ Form::radio('status', '1', false, array('class'=>'form-check-input','id'=>'activeCheck')) }}
+							{{ Form::radio('status', '1', true, array('class'=>'form-check-input','id'=>'activeCheck')) }}
 							{{ Form::label('status', 'Active',array('class'=>'form-check-label')) }}
 					 	</div>
 					 </div>

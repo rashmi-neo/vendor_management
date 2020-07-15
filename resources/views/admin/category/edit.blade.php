@@ -7,7 +7,7 @@
 		</div>
 		<div class="card-body">
 			{!! Form::model($category,['route' =>  ['categories.update', $category->id],'class' => 'form-horizontal',
-            'method' => 'put']) !!}
+            'method' => 'put','data-parsley-validate' => 'parsley']) !!}
             	@csrf
 				<input type="hidden" name="id" value="{{ $category->id}}">
 				<div class="form-group row">

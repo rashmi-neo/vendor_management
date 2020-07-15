@@ -19,7 +19,6 @@
                      'data-parsley-trigger' => "input",
                      'data-parsley-trigger'=>"blur",
                      'data-parsley-pattern'=>"^[a-zA-Z]+$",
-                     'data-parsley-minlength' => '30',
                      'data-parsley-maxlength' => '50']) !!}
 
                   </div>
@@ -35,7 +34,6 @@
                      'data-parsley-trigger' => "input",
                      'data-parsley-trigger'=>"blur",
                      'data-parsley-pattern'=>"^[a-zA-Z]+$",
-                     'data-parsley-minlength' => '30',
                      'data-parsley-maxlength' => '50']) !!}   
                   </div>
                </div>
@@ -52,7 +50,6 @@
                      'data-parsley-trigger' => "input",
                      'data-parsley-trigger'=>"blur",
                      'data-parsley-pattern'=>"^[a-zA-Z]+$",
-                     'data-parsley-minlength' => '30',
                      'data-parsley-maxlength' => '50']) !!}
 
                   </div>

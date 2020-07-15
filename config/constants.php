@@ -23,4 +23,9 @@ return [
         'type' => 'new_requirement',
         'status' => 'unread'
      ],
+
+    'CATEGORY_STATUS' => [
+        'active' => 'Active',
+        'inactive' => 'Inactive'
+    ],
 ];

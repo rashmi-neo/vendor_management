@@ -6,12 +6,6 @@
 			<a class="btn btn-success float-right btn-sm" href="{{route('categories.create')}}" style="margin-left: 826px;">Add New</a>
 		</div>
 	<div class="card-body">
-		 @if(session()->get('success'))
-		    <div class="alert alert-success alert-dismissible">
-				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-				<i class="icon fa fa-check"></i>{{ Session::get('success') }}
-			</div><br />
-  		 @endif
 			<table id="example2" class="table table-bordered table-hover">
 				<thead>
 					<tr>
@@ -26,6 +20,18 @@
 </div>
 @endsection
 @section('scripts')
+@if(session()->get('success'))
+	<script>
+		var message = "{{ Session::get('success') }}"
+		toastr.success(message);
+	</script>
+@endif
+@if(session()->get('error'))
+	<script>
+		var message = "{{ Session::get('error') }}"
+		toastr.error(message);
+	</script>
+@endif
 <script type="text/javascript">
 $(function () {
     var table = $('#example2').DataTable({

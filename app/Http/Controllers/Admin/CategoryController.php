@@ -41,10 +41,16 @@ class CategoryController extends Controller
                         return view('admin.category.actions', compact('row'));
                     })
                     ->editColumn('status', function($row){
+                    
+                        $status = \Config::get('constants.CATEGORY_STATUS');
+
                         if($row->status == 1){
-                            return 'Active';
+                            
+                            return $status['active'];
+                            
                         }else{
-                            return 'Inactive';
+                            
+                            return $status['inactive'];
                         }
                     })
                     ->rawColumns(['action'])

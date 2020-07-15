@@ -33,6 +33,17 @@ class Vendor extends Model
     }
 
     /**
+     * Get the Vendor Middlename.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getMiddleNameAttribute($value)
+    {
+        return ucfirst($value);
+    }
+
+    /**
      * Get the Vendor Lastname.
      *
      * @param  string  $value

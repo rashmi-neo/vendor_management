@@ -30,7 +30,7 @@
                   <input type="hidden" name="user_id" value="{{$vendor->user_id}}"/>
 
                   <div class="form-group row">
-                     <label for="firstName" class="col-sm-2 col-form-label">First Name</label>
+                     {!! Form::label('firstName','First Name',['class'=>"col-sm-2 col-form-label"],false) !!} 
                      <div class="col-sm-8">
                         {!! Form::text('first_name', null, ['class' => 'form-control ','placeholder' => 'First Name',
                         'data-parsley-required' => 'true',
@@ -47,7 +47,7 @@
                      </div>
                   </div>
                   <div class="form-group row">
-                     <label for="middleName" class="col-sm-2 col-form-label">Middle Name</label>
+                     {!! Form::label('middleName','Middle Name',['class'=>"col-sm-2 col-form-label"],false) !!} 
                      <div class="col-sm-8">
                         {!! Form::text('middle_name', $vendor->middle_name, ['class' => 'form-control ','placeholder' => 'Middle Name',
                         'data-parsley-trigger' => "input",
@@ -57,7 +57,7 @@
                      </div>
                   </div>
                   <div class="form-group row">
-                     <label for="lastName" class="col-sm-2 col-form-label">Last Name</label>
+                     {!! Form::label('lastName','Last Name',['class'=>"col-sm-2 col-form-label"],false) !!} 
                      <div class="col-sm-8">
                         {!! Form::text('last_name', $vendor->last_name, ['class' => 'form-control ','placeholder' => 'Last Name',
                         'data-parsley-required' => 'true',
@@ -75,7 +75,7 @@
                      </div>
                   </div>
                   <div class="form-group row">
-                     <label for="phone_number" class="col-sm-2 col-form-label">Phone Number</label>
+                     {!! Form::label('phone_number','Phone Number',['class'=>"col-sm-2 col-form-label"],false) !!} 
                      <div class="col-sm-8">
                         {!! Form::text('phone_number', $vendor->mobile_number, ['class' => 'form-control ','placeholder' => 'Phone Number',
                         'data-parsley-required' => 'true',
@@ -93,7 +93,7 @@
                      </div>
                   </div>
                   <div class="form-group row">
-                     <label for="email_address" class="col-sm-2 col-form-label">Email Address</label>
+                     {!! Form::label('email_address','Email Address',['class'=>"col-sm-2 col-form-label"],false) !!} 
                      <div class="col-sm-8">
                         {!! Form::email('email', $vendor->user->email, ['class' => 'form-control ','placeholder' => 'Email Address',
                         'data-parsley-required' => 'true',
@@ -109,7 +109,7 @@
                      </div>
                   </div>
                   <div class="form-group row">
-                     <label for="current_password" class="col-sm-2 col-form-label">Current Password</label>
+                     {!! Form::label('current_password','Current Password',['class'=>"col-sm-2 col-form-label"],false) !!} 
                      <div class="col-sm-8">
                         {!! Form::password('current_password', ['class' => 'form-control ','placeholder' => 'Current Password',
                         'data-parsley-required' => 'true',
@@ -126,7 +126,7 @@
                      </div>
                   </div>
                   <div class="form-group row">
-                     <label for="new_password" class="col-sm-2 col-form-label">New Password</label>
+                     {!! Form::label('new_password','New Password',['class'=>"col-sm-2 col-form-label"],false) !!} 
                      <div class="col-sm-8">
                         {!! Form::password('new_password',array('class' => 'form-control','placeholder' => 'New  Password',
                         'data-parsley-required' => 'true',
@@ -143,15 +143,15 @@
                      </div>
                   </div>
                   <div class="form-group row">
-                     <label for="image" class="col-sm-2 col-form-label">Upload Image</label>
+                     {!! Form::label('image','Upload Image',['class'=>"col-sm-2 col-form-label"],false) !!} 
                      <div class="col-sm-8">
                         {!! Form::file('profile_image', array('class' => 'form-control ','placeholder' => 'Profile Image')) !!}
                      </div>
                   </div>
                   <div class="form-group row">
                      <div class="col-sm-2"></div>
-                     <div class="col-sm-6">	
-                        <button type="submit" class="btn btn-primary">Update</button>
+                     <div class="col-sm-6">
+                        {!! Form::button('Update', ['type' => 'submit', 'class' => 'btn btn-primary'] ) !!}
                         <a href="{{route('accounts.index')}}" class="btn btn-default">Cancel</a>
                      </div>
                   </div>
@@ -163,7 +163,7 @@
                   @csrf
                   <input type="hidden" name="tab" value="company-detail">
                   <div class="form-group row">
-                     <label for="company_name" class="col-sm-2 col-form-label">Company Name</label>
+                  {!! Form::label('company_name','Company Name',['class'=>"col-sm-2 col-form-label"],false) !!} 
                      <div class="col-sm-8">
                         {!! Form::text('company_name', $vendor->company->company_name, ['class' => 'form-control ',
                         'placeholder' => 'Company Name',
@@ -181,7 +181,7 @@
                      </div>
                   </div>
                   <div class="form-group row">
-                     <label for="company_address" class="col-sm-2 col-form-label">Company Address</label>
+                  {!! Form::label('company_address','Company Address',['class'=>"col-sm-2 col-form-label"],false) !!} 
                      <div class="col-sm-8">
                         {!! Form::text('company_address', $vendor->company->address, ['class' => 'form-control ',
                         'placeholder' => 'Company Address',
@@ -199,7 +199,7 @@
                      </div>
                   </div>
                   <div class="form-group row">
-                     <label for="contact_number" class="col-sm-2 col-form-label">Contact Number</label>
+                  {!! Form::label('contact_number','Contact Number',['class'=>"col-sm-2 col-form-label"],false) !!} 
                      <div class="col-sm-8">
                         {!! Form::text('contact_number', $vendor->company->contact_number, ['class' => 'form-control ',
                         'placeholder' => 'Company Contact Number',
@@ -218,7 +218,7 @@
                      </div>
                   </div>
                   <div class="form-group row">
-                     <label for="state" class="col-sm-2 col-form-label">State</label>
+                  {!! Form::label('state','State',['class'=>"col-sm-2 col-form-label"],false) !!} 
                      <div class="col-sm-8">
                         {!! Form::text('state', $vendor->company->state, ['class' => 'form-control ',
                         'placeholder' => 'state',
@@ -237,7 +237,7 @@
                      </div>
                   </div>
                   <div class="form-group row">
-                     <label for="city" class="col-sm-2 col-form-label">City</label>
+                  {!! Form::label('city','City',['class'=>"col-sm-2 col-form-label"],false) !!} 
                      <div class="col-sm-8">
                         {!! Form::text('city', $vendor->company->city, ['class' => 'form-control ',
                         'placeholder' => 'City',
@@ -256,7 +256,7 @@
                      </div>
                   </div>
                   <div class="form-group row">
-                     <label for="pincode" class="col-sm-2 col-form-label">Pincode</label>
+                     {!! Form::label('pincode','Pincode',['class'=>"col-sm-2 col-form-label"],false) !!} 
                      <div class="col-sm-8">
                         {!! Form::text('pincode', $vendor->company->pincode, ['class' => 'form-control ',
                         'placeholder' => 'Pincode',
@@ -277,7 +277,7 @@
                   <div class="form-group row">
                      <div class="col-sm-2"></div>
                      <div class="col-sm-6">	
-                        <button type="submit" class="btn btn-primary">Update</button>
+                        {!! Form::button('Update', ['type' => 'submit', 'class' => 'btn btn-primary'] ) !!}
                         <a href="{{route('accounts.index')}}" class="btn btn-default">Cancel</a>
                      </div>
                   </div>
@@ -326,7 +326,7 @@
                   <input type="hidden" name="tab" value="supportContactDetail">
                   <input type="hidden" name="vendor_id" value="{{$vendor->id}}"/>
                   <div class="form-group row">
-                     <label for="name" class="col-sm-2 col-form-label">Name</label>
+                  {!! Form::label('name','Name',['class'=>"col-sm-2 col-form-label"],false) !!} 
                      <div class="col-sm-8">
                         {!! Form::text('name', null, ['class' => 'form-control ','placeholder' => 'Name',
                         'data-parsley-required' => 'true',
@@ -343,7 +343,7 @@
                      </div>
                   </div>
                   <div class="form-group row">
-                     <label for="phone_number" class="col-sm-2 col-form-label">Phone Number</label>
+                  {!! Form::label('phone_number','Phone Number',['class'=>"col-sm-2 col-form-label"],false) !!} 
                      <div class="col-sm-8">
                         {!! Form::text('contact_number', null, ['class' => 'form-control ','placeholder' => 'Phone Number',
                         'data-parsley-required' => 'true',
@@ -360,7 +360,7 @@
                      </div>
                   </div>
                   <div class="form-group row">
-                     <label for="email_address" class="col-sm-2 col-form-label">Email Address</label>
+                  {!! Form::label('email_address','Email Address',['class'=>"col-sm-2 col-form-label"],false) !!} 
                      <div class="col-sm-8">
                         {!! Form::email('email_address', null, ['class' => 'form-control ','placeholder' => 'Email Address',
                         'data-parsley-required' => 'true',
@@ -377,8 +377,8 @@
                   </div>
                   <div class="form-group row">
                      <div class="col-sm-2"></div>
-                     <div class="col-sm-6">	
-                        <button type="submit" class="btn btn-primary">Save</button>
+                     <div class="col-sm-6">
+                        {!! Form::button('Save', ['type' => 'submit', 'class' => 'btn btn-primary'] ) !!}
                         <a href="{{route('accounts.index')}}" class="btn btn-default">Cancel</a>
                      </div>
                   </div>
@@ -391,7 +391,7 @@
                   <input type="hidden" name="vendor_id" value="{{$vendor->id}}"/>
                   <input type="hidden" name="tab" value="bankDetail">
                   <div class="form-group row">
-                     <label for="bank_name" class="col-sm-2 col-form-label">Bank Name</label>
+                  {!! Form::label('bank_name','Bank Name',['class'=>"col-sm-2 col-form-label"],false) !!} 
                      <div class="col-sm-8">
                         {!! Form::text('bank_name', null, ['class' => 'form-control ','placeholder' => 'Bank Name',
                         'data-parsley-required' => 'true',
@@ -407,7 +407,7 @@
                      </div>
                   </div>
                   <div class="form-group row">
-                     <label for="account_holder_name" class="col-sm-2 col-form-label">Account name</label>
+                  {!! Form::label('account_holder_name','Account Holder Name',['class'=>"col-sm-2 col-form-label"],false) !!} 
                      <div class="col-sm-8">
                         {!! Form::text('account_holder_name', null, ['class' => 'form-control ','placeholder' => 'Account Holder Name',
                         'data-parsley-required' => 'true',
@@ -424,7 +424,7 @@
                      </div>
                   </div>
                   <div class="form-group row">
-                     <label for="account_number" class="col-sm-2 col-form-label">Account Number</label>
+                  {!! Form::label('account_number','Account Number',['class'=>"col-sm-2 col-form-label"],false) !!} 
                      <div class="col-sm-8">
                         {!! Form::text('account_number', null, ['class' => 'form-control ','placeholder' => 'Account Number',
                         'data-parsley-required' => 'true',
@@ -442,7 +442,7 @@
                      </div>
                   </div>
                   <div class="form-group row">
-                     <label for="ifsc_code" class="col-sm-2 col-form-label">IFSC code</label>
+                  {!! Form::label('ifsc_code','IFSC Code',['class'=>"col-sm-2 col-form-label"],false) !!} 
                      <div class="col-sm-8">
                         {!! Form::text('ifsc_code', null, ['class' => 'form-control ','placeholder' => 'IFSC Code',
                         'data-parsley-required' => 'true',
@@ -460,8 +460,8 @@
                   </div>
                   <div class="form-group row">
                      <div class="col-sm-2"></div>
-                     <div class="col-sm-6">	
-                        <button type="submit" class="btn btn-primary">Save</button>
+                     <div class="col-sm-6">
+                        {!! Form::button('Save', ['type' => 'submit', 'class' => 'btn btn-primary'] ) !!}
                         <a href="{{route('accounts.index')}}" class="btn btn-default">Cancel</a>
                      </div>
                   </div>
@@ -473,7 +473,8 @@
    </div>
 </div>
 
-<form class="form-horizontal" id="documentForm" method="post" action="{{route('accounts.document.store')}}" data-parsley-validate="parsley" enctype="multipart/form-data">
+{!! Form::open(['route' => 'accounts.document.store','class' => 'form-horizontal',
+'method' => 'post','data-parsley-validate' => 'parsley','enctype' =>'multipart/form-data']) !!}
    @csrf
    <div class="modal fade" id="uploadDocument"aria-modal="true">
       <input type="hidden" name="vendor_id" value="{{$vendor->id}}"/>
@@ -488,17 +489,14 @@
             </div>
             <div class="modal-body">
                <div class="form-group mb-3">
-                  <label>Document:</label>
-                  <div class="input-group  mb-3">
-                     <div class="custom-file">
-                        <input type="file" class="custom-file-input" name="file" id="fileName" data-parsley-errors-container="#document-file" 
-                           data-parsley-required="true" data-parsley-error-message="Please upload file">
-                        <label class="custom-file-label" for="profileImage">Choose file</label>
-                     </div>
-                     <div class="input-group-append">
-                        <span class="input-group-text" id="">Upload Document</span>
-                     </div>
-                  </div>
+               {!! Form::label('document','Document:',['class'=>"col-sm-2 col-form-label"],false) !!} 
+                  {!! Form::file('file', array('class' => 'form-control ','placeholder' => 'Profile Image',
+                  'data-parsley-required' => 'true',
+                  'data-parsley-required-message' => 'Please upload Document',
+                  'data-parsley-container' => '#file_error',
+                  'data-parsley-trigger' => "input",
+                  'data-parsley-trigger'=>"blur")) !!}
+               
                   @error('file')
                   <span class="text-danger errormsg" role="alert">
                      <p>{{ $message }}</p>
@@ -506,20 +504,21 @@
                   @enderror
                </div>
                <div class="form-group mb-3">
-                  <label>Reason</label>
-                  <input type="text" class="form-control" placeholder="Enter Reason Detail" id="reason" name="product_detail">
+                  {!! Form::label('reason','Reason:',['class'=>"col-sm-2 col-form-label"],false) !!} 
+                  {!! Form::text('reason', null, ['class' => 'form-control ','placeholder' => 'Enter Reason Detail']) !!}
                </div>
             </div>
             <div class="modal-footer justify-content-between">
                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-               <button type="submit" id="saveDocument" class="btn btn-primary">Upload</button>
+               {!! Form::button('Upload', ['type' => 'submit','id'=>'saveDocument','class' => 'btn btn-primary'] ) !!}
             </div>
          </div>
          <!-- /.modal-content -->
       </div>
       <!-- /.modal-dialog -->
    </div>
-<form>
+{!! Form::close() !!}
+
 @endsection
 @section('scripts')
 

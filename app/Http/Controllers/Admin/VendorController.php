@@ -52,12 +52,17 @@ class VendorController extends Controller
             })
             ->addColumn('verification_status', function($data){
                 
+                $status = \Config::get('constants.VERIFICATION_STATUS');
+                
                 if($data->user->is_verified == "pending"){
-                    return "Pending";
+                    
+                    return $status['pending'];
+                
                 }elseif($data->user->is_verified == "approved"){
-                    return "Approved";
+                    
+                    return $status['approved'];
                 }
-                return "Rejected";
+                return $status['rejected'];
             })
             ->addColumn('action', function($row){
                 return view('admin.vendor.actions', compact('row'));

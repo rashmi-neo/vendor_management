@@ -9,4 +9,12 @@ return [
     'NOTIFICATION_TITLE' => [
         'title' => 'Email or mobile number updated '
     ],
+
+
+    'VERIFICATION_STATUS' => [
+        'approved' => 'Approved',
+        'pending' => 'Pending',
+        'rejected' => 'Rejected'
+    ],
+
 ];

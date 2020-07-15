@@ -20,7 +20,6 @@
                <div class="col-sm-7">
                {!! Form::textarea('description',$newRequirement->description,['class'=>'form-control', 'rows' => 2, 'cols' => 80,
                     'placeholder'=>'Brief Description','readonly']) !!}
-
                </div>
             </div>
             <div class="form-group row">

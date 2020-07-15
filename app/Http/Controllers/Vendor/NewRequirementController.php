@@ -7,8 +7,10 @@ use Illuminate\Http\Request;
 use DataTables;
 use Response;
 use App\Model\Vendor;
+use App\Model\User;
 use App\Http\Requests\VendorQuotationRequest;
 use App\Repositories\NewRequirement\NewRequirementInterface as NewRequirementInterface;
+use App\Repositories\Notifications\NotificationsInterface as NotificationsInterface;
 
 class NewRequirementController extends Controller
 {
@@ -20,8 +22,9 @@ class NewRequirementController extends Controller
     */ 
     private $newRequirementRepository;
 
-    public function __construct(NewRequirementInterface $newRequirementRepository){
+    public function __construct(NewRequirementInterface $newRequirementRepository,NotificationsInterface $notificationRepository){
         $this->newRequirementRepository = $newRequirementRepository;
+        $this->notificationRepository = $notificationRepository;
     }
 
     /**
@@ -121,6 +124,21 @@ class NewRequirementController extends Controller
         
         try{
             $newRequirement = $this->newRequirementRepository->update($id,$requestData);
+            
+            $vendorName = \Auth::user()->username;
+            $email = \Auth::user()->email;
+            //send notification to admin
+            $adminUser = User::where(['role_id'=>1])->first();
+            
+            $notification = \Config::get('constants.QUOTATION_DOCUMENT');
+            
+            if($adminUser)
+            {
+                $data = ['user_id'=>$adminUser->id,'title'=>$notification['title'],'text'=>$vendorName.' '.$notification['text'],
+                'type'=>$notification['type'],'status'=>$notification['status']]; 
+                $notification = $this->notificationRepository->save($data);
+            }
+            
             if($newRequirement){
                 return redirect()->route('new.requirement.index')->with('success', 'Vendor quotation upload successfully');
             }

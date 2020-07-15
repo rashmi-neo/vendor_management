@@ -23,6 +23,30 @@
                </tr>
                <tr>
                   <th>
+                     Description  : 
+                  </th>
+                  <td>
+                     <span>{{$newRequirement->description}}</span>
+                  </td>
+               </tr>
+               <tr>
+                  <th>
+                     From Date  : 
+                  </th>
+                  <td>
+                     <span>{{$newRequirement->from_date}}</span>
+                  </td>
+               </tr>
+               <tr>
+                  <th>
+                     To Date  : 
+                  </th>
+                  <td>
+                     <span>{{$newRequirement->to_date}}</span>
+                  </td>
+               </tr>
+               <tr>
+                  <th>
                     Category  : 
                   </th>
                   <td>
@@ -31,10 +55,34 @@
                </tr>
                <tr>
                   <th>
+                    Proposal Document  :
+                  </th>
+                  <td>
+                     <span> {{$newRequirement->proposal_document}}</span>
+                  </td>
+               </tr>
+               <tr>
+                  <th>
+                    Budget  :
+                  </th>
+                  <td>
+                     <span> {{$newRequirement->budget}}</span>
+                  </td>
+               </tr>
+               <tr>
+                  <th>
                     Priority  :
                   </th>
                   <td>
                      <span> {{$newRequirement->priority}}</span>
+                  </td>
+               </tr>
+               <tr>
+                  <th>
+                     Comment  : 
+                  </th>
+                  <td>
+                     <span>{{$newRequirement->comment}}</span>
                   </td>
                </tr>
                <tr>

@@ -71,7 +71,14 @@
                     {!! Form::textarea('comment',null,['class' => 'form-control ','placeholder' => 'Comment','id'=>'comment', 'data-parsley-required' => 'true',
                     'data-parsley-required-message' => 'Please add comment',
                     'data-parsley-trigger' => "input",
+                    'data-parsley-minlength' => '2',
+                    'data-parsley-maxlength' => '1000',
                     'data-parsley-trigger'=>"blur"]) !!}
+                     @error('comment')
+                     <span class="text-danger errormsg" role="alert">
+                        <p>{{ $message }}</p>
+                     </span>
+                     @enderror
                     </div>
                 </div>
 
@@ -95,7 +102,6 @@
 <script>
     function openCommentModal(id,assignVendorId)
     {
-     //   alert(assignVendorId);
         $("#modal-lg").modal('show');
         $("#vendorId").val(id);
         $("#assignVendorId").val(assignVendorId);

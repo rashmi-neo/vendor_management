@@ -7,6 +7,7 @@ use App\Model\Category;
 use App\Model\Vendor;
 use App\Http\Requests\StoreRequirementRequest;
 use App\Http\Requests\UpdateRequirementRequest;
+use App\Http\Requests\StoreCommentRequest;
 use App\Model\AssignVendor;
 use App\Model\Requirement;
 use DataTables;
@@ -176,7 +177,7 @@ class RequirementController extends Controller
             dispatch(new \App\Jobs\SendMailToVendor($details))->delay(now()->addSeconds(5));
         }
     }
-    public function addComment(Request $request )
+    public function addComment(StoreCommentRequest $request )
     {
         try{
             $addComment = $this->requirementRepository->addComment($request);

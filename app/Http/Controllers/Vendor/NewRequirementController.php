@@ -134,7 +134,7 @@ class NewRequirementController extends Controller
      * download Proposal document.
      *@Author Bharti <bharati.tadvi@neosofttech.com>
      * @param   $filename
-     * @return void
+     * @return $newFileName
      */
     public function getDocumentDownload($filename){
         

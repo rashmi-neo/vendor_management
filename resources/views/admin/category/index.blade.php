@@ -6,16 +6,16 @@
 			<a class="btn btn-success float-right btn-sm" href="{{route('categories.create')}}" style="margin-left: 826px;">Add New</a>
 		</div>
 	<div class="card-body">
-			<table id="example2" class="table table-bordered table-hover">
-				<thead>
-					<tr>
-						<th>SrNo</th>
-						<th>Category Name</th>
-						<th>Status</th>
-						<th>Action</th>
-					</tr>
-				</thead>
-			</table>
+		<table id="example2" class="table table-bordered table-hover">
+			<thead>
+				<tr>
+					<th>SrNo</th>
+					<th>Category Name</th>
+					<th>Status</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+		</table>
 	</div>
 </div>
 @endsection
@@ -47,8 +47,8 @@ $(function () {
         ]
     });
   });
- $(document).ready(function(){
-        $("[rel=tooltip]").tooltip();
-    });
+$(document).ready(function(){
+    $("[rel=tooltip]").tooltip();
+});
 </script>
 @endsection

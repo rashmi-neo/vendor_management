@@ -5,9 +5,7 @@
       <div class="card-header" >
          <h3 class="card-title">Edit New Requirement</h3>
       </div>
-      <div class="card-body">
-         
-         
+      <div class="card-body"> 
             {!! Form::model($newRequirement,['route' =>  ['new.requirement.update',$newRequirement->id],'class' => 'form-horizontal',
                'method' => 'post','data-parsley-validate' => 'parsley','enctype' =>'multipart/form-data']) !!}
                @csrf

@@ -1,11 +1,10 @@
 $(document).ready(function(){
 	$('body').on('click', 'a.delete_class', function () {
-        var url = $(this).attr("data-url");
+      var url = $(this).attr("data-url");
     	var id = $(this).attr("id");
     	var data_title = $(this).attr("data-title");
     	var csrf_token = $(this).attr("token");
-		var tr = $(this).closest('tr');
-		
+		  var tr = $(this).closest('tr');
         Swal.fire({
           title: 'Are you sure?',
           icon: 'warning',
@@ -13,28 +12,37 @@ $(document).ready(function(){
           confirmButtonColor: '#3085d6',
           cancelButtonColor: '#d33',
           confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
+        }).then((e) => {
+        if (e.value === true) {
           $.ajax({
-			id: id,
-			type: 'DELETE',
-			url: url,
-			data: {_token:csrf_token , id: id  },
+            id: id,
+            type: 'DELETE',
+            url: url,
+            data: {_token:csrf_token , id: id  },
             success: function (data) {
-              Swal.fire(
-                'Deleted!',
-                'Your Category has been deleted.',
-                'success'
-                ).then(function() {
-                  window.location.reload();
-                });              
+              if(data){
+                Swal.fire(
+                  'Deleted!',
+                  'Your Category has been deleted.',
+                  'success'
+                  ).then(function() {
+                window.location.reload();}); 
+                }else{
+                  Swal.fire({
+                    title : 'Opps...',
+                    text : 'Something wrong!',
+                    icon : 'error',
+                    timer : '1500'
+                  });
+                }              
               },
-              error: function (data) {
-                console.log('Error:', data);
-              }
             });
-        })
+        }else{
+          Swal.fire("Your file is safe.");
+        }
       });
-});
+    });
+  });
 
 function markAsRead(id)
   {

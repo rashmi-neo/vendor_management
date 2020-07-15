@@ -224,7 +224,7 @@
                </div>
                <div class= "col-sm-6">
                   <div class="form-group">
-                  <select class="form-control" style="width: 100%;" name="verify_status" id="status"
+                     <select class="form-control" style="width: 100%;" name="verify_status" id="status"
                         data-parsley-errors-container="#statusError" data-parsley-required="true"
                         data-parsley-error-message="Please select verification status">
                         <option value="">Select Verification status</option>

@@ -110,15 +110,15 @@ class NewRequirementController extends Controller
 
     /**
      * Save the Vendor quotation.
-     *
-     * @param  \Illuminate\Http\Request  $request
+     *@Author Bharti <bharati.tadvi@neosofttech.com>
+     * @param  \Illuminate\Http\VendorQuotationRequest  $request
      * @param  int  $id
      * @return void
      */
     public function update(VendorQuotationRequest $request, $id)
     {
         $requestData = $request;
-        dd($request->quotation);
+        
         try{
             $newRequirement = $this->newRequirementRepository->update($id,$requestData);
             if($newRequirement){
@@ -130,17 +130,19 @@ class NewRequirementController extends Controller
         }
     }
 
+    /**
+     * download Proposal document.
+     *@Author Bharti <bharati.tadvi@neosofttech.com>
+     * @param   $filename
+     * @return void
+     */
     public function getDocumentDownload($filename){
         
         $file = public_path(). "/uploads/uploads/".$filename;
         
-        $headers = array(
-            'Content-Type: application/pdf',
-        );
-        
         $newFileName = 'proposal-document'.time();
 
-        return response()->download($file,$newFileName,$headers);
+        return response()->download($file,$newFileName);
 
     }
 

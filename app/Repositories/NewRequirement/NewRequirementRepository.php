@@ -78,7 +78,7 @@ class  NewRequirementRepository implements NewRequirementInterface{
             $vendorQuotation->quatation_doc = $file;
         }
         
-        $vendorQuotation->comment = $data->comment;
+        $vendorQuotation->comment = $data->vendor_comment;
         $vendorQuotation->save();            
             
         return  $vendorQuotation;

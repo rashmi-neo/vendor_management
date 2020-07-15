@@ -122,7 +122,7 @@ class NewRequirementController extends Controller
         try{
             $newRequirement = $this->newRequirementRepository->update($id,$requestData);
             if($newRequirement){
-                return redirect()->route('new.requirement.index')->with('success', 'Vendor quotation save successfully');
+                return redirect()->route('new.requirement.index')->with('success', 'Vendor quotation upload successfully');
             }
             return redirect()->route('new.requirement.index')->with('error','Requirement not found');
         }catch(\Exception $ex){

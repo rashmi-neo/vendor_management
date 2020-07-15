@@ -24,7 +24,7 @@ class StoreRequirementRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|alpha|max:50',
+            'title' => 'required|min:2|max:50',
             'category_id' => 'required',
             'vendor_id' => 'required',
             'budget' => 'required|numeric',

@@ -17,4 +17,10 @@ return [
         'rejected' => 'Rejected'
     ],
 
+    'NEW_REQUIREMENT' => [
+        'title' => 'New Requirement',
+        'text' =>'New requirement assign from',
+        'type' => 'new_requirement',
+        'status' => 'unread'
+     ],
 ];

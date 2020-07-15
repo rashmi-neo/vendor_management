@@ -3,7 +3,7 @@
 <div class="card">
 		<div class="card-header">
 			<h3 class="card-title">Vendor Category</h3>
-			<a class="btn btn-success btn-sm" href="{{route('categories.create')}}" style="margin-left: 826px;">Add New</a>
+			<a class="btn btn-success float-right btn-sm" href="{{route('categories.create')}}" style="margin-left: 826px;">Add New</a>
 		</div>
 	<div class="card-body">
 		 @if(session()->get('success'))

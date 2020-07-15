@@ -25,9 +25,9 @@ use Carbon\Carbon;
     function uploadFile($document,$url)
     {
         $path = Config::get('constants.UPLOAD_PATH');
-       
+
         $destinationPath = $path['path'].$url;
-    
+
         if(!is_dir($destinationPath)) {
             mkdir($destinationPath, 0755, true);
         }

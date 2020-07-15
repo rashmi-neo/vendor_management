@@ -6,123 +6,125 @@
 			<h3 class="card-title">Edit Requirement</h3>
 		 </div>
 			<div class="card-body">
-				<form role="form" action="{{route('requirements.update',$requirementEditDetails->id)}}" method="post" data-parsley-validate="parsley" id="requirementForm" enctype="multipart/form-data">
-                    @csrf
-                    @method('PUT')
-                    @if (\Session::has('success'))
-                        <div class="alert alert-success">
-                            <ul>
-                                <li>ok</li>
-                            </ul>
+                {!! Form::open(['route' => ['requirements.update',$requirementEditDetails->id],'class' => 'form-horizontal','method' => 'post','data-parsley-validate' => 'parsley','enctype' =>'multipart/form-data']) !!}
+                @csrf
+                @method('PUT')
+                <div class="form-group row">
+                    {!! Form::label('title','Title',['class' => 'col-sm-3 label_class']) !!}
+                        <div class="col-sm-7">
+                            {!! Form::text('title', $requirementEditDetails->title, ['class' => 'form-control','placeholder' => 'Title',
+                            'data-parsley-required' => 'true',
+                            'data-parsley-required-message' => 'Please enter title',
+                            'data-parsley-trigger' => "input",
+                            'data-parsley-trigger'=>"blur",
+                            'data-parsley-pattern' => '/^[a-zA-Z ]*$/',
+                            'data-parsley-pattern-message' => 'Please enter only characters',
+                            'data-parsley-minlength' => '2',
+                            'data-parsley-maxlength' => '50']) !!}
+                           @error('title')
+                         <span class="text-danger errormsg" role="alert">
+                            <p>{{ $message }}</p>
+                         </span>
+                         @enderror
+                       </div>
+                    </div>
+                    <div class="form-group row">
+                        {!! Form::label('category_id', 'Category',['class' => 'col-sm-3 label_class']) !!}
+                        <div class="col-sm-7">
+                            {!! Form::select('category_id',$categories,$requirementEditDetails->category_id, array('class'=>'form-control', 'id'=>'category_id','disabled'=>'disabled','placeholder'=>'Select Category')) !!}
+                           @error('category_id')
+                           <span class="text-danger errormsg" role="alert">
+                               <p>{{ $message }}</p>
+                           </span>
+                           @enderror
                         </div>
-                    @endif
-					<div class="form-group row">
-					 <label for="inputTitle" class="col-sm-3 label_class">Title</label>
-					 	<div class="col-sm-7">
-	                      <input type="text" class="form-control {{ $errors->has('name') ? 'is-invalid' : ''}}" id="inputTitle" data-parsley-errors-container="#titleError" data-parsley-required="true" data-parsley-error-message="Please enter title" placeholder="Title" name="title" value="{{$requirementEditDetails->title}}" >
-                          @error('title')
-                          <span class="text-danger errormsg" role="alert">
-                             <p>{{ $message }}</p>
-                          </span>
-                          @enderror
-                          <span id="titleError"><span>
-                        </div>
-                     </div>
+                    </div>
 
-				 	<div class="form-group row">
-				 		<label for="category" class="col-sm-3 label_class">Category</label>
-				 		<div class="col-sm-7">
-				 			<select class="form-control" name="category_id"  id="category" data-parsley-errors-container="#categoryError" data-parsley-required="true" data-parsley-error-message="Please select category">
-				 				<option value="">Select Category</option>
-								@forelse($categories as $category)
-								<option value="{{$category->id}}" @if($requirementEditDetails->category_id == $category->id) selected="selected" @endif>{{ $category->name }}</option>
-								@empty
-								<option value="">No categories</option>
-								@endforelse
-                            </select>
-                            @error('category_id')
-                            <span class="text-danger errormsg" role="alert">
-                                <p>{{ $message }}</p>
-                            </span>
-                            @enderror
-                            <span id="categoryError"><span>
-				 		</div>
-                     </div>
+                    @foreach ($vendorDetails as $key=>$vendors)
+                    @php $selectedVendors[]=$key @endphp
+                    @endforeach
 
 					 <div class="form-group row">
-				 		<label class="col-sm-3 label_class">Select Vendors</label>
+                        {!! Form::label('vendor_id', 'Select Vendors',['class' => 'col-sm-3 label_class']) !!}
 				 		<div class="col-sm-7">
-				 			<select class="form-control" id="vendor" name="vendor_id[]"  multiple="multiple" data-parsley-errors-container="#vendorError" data-parsley-required="true" data-parsley-error-message="Please select vendor">
-                            @foreach ($vendorDetails as $vendors)
-                            <option value="{{ $vendors->id }}"  selected>{{ $vendors->first_name }}</option>
-                            @endforeach
-                            </select>
+                            {!! Form::select('vendor_id[]',$vendorDetails,$selectedVendors, array('class'=>'form-control vendor','multiple'=>'multiple','id'=>'vendor','disabled'=>'disabled')) !!}
                             @error('vendor_id')
                             <span class="text-danger errormsg" role="alert">
                                 <p>{{ $message }}</p>
                             </span>
                           @enderror
-                          <span id="vendorError"><span>
 				 		</div>
                     </div>
                     <div class="form-group row">
-                        <label for="budget" class="col-sm-3 label_class">Budget</label>
+                        {!! Form::label('budget', 'Budget',['class' => 'col-sm-3 label_class']) !!}
                             <div class="col-sm-7">
-                             <input type="text" placeholder="Budget" name="budget" class="form-control" data-parsley-errors-container="#budgetError" data-parsley-required="true" data-parsley-error-message="Please enter budget" value="{{$requirementEditDetails->budget}}">
-                             @error('budget')
+                                {!! Form::text('budget', $requirementEditDetails->budget, ['class' => 'form-control ','placeholder' => 'Budget',
+                                'data-parsley-required' => 'true',
+                                'data-parsley-required-message' => 'Please enter budget',
+                                'data-parsley-trigger' => "input",
+                                'data-parsley-trigger'=>"blur",
+                                'data-parsley-pattern' => '/^[0-9.]*$/',
+                                'data-parsley-pattern-message' => 'Please enter only numbers',
+                                'data-parsley-minlength' => '2',
+                                'data-parsley-maxlength' => '10']) !!}
+                           @error('budget')
                              <span class="text-danger errormsg" role="alert">
                                 <p>{{ $message }}</p>
                              </span>
                              @enderror
-                             <span id="budgetError"><span>
                             </div>
                     </div>
                     <div class="form-group row">
-                        <label for="budget" class="col-sm-3 label_class">From Date</label>
+                        {!! Form::label('fromDate', 'From Date',['class' => 'col-sm-3 label_class']) !!}
                             <div class="col-sm-7">
-                             <input type="text" placeholder="select from date" data-date-format="yyyy-mm-dd"  name="fromDate" class="form-control datepicker" data-parsley-errors-container="#fromDateError" data-parsley-required="true" data-parsley-error-message="Please select from date" value="{{$requirementEditDetails->from_date}}">
+                                {!! Form::text('fromDate', $requirementEditDetails->from_date, ['class' => 'form-control ','data-date-format'=>'yyyy-mm-dd','id'=>'requirmentFromDate','placeholder' => 'Select From date',
+                                'data-parsley-required' => 'true',
+                                'data-parsley-required-message' => 'Please select from date',
+                                'data-date-format'=>'YYYY/MM/DD',
+                                'data-parsley-trigger' => "input",
+                                'data-parsley-trigger'=>"blur"]) !!}
                              @error('fromDate')
                              <span class="text-danger errormsg" role="alert">
                                 <p>{{ $message }}</p>
                              </span>
                              @enderror
-                             <span id="fromDateError"><span>
                             </div>
                     </div>
                     <div class="form-group row">
-                        <label for="budget" class="col-sm-3 label_class">To Date</label>
+                        {!! Form::label('toDate', 'To Date',['class' => 'col-sm-3 label_class']) !!}
                             <div class="col-sm-7">
-                             <input type="text" placeholder="select to date" data-date-format="yyyy-mm-dd"   name="toDate" class="form-control datepicker" data-parsley-errors-container="#toDateError" data-parsley-required="true" data-parsley-error-message="Please select to date"  value="{{$requirementEditDetails->to_date}}">
+                                {!! Form::text('toDate', $requirementEditDetails->to_date, ['class' => 'form-control ','data-date-format'=>'yyyy-mm-dd','id'=>'requirmentToDate','placeholder' => 'Select To date',
+                                'data-parsley-required' => 'true',
+                                'data-parsley-required-message' => 'Please select to date',
+                                'data-parsley-trigger' => "input",
+                                'data-date-format'=>'YYYY/MM/DD',
+                                'data-parsley-trigger'=>"blur"]) !!}
                              @error('toDate')
                              <span class="text-danger errormsg" role="alert">
                                 <p>{{ $message }}</p>
                              </span>
                              @enderror
-                             <span id="toDateError"><span>
                             </div>
                     </div>
+
                     <div class="form-group row">
-                        <label for="priority" class="col-sm-3 label_class">Priority</label>
+                        {!! Form::label('priority', 'Priority',['class' => 'col-sm-3 label_class']) !!}
                         <div class="col-sm-7">
-                            <select class="form-control" name="priority" data-parsley-errors-container="#priorityError" data-parsley-required="true" data-parsley-error-message="Please select priority">
-                                <option value="">Select Priority</option>
-                                <option value="low"  @if($requirementEditDetails->priority == "low") selected="selected" @endif>Low</option>
-                                <option value="medium" @if($requirementEditDetails->priority == "medium") selected="selected" @endif>Medium</option>
-                                <option value="high"  @if($requirementEditDetails->priority == "high") selected="selected" @endif>High</option>
-                            </select>
+                            {!! Form::select('priority',['Low' => 'Low', 'Medium' => 'Medium','High'=>'High'],$requirementEditDetails->priority, array('class'=>'form-control', 'placeholder'=>'Select priority', 'data-parsley-required' => 'true',
+                            'data-parsley-required-message' => 'Please select priority',
+                            'data-parsley-trigger' => "select",
+                            'data-parsley-trigger'=>"blur")) !!}
                             @error('priority')
                              <span class="text-danger errormsg" role="alert">
                                 <p>{{ $message }}</p>
                              </span>
                              @enderror
-                             <span id="priorityError"><span>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="document" class="col-sm-3 label_class">Proposal Document(if/any)</label>
+                        {!! Form::label('document', 'Proposal Document(if/any)',['class' => 'col-sm-3 label_class']) !!}
                         <div class="col-sm-7">
-
-                            <input type="file" class="form-control"placeholder="Proposal Document" name="proposal_document"  value="{{$requirementEditDetails->proposal_document}}">
+                            {!! Form::file('proposal_document', array('class' => 'form-control ','placeholder' => 'Proposal Document')) !!}
                             <div>{{$requirementEditDetails->proposal_document}}</div>
                             @error('proposal_document')
                             <span class="text-danger errormsg" role="alert">
@@ -132,25 +134,25 @@
                         </div>
                     </div>
 				 	<div class="form-group row">
-						 <label for="description" class="col-sm-3 label_class">Description</label>
+                        {!! Form::label('description', 'Description',['class' => 'col-sm-3 label_class']) !!}
 						   <div class="col-sm-7">
-						 		<textarea class="form-control" rows="4" cols="80" placeholder="Brief description" name="description">{{ $requirementEditDetails->description }}</textarea>
-		                   </div>
+                                {!! Form::textarea('description',$requirementEditDetails->description, ['class' => 'form-control ','placeholder' => 'Brief description']) !!}
+						 	</div>
 				 	</div>
 				 	<div class="form-group row">
-						 <label for="comment" class="col-sm-3 label_class">Note/Special Comment</label>
+                        {!! Form::label('comment', 'Note/Special Comment',['class' => 'col-sm-3 label_class']) !!}
 						   <div class="col-sm-7">
-						 		<textarea class="form-control" rows="4" cols="80" placeholder="Special Comment" name="comment">{{ $requirementEditDetails->comment }}</textarea>
-		                   </div>
+                                {!! Form::textarea('comment',$requirementEditDetails->comment, ['class' => 'form-control ','placeholder' => 'Special Comment']) !!}
+						 	</div>
 				 	</div>
 				 	<div class="form-group row">
 						<div class="col-sm-3"></div>
-						<div class="col-sm-8">
-							 <button type="submit" class="btn btn-primary col-sm-2">Save</button>
-							 <a href="{{route('requirements.index')}}" class=" col-sm-2 btn btn-default">Cancel</a>
-						</div>
-				 </div>
-				</form>
+                            <div class="col-sm-8">
+                                {!! Form::submit('Save',['class' => 'btn btn-primary col-sm-2']) !!}
+                                <a href="{{route('requirements.index')}}" class=" col-sm-2 btn btn-default">Cancel</a>
+                            </div>
+				    </div>
+                {!! Form::close() !!}
 			</div>
 		</div>
  	</div>
@@ -162,23 +164,21 @@
         $('#vendor').select2({
             theme: 'bootstrap4'
         })
-    });
-
+});
 // append the vendors as per category id.
-   $("#category").click(function (e) {
-        e.preventDefault();
-        var id= $(this).val();
-        $.ajax({
-        type: "GET",
-        url: "../vendors/"+id,
-        dataType: "json",
-        success: function(result){
-            alert(id);
-            $("#vendor").empty();
-            $.each(result,function(key,val){
-                $("#vendor").append('<option value='+val.vendor.id+' selected>'+val.vendor.first_name+'</option>');
-            });
-         }});
-    });
+// $("#category").click(function (e) {
+//         e.preventDefault();
+//         var id= $(this).val();
+//         $.ajax({
+//         type: "GET",
+//         url: "../vendors/"+id,
+//         dataType: "json",
+//         success: function(result){
+//             $("#vendor").empty();
+//             $.each(result,function(key,val){
+//                 $("#vendor").append('<option value='+val.vendor.id+' selected>'+val.vendor.first_name+'</option>');
+//             });
+//          }});
+//     });
 </script>
 @endsection

@@ -38,6 +38,8 @@ Route::resource('requirements', 'RequirementController');
 Route::resource('vendors', 'VendorController');
 Route::resource('profiles', 'ProfileController');
 
+Route::post('addComment', 'RequirementController@addComment');
+Route::get('showAssignVendors/{requirementId}/{vendorAssignId}', 'RequirementController@showAssignVendors');
 /**
 * Routes for Notifications.
 * @author Sukanya<sukanya.dharangaonkar@neosofttech.com>

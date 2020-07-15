@@ -21,6 +21,7 @@
                      'data-parsley-pattern'=>"^[a-zA-Z]+$",
                      'data-parsley-minlength' => '30',
                      'data-parsley-maxlength' => '50']) !!}
+
                   </div>
                   @error('first_name')
                   <span class="text-danger errormsg" role="alert">
@@ -53,6 +54,7 @@
                      'data-parsley-pattern'=>"^[a-zA-Z]+$",
                      'data-parsley-minlength' => '30',
                      'data-parsley-maxlength' => '50']) !!}
+
                   </div>
                   @error('last_name')
                   <span class="text-danger errormsg" role="alert">
@@ -69,6 +71,7 @@
                      'data-parsley-trigger'=>"blur",
                      'data-parsley-type'=>"digits",
                      'data-parsley-maxlength' => '20']) !!}
+
                   </div>
                   @error('mobile_number')
                   <span class="text-danger errormsg" role="alert">
@@ -239,7 +242,7 @@
                 {!! Form::button('Save', ['type' => 'submit', 'class' => 'btn btn-primary'] ) !!}
                   <a href="{{route('vendors.index')}}" class="btn btn-default">Cancel</a>
                </div>
-               <div class="col-sm-6">	
+               <div class="col-sm-6">
                </div>
             </div> 
          {!! Form::close() !!}

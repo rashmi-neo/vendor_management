@@ -7,13 +7,14 @@ use App\Model\Category;
 use App\Model\Vendor;
 use App\Http\Requests\StoreRequirementRequest;
 use App\Http\Requests\UpdateRequirementRequest;
+use App\Http\Requests\StoreCommentRequest;
 use App\Model\AssignVendor;
 use App\Model\Requirement;
 use DataTables;
 use Exception;
 use App\Repositories\Requirement\RequirementInterface as RequirementInterface;
-
-
+use App\Repositories\Notifications\NotificationsInterface as NotificationsInterface;
+use Config;
 class RequirementController extends Controller
 {
 
@@ -24,9 +25,11 @@ class RequirementController extends Controller
     * @return \App\Repositories\RequirementRepository
     */
     private $requirementRepository;
+    private $notificationRepository;
 
-    public function __construct(RequirementInterface $requirementRepository){
+    public function __construct(RequirementInterface $requirementRepository,NotificationsInterface $notificationRepository){
         $this->requirementRepository = $requirementRepository;
+        $this->notificationRepository = $notificationRepository;
     }
 
 
@@ -82,6 +85,15 @@ class RequirementController extends Controller
         $requestData =$request;
         try {
             $requirement = $this->requirementRepository->save($requestData);
+            $emailResp = $this->sendMailToVendor($requestData,$requirement->title);
+            //send notification to vendors
+             $vendorsIds = $requestData->vendor_id;
+             $getVendorsData = Vendor::whereIn('id',$vendorsIds)->get();
+            foreach($getVendorsData as $vendor)
+            {
+                $data = ['user_id'=>$vendor->user_id,'title'=>Config::get('constants.NEW_REQUIREMENT.title'),'text'=>Config::get('constants.NEW_REQUIREMENT.text'),'type'=>Config::get('constants.NEW_REQUIREMENT.type'),'status'=>Config::get('constants.NEW_REQUIREMENT.status')];
+                $notification = $this->notificationRepository->save($data);
+            }
             return redirect()->route('requirements.index')->with('success','Requirement details saved successfully');
         } catch (Exception $e) {
             return redirect()->back()->with('error',$e->getMessage());
@@ -148,5 +160,40 @@ class RequirementController extends Controller
         $showRequirementDetails = $this->requirementRepository->get($id);
         $requirementVendors = $this->requirementRepository->getAssignVendors($id);
         return view('admin.requirement.show',compact("showRequirementDetails","requirementVendors"));
+    }
+
+    public function sendMailToVendor($requestData,$requirementTitle)
+    {
+        $vendors = $requestData->vendor_id;
+        $vendorEmail = Vendor::with('user')->whereIn('id',$vendors)->get();
+        foreach($vendorEmail as $vendor)
+        {
+            $details['email'] = $vendor->user->email;
+            $details['subject']='New Requirement';
+            $message = 'Dear '.ucfirst($vendor->first_name);
+            $message .=', There is new requirement "'.$requirementTitle.'". Please check your portal account for further details.';
+            $details['body'] = $message;
+            $details['from']='vikas.salekat@neosofttech.com';
+            dispatch(new \App\Jobs\SendMailToVendor($details))->delay(now()->addSeconds(5));
+        }
+    }
+    public function addComment(StoreCommentRequest $request )
+    {
+        try{
+            $addComment = $this->requirementRepository->addComment($request);
+            if($addComment){
+                return redirect()->route('requirements.show')->with('success', 'Comment added successfully');
+            }
+            return redirect()->route('requirements.show')->with('error','Error in add comment');
+        }
+        catch(Exception $ex){
+            return redirect()->route('requirements.index')->with('error',$ex->getMessage());
+        }
+    }
+
+    public function showAssignVendors($requirementId,$vendorAssignId)
+    {
+        $showQuotationDetails = $this->requirementRepository->showAssignVendorDetails($vendorAssignId);
+        return view('admin.requirement.showQuotation',compact("showQuotationDetails"));
     }
 }

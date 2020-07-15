@@ -84,7 +84,7 @@ class RequirementController extends Controller
         $requestData =$request;
         try {
             $requirement = $this->requirementRepository->save($requestData);
-            $emailResp = $this->sendMailToVendor($requestData);
+            $emailResp = $this->sendMailToVendor($requestData,$requirement->title);
             //send notification to vendors
              $vendorsIds = $requestData->vendor_id;
              $getVendorsData = Vendor::whereIn('id',$vendorsIds)->get();
@@ -161,7 +161,7 @@ class RequirementController extends Controller
         return view('admin.requirement.show',compact("showRequirementDetails","requirementVendors"));
     }
 
-    public function sendMailToVendor($requestData)
+    public function sendMailToVendor($requestData,$requirementTitle)
     {
         $vendors = $requestData->vendor_id;
         $vendorEmail = Vendor::with('user')->whereIn('id',$vendors)->get();
@@ -169,10 +169,11 @@ class RequirementController extends Controller
         {
             $details['email'] = $vendor->user->email;
             $details['subject']='New Requirement';
-            $details['body'] = 'please check the requirement';
+            $message = 'Dear '.ucfirst($vendor->first_name);
+            $message .=', There is new requirement "'.$requirementTitle.'". Please check your portal account for further details.';
+            $details['body'] = $message;
             $details['from']='vikas.salekat@neosofttech.com';
             dispatch(new \App\Jobs\SendMailToVendor($details))->delay(now()->addSeconds(5));
-
         }
     }
     public function addComment(Request $request )

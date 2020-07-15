@@ -281,7 +281,7 @@
                         <a href="{{route('accounts.index')}}" class="btn btn-default">Cancel</a>
                      </div>
                   </div>
-               </form>
+               {!! Form::close() !!}
             </div>
             <div class="tab-pane fade" id="document" role="tabpanel" aria-labelledby="custom-tabs-four-document-tab">
                <table id="accountTable" class="table table-bordered table-hover">

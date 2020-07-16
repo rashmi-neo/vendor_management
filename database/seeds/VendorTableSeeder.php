@@ -5,7 +5,8 @@ use App\Model\User;
 use App\Model\Vendor;
 use App\Model\VendorCategory;
 use App\Model\Company;
-
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class VendorTableSeeder extends Seeder
 {
@@ -16,67 +17,43 @@ class VendorTableSeeder extends Seeder
      */
     public function run()
     {
-        $latestUser = User::latest('id')->first();
         
-        $user = [
-            [   
-                'id'=>$latestUser->id+1,
+        //$users = factory(App\User::class, 3)->create();
+
+        for ($i=0; $i < 5; $i++) { 
+	        $user = User::create([
                 'role_id'=>2,
-                'username'=>"Vendor",
+                'username' => Str::random(10),
                 'is_verified'=>"approved",
-                'email'=>"vendor@gmail.com",
-                'password'=>bcrypt("vendor@123"),
-            ],
+	            'email' => Str::random(10).'@gmail.com',
+	            'password' => Hash::make('vendor@123'),
+            ]);
             
-        ];
-        
-        $latestVendor = Vendor::latest('id')->first();
-        
-        $vendor = [
-            [   
-                'id'=>$latestVendor+1,
-                'user_id'=>$latestUser->id+1,
-                'first_name'=>"Vendor",
-                'middle_name'=>"",
-                'last_name'=>"Sharma",
+            $vendor = Vendor::create([
+                'user_id'=>$user->id,
+                'first_name'=>Str::random(8),
+                'middle_name'=>Str::random(8),
+                'last_name'=>Str::random(8),
                 'mobile_number'=>7544345654,
                 'profile_image'=>" ",
-            ],
-            
-        ];
-       
-        $latestVendorCategory = VendorCategory::latest('id')->first();
-        
-        $vendorCategory = [
-            [   
-                'id'=>1,
-                'vendor_id'=>$latestVendor+1,
+            ]);
+
+            VendorCategory::create([
+                'vendor_id'=>$vendor->id,
                 'category_id'=>3,
-            ],
-            
-        ];
+            ]);
 
-        $latestCompany = Company::latest('id')->first();
-
-        $company = [
-            [   
-                'id'=>$latestCompany+1,
-                'vendor_id'=>$latestVendor+1,
-                'company_name'=>"Neosofttech Private LTD",
+            Company::create([
+                'vendor_id'=>$vendor->id,
+                'company_name'=>Str::random(10).' ' .'Private LTD',
                 'address'=>"Hinjewadi",
                 'state'=>"Maharashtra",
                 'city'=>'Pune',
-                'pincode'=>420118,
-                'contact_number'=>02567233432,
-                'fax'=>"212-555-1234",
-                'website'=>"www.neosofttech.com",
-            ],
-            
-        ];
-        
-        User::insert($user);
-        Vendor::insert($vendor);
-        VendorCategory::insert($vendorCategory);
-        Company::insert($company);
+                'pincode'=>443322,
+                'contact_number'=>7544345654,
+                'fax'=>'2030-43-40',
+                'website'=>'www'.Str::random(8).'com',
+            ]);
+        }
     }
 }

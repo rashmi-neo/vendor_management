@@ -51,7 +51,6 @@
                      'data-parsley-trigger'=>"blur",
                      'data-parsley-pattern'=>"^[a-zA-Z]+$",
                      'data-parsley-maxlength' => '50']) !!}
-
                   </div>
                   @error('last_name')
                   <span class="text-danger errormsg" role="alert">
@@ -68,7 +67,6 @@
                      'data-parsley-trigger'=>"blur",
                      'data-parsley-type'=>"digits",
                      'data-parsley-maxlength' => '20']) !!}
-
                   </div>
                   @error('mobile_number')
                   <span class="text-danger errormsg" role="alert">

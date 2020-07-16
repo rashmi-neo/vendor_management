@@ -29,9 +29,8 @@ Route::get('vendor/registration', function () {
 */
 Auth::routes();
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['auth'] ], function () {
-	Route::get('dashboard', function () {
-	        return view('layouts.master');
-	 });
+
+Route::get('dashboard', 'DashboardController@index')->name('admin.dashboard');
 // -----------Admin Route Start------------------------------
 Route::resource('categories', 'CategoryController');
 Route::resource('requirements', 'RequirementController');

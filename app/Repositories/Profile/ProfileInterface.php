@@ -19,7 +19,7 @@ interface ProfileInterface{
      * @Author Bharti <bharati.tadvi@neosofttech.com>
      * @param $id
      */
-    public function find($id);
+    public function findUser();
 
     /**
      * Updates a User.

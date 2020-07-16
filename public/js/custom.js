@@ -1,68 +1,48 @@
 $(document).ready(function(){
-	$('body').on('click', 'a.delete_class', function() {
-    	var url = $(this).attr("data-url");
+	$('body').on('click', 'a.delete_class', function () {
+      var url = $(this).attr("data-url");
     	var id = $(this).attr("id");
     	var data_title = $(this).attr("data-title");
     	var csrf_token = $(this).attr("token");
-    	var tr = $(this).closest('tr');
-    	console.log(tr);
-    	console.log(id);
-    	$.confirm({
-	        title: 'Confirmation',
-	        content: 'Are You Sure?',
-	        buttons: {
-	            confirm: function () {
-	                $.ajax({
-	                    id: id,
-	        			type: 'DELETE',
-	                    url: url,
-	                    data: {_token:csrf_token , id: id  },
-	                       success: function(result){
-	                       		if (result.success = true) {
-	                       			tr.remove();
-	                                toastr.options = {
-	                                  "closeButton": true,
-	                                  "debug": false,
-	                                  "positionClass": "toast-top-right",
-	                                  "onclick": null,
-	                                  "showDuration": "1000",
-	                                  "hideDuration": "1000",
-	                                  "timeOut": "5000",
-	                                  "extendedTimeOut": "1000",
-	                                  "showEasing": "swing",
-	                                  "hideEasing": "swing",
-	                                  "showMethod": "show",
-	                                  "hideMethod": "hide"
-	                                }
-                                	Command: toastr.success(data_title+" Deleted Successfully");
-                            }else{
-	                                toastr.options = {
-	                                  "closeButton": true,
-	                                  "debug": false,
-	                                  "positionClass": "toast-top-right",
-	                                  "onclick": null,
-	                                  "showDuration": "1000",
-	                                  "hideDuration": "1000",
-	                                  "timeOut": "5000",
-	                                  "extendedTimeOut": "1000",
-	                                  "showEasing": "swing",
-	                                  "hideEasing": "swing",
-	                                  "showMethod": "show",
-	                                  "hideMethod": "hide"
-	                                }
-                                 Command: toastr.error("Some Error Occured");
-
-                            }
-	                    }
-	                });
-	            },
-	            cancel: function () {
-
-	                }
-	        }
-    	});
-	});
-});
+		  var tr = $(this).closest('tr');
+        Swal.fire({
+          title: 'Are you sure?',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete it!'
+        }).then((e) => {
+        if (e.value === true) {
+          $.ajax({
+            id: id,
+            type: 'DELETE',
+            url: url,
+            data: {_token:csrf_token , id: id  },
+            success: function (data) {
+              if(data){
+                Swal.fire(
+                  'Deleted!',
+                  'Your Category has been deleted.',
+                  'success'
+                  ).then(function() {
+                window.location.reload();}); 
+                }else{
+                  Swal.fire({
+                    title : 'Opps...',
+                    text : 'Something wrong!',
+                    icon : 'error',
+                    timer : '1500'
+                  });
+                }              
+              },
+            });
+        }else{
+          Swal.fire("Your file is safe.");
+        }
+      });
+    });
+  });
 
 function markAsRead(id)
   {

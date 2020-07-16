@@ -1,6 +1,7 @@
 <?php
 use App\Model\Requirement;
 use Carbon\Carbon;
+
  function getRequirementCode()
   {
     $lastRequirementCode  =   Requirement::orderBy('created_at', 'desc')->first();
@@ -33,9 +34,9 @@ use Carbon\Carbon;
 
         if(isset($document))
         {
-            $nameWithExtension = $document->getClientOriginalName();
-            $name = explode('.', $nameWithExtension)[0];
-            $extension = $document->getClientOriginalExtension();
+            $nameWithExtension = $document->getClientOriginalName();            
+            $name = explode('.', $nameWithExtension)[0]; 
+            $extension = $document->getClientOriginalExtension(); 
             $current = Carbon::now()->format('YmdHs');
             $documentName = $name.'_'.$current.'.'.$extension;
             $document->move($destinationPath, $documentName);

@@ -52,12 +52,17 @@ class VendorController extends Controller
             })
             ->addColumn('verification_status', function($data){
                 
+                $status = \Config::get('constants.VERIFICATION_STATUS');
+                
                 if($data->user->is_verified == "pending"){
-                    return "Pending";
+                    
+                    return $status['pending'];
+                
                 }elseif($data->user->is_verified == "approved"){
-                    return "Approved";
+                    
+                    return $status['approved'];
                 }
-                return "Rejected";
+                return $status['rejected'];
             })
             ->addColumn('action', function($row){
                 return view('admin.vendor.actions', compact('row'));
@@ -76,7 +81,8 @@ class VendorController extends Controller
     */
     public function create()
 	{   
-        $categories = Category::where('status',1)->get();
+        $categories = Category::where('status',1)->get()
+        ->sortBy('name', SORT_NATURAL | SORT_FLAG_CASE)->pluck('name','id');
         
         return view('admin.vendor.create',compact('categories'));
     }
@@ -93,7 +99,7 @@ class VendorController extends Controller
         
         try {
             $vendor = $this->vendorRepository->save($requestData);
-            return redirect()->route('requirements.index')->with('success','Vendor details save successfully');
+            return redirect()->route('vendors.index')->with('success','Vendor details save successfully');
         } catch (Exception $e) {
             return redirect()->back()->with('error','Something went wrong');
         }
@@ -109,7 +115,9 @@ class VendorController extends Controller
     public function edit($id)
     {   
         $vebdorId = $id;
-        $categories = Category::where('status',1)->get();
+        $categories = Category::where('status',1)->get()
+        ->sortBy('name', SORT_NATURAL | SORT_FLAG_CASE)->pluck('name','id');
+        
         $vendor = $this->vendorRepository->find($vebdorId);
        
         try {
@@ -156,6 +164,7 @@ class VendorController extends Controller
     {   
         $vebdorId = $id;
         $vendor = $this->vendorRepository->find($vebdorId);
+        
         try {
             if($vendor){
                 return view('admin.vendor.show',compact('vendor'));

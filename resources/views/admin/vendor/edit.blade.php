@@ -6,179 +6,216 @@
          <h3 class="card-title">Edit Vendor</h3>
       </div>
       <div class="card-body">
-         <form class="form-horizontal" method="post" action="{{route('vendors.update',$vendor->id)}}" data-parsley-validate="parsley" enctype="multipart/form-data">
+         {!! Form::model($vendor,['route' =>  ['vendors.update', $vendor->id],'class' => 'form-horizontal',
+            'method' => 'put','data-parsley-validate' => 'parsley','enctype' =>'multipart/form-data']) !!}
             @csrf
-				 @method('PUT')
-            <input type="hidden" class="form-control" name="verify_status" value="1">
+            <input type="hidden" class="form-control" name="verify_status" value="Approved">
+            <input type="hidden" name="user_id" value="{{$vendor->user_id}}"/>
             <div class="row">
                <div class= "col-sm-6">
                   <div class="form-group">
-                     <input type="text" class="form-control" name="first_name" placeholder="First name"
-                        data-parsley-errors-container="#firstNameError" data-parsley-required="true"
-                        data-parsley-error-message="Please enter first name" value="{{$vendor->first_name}}">
+                     {!! Form::text('first_name', $vendor->first_name, ['class' => 'form-control ','placeholder' => 'First Name',
+                     'data-parsley-required' => 'true',
+                     'data-parsley-required-message' => 'First name is required',
+                     'data-parsley-trigger' => "input",
+                     'data-parsley-trigger'=>"blur",
+                     'data-parsley-pattern'=>"^[a-zA-Z]+$",
+                     'data-parsley-maxlength' => '50']) !!}
                   </div>
                   @error('first_name')
                   <span class="text-danger errormsg" role="alert">
                      <p>{{ $message }}</p>
                   </span>
                   @enderror
-                  <span id="firstNameError"><span>
                </div>
                <div class= "col-sm-6">
                   <div class="form-group">
-                     <input type="text" class="form-control" name="middle_name" placeholder="Middle name" value="{{$vendor->middle_name}}">
+                     {!! Form::text('middle_name', $vendor->middle_name, ['class' => 'form-control ','placeholder' => 'Middle Name',
+                     'data-parsley-trigger' => "input",
+                     'data-parsley-trigger'=>"blur",
+                     'data-parsley-pattern'=>"^[a-zA-Z]+$",
+                     'data-parsley-maxlength' => '50']) !!}   
                   </div>
-                  @error('middle_name')
+               </div>
+               @error('middle_name')
                   <span class="text-danger errormsg" role="alert">
                      <p>{{ $message }}</p>
                   </span>
-                  @enderror
-               </div>
+               @enderror
                <div class= "col-sm-6">
-
                   <div class="form-group">
-                     <input type="text" class="form-control" name="last_name" placeholder="Last name"
-                        data-parsley-errors-container="#lastNameError" data-parsley-required="true"
-                        data-parsley-error-message="Please enter last name" value="{{$vendor->last_name}}">
+                     {!! Form::text('last_name', $vendor->last_name, ['class' => 'form-control ','placeholder' => 'Last Name',
+                     'data-parsley-required' => 'true',
+                     'data-parsley-required-message' => 'Last name is required',
+                     'data-parsley-trigger' => "input",
+                     'data-parsley-trigger'=>"blur",
+                     'data-parsley-pattern'=>"^[a-zA-Z]+$",
+                     'data-parsley-maxlength' => '50']) !!}
                   </div>
                   @error('last_name')
                   <span class="text-danger errormsg" role="alert">
                      <p>{{ $message }}</p>
                   </span>
                   @enderror
-                  <span id="lastNameError"><span>
                </div>
                <div class= "col-sm-6">
                   <div class="form-group">
-                     <input type="text" class="form-control" name="mobile_number" data-parsley-errors-container="#mobileNumberError"
-                        placeholder="Mobile number" data-parsley-required="true" data-parsley-type="digits" value="{{$vendor->mobile_number}}">
+                     {!! Form::text('mobile_number', $vendor->mobile_number, ['class' => 'form-control ','placeholder' => 'Mobile Number',
+                     'data-parsley-required' => 'true',
+                     'data-parsley-required-message' => 'Mobile Number is required',
+                     'data-parsley-trigger' => "input",
+                     'data-parsley-trigger'=>"blur",
+                     'data-parsley-type'=>"digits",
+                     'data-parsley-maxlength' => '20']) !!}
                   </div>
                   @error('mobile_number')
                   <span class="text-danger errormsg" role="alert">
                      <p>{{ $message }}</p>
                   </span>
                   @enderror
-                  <span id="mobileNumberError"><span>
                </div>
                <div class= "col-sm-6">
                   <div class="form-group">
-                     <input type="email" class="form-control" name="email" placeholder="Email address" data-parsley-errors-container="#emailError"
-                        data-parsley-required="true" data-parsley-error-message="Please enter email address" value="{{$vendor->user->email}}">
+                     {!! Form::email('email', $vendor->user->email, ['class' => 'form-control ','placeholder' => 'Email Address',
+                     'data-parsley-required' => 'true',
+                     'data-parsley-required-message' => 'Email Address is required',
+                     'data-parsley-trigger' => "input",
+                     'data-parsley-trigger'=>"blur"]) !!}
                   </div>
                   @error('email')
                   <span class="text-danger errormsg" role="alert">
                      <p>{{ $message }}</p>
                   </span>
                   @enderror
-                  <span id="emailError"><span>
                </div>
-
+               <div class= "col-sm-6">
+               <div class="form-group">
+               {!! Form::file('profile_image', array('class' => 'form-control ','placeholder' => 'Profile Image')) !!}
+                 </div> 
+               </div>
                <div class= "col-sm-6">
                   <div class="form-group">
-                     <input type="text" class="form-control" name="company_name" placeholder="Company name" data-parsley-errors-container="#companyNameError"
-                        data-parsley-required="true" data-parsley-error-message="Please enter company name"  value="{{$vendor->company->company_name}}">
+                     {!! Form::text('company_name', $vendor->company->company_name, ['class' => 'form-control ','placeholder' => 'Company Name',
+                     'data-parsley-required' => 'true',
+                     'data-parsley-required-message' => 'Company Name is required',
+                     'data-parsley-trigger' => "input",
+                     'data-parsley-trigger'=>"blur",
+                     'data-parsley-maxlength' => '50']) !!}
                   </div>
                   @error('company_name')
                   <span class="text-danger errormsg" role="alert">
                      <p>{{ $message }}</p>
                   </span>
                   @enderror
-                  <span id="companyNameError"><span>
                </div>
                <div class= "col-sm-6">
                   <div class="form-group">
-                     <input type="text" class="form-control" name="address" placeholder="Company address"
-                        data-parsley-errors-container="#addressError" data-parsley-required="true"
-                        data-parsley-error-message="Please enter company address"  value="{{$vendor->company->address}}">
+                     {!! Form::text('address', $vendor->company->address, ['class' => 'form-control ','placeholder' => 'Company Address',
+                     'data-parsley-required' => 'true',
+                     'data-parsley-required-message' => 'Company Address is required',
+                     'data-parsley-trigger' => "input",
+                     'data-parsley-trigger'=>"blur",
+                     'data-parsley-maxlength' => '50']) !!}
                   </div>
                </div>
                <div class= "col-sm-6">
                   <div class="form-group">
-                     <select class="form-control" style="width: 100%;" name="category" id="category"
-                        data-parsley-errors-container="#categoryError" data-parsley-required="true"
-                        data-parsley-error-message="Please enter category">
-                        <option value="">Select Category</option>
-                        @forelse($categories as $category)replies
-                        <option value="{{$category->id}}"@if($vendor->vendorCategory->category_id == $category->id) selected="selected" @endif>{{ $category->name }}</option>
-                        @empty
-                        <option value="">No categories</option>
-                        @endforelse
-                     </select>
+                     {!!Form::select('category', $categories, $vendor->vendorCategory->category_id, 
+                     array('class'=>'form-control', 'placeholder'=>'Select Category',
+                     'data-parsley-required' => 'true',
+                     'data-parsley-required-message' => 'Category is required')) !!}
                      @error('category')
                      <span class="text-danger errormsg" role="alert">
                         <p>{{ $message }}</p>
                      </span>
                      @enderror
-                     <span id="categoryError"><span>
                   </div>
                </div>
                <div class= "col-sm-6">
                   <div class="form-group">
-                     <input type="text" class="form-control" name="state" placeholder="Company state"
-                        data-parsley-errors-container="#stateError" data-parsley-required="true"
-                        data-parsley-error-message="Please enter state"  value="{{$vendor->company->state}}">
+                     {!! Form::text('state', $vendor->company->state, ['class' => 'form-control ','placeholder' => 'Company State',
+                     'data-parsley-required' => 'true',
+                     'data-parsley-required-message' => 'State is required',
+                     'data-parsley-trigger' => "input",
+                     'data-parsley-trigger'=>"blur",
+                     'data-parsley-maxlength' => '20']) !!}
                   </div>
                   @error('state')
                   <span class="text-danger errormsg" role="alert">
                      <p>{{ $message }}</p>
                   </span>
                   @enderror
-                  <span id="stateError"><span>
                </div>
                <div class= "col-sm-6">
                   <div class="form-group">
-                     <input type="text" class="form-control" name="city" placeholder="Company city" data-parsley-errors-container="#cityError"
-                        data-parsley-required="true" data-parsley-error-message="Please enter city" value="{{$vendor->company->city}}">
+                     {!! Form::text('city', $vendor->company->city, ['class' => 'form-control ','placeholder' => 'City',
+                     'data-parsley-required' => 'true',
+                     'data-parsley-required-message' => 'City is required',
+                     'data-parsley-trigger' => "input",
+                     'data-parsley-trigger'=>"blur",
+                     'data-parsley-maxlength' => '20']) !!}
                   </div>
                   @error('city')
                   <span class="text-danger errormsg" role="alert">
                      <p>{{ $message }}</p>
                   </span>
                   @enderror
-                  <span id="cityError"><span>
                </div>
                <div class= "col-sm-6">
                   <div class="form-group">
-                     <input type="text" class="form-control" name="pincode" placeholder="Company pincode" data-parsley-errors-container="#pincodeError"
-                        data-parsley-required="true" data-parsley-type="digits" value="{{$vendor->company->pincode}}">
+                     {!! Form::text('pincode', $vendor->company->pincode, ['class' => 'form-control ','placeholder' => 'Company Pincode',
+                     'data-parsley-required' => 'true',
+                     'data-parsley-trigger' => "input",
+                     'data-parsley-trigger'=>"blur",
+                     'data-parsley-type'=>"digits",
+                     'data-parsley-maxlength' => '20']) !!}
                   </div>
                   @error('pincode')
                   <span class="text-danger errormsg" role="alert">
                      <p>{{ $message }}</p>
                   </span>
                   @enderror
-                  <span id="pincodeError"><span>
                </div>
                <div class= "col-sm-6">
                   <div class="form-group">
-                     <input type="text" class="form-control" name="contact_number" placeholder="Company contact number"
-                        data-parsley-errors-container="#contactNoError" data-parsley-required="true" data-parsley-type="digits" value="{{$vendor->company->contact_number}}">
+                     {!! Form::text('contact_number', $vendor->company->contact_number, ['class' => 'form-control ','placeholder' => 'Company Contact Number',
+                     'data-parsley-required' => 'true',
+                     'data-parsley-required-message' => 'Company Contact Number is required',
+                     'data-parsley-trigger' => "input",
+                     'data-parsley-trigger'=>"blur",
+                     'data-parsley-type'=>"digits",
+                     'data-parsley-maxlength' => '20']) !!}
                   </div>
                   @error('contact_number')
                   <span class="text-danger errormsg" role="alert">
                      <p>{{ $message }}</p>
                   </span>
                   @enderror
-                  <span id="contactNoError"><span>
                </div>
                <div class= "col-sm-6">
                   <div class="form-group">
-                     <input type="text" class="form-control" name="fax" placeholder="Company fax" data-parsley-errors-container="#faxError"
-                     data-parsley-required="true" data-parsley-error-message="Please enter fax" value="{{$vendor->company->fax}}">
+                     {!! Form::text('fax', $vendor->company->fax, ['class' => 'form-control ','placeholder' => 'Company Fax',
+                     'data-parsley-required' => 'true',
+                     'data-parsley-required-message' => 'Company Fax is required',
+                     'data-parsley-trigger' => "input",
+                     'data-parsley-trigger'=>"blur",
+                     'data-parsley-maxlength' => '20']) !!}
                   </div>
                   @error('fax')
                   <span class="text-danger errormsg" role="alert">
                      <p>{{ $message }}</p>
                   </span>
                   @enderror
-                  <span id="faxError"><span>
                </div>
                <div class= "col-sm-6">
                   <div class="form-group">
-                     <input type="text" class="form-control" name="website" placeholder="Company website URL"
-                     data-parsley-errors-container="#websiteError" data-parsley-required="true"  data-parsley-type="url" value="{{$vendor->company->website}}">
+                     {!! Form::text('website', $vendor->company->website, ['class' => 'form-control ','placeholder' => 'Company Website URL',
+                     'data-parsley-required' => 'true',
+                     'data-parsley-trigger' => "input",
+                     'data-parsley-trigger'=>"blur",
+                     'data-parsley-type'=>'url',
+                     'data-parsley-maxlength' => '20']) !!}
                   </div>
-                  <span id="websiteError"><span>
                   @error('website')
                   <span class="text-danger errormsg" role="alert">
                      <p>{{ $message }}</p>
@@ -195,23 +232,11 @@
                         <option value="approved"@if($vendor->user->is_verified == "approved") selected="selected" @endif>Approved</option>
                         <option value="rejected"@if($vendor->user->is_verified == "rejected") selected="selected" @endif>Rejected</option>
                      </select>
-                     @error('category')
+                     @error('verify_status')
                      <span class="text-danger errormsg" role="alert">
                         <p>{{ $message }}</p>
                      </span>
                      @enderror
-                     <span id="statusError"><span>
-                  </div>
-               </div>
-               <div class= "col-sm-6">
-                  <div class="input-group  mb-3">
-                     <div class="custom-file">
-                        <input type="file" class="custom-file-input" name="profile_image" id="profileImage">
-                        <label class="custom-file-label" for="profileImage">Choose file</label>
-                     </div>
-                     <div class="input-group-append">
-                        <span class="input-group-text" id="">Upload Image</span>
-                     </div>
                   </div>
                </div>
                <div class= "col-sm-6">
@@ -220,13 +245,15 @@
                   </div>
                </div>
             </div>
-            <div class="form-group row mt-3">
-               <div class="col-sm-6">
-                  <button type="submit" class="btn btn-primary btn-md">Update</button>
-                  <a href="{{route('vendors.index')}}" class="btn btn-default btn-md">Cancel</a>
+            <div class="form-group row mt-4">
+               <div class="col-sm-6">	
+                {!! Form::button('Save', ['type' => 'submit', 'class' => 'btn btn-primary'] ) !!}
+                  <a href="{{route('vendors.index')}}" class="btn btn-default">Cancel</a>
                </div>
-            </div>
-         </form>
+               <div class="col-sm-6">	
+               </div>
+            </div> 
+         {!! Form::close() !!}
       </div>
    </div>
 </div>

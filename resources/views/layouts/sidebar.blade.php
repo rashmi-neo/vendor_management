@@ -21,14 +21,6 @@
                </a>
             </li>
             <li class="nav-item">
-               <a href="{{route('profiles.index')}}" class="nav-link {{ (request()->is('admin/profiles*')) ? 'active' : '' }}">
-                  <i class="nav-icon far fa-image"></i>
-                  <p>
-                     Profile
-                  </p>
-               </a>
-            </li>
-            <li class="nav-item">
                <a href="{{route('categories.index')}}" class="nav-link {{ (request()->is('admin/categories*')) ? 'active' : '' }}">
                   <i class="nav-icon far fa-image"></i>
                   <p>
@@ -60,10 +52,18 @@
                   </p>
                </a>
             </li>
+            <li class="nav-item">
+               <a href="{{route('profiles.index')}}" class="nav-link {{ (request()->is('admin/profiles*')) ? 'active' : '' }}">
+                  <i class="nav-icon far fa-image"></i>
+                  <p>
+                     My Account
+                  </p>
+               </a>
+            </li>
          @endif
          @if(Auth::check() && Auth::user()->role_id == 2)
          <li class="nav-item">
-            <a href="{{url('vendor/dashboard')}}" class="nav-link {{ (request()->is('admin/dashboard')) ? 'active' : '' }}">
+            <a href="{{url('vendor/dashboard')}}" class="nav-link {{ (request()->is('vendor/dashboard')) ? 'active' : '' }}">
                <i class="nav-icon far fa-image"></i>
                <p>
                   Dashboard
@@ -71,13 +71,29 @@
             </a>
          </li>
          <li class="nav-item">
-               <a href="{{route('accounts.index')}}" class="nav-link  {{ (request()->is('admin/requirements*')) ? 'active' : '' }}">
-                  <i class="nav-icon far fa-image"></i>
-                  <p>
-                     My Account
-                  </p>
-               </a>
-            </li>
+            <a href="{{route('accounts.index')}}" class="nav-link  {{ (request()->is('vendor/accounts*')) ? 'active' : '' }}">
+               <i class="nav-icon far fa-image"></i>
+               <p>
+                  My Account
+               </p>
+            </a>
+         </li>
+         <li class="nav-item">
+            <a href="{{route('past.requirement.index')}}" class="nav-link  {{ (request()->is('vendor/past/requirements*')) ? 'active' : '' }}">
+               <i class="nav-icon far fa-image"></i>
+               <p>
+                  Past Requirement
+               </p>
+            </a>
+         </li>
+         <li class="nav-item">
+            <a href="{{route('new.requirement.index')}}" class="nav-link  {{ (request()->is('vendor/new/requirements*')) ? 'active' : '' }}">
+               <i class="nav-icon far fa-image"></i>
+               <p>
+                  New Requirement
+               </p>
+            </a>
+         </li>
          @endif
          </ul>
       </nav>

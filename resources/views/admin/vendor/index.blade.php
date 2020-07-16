@@ -6,18 +6,6 @@
 			<a class="btn btn-success float-right btn-sm" rel="tooltip" title="Add New" href="{{route('vendors.create')}}">Add New</a>
 		</div>
 	<div class="card-body">
-		 @if(session()->get('success'))
-		    <div class="alert alert-success alert-dismissible" id="successMessage">
-				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-				<i class="icon fa fa-check"></i>{{ Session::get('success') }}
-			</div><br/>
-  		 @endif
-		 @if(session()->get('error'))
-		    <div class="alert alert-danger alert-dismissible" id="errorsMessage">
-				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-				<i class="icon fa fa-check"></i>{{ Session::get('error') }}
-			</div><br/>
-  		 @endif
 			<table id="vendorTable" class="table table-bordered table-hover">
 				<thead>
 					<tr>
@@ -35,6 +23,18 @@
 </div>
 @endsection
 @section('scripts')
+@if(session()->get('success'))
+	<script>
+		var message = "{{ Session::get('success') }}"
+		toastr.success(message);
+	</script>
+@endif
+@if(session()->get('error'))
+	<script>
+		var message = "{{ Session::get('error') }}"
+		toastr.error(message);
+	</script>
+@endif
 <script type="text/javascript">
 	$(function () {
 		var table = $('#vendorTable').DataTable({
@@ -52,16 +52,6 @@
 				{data: 'action', name: 'action', orderable: false, searchable: false},
 			]
 		});  
-	});
-	$(function(){
-		setTimeout(function() {
-			$('#successMessage').fadeOut('fast');
-		}, 3000);     
-	});
-	$(function(){
-		setTimeout(function() {
-			$('#errorMessage').fadeOut('fast');
-		}, 3000);     
 	});
 </script>
 @endsection

@@ -24,7 +24,7 @@ class SupportContactRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=> 'required|alpha|max:50',
+            'name'=> 'required|max:50',
             'contact_number'=> 'required|max:20',
             'email_address' => 'required|unique:vms_support_contact_details,email'
         ];

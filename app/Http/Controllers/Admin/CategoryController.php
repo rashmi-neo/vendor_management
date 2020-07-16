@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Auth;
 use DataTables;
 use App\Repositories\Category\CategoryInterface as CategoryInterface;
 use App\Http\Requests\VendorCategory;
@@ -42,10 +41,16 @@ class CategoryController extends Controller
                         return view('admin.category.actions', compact('row'));
                     })
                     ->editColumn('status', function($row){
+                    
+                        $status = \Config::get('constants.CATEGORY_STATUS');
+
                         if($row->status == 1){
-                            return 'Active';
+                            
+                            return $status['active'];
+                            
                         }else{
-                            return 'Inactive';
+                            
+                            return $status['inactive'];
                         }
                     })
                     ->rawColumns(['action'])

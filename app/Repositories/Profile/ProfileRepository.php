@@ -3,11 +3,16 @@
 namespace App\Repositories\Profile;
 use App\User;
 use Illuminate\Support\Facades\Hash;
-use Auth;
-use App\Repositories\Category\Profilenterface;
+use App\Repositories\Profile\Profilenterface;
 
 class ProfileRepository implements ProfileInterface{
 
+    public $user;
+
+    function __construct(User $user) {
+	$this->user = $user;
+	}
+      
     /**
      * Get's all User profile.
      *
@@ -28,9 +33,11 @@ class ProfileRepository implements ProfileInterface{
      * @param $id
      * @return collection
      */
-    public function find($id)
+    public function findUser()
     {
-        return User::where('role_id',1)->find($id);
+       $userId = \Auth::user()->id; 
+       $user = User::where('id',$userId)->first();
+       return $user;
     }
 
     /**

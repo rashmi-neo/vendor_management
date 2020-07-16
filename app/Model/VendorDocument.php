@@ -29,5 +29,15 @@ class VendorDocument extends Model
     {   
         return $this->belongsTo('App\Model\Vendor','vendor_id','id');
     }
- 
+    
+    /**
+     * Get the Vendor Document Status.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getStatusAttribute($value)
+    {
+        return ucfirst($value);
+    }
 }

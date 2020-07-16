@@ -22,6 +22,11 @@ class Requirement extends Model
         'status','from_date','to_date','priority','budget'
     ];
 
+    public function assignVendor() 
+    {   
+     return $this->belongsToMany('App\Model\AssignVendor','requirement_id');
+    }
+    
     public function setPriorityAttribute($value)
     {
         $this->attributes['priority'] = strtolower($value);
@@ -47,6 +52,7 @@ class Requirement extends Model
     {
       return $this->belongsToMany('App\Model\Vendor','vms_assign_vendors','vendor_id','requirement_id');
     }
+    
     public function category()
     {
       return $this->belongsTo('App\Model\Category','category_id');

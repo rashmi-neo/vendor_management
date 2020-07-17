@@ -30,8 +30,8 @@ class AddEmailToUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            
-        });
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+        Schema::drop('users');
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
     }
 }

@@ -17,43 +17,20 @@ class VendorTableSeeder extends Seeder
      */
     public function run()
     {
-        
-        //$users = factory(App\User::class, 3)->create();
-
-        for ($i=0; $i < 5; $i++) { 
-	        $user = User::create([
-                'role_id'=>2,
-                'username' => Str::random(10),
-                'is_verified'=>"approved",
-	            'email' => Str::random(10).'@gmail.com',
-	            'password' => Hash::make('vendor@123'),
-            ]);
+        /** Create 5 records of Users */
+        factory(App\User::class,5)->create()->each(function ($user) {
+            // Seed the relation with one Vendor
+            $vendor = factory(Vendor::class)->make();
+            $user->vendor()->save($vendor);
             
-            $vendor = Vendor::create([
-                'user_id'=>$user->id,
-                'first_name'=>Str::random(8),
-                'middle_name'=>Str::random(8),
-                'last_name'=>Str::random(8),
-                'mobile_number'=>7544345654,
-                'profile_image'=>" ",
-            ]);
-
+            // Seed the relation with one Company
+            $company = factory(Company::class)->make();
+            $vendor->company()->save($company);
+             
             VendorCategory::create([
                 'vendor_id'=>$vendor->id,
-                'category_id'=>3,
+                'category_id'=>rand(1,5),
             ]);
-
-            Company::create([
-                'vendor_id'=>$vendor->id,
-                'company_name'=>Str::random(10).' ' .'Private LTD',
-                'address'=>"Hinjewadi",
-                'state'=>"Maharashtra",
-                'city'=>'Pune',
-                'pincode'=>443322,
-                'contact_number'=>7544345654,
-                'fax'=>'2030-43-40',
-                'website'=>'www'.Str::random(8).'com',
-            ]);
-        }
+        });
     }
 }

@@ -15,8 +15,13 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('role_id')->unsigned();
+            $table->foreign('role_id')->references('id')->on('vms_roles')->onDelete('cascade');
+            $table->string('username')->length('50');
             $table->string('email')->unique()->length('50');
             $table->string('password')->length('100');
+            $table->enum('is_verified', ['pending','approved', 'rejected'])->default('pending');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

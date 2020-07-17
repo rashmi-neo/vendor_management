@@ -37,7 +37,7 @@
                   <p>Completed Requirements</p>
                </div>
                <div class="icon">
-                  <i class="ion ion-close-circled"></i>
+               <i class="ion ion-checkmark"></i>
                </div>
                <a href="#" class="small-box-footer"></i></a>
             </div>
@@ -51,7 +51,8 @@
                   <p>New Requirements</p>
                </div>
                <div class="icon">
-                  <i class="ion ion-stats-bars"></i>
+               <!-- <span class="iconify" data-icon="ion-construct-outline" data-inline="false"></span> -->
+                  <i class="ion ion-briefcase"></i>
                </div>
                <a href="#" class="small-box-footer"></i></a>
             </div>

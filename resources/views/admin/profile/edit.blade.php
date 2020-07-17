@@ -64,7 +64,7 @@
             <div class="form-group row">
                {!! Form::label('new_password','New Password',['class'=>"col-sm-2 col-form-label"],false) !!} 
                <div class="col-sm-8">
-                  {!! Form::password('new_password',array('class' => 'form-control','placeholder' => 'New  Password',
+                  {!! Form::password('new_password',array('class' => 'form-control','id' => 'newPassword','placeholder' => 'New  Password',
                   'data-parsley-required' => 'true',
                   'data-parsley-required-message' => 'New Password is required',
                   'data-parsley-trigger' => "input",
@@ -85,6 +85,8 @@
                   'data-parsley-required' => 'true',
                   'data-parsley-required-message' => 'Confirm new password is required',
                   'data-parsley-trigger' => "input",
+                  'data-parsley-equalto'=>'#newPassword',
+                  'data-parsley-equalto-message' => 'Confirm new password should be same as new password',
                   'data-parsley-trigger'=>"blur",
                   'data-parsley-maxlength' => '100']) !!}
                   

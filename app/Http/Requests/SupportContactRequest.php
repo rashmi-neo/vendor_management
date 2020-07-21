@@ -25,7 +25,7 @@ class SupportContactRequest extends FormRequest
     {
         return [
             'name'=> 'required|max:50',
-            'contact_number'=> 'required|max:20',
+            'contact_number'=> 'required|min:10|max:15',
             'email_address' => 'required|unique:vms_support_contact_details,email'
         ];
     }

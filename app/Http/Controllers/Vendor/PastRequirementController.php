@@ -83,6 +83,13 @@ class PastRequirementController extends Controller
         }
     }
 
+     /**
+    * Get category name of specific vendor.
+    *@Author Bharti <bharati.tadvi@neosofttech.com>
+    *  
+    * @param  void
+    * @return $categoryName
+    */
     public function findCategory(){
         
         $id =\Auth::user()->id;

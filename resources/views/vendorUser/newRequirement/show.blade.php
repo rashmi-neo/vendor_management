@@ -26,7 +26,7 @@
                      Description  : 
                   </th>
                   <td>
-                     <span>{{$newRequirement->description}}</span>
+                     <span>{{$newRequirement->description}} </span>
                   </td>
                </tr>
                <tr>
@@ -84,7 +84,7 @@
                      Comment  : 
                   </th>
                   <td>
-                     <span>{{$newRequirement->comment}}</span>
+                     <span>{{empty($newRequirement->comment)?"-":$newRequirement->comment}}</span>
                   </td>
                </tr>
                <tr>

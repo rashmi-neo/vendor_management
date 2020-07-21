@@ -9,65 +9,38 @@ use App\Model\Vendor;
 class DashboardController extends Controller
 {
     
+    /**
+    * Get logged in Vendor requirement count.
+    *@author Bharti<bharati.tadvi@neosofttech.com> 
+    *
+    *@return $newRequirementCount,$completeRequirementCount,$cancelRequirementCount
+    */
     public function index(){
         
         $id =\Auth::user()->id;
-        $requirements = [];
-        $cancelRequirements = [];
-        $completeRequirements = [];
-
         
-        $newRequirements = Vendor::where('user_id',$id)->where('deleted_at',null)
-         ->with(['assignVendor','assignVendor.requirement' => function ($query){
-                $query->where('deleted_at',null)->whereIn('status',['in_progress','approved']);
-            }])->get();
-
-            foreach($newRequirements as $newRequirement){
-                foreach($newRequirement->assignVendor as $assign){
-                    if(isset($assign->requirement)){
-                        $requirements[] = $assign->requirement;
-                    }
-                }
-            }
-     
-        $newRequirementCount = count($requirements);
-       
-
-        $completedRequirements = Vendor::where('user_id',$id)->where('deleted_at',null)
-         ->with(['assignVendor','assignVendor.requirement' => function ($query){
-                $query->where('deleted_at',null)->whereIn('status',['completed']);
-            }])->get();
-
-            foreach($completedRequirements as $newRequirement){
-                foreach($newRequirement->assignVendor as $assign){
-                    if(isset($assign->requirement)){
-                        $completeRequirements[] = $assign->requirement;
-                    }
-                }
-            }
+        $newRequirement = Vendor::withCount(['requirements' => function ($query){
+            $query->where('vms_requirements.deleted_at',null)->whereIn('vms_requirements.status',['in_progress','approved']);
+            }])->where('user_id',$id)->where('vms_vendors.deleted_at',null)->first();
         
-        $cancelledRequirements = Vendor::where('user_id',$id)->where('deleted_at',null)
-        ->with(['assignVendor','assignVendor.requirement' => function ($query){
-                $query->where('deleted_at',null)->whereIn('status',['cancelled']);
-            }])->get();
-
-            foreach($cancelledRequirements as $newRequirement){
-                foreach($newRequirement->assignVendor as $assign){
-                    if(isset($assign->requirement)){
-                        $cancelRequirements[] = $assign->requirement;
-                    }
-                }
-            }
+        $completedRequirement = Vendor::withCount(['requirements' => function ($query){
+            $query->where('vms_requirements.deleted_at',null)->whereIn('vms_requirements.status',['completed']);
+            }])->where('user_id',$id)->where('vms_vendors.deleted_at',null)->first();
     
-        $completeRequirementCount = count($completeRequirements); 
+        $cancelledRequirement = Vendor::withCount(['requirements' => function ($query){
+            $query->where('vms_requirements.deleted_at',null)->whereIn('vms_requirements.status',['cancelled']);
+            }])->where('user_id',$id)->where('vms_vendors.deleted_at',null)->first();
+    
+    
+        $newRequirementCount = $newRequirement->requirements_count; 
+
+        $completeRequirementCount = $completedRequirement->requirements_count; 
         
-        $cancelRequirementCount = count($cancelRequirements); 
+        $cancelRequirementCount = $cancelledRequirement->requirements_count; 
+        
         
         return view('vendorUser.dashboard.dashboard',compact('newRequirementCount','completeRequirementCount',
         'cancelRequirementCount'));
     }
     
-    public function requirementCount($status){
-        
-    }
 }

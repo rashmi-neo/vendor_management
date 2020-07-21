@@ -26,7 +26,7 @@
                      Middle name  : 
                   </th>
                   <td>
-                   <span>{{isset($vendor->middle_name)?$vendor->middle_name:"-"}}</span>
+                   <span>{{empty($vendor->middle_name)?"-":$vendor->middle_name}}</span>
                   </td>
                </tr>
                <tr>

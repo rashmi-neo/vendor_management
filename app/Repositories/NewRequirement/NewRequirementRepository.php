@@ -72,10 +72,11 @@ class  NewRequirementRepository implements NewRequirementInterface{
         
         $vendorQuotation = new VendorQuotation();
         $vendorQuotation->assign_vendor_id = $assignRequirementId->id;
+        
         if ($document = $data->file('quotation')) {
-            $path = 'uploads';
+            $path = '/';
             $file = uploadFile($document,$path);
-            $vendorQuotation->quatation_doc = $file;
+            $vendorQuotation->quotation_doc = $file;
         }
         
         $vendorQuotation->comment = $data->vendor_comment;

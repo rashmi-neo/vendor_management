@@ -47,12 +47,14 @@
                             {!! Form::select('vendor_id[]',[],null, array('class'=>'form-control vendor','multiple'=>'multiple','id'=>'vendor', 'data-parsley-required' => 'true',
                             'data-parsley-required-message' => 'Please select vendor',
                             'data-parsley-trigger' => "select",
+                            'data-parsley-errors-container'=>'#vendorError',
                             'data-parsley-trigger'=>"blur")) !!}
                             @error('vendor_id')
                             <span class="text-danger errormsg" role="alert">
                                 <p>{{ $message }}</p>
                             </span>
                           @enderror
+                          <span id="vendorError"><span>
 				 		</div>
                     </div>
                     <div class="form-group row">

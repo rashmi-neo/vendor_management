@@ -22,7 +22,7 @@
                         @foreach ($showQuotationDetails as $key=>$quotation)
                         <tr>
                             <td>{{ $key+1 }}</td>
-                                @if($quotation->quatation_doc != "")
+                                @if($quotation->quotation_doc != "")
                                 <td> <a href="{{ url('/') }}/uploads/{{ $quotation->quatation_doc }}">{{ $quotation->quatation_doc }} <i class="fa fa-download" aria-hidden="true"></i></a></td>
                                 @else
                                 <td>: </td>

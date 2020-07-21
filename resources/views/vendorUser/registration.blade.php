@@ -43,6 +43,7 @@
                            'data-parsley-trigger'=>"blur",
                            'data-parsley-errors-container'=>'#firstNameError',
                            'data-parsley-pattern'=>"^[a-zA-Z]+$",
+                           'data-parsley-minlength' => '2',
                            'data-parsley-maxlength' => '50']) !!}
                            <div class="input-group-append">
                               <div class="input-group-text">
@@ -64,6 +65,7 @@
                            'data-parsley-trigger'=>"blur",
                            'data-parsley-errors-container'=>'#middleNameError',
                            'data-parsley-pattern'=>"^[a-zA-Z]+$",
+                           'data-parsley-minlength' => '2',
                            'data-parsley-maxlength' => '50']) !!}   
                            <div class="input-group-append">
                               <div class="input-group-text">
@@ -87,6 +89,7 @@
                            'data-parsley-trigger'=>"blur",
                            'data-parsley-errors-container'=>'#lastNameError',
                            'data-parsley-pattern'=>"^[a-zA-Z]+$",
+                           'data-parsley-minlength' => '2',
                            'data-parsley-maxlength' => '50']) !!}
                            <div class="input-group-append">
                               <div class="input-group-text">
@@ -110,7 +113,8 @@
                            'data-parsley-trigger'=>"blur",
                            'data-parsley-errors-container'=>'#mobileNumberError',
                            'data-parsley-type'=>"digits",
-                           'data-parsley-maxlength' => '20']) !!}
+                           'data-parsley-minlength' => '10',
+                           'data-parsley-maxlength' => '12']) !!}
                            <div class="input-group-append">
                               <div class="input-group-text">
                                  <span class="fas fa-mobile"></span>
@@ -131,7 +135,8 @@
                            'data-parsley-required-message' => 'Email Address is required',
                            'data-parsley-trigger' => "input",
                            'data-parsley-errors-container'=>'#emailError',
-                           'data-parsley-trigger'=>"blur"]) !!}
+                           'data-parsley-trigger'=>"blur",
+                           'data-parsley-maxlength' => '50']) !!}
                            <div class="input-group-append">
                               <div class="input-group-text">
                                  <span class="fas fa-envelope"></span>
@@ -148,11 +153,10 @@
                      <div class= "col-sm-6">
                         <div class="input-group  mb-3">
                               {!! Form::file('profile_image', array('class' => 'form-control ','placeholder' => 'Profile Image',
-                              'data-parsley-required' => 'true',
-                              'data-parsley-required-message' => 'Please upload profile image',
                               'data-parsley-trigger' => "input",
                               'data-parsley-errors-container'=>'#profileError',
-                              'data-parsley-trigger'=>"blur")) !!}
+                              'data-parsley-trigger'=>"blur",
+                              'data-parsley-maxlength' => '50')) !!}
                               <div class="input-group-append">
                                  <div class="input-group-text">
                                     <span class="fas fa-file"></span>
@@ -278,7 +282,8 @@
                            'data-parsley-trigger'=>"blur",
                            'data-parsley-errors-container'=>'#pincodeError',
                            'data-parsley-type'=>"digits",
-                           'data-parsley-maxlength' => '20']) !!}
+                           'data-parsley-minlength' => '6',
+                           'data-parsley-maxlength' => '10']) !!}
                            <div class="input-group-append">
                               <div class="input-group-text">
                                  <span class="fas fa-map-pin"></span>
@@ -301,7 +306,8 @@
                            'data-parsley-trigger'=>"blur",
                            'data-parsley-errors-container'=>'#contactNoError',
                            'data-parsley-type'=>"digits",
-                           'data-parsley-maxlength' => '20']) !!}
+                           'data-parsley-minlength' => '10',
+                           'data-parsley-maxlength' => '12']) !!}
                            <div class="input-group-append">
                               <div class="input-group-text">
                                  <span class="fas fa-phone"></span>
@@ -323,6 +329,7 @@
                            'data-parsley-trigger' => "input",
                            'data-parsley-trigger'=>"blur",
                            'data-parsley-errors-container'=>'#faxError',
+                           'data-parsley-pattern'=>"^[\d\+\-\.\(\)\/\s]+$",
                            'data-parsley-maxlength' => '20']) !!}
                            <div class="input-group-append">
                               <div class="input-group-text">
@@ -340,9 +347,7 @@
                      <div class= "col-sm-12">
                         <div class="input-group mb-3">
                            {!! Form::text('website', null, ['class' => 'form-control ','placeholder' => 'Company Website URL',
-                           'data-parsley-required' => 'true',
                            'data-parsley-trigger' => "input",
-                           'data-parsley-required-message' => 'Website url is required',
                            'data-parsley-trigger'=>"blur",
                            'data-parsley-errors-container'=>'#websiteError',
                            'data-parsley-type'=>'url',
@@ -353,12 +358,12 @@
                               </div>
                            </div>
                         </div>
+                        @error('website')
+                        <span class="text-danger errormsg" role="alert">
+                        <p>{{ $message }}</p>
+                        </span>
+                        @enderror
                         <span id="websiteError"><span>
-                           @error('website')
-                           <span class="text-danger errormsg" role="alert">
-                           <p>{{ $message }}</p>
-                           </span>
-                           @enderror
                      </div>
                   </div>
                   <div class="row mt-4">

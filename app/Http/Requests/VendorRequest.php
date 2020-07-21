@@ -32,7 +32,7 @@ class VendorRequest extends FormRequest
             'first_name' => 'required|max:50',
             'middle_name' => 'max:50',
             'last_name' => 'required|max:50',
-            'phone_number' => 'required|max:20',
+            'phone_number' => 'required|min:10|max:12',
             'current_password' => ['required', new MatchOldPassword],
             'new_password' => ['required'],
         ];

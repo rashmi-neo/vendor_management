@@ -175,7 +175,7 @@ class NewRequirementController extends Controller
      */
     public function getDocumentDownload($filename){
         
-        $file = public_path(). "/uploads/uploads/".$filename;
+        $file = public_path(). "/uploads/".$filename;
         
         $newFileName = 'proposal-document'.time();
 

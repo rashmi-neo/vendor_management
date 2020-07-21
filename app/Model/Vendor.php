@@ -83,6 +83,11 @@ class Vendor extends Model
         return $this->hasMany('App\Model\AssignVendor','vendor_id');
     }
 
+    public function requirements()
+    {
+        return $this->hasManyThrough('App\Model\Requirement','App\Model\AssignVendor','requirement_id','id');
+    }
+
     public function requirement()
     {
         return $this->belongsToMany('App\Model\Requirement','vms_assign_vendors','vendor_id','requirement_id');

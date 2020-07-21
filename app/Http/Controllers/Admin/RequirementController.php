@@ -83,6 +83,7 @@ class RequirementController extends Controller
     public function store(StoreRequirementRequest $request){
 
         $requestData =$request;
+        
         try {
             $requirement = $this->requirementRepository->save($requestData);
             $emailResp = $this->sendMailToVendor($requestData,$requirement->title);

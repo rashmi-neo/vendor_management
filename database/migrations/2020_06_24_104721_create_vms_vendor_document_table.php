@@ -17,6 +17,7 @@ class CreateVmsVendorDocumentTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('vendor_id')->unsigned();
             $table->bigInteger('document_id')->unsigned();
+            $table->string('file_name',100);
             $table->text('reason')->nullable();
             $table->enum('status', ['approved', 'pending','rejected'])->default('pending');
             $table->enum('is_uploaded', ['yes', 'no'])->default('no');

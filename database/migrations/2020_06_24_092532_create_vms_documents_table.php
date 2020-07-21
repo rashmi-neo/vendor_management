@@ -16,7 +16,7 @@ class CreateVmsDocumentsTable extends Migration
         Schema::create('vms_documents', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name',100);
-            $table->enum('is_mandetory', ['yes', 'no'])->default('yes');
+            $table->enum('is_mandatory', ['yes', 'no'])->default('yes');
             $table->timestamps();
         });
     }

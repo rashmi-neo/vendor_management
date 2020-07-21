@@ -1,4 +1,13 @@
 @extends('layouts.master')
+<style>
+.text-wrap{
+    white-space:normal;
+}
+.width-200{
+width:100px;
+}
+
+</style>
 @section('main-content')
 <div class="card">
 		<div class="card-header">
@@ -40,6 +49,7 @@
 		var table = $('#vendorTable').DataTable({
 			processing: true,
 			serverSide: true,
+			scrollX:        true,
 			bLengthChange: false,
 			ajax: "{{ route('vendors.index') }}",
 			columns: [
@@ -50,7 +60,15 @@
 				{data: 'company_name', name: 'company_name'},
 				{data: 'verification_status', name: 'verification_status'},
 				{data: 'action', name: 'action', orderable: false, searchable: false},
-			]
+			],
+			columnDefs: [
+                {
+                    render: function (data, type, full, meta) {
+                        return "<div class='text-wrap width-200'>" + data + "</div>";
+                    },
+                    targets: 6
+                }
+             ]
 		});  
 	});
 </script>

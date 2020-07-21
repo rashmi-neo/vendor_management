@@ -14,7 +14,6 @@ class UserTableSeeder extends Seeder
     {
         $users = [
             [   
-                'id'=>1,
                 'role_id'=>1,
                 'username'=>"admin",
                 'is_verified'=>"approved",

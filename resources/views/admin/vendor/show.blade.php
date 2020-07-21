@@ -98,7 +98,9 @@
                      Category : 
                   </th>
                   <td>
-                     <span>{{$vendor->vendorCategory->category->name}}</span>
+                     @foreach($vendor->vendorCategory as $category)
+                     <li>{{$category->category->name}}</li>
+                     @endforeach
                   </td>
                </tr>
                <tr>

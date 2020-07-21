@@ -47,9 +47,17 @@ class VendorRepository implements VendorInterface{
         $companyDetail = Company::create(['vendor_id'=>$vendorObj->id,'company_name'=>$data->company_name,
         'address'=>$data->address,'state'=>$data->state,'city'=>$data->city,'pincode'=>$data->pincode,'contact_number'=>$data->contact_number
         ,'fax'=>$data->fax,'website'=>$data->website]);
-
-        $vendorCategory = vendorCategory::create(['vendor_id'=>$vendorObj->id,'category_id'=>$data->category]);
-
+        
+        $categories= $data->category;
+        
+        foreach($categories as $category ){
+            
+            $vendorCategory = new vendorCategory();
+            $vendorCategory->vendor_id = $vendorObj->id;
+            $vendorCategory->category_id = $category;
+            $vendorCategory->save();
+        }
+        
         return $vendorObj;
     }
 
@@ -62,8 +70,9 @@ class VendorRepository implements VendorInterface{
      */
     public function all()
     {
-        $vendors = Vendor::with('vendorCategory','vendorCategory.category','company','user')->get();
-    	return $vendors;
+        $vendors = Vendor::with('vendorCategory','vendorCategory.category','company','user')->orderBy('id', 'desc')->get();
+        
+        return $vendors;
     }
 
     /**
@@ -109,10 +118,18 @@ class VendorRepository implements VendorInterface{
         'address'=>$data->address,'state'=>$data->state,'city'=>$data->city,'pincode'=>$data->pincode,'contact_number'=>$data->contact_number
         ,'fax'=>$data->fax,'website'=>$data->website]);
 
-        $vendorCategory = vendorCategory::where('vendor_id','=',$id)->update(['vendor_id'=>$vendor->id,'category_id'=>$data->category]);
-
+        $deleteVendorCategory = VendorCategory::where('vendor_id','=',$id)->delete();        
+        
+        $categories = $data->category ? $data->category : [];
+        
+        foreach($categories as $category ){
+            $vendorCategory = New VendorCategory();
+            $vendorCategory->vendor_id = $id;
+            $vendorCategory->category_id = $category;
+            $vendorCategory->save();
+        }
+        
         return $vendor;
-
     }
 
 }

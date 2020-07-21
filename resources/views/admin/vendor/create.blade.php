@@ -129,10 +129,12 @@
                </div>
                <div class= "col-sm-6">
                   <div class="form-group">
-                     {!!Form::select('category', $categories, null, 
-                     array('class'=>'form-control', 'placeholder'=>'Select Category',
-                     'data-parsley-required' => 'true',
-                     'data-parsley-required-message' => 'Category is required')) !!}
+                        {!!Form::select('category[]', $categories, null, 
+                        array('class'=>'form-control category', 'data-placeholder'=>'Select Category',
+                        'multiple'=>'multiple','id'=>'category',
+                        'data-parsley-required' => 'true',
+                        'data-parsley-errors-container'=>'#categoryError',
+                        'data-parsley-required-message' => 'Category is required')) !!}
                      @error('category')
                      <span class="text-danger errormsg" role="alert">
                         <p>{{ $message }}</p>
@@ -244,4 +246,13 @@
       </div>
    </div>
 </div>
+@endsection
+@section('scripts')
+<script type="text/javascript">
+   $(function(){
+         $('#category').select2({
+               theme: 'bootstrap4'
+         })
+   });
+</script>
 @endsection

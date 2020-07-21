@@ -31,7 +31,10 @@ class PastRequirementController extends Controller
     */
     public function index(Request $request){
         
-        $category = $this->findCategory();
+        $categories = $this->findCategory();
+        
+        $categoryName = [];
+        
         if($request->ajax()){
            
             $data = $this->pastRequirementRepository->all();
@@ -39,8 +42,12 @@ class PastRequirementController extends Controller
             return Datatables::of($data)
             ->addIndexColumn()
 
-            ->addColumn('category_name', function($data) use ($category){
-                    return $category->vendorCategory->category->name;
+            ->addColumn('category_name', function($data) use ($categories){
+            
+                foreach($categories->vendorCategory as $category){
+                    $categoryName[] = $category->category->name;
+                }
+                return $categoryName;
             })
             ->addColumn('action', function($row){
                 return view('vendorUser.pastRequirement.actions', compact('row'));

@@ -59,7 +59,7 @@ Route::group(['namespace' => 'Vendor','prefix' => 'vendor','middleware' => ['aut
 	Route::get('dashboard', function () {
 	        return view('layouts.master');
 	 });
-
+Route::get('dashboard', 'DashboardController@index')->name('vendor.dashboard');
 Route::resource('accounts', 'AccountController');
 Route::post('accounts/company/update/{id}', 'AccountController@updateCompanyDetail')->name('accounts.company.update');
 Route::post('accounts/document/store', 'AccountController@documentStore')->name('accounts.document.store');

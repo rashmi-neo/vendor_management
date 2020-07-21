@@ -18,7 +18,7 @@ class Category extends Model
 
     public function vendorCategory()
     {
-     return $this->hasOne('App\Model\VendorCategory','category_id');
+     return $this->hasMany('App\Model\VendorCategory','category_id');
     }
 
     public function requirement()

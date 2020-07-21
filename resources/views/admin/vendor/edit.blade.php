@@ -120,8 +120,9 @@
                </div>
                <div class= "col-sm-6">
                   <div class="form-group">
-                     {!!Form::select('category', $categories, $vendor->vendorCategory->category_id, 
+                     {!!Form::select('category[]', $categories, $categoryId, 
                      array('class'=>'form-control', 'placeholder'=>'Select Category',
+                     'multiple'=>'multiple','id'=>'category',
                      'data-parsley-required' => 'true',
                      'data-parsley-required-message' => 'Category is required')) !!}
                      @error('category')
@@ -257,4 +258,13 @@
       </div>
    </div>
 </div>
+@endsection
+@section('scripts')
+<script type="text/javascript">
+   $(function(){
+         $('#category').select2({
+               theme: 'bootstrap4'
+         })
+   });
+</script>
 @endsection

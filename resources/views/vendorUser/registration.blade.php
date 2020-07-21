@@ -17,6 +17,8 @@
       <link rel="stylesheet" href="{{ asset('css/customize.css') }}">
       <link href="{{asset('css/toastr.min.css')}}" rel="stylesheet" type="text/css" />
       <link rel="stylesheet" type="text/css" href="https://parsleyjs.org/src/parsley.css">
+      <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}">
+<link rel="stylesheet" href="{{ asset('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
       <!-- Google Font: Source Sans Pro -->
       <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
    </head>
@@ -78,7 +80,7 @@
                      </div>
                      <div class= "col-sm-6">
                         <div class="input-group mb-3">
-                           {!! Form::text('last_name', null, ['class' => 'form-control ','placeholder' => 'Last Name',
+                           {!! Form::text('last_name', null, ['class' => 'form-control','placeholder' => 'Last Name',
                            'data-parsley-required' => 'true',
                            'data-parsley-required-message' => 'Last name is required',
                            'data-parsley-trigger' => "input",
@@ -210,8 +212,9 @@
                      </div>
                      <div class="col-sm-6">
                         <div class="mb-3">
-                           {!!Form::select('category', $categories, null, 
-                           array('class'=>'form-control', 'placeholder'=>'Select Category',
+                           {!!Form::select('category[]', $categories, null, 
+                           array('class'=>'form-control category', 'data-placeholder'=>'Select Category',
+                           'multiple'=>'multiple','id'=>'category',
                            'data-parsley-required' => 'true',
                            'data-parsley-errors-container'=>'#categoryError',
                            'data-parsley-required-message' => 'Category is required')) !!}
@@ -383,7 +386,14 @@
       <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
       <script src="{{asset('js/toastr.min.js')}}" type="text/javascript"></script>
       <script src="{{asset('js/ui-toastr.min.js')}}" type="text/javascript"></script>
-
+      <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
+      <script type="text/javascript">
+         $(function(){
+            $('#category').select2({
+                  theme: 'bootstrap4'
+            })
+      });
+      </script>                       
       @if(session()->get('success'))
          <script>
             var message = "{{ Session::get('success') }}"

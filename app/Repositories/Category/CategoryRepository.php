@@ -28,7 +28,7 @@ class CategoryRepository implements CategoryInterface{
      */
     public function all()
     {
-    	$category = Category::all();
+    	$category = Category::orderBy('id', 'desc')->get();
     	return $category;
     }
 

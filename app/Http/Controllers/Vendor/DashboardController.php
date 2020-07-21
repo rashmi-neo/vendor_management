@@ -13,8 +13,8 @@ class DashboardController extends Controller
         
         $id =\Auth::user()->id;
         $requirements = [];
-        $cancelrequirements = [];
-        $completerequirements = [];
+        $cancelRequirements = [];
+        $completeRequirements = [];
 
         
         $newRequirements = Vendor::where('user_id',$id)->where('deleted_at',null)
@@ -41,7 +41,7 @@ class DashboardController extends Controller
             foreach($completedRequirements as $newRequirement){
                 foreach($newRequirement->assignVendor as $assign){
                     if(isset($assign->requirement)){
-                        $completerequirements[] = $assign->requirement;
+                        $completeRequirements[] = $assign->requirement;
                     }
                 }
             }
@@ -54,17 +54,17 @@ class DashboardController extends Controller
             foreach($cancelledRequirements as $newRequirement){
                 foreach($newRequirement->assignVendor as $assign){
                     if(isset($assign->requirement)){
-                        $cancelrequirements[] = $assign->requirement;
+                        $cancelRequirements[] = $assign->requirement;
                     }
                 }
             }
     
-        $completeRequirementCount = count($completerequirements); 
+        $completeRequirementCount = count($completeRequirements); 
         
-        $cancelrequirementCount = count($cancelrequirements); 
+        $cancelRequirementCount = count($cancelRequirements); 
         
         return view('vendorUser.dashboard.dashboard',compact('newRequirementCount','completeRequirementCount',
-        'cancelrequirementCount'));
+        'cancelRequirementCount'));
     }
     
     public function requirementCount($status){

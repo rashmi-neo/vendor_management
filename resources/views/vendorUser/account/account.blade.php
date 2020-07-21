@@ -502,10 +502,6 @@
                   </span>
                   @enderror
                </div>
-               <div class="form-group mb-3">
-                  {!! Form::label('reason','Reason:',['class'=>"col-sm-2 col-form-label"],false) !!} 
-                  {!! Form::text('reason', null, ['class' => 'form-control ','placeholder' => 'Enter Reason Detail']) !!}
-               </div>
             </div>
             <div class="modal-footer justify-content-between">
                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

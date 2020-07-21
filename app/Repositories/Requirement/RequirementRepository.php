@@ -39,7 +39,7 @@ class RequirementRepository implements RequirementInterface{
      */
     public function all()
     {
-    	$requirement = Requirement::with("category") ->where('deleted_at',null)->get();
+    	$requirement = Requirement::with("category") ->where('deleted_at',null)->orderBy('id', 'desc')->get();
     	return $requirement;
     }
 

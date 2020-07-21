@@ -43,7 +43,6 @@ class AccountRepository implements AccountInterface{
         $vendorDocument = New VendorDocument();
         $vendorDocument->vendor_id = $data->vendor_id;
         $vendorDocument->document_id = $data->document_id;
-        $vendorDocument->reason = $data->reason;
         
         if ($document = $data->file('file')) {
             $path = 'uploads';

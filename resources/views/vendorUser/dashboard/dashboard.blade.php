@@ -49,7 +49,7 @@
             <!-- small box -->
             <div class="small-box bg-danger">
                <div class="inner">
-                  <h3>{{$cancelrequirementCount}}</h3>
+                  <h3>{{$cancelRequirementCount}}</h3>
                   <p>Cancelled Requirements</p>
                </div>
                <div class="icon">

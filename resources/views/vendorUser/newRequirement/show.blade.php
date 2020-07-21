@@ -50,7 +50,9 @@
                     Category  : 
                   </th>
                   <td>
-                     <span>{{$category->vendorCategory->category->name}}</span>
+                     @foreach($category->vendorCategory as $cat)
+                     <li>{{$cat->category->name}}</li>
+                     @endforeach
                   </td>
                </tr>
                <tr>

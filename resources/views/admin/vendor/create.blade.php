@@ -19,6 +19,7 @@
                      'data-parsley-trigger' => "input",
                      'data-parsley-trigger'=>"blur",
                      'data-parsley-pattern'=>"^[a-zA-Z]+$",
+                     'data-parsley-pattern-message' => 'Please enter only alphabetical letters',
                      'data-parsley-minlength' => '2',
                      'data-parsley-maxlength' => '50']) !!}
                   </div>
@@ -34,6 +35,7 @@
                      'data-parsley-trigger' => "input",
                      'data-parsley-trigger'=>"blur",
                      'data-parsley-pattern'=>"^[a-zA-Z]+$",
+                     'data-parsley-pattern-message' => 'Please enter only alphabetical letters',
                      'data-parsley-minlength' => '2',
                      'data-parsley-maxlength' => '50']) !!}   
                   </div>
@@ -51,6 +53,7 @@
                      'data-parsley-trigger' => "input",
                      'data-parsley-trigger'=>"blur",
                      'data-parsley-pattern'=>"^[a-zA-Z]+$",
+                     'data-parsley-pattern-message' => 'Please enter only alphabetical letters',
                      'data-parsley-minlength' => '2',
                      'data-parsley-maxlength' => '50']) !!}
                   </div>

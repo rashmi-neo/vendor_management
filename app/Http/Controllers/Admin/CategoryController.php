@@ -89,7 +89,7 @@ class CategoryController extends Controller
     {
     	$categoryId = $id;
         $category = $this->categoryRepository->get($categoryId);
-        //dd($category);
+        
     	return view('admin.category.edit',compact('category','categoryId'));
     }
 

@@ -15,6 +15,5 @@ $factory->define(App\Model\Company::class, function (Faker $faker) {
         'pincode'=>$faker->numberBetween($min =650000, $max = 850000),
         'contact_number'=>$faker->numberBetween($min =7500000000, $max = 8500000000),
         'fax'=>'2030-43-40',
-        'website'=>'www'.'.'.$faker->word.'.'.'com',
     ];
 });

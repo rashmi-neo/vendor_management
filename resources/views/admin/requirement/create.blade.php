@@ -6,7 +6,7 @@
 			<h3 class="card-title">Add Requirement</h3>
 		 </div>
 			<div class="card-body">
-                {!! Form::open(['route' => 'requirements.store','class' => 'form-horizontal','method' => 'post','data-parsley-validate' => 'parsley','enctype' =>'multipart/form-data']) !!}
+                {!! Form::open(['route' => 'requirements.store','class' => 'form-horizontal','id' => 'requirementForm','method' => 'post','data-parsley-validate' => 'parsley','enctype' =>'multipart/form-data']) !!}
                 @csrf
                 <div class="form-group row">
                     {!! Form::label('title', 'Title',['class' => 'col-sm-3 label_class']) !!}
@@ -79,7 +79,7 @@
                     <div class="form-group row">
                         {!! Form::label('fromDate', 'From Date',['class' => 'col-sm-3 label_class']) !!}
                             <div class="col-sm-7">
-                                {!! Form::text('fromDate', null, ['class' => 'form-control ','data-date-format'=>'yyyy-mm-dd','id'=>'requirmentFromDate','placeholder' => 'Select From date',
+                                {!! Form::text('fromDate', null, ['class' => 'form-control','data-date-format'=>'yyyy-mm-dd','id'=>'requirmentFromDate','placeholder' => 'Select From date',
                                 'data-parsley-required' => 'true',
                                 'data-parsley-required-message' => 'Please select from date',
                                 'data-date-format'=>'YYYY/MM/DD',
@@ -95,11 +95,13 @@
                     <div class="form-group row">
                         {!! Form::label('toDate', 'To Date',['class' => 'col-sm-3 label_class']) !!}
                             <div class="col-sm-7">
-                                {!! Form::text('toDate', null, ['class' => 'form-control ','data-date-format'=>'yyyy-mm-dd','id'=>'requirmentToDate','placeholder' => 'Select To date',
+                                {!! Form::text('toDate', null, ['class' => 'form-control toDate','data-date-format'=>'yyyy-mm-dd','id'=>'requirmentToDate','placeholder' => 'Select To date',
                                 'data-parsley-required' => 'true',
                                 'data-parsley-required-message' => 'Please select to date',
                                 'data-parsley-trigger' => "input",
                                 'data-date-format'=>'YYYY/MM/DD',
+                                'data-date-maxDate'=>"YYYY/MM/DD",
+                                'data-parsley-maxdate'=>"From date",
                                 'data-parsley-trigger'=>"blur"]) !!}
                              @error('toDate')
                              <span class="text-danger errormsg" role="alert">
@@ -111,10 +113,7 @@
                     <div class="form-group row">
                         {!! Form::label('priority', 'Priority',['class' => 'col-sm-3 label_class']) !!}
                         <div class="col-sm-7">
-                            {!! Form::select('priority',['low' => 'Low', 'medium' => 'Medium','high'=>'High'],null, array('class'=>'form-control', 'placeholder'=>'Select priority', 'data-parsley-required' => 'true',
-                            'data-parsley-required-message' => 'Please select priority',
-                            'data-parsley-trigger' => "select",
-                            'data-parsley-trigger'=>"blur")) !!}
+                            {!! Form::select('priority',['low' => 'Low', 'medium' => 'Medium','high'=>'High'],null, array('class'=>'form-control', 'placeholder'=>'Select priority')) !!}
                             @error('priority')
                              <span class="text-danger errormsg" role="alert">
                                 <p>{{ $message }}</p>
@@ -170,4 +169,20 @@
         })
 });
 </script>
+<script>
+window.ParsleyValidator
+    .addValidator('maxdate', function (value, requirement) {
+        
+        var fromDate = $('#requirmentFromDate').val();
+        
+        var toDate = Date.parse(value),
+            startDate = Date.parse(fromDate);
+            
+        return isNaN(toDate) ? false : toDate >= startDate;    
+    }, 32)
+    .addMessage('en', 'maxdate', 'This date should be greater than or equal to  %s');
+
+$('#requirementForm').parsley();
+</script>
+
 @endsection

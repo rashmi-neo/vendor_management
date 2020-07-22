@@ -19,25 +19,26 @@ class DashboardController extends Controller
         
         $id =\Auth::user()->id;
         
-        $newRequirement = Vendor::withCount(['requirements' => function ($query){
-            $query->where('vms_requirements.deleted_at',null)->whereIn('vms_requirements.status',['in_progress','approved']);
-            }])->where('user_id',$id)->where('vms_vendors.deleted_at',null)->first();
+        $newRequirement = Vendor::withCount(['requirement' => function ($query){
+            $query->where('vms_requirements.deleted_at',null)
+                ->whereIn('vms_requirements.status',['in_progress','approved']);
+            }])->where('user_id',$id)->where('deleted_at',null)->first();
         
-        $completedRequirement = Vendor::withCount(['requirements' => function ($query){
+        $completedRequirement = Vendor::withCount(['requirement' => function ($query){
             $query->where('vms_requirements.deleted_at',null)->whereIn('vms_requirements.status',['completed']);
             }])->where('user_id',$id)->where('vms_vendors.deleted_at',null)->first();
+
     
-        $cancelledRequirement = Vendor::withCount(['requirements' => function ($query){
+        $cancelledRequirement = Vendor::withCount(['requirement' => function ($query){
             $query->where('vms_requirements.deleted_at',null)->whereIn('vms_requirements.status',['cancelled']);
             }])->where('user_id',$id)->where('vms_vendors.deleted_at',null)->first();
     
     
-        $newRequirementCount = $newRequirement->requirements_count; 
-
-        $completeRequirementCount = $completedRequirement->requirements_count; 
+        $newRequirementCount = $newRequirement->requirement_count; 
         
-        $cancelRequirementCount = $cancelledRequirement->requirements_count; 
+        $completeRequirementCount = $completedRequirement->requirement_count; 
         
+        $cancelRequirementCount = $cancelledRequirement->requirement_count; 
         
         return view('vendorUser.dashboard.dashboard',compact('newRequirementCount','completeRequirementCount',
         'cancelRequirementCount'));

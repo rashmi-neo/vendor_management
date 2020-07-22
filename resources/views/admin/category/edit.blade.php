@@ -18,6 +18,8 @@
 							'data-parsley-required-message' => 'Category name is required',
 							'data-parsley-trigger' => "input",
 							'data-parsley-trigger'=>"blur",
+							'data-parsley-pattern'=>"/^[ A-Za-z_@./:#&+-]*$/",
+							'data-parsley-minlength' => '2',
 							'data-parsley-maxlength' => '50']) !!}
 							@error('name')
 								<span class="text-danger errormsg" role="alert">
@@ -27,25 +29,20 @@
 	                    </div>
 				</div>
 				<div class="form-group row">
-					 <label for="inputStatus" class="col-sm-2 col-form-label">Status</label>
-					 	<div class="col-sm-2">
-					 		<div class="form-check">
-								{{ Form::radio('status', '1', false, array('class'=>'form-check-input','id'=>'activeCheck')) }}
-								{{ Form::label('status', 'Active',array('class'=>'form-check-label')) }}
-					 		</div>
-					 	</div>
-					 	<div class="col-sm-1">
-					 		<div class="form-check">
-								{{ Form::radio('status', '0', false, array('class'=>'form-check-input','id'=>'inactiveCheck')) }}
-								{{ Form::label('status', 'Inactive',array('class'=>'form-check-label')) }}
-					 		</div>
-					 	</div>
+					<label for="inputStatus" class="col-sm-2 col-form-label">Status</label>
+					<div class="form-check ml-1 mt-2">
+						{{ Form::radio('status', '1', false, array('class'=>'form-check-input','id'=>'activeCheck')) }}
+						{{ Form::label('status', 'Active',array('class'=>'form-check-label')) }}
+					</div>
+					<div class="form-check ml-3 mt-2">
+						{{ Form::radio('status', '0', false, array('class'=>'form-check-input','id'=>'inactiveCheck')) }}
+						{{ Form::label('status', 'Inactive',array('class'=>'form-check-label')) }}
+					</div>
 				</div>
-				 <div class="form-group row">
-					<div class="col-sm-2"></div>
-					<div class="col-sm-6">	
+				<div class="form-group row">
+					<div class="col-sm-6">
 						{!! Form::button('Save', ['type' => 'submit', 'class' => 'btn btn-primary'] ) !!}
-						 <a href="{{route('categories.index')}}" class="btn btn-default">Cancel</a>
+						<a href="{{route('categories.index')}}" class="btn btn-default">Cancel</a>
 					</div>
 				</div>      
 			{!! Form::close() !!}
@@ -53,3 +50,6 @@
 	</div>
 </div>
 @endsection
+
+
+

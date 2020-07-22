@@ -88,17 +88,9 @@ class CategoryController extends Controller
     public function edit($id)
     {
     	$categoryId = $id;
-    	$category = $this->categoryRepository->get($categoryId);
-        
-        try {
-            if($category){
-    	        return view('admin.category.edit',compact('category','categoryId'));
-            }else{
-                return redirect('admin/categories')->with('error', 'Category not found');
-            }
-        }catch(\Throwable $th){
-            return redirect('admin/categories')->with('error', 'Something went wrong!');
-        }
+        $category = $this->categoryRepository->get($categoryId);
+        //dd($category);
+    	return view('admin.category.edit',compact('category','categoryId'));
     }
 
     /**

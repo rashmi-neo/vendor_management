@@ -306,11 +306,10 @@
                      </tr>
                   </thead>
                   <tbody>
-
                      @foreach($documents as $document)
                      <tr>
                         <td>{{$document->name}}</td>
-                        <td>{{ucfirst($document->is_mandetory)}}</td>
+                        <td>{{ucfirst($document->is_mandatory)}}</td>
                         <td>{{isset($document->vendorDocument->status)?$document->vendorDocument->status:"-"}}</td>
                         <td>{{isset($document->vendorDocument->file_name)?$document->vendorDocument->file_name:"-"}}</td>
                       

@@ -6,7 +6,7 @@
 			<h3 class="card-title">Edit Requirement</h3>
 		 </div>
 			<div class="card-body">
-                {!! Form::open(['route' => ['requirements.update',$requirementEditDetails->id],'class' => 'form-horizontal','method' => 'post','data-parsley-validate' => 'parsley','enctype' =>'multipart/form-data']) !!}
+                {!! Form::open(['route' => ['requirements.update',$requirementEditDetails->id],'id' => 'requirementForm','class' => 'form-horizontal','method' => 'post','data-parsley-validate' => 'parsley','enctype' =>'multipart/form-data']) !!}
                 @csrf
                 @method('PUT')
                 <div class="form-group row">
@@ -98,6 +98,8 @@
                                 'data-parsley-required-message' => 'Please select to date',
                                 'data-parsley-trigger' => "input",
                                 'data-date-format'=>'YYYY/MM/DD',
+                                'data-date-maxDate'=>"YYYY/MM/DD",
+                                'data-parsley-maxdate'=>"From date",
                                 'data-parsley-trigger'=>"blur"]) !!}
                              @error('toDate')
                              <span class="text-danger errormsg" role="alert">
@@ -180,5 +182,20 @@
 //             });
 //          }});
 //     });
+</script>
+<script>
+window.ParsleyValidator
+    .addValidator('maxdate', function (value, requirement) {
+        
+        var fromDate = $('#requirmentFromDate').val();
+        
+        var toDate = Date.parse(value),
+            startDate = Date.parse(fromDate);
+            
+        return isNaN(toDate) ? false : toDate >= startDate;    
+    }, 32)
+    .addMessage('en', 'maxdate', 'This date should be greater than or equal to  %s');
+
+$('#requirementForm').parsley();
 </script>
 @endsection

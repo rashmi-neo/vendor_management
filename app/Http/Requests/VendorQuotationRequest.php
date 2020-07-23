@@ -25,9 +25,7 @@ class VendorQuotationRequest extends FormRequest
     public function rules(Request $request)
     {
         return [
-            // 'quotation' => 'required|mimes:application/vnd.ms-excel|max:150',
             'quotation' => 'required|file|max:150|mimes:xls,pdf,xlsx'
-          
         ];
         
     }

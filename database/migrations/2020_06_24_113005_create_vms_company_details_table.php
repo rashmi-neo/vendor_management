@@ -22,8 +22,8 @@ class CreateVmsCompanyDetailsTable extends Migration
             $table->string('city',20);
             $table->string('pincode',20);
             $table->string('contact_number',20);
-            $table->string('fax',20)->nullable();
-            $table->string('website',20);
+            $table->string('fax',20);
+            $table->string('website',20)->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('vendor_id')->references('id')->on('vms_vendors')->onDelete('cascade');

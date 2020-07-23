@@ -32,13 +32,11 @@ class  NewRequirementRepository implements NewRequirementInterface{
         $newRequirements = Vendor::where('user_id',$id)->where('deleted_at',null)
          ->with(['assignVendor','assignVendor.requirement' => function ($query){
                 $query->where('deleted_at',null)->whereIn('status',['in_progress','approved']);
-            }])->get();
+            }])->first();
         
-        foreach($newRequirements as $newRequirement){
-            foreach($newRequirement->assignVendor as $assign){
-                if(isset($assign->requirement)){
-                    $requirements[] = $assign->requirement;
-                }
+        foreach($newRequirements->assignVendor as $assign){
+            if(isset($assign->requirement)){
+                $requirements[] = $assign->requirement;
             }
         }
 
@@ -72,10 +70,11 @@ class  NewRequirementRepository implements NewRequirementInterface{
         
         $vendorQuotation = new VendorQuotation();
         $vendorQuotation->assign_vendor_id = $assignRequirementId->id;
+        
         if ($document = $data->file('quotation')) {
-            $path = 'uploads';
+            $path = '/';
             $file = uploadFile($document,$path);
-            $vendorQuotation->quatation_doc = $file;
+            $vendorQuotation->quotation_doc = $file;
         }
         
         $vendorQuotation->comment = $data->vendor_comment;

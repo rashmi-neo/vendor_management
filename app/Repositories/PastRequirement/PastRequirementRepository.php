@@ -29,13 +29,11 @@ class  PastRequirementRepository implements PastRequirementInterface{
         $pastRequirements = Vendor::where('user_id',$id)->where('deleted_at',null)
          ->with(['assignVendor','assignVendor.requirement' => function ($query){
                 $query->where('deleted_at',null)->whereIn('status',['completed','cancelled']);
-            }])->get();
+            }])->first();
         
-        foreach($pastRequirements as $pastRequirement){
-            foreach($pastRequirement->assignVendor as $assign){
-                if(isset($assign->requirement)){
-                    $requirements[] = $assign->requirement;
-                }
+        foreach($pastRequirements->assignVendor as $assign){
+            if(isset($assign->requirement)){
+                $requirements[] = $assign->requirement;
             }
         }
 

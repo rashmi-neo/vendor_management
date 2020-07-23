@@ -26,7 +26,7 @@
                      Middle name  : 
                   </th>
                   <td>
-                   <span>{{isset($vendor->middle_name)?$vendor->middle_name:"-"}}</span>
+                   <span>{{empty($vendor->middle_name)?"-":$vendor->middle_name}}</span>
                   </td>
                </tr>
                <tr>
@@ -98,7 +98,9 @@
                      Category : 
                   </th>
                   <td>
-                     <span>{{$vendor->vendorCategory->category->name}}</span>
+                     @foreach($vendor->vendorCategory as $category)
+                     <li>{{$category->category->name}}</li>
+                     @endforeach
                   </td>
                </tr>
                <tr>
@@ -106,7 +108,7 @@
                      Comapny website : 
                   </th>
                   <td>
-                     <span>{{$vendor->company->website}}</span>
+                     <span>{{empty($vendor->company->website)? "-" :$vendor->company->website}}</span>
                   </td>
                </tr>
                <tr>

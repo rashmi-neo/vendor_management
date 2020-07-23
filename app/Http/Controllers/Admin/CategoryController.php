@@ -88,7 +88,8 @@ class CategoryController extends Controller
     public function edit($id)
     {
     	$categoryId = $id;
-    	$category = $this->categoryRepository->get($categoryId);
+        $category = $this->categoryRepository->get($categoryId);
+        
     	return view('admin.category.edit',compact('category','categoryId'));
     }
 
@@ -113,8 +114,16 @@ class CategoryController extends Controller
     public function update(VendorCategory $request, $id)
     {
     	$categoryUpdate = $request->all();
-    	$this->categoryRepository->update($id,$categoryUpdate);
-        return redirect('admin/categories')->with('success', 'Category is successfully updated');
+        
+        try{
+            $category =  $this->categoryRepository->update($id,$categoryUpdate);
+            if($category){
+                return redirect('admin/categories')->with('success', 'Category is successfully updated');
+            }
+                return redirect('admin/categories')->with('error','Category not found');
+        }catch(\Exception $ex){
+            return redirect('admin/categories')->with('error','Something went wrong!');
+        }
     }
 
     /**

@@ -43,10 +43,9 @@ class AccountRepository implements AccountInterface{
         $vendorDocument = New VendorDocument();
         $vendorDocument->vendor_id = $data->vendor_id;
         $vendorDocument->document_id = $data->document_id;
-        $vendorDocument->reason = $data->reason;
         
         if ($document = $data->file('file')) {
-            $path = 'uploads';
+            $path = '/';
             $data = uploadFile($document,$path);
             $vendorDocument->file_name = $data;
         }
@@ -112,20 +111,16 @@ class AccountRepository implements AccountInterface{
         $user = User::where('id','=',$vendor->user_id)->first();
         
         if($vendor->mobile_number != $data->phone_number || $user->email != $data->email){
-            //send email
-            $details['email'] = $user['email'];
-            $details['subject']='Vendor Change email or mobile number';
-            $details['body'] = 'Vendor change his/her email or mobile number';
-            $details['from']= $user->email;
-            dispatch(new \App\Jobs\SendEmailJob($details));
             
             //send notification to admin
             $admin = User::where(['role_id'=>1])->first();
-            $notificationTitle = Config::get('constants.NOTIFICATION_TITLE');
+            
+            $notification = Config::get('constants.VENDOR_UPDATE');
             
             if($admin)
             {
-                $notificationDetail = ['user_id'=>$admin->id,'title'=>$notificationTitle['title'],'text'=>$data->first_name.' '.$data->last_name.' has been updated password or mobile number.','type'=>'document_update','status'=>'unread']; 
+                $notificationDetail = ['user_id'=>$admin->id,'title'=>$notification['title'],'text'=>$data->first_name.' '.$data->last_name.' '.$notification['text'],
+                'type'=>$notification['type'],'status'=>$notification['status']]; 
                 $notification = $this->notificationRepository->save($notificationDetail);
             }
         }

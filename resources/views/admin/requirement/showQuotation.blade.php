@@ -4,7 +4,9 @@
     <div class="card card-primary card-outline card-outline-tabs">
         <div class="card-header">
 			<h3 class="card-title">Quatation Details</h3>
-
+            <div class="float-right">
+                <a class="btn btn-md btn-primary" href="{{ route('requirements.index') }}"> Back</a>
+            </div>
 		</div>
         <div class="card-body">
             <div class="" id="assignVendorTab" role="tabpanel" aria-labelledby="assignVendorTabId">
@@ -22,13 +24,14 @@
                         @foreach ($showQuotationDetails as $key=>$quotation)
                         <tr>
                             <td>{{ $key+1 }}</td>
-                                @if($quotation->quatation_doc != "")
-                                <td> <a href="{{ url('/') }}/uploads/{{ $quotation->quatation_doc }}">{{ $quotation->quatation_doc }} <i class="fa fa-download" aria-hidden="true"></i></a></td>
+                                @if($quotation->quotation_doc != "")
+                                
+                                <td> <a href="{{ url('/') }}/uploads/{{ $quotation->quotation_doc }}">{{ $quotation->quotation_doc }} <i class="fa fa-download" aria-hidden="true"></i></a></td>
                                 @else
                                 <td>: </td>
                                 @endif
-                            <td>{{ $quotation->comment }}</td>
-                            <td>{{ $quotation->admin_comment }}</td>
+                            <td>{{ empty($quotation->comment)?"-":$quotation->comment}}</td>
+                            <td>{{ empty($quotation->admin_comment)? "-":$quotation->admin_comment}}</td>
                             <td>
                                 {{-- <button type="button" class="edit btn btn-primary btn-sm" title="add comment" onclick="openCommentModal({{ $vendor->vendor_id }},{{ $vendor->assign_vendors_id }})" id="comment_{{ $vendor->vendor_id }}" ><i class="fas fa-pencil-alt"></i></button> --}}
                               @if ($quotation->admin_comment == "" || $quotation->admin_comment == null)

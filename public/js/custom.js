@@ -6,7 +6,7 @@ $(document).ready(function(){
     	var csrf_token = $(this).attr("token");
 		  var tr = $(this).closest('tr');
         Swal.fire({
-          title: 'Are you sure?',
+          title: 'Are you sure want to delete this category?',
           icon: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#3085d6',

@@ -3,17 +3,20 @@
 <div class="col-12 col-sm-12">
     <div class="card card-primary card-outline card-outline-tabs">
         <div class="card-header p-0 border-bottom-0">
-        <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
-            <li class="nav-item">
-            <a class="nav-link active" id="custom-tabs-four-home-tab" data-toggle="pill" href="#requirementDetailsTab" role="tab" aria-controls="requirementDetailsTab" aria-selected="true">Requirement Details</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" id="assignVendorTabId" data-toggle="pill" href="#assignVendorTab" role="tab" aria-controls="assignVendorTab" aria-selected="false">Assign Vendor</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" id="custom-tabs-four-messages-tab" data-toggle="pill" href="#paymentTab" role="tab" aria-controls="paymentTab" aria-selected="false">Payment</a>
-            </li>
-        </ul>
+            <div class="float-right">
+                <a class="btn btn-md btn-primary" href="{{ route('requirements.index') }}"> Back</a>
+            </div>
+            <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
+                <li class="nav-item">
+                <a class="nav-link active" id="custom-tabs-four-home-tab" data-toggle="pill" href="#requirementDetailsTab" role="tab" aria-controls="requirementDetailsTab" aria-selected="true">Requirement Details</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" id="assignVendorTabId" data-toggle="pill" href="#assignVendorTab" role="tab" aria-controls="assignVendorTab" aria-selected="false">Assign Vendor</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" id="custom-tabs-four-messages-tab" data-toggle="pill" href="#paymentTab" role="tab" aria-controls="paymentTab" aria-selected="false">Payment</a>
+                </li>
+            </ul>
         </div>
         <div class="card-body">
         <div class="tab-content" id="custom-tabs-four-tabContent">
@@ -38,7 +41,7 @@
                     </tr>
                     <tr>
                         <th>Spacial Remark</th>
-                        <td>: {{ $showRequirementDetails->comment }}</td>
+                        <td>: {{ empty($showRequirementDetails->comment)? "-":$showRequirementDetails->comment}}</td>
                     </tr>
                     <tr>
                         <th>Proposal Document(if any)</th>

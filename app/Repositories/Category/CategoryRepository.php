@@ -28,7 +28,7 @@ class CategoryRepository implements CategoryInterface{
      */
     public function all()
     {
-    	$category = Category::all();
+    	$category = Category::orderBy('id', 'desc')->get();
     	return $category;
     }
 
@@ -42,7 +42,7 @@ class CategoryRepository implements CategoryInterface{
      */
     public function save(array $data)
     {
-    	Category::create($data);
+    	return Category::create($data);
     }
 
 
@@ -54,7 +54,7 @@ class CategoryRepository implements CategoryInterface{
      */
     public function update($id,array $data)
     {
-        Category::find($id)->update($data);
+        return Category::find($id)->update($data);
     }
 
     /**
@@ -65,6 +65,6 @@ class CategoryRepository implements CategoryInterface{
      */
     public function delete($id)
     {
-        Category::destroy($id);
+        return Category::destroy($id);
     }
 }

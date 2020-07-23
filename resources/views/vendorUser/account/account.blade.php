@@ -38,6 +38,8 @@
                         'data-parsley-trigger' => "input",
                         'data-parsley-trigger'=>"blur",
                         'data-parsley-pattern'=>"^[a-zA-Z]+$",
+                        'data-parsley-pattern-message' => 'Please enter only alphabets',
+                        'data-parsley-minlength' => '2',
                         'data-parsley-maxlength' => '50']) !!}
                         @error('first_name')
                         <span class="text-danger errormsg" role="alert">
@@ -53,6 +55,8 @@
                         'data-parsley-trigger' => "input",
                         'data-parsley-trigger'=>"blur",
                         'data-parsley-pattern'=>"^[a-zA-Z]+$",
+                        'data-parsley-pattern-message' => 'Please enter only alphabets',
+                        'data-parsley-minlength' => '2',
                         'data-parsley-maxlength' => '50']) !!}
                      </div>
                   </div>
@@ -65,6 +69,8 @@
                         'data-parsley-trigger' => "input",
                         'data-parsley-trigger'=>"blur",
                         'data-parsley-pattern'=>"^[a-zA-Z]+$",
+                        'data-parsley-pattern-message' => 'Please enter only alphabets',
+                        'data-parsley-minlength' => '2',
                         'data-parsley-maxlength' => '50']) !!}
                         
                         @error('last_name')
@@ -83,7 +89,8 @@
                         'data-parsley-trigger' => "input",
                         'data-parsley-trigger'=>"blur",
                         'data-parsley-type'=>"digits",
-                        'data-parsley-maxlength' => '20']) !!}
+                        'data-parsley-minlength' => '10',
+                        'data-parsley-maxlength' => '12']) !!}
                         
                         @error('phone_number')
                         <span class="text-danger errormsg" role="alert">
@@ -208,7 +215,8 @@
                         'data-parsley-trigger' => "input",
                         'data-parsley-trigger'=>"blur",
                         'data-parsley-type'=>"digits",
-                        'data-parsley-maxlength' => '20']) !!}
+                        'data-parsley-minlength' => '10',
+                        'data-parsley-maxlength' => '12']) !!}
                         
                         @error('contact_number')
                         <span class="text-danger errormsg" role="alert">
@@ -227,6 +235,7 @@
                         'data-parsley-trigger' => "input",
                         'data-parsley-trigger'=>"blur",
                         'data-parsley-pattern'=>"^[a-zA-Z]+$",
+                        'data-parsley-pattern-message' => 'Please enter only alphabets',
                         'data-parsley-maxlength' => '20']) !!}
                         
                         @error('state')
@@ -246,6 +255,7 @@
                         'data-parsley-trigger' => "input",
                         'data-parsley-trigger'=>"blur",
                         'data-parsley-pattern'=>"^[a-zA-Z]+$",
+                        'data-parsley-pattern-message' => 'Please enter only alphabets',
                         'data-parsley-maxlength' => '20']) !!}
                         
                         @error('city')
@@ -265,7 +275,8 @@
                         'data-parsley-trigger' => "input",
                         'data-parsley-trigger'=>"blur",
                         'data-parsley-type'=>"digits",
-                        'data-parsley-maxlength' => '20']) !!}
+                        'data-parsley-minlength' => '6',
+                        'data-parsley-maxlength' => '10']) !!}
                         
                         @error('pincode')
                         <span class="text-danger errormsg" role="alert">
@@ -295,11 +306,10 @@
                      </tr>
                   </thead>
                   <tbody>
-
                      @foreach($documents as $document)
                      <tr>
                         <td>{{$document->name}}</td>
-                        <td>{{ucfirst($document->is_mandetory)}}</td>
+                        <td>{{ucfirst($document->is_mandatory)}}</td>
                         <td>{{isset($document->vendorDocument->status)?$document->vendorDocument->status:"-"}}</td>
                         <td>{{isset($document->vendorDocument->file_name)?$document->vendorDocument->file_name:"-"}}</td>
                       
@@ -333,6 +343,8 @@
                         'data-parsley-required-message' => 'Name is required',
                         'data-parsley-trigger' => "input",
                         'data-parsley-trigger'=>"blur",
+                        'data-parsley-pattern'=>"/^[a-zA-Z ]*$/",
+                        'data-parsley-pattern-message' => 'Please enter only alphabets',
                         'data-parsley-maxlength' => '50']) !!}
 
                         @error('name')
@@ -351,7 +363,8 @@
                         'data-parsley-trigger' => "input",
                         'data-parsley-trigger'=>"blur",
                         'data-parsley-type' =>"digits",
-                        'data-parsley-maxlength' => '50']) !!}
+                        'data-parsley-minlength' => '10',
+                        'data-parsley-maxlength' => '12']) !!}
                         @error('contact_number')
                         <span class="text-danger errormsg" role="alert">
                            <p>{{ $message }}</p>
@@ -398,6 +411,8 @@
                         'data-parsley-required-message' => 'Bank name is required',
                         'data-parsley-trigger' => "input",
                         'data-parsley-trigger'=>"blur",
+                        'data-parsley-pattern'=>"/^[a-zA-Z ]*$/",
+                        'data-parsley-pattern-message' => 'Please enter only alphabets',
                         'data-parsley-maxlength' => '50']) !!}
                         @error('bank_name')
                         <span class="text-danger errormsg" role="alert">
@@ -413,6 +428,8 @@
                         'data-parsley-required' => 'true',
                         'data-parsley-required-message' => 'Account holder name is required',
                         'data-parsley-trigger' => "input",
+                        'data-parsley-pattern'=>"/^[a-zA-Z ]*$/",
+                        'data-parsley-pattern-message' => 'Please enter only alphabets',
                         'data-parsley-trigger'=>"blur",
                         'data-parsley-maxlength' => '50']) !!}
                        
@@ -501,10 +518,6 @@
                      <p>{{ $message }}</p>
                   </span>
                   @enderror
-               </div>
-               <div class="form-group mb-3">
-                  {!! Form::label('reason','Reason:',['class'=>"col-sm-2 col-form-label"],false) !!} 
-                  {!! Form::text('reason', null, ['class' => 'form-control ','placeholder' => 'Enter Reason Detail']) !!}
                </div>
             </div>
             <div class="modal-footer justify-content-between">

@@ -37,4 +37,14 @@ interface VendorInterface{
      */
     public function update($id,$data);
 
+    /**
+     * get all categories details.
+     *
+     * @Author Bharti <bharti.tadvi@neosofttech.com>
+     * @param void
+     * @return collection
+     */
+    public function getAllCategories();
+
+
 }

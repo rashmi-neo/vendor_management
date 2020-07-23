@@ -6,8 +6,11 @@ return [
        'path' => public_path().DIRECTORY_SEPARATOR.'uploads'.DIRECTORY_SEPARATOR
     ],
 
-    'NOTIFICATION_TITLE' => [
-        'title' => 'Email or mobile number updated '
+    'VENDOR_UPDATE' => [
+        'title' => 'Email or mobile number updated',
+        'text' =>'has been updated password or mobile number.',
+        'type' => 'document_update',
+        'status' => 'unread'
     ],
 
 
@@ -28,4 +31,17 @@ return [
         'active' => 'Active',
         'inactive' => 'Inactive'
     ],
+
+    'QUOTATION_DOCUMENT' => [
+        'title' => 'Quotation Document',
+        'text' =>'has been uploaded quotation',
+        'type' => 'document_update',
+        'status' => 'unread'
+    ],
+
+    'NOTIFICATION_STATUS' => [
+        'read' => 'Read',
+        'unread' => 'Unread'
+    ],
+
 ];

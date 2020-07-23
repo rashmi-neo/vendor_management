@@ -44,10 +44,12 @@ class NotificationController extends Controller
             })
             ->addColumn('status', function($data){
                 
+                $status = \Config::get('constants.NOTIFICATION_STATUS');
+
                 if($data->status == "read"){
-                    return "Read";
+                    return $status['read'];
                 }elseif($data->status == "unread"){
-                    return "Unread";
+                    return $status['unread'];
                 }
                 return "Rejected";
             })

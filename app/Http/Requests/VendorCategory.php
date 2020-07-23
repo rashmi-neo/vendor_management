@@ -24,7 +24,7 @@ class VendorCategory extends FormRequest
     public function rules()
     {
         return [
-            'name'=> 'required|max:50'
+            'name'=> 'required|min:2|max:50'
         ];
     }
 

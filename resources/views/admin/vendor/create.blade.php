@@ -19,8 +19,9 @@
                      'data-parsley-trigger' => "input",
                      'data-parsley-trigger'=>"blur",
                      'data-parsley-pattern'=>"^[a-zA-Z]+$",
+                     'data-parsley-pattern-message' => 'Please enter only alphabetical letters',
+                     'data-parsley-minlength' => '2',
                      'data-parsley-maxlength' => '50']) !!}
-
                   </div>
                   @error('first_name')
                   <span class="text-danger errormsg" role="alert">
@@ -34,6 +35,8 @@
                      'data-parsley-trigger' => "input",
                      'data-parsley-trigger'=>"blur",
                      'data-parsley-pattern'=>"^[a-zA-Z]+$",
+                     'data-parsley-pattern-message' => 'Please enter only alphabetical letters',
+                     'data-parsley-minlength' => '2',
                      'data-parsley-maxlength' => '50']) !!}   
                   </div>
                </div>
@@ -50,8 +53,9 @@
                      'data-parsley-trigger' => "input",
                      'data-parsley-trigger'=>"blur",
                      'data-parsley-pattern'=>"^[a-zA-Z]+$",
+                     'data-parsley-pattern-message' => 'Please enter only alphabetical letters',
+                     'data-parsley-minlength' => '2',
                      'data-parsley-maxlength' => '50']) !!}
-
                   </div>
                   @error('last_name')
                   <span class="text-danger errormsg" role="alert">
@@ -67,8 +71,8 @@
                      'data-parsley-trigger' => "input",
                      'data-parsley-trigger'=>"blur",
                      'data-parsley-type'=>"digits",
-                     'data-parsley-maxlength' => '20']) !!}
-
+                     'data-parsley-minlength' => '10',
+                     'data-parsley-maxlength' => '12']) !!}
                   </div>
                   @error('mobile_number')
                   <span class="text-danger errormsg" role="alert">
@@ -93,10 +97,8 @@
                <div class= "col-sm-6">
                <div class="form-group">
                   {!! Form::file('profile_image', array('class' => 'form-control ','placeholder' => 'Profile Image',
-                     'data-parsley-required' => 'true',
-                     'data-parsley-required-message' => 'Please upload profile image',
                      'data-parsley-trigger' => "input",
-                     'data-parsley-trigger'=>"blur")) !!}
+                     'data-parsley-trigger'=>"blur",'data-parsley-maxlength' => '50')) !!}
                  </div> 
                   @error('profile_image')
                   <span class="text-danger errormsg" role="alert">
@@ -128,19 +130,27 @@
                      'data-parsley-trigger'=>"blur",
                      'data-parsley-maxlength' => '50']) !!}
                   </div>
+                  @error('address')
+                  <span class="text-danger errormsg" role="alert">
+                  <p>{{ $message }}</p>
+                  </span>
+                  @enderror
                </div>
                <div class= "col-sm-6">
                   <div class="form-group">
-                     {!!Form::select('category', $categories, null, 
-                     array('class'=>'form-control', 'placeholder'=>'Select Category',
-                     'data-parsley-required' => 'true',
-                     'data-parsley-required-message' => 'Category is required')) !!}
-                     @error('category')
+                        {!!Form::select('category[]', $categories, null, 
+                        array('class'=>'form-control category', 'data-placeholder'=>'Select Category',
+                        'multiple'=>'multiple','id'=>'category',
+                        'data-parsley-required' => 'true',
+                        'data-parsley-errors-container'=>'#categoryError',
+                        'data-parsley-required-message' => 'Category is required')) !!}
+                  </div>
+                  @error('category')
                      <span class="text-danger errormsg" role="alert">
                         <p>{{ $message }}</p>
                      </span>
-                     @enderror
-                  </div>
+                  @enderror
+                  <span id="categoryError"><span>
                </div>
                <div class= "col-sm-6">
                   <div class="form-group">
@@ -179,7 +189,8 @@
                      'data-parsley-trigger' => "input",
                      'data-parsley-trigger'=>"blur",
                      'data-parsley-type'=>"digits",
-                     'data-parsley-maxlength' => '20']) !!}
+                     'data-parsley-minlength' => '6',
+                     'data-parsley-maxlength' => '10']) !!}
                   </div>
                   @error('pincode')
                   <span class="text-danger errormsg" role="alert">
@@ -195,7 +206,8 @@
                      'data-parsley-trigger' => "input",
                      'data-parsley-trigger'=>"blur",
                      'data-parsley-type'=>"digits",
-                     'data-parsley-maxlength' => '20']) !!}
+                     'data-parsley-minlength' => '10',
+                     'data-parsley-maxlength' => '12']) !!}
                   </div>
                   @error('contact_number')
                   <span class="text-danger errormsg" role="alert">
@@ -210,6 +222,7 @@
                      'data-parsley-required-message' => 'Company Fax is required',
                      'data-parsley-trigger' => "input",
                      'data-parsley-trigger'=>"blur",
+                     'data-parsley-pattern'=>"^[\d\+\-\.\(\)\/\s]+$",
                      'data-parsley-maxlength' => '20']) !!}
                   </div>
                   @error('fax')
@@ -221,7 +234,6 @@
                <div class= "col-sm-12">
                   <div class="form-group">
                      {!! Form::text('website', null, ['class' => 'form-control ','placeholder' => 'Company Website URL',
-                     'data-parsley-required' => 'true',
                      'data-parsley-trigger' => "input",
                      'data-parsley-trigger'=>"blur",
                      'data-parsley-type'=>'url',
@@ -246,4 +258,13 @@
       </div>
    </div>
 </div>
+@endsection
+@section('scripts')
+<script type="text/javascript">
+   $(function(){
+         $('#category').select2({
+               theme: 'bootstrap4'
+         })
+   });
+</script>
 @endsection

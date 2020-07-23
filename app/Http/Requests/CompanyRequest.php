@@ -28,8 +28,8 @@ class CompanyRequest extends FormRequest
             'company_address' => 'required|max:50',
             'state' => 'required|alpha|max:20',
             'city' => 'required|alpha|max:20',
-            'pincode' => 'required|max:20',
-            'contact_number' => 'required|max:20',
+            'pincode' => 'required|min:6|max:10',
+            'contact_number' => 'required|min:10|max:12',
         ];
     }
 

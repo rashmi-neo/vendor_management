@@ -4,6 +4,7 @@ namespace App\Repositories\Vendor;
 use App\Model\Vendor;
 use App\Model\User;
 use App\Model\Company;
+use App\Model\Category;
 use App\Model\VendorCategory;
 use Illuminate\Support\Str;
 
@@ -15,6 +16,19 @@ class VendorRepository implements VendorInterface{
     function __construct(Vendor $vendor) {
 	$this->vendor = $vendor;
 	}
+
+    /**
+     * get all categories details.
+     *
+     * @Author Bharti <bharti.tadvi@neosofttech.com>
+     * @param void
+     * @return collection
+     */
+    public function getAllCategories()
+    {
+        return Category::where('status',1)->get()
+            ->sortBy('name', SORT_NATURAL | SORT_FLAG_CASE)->pluck('name','id');
+    }
 
     /**
      * Save a Vendor details.
@@ -47,9 +61,17 @@ class VendorRepository implements VendorInterface{
         $companyDetail = Company::create(['vendor_id'=>$vendorObj->id,'company_name'=>$data->company_name,
         'address'=>$data->address,'state'=>$data->state,'city'=>$data->city,'pincode'=>$data->pincode,'contact_number'=>$data->contact_number
         ,'fax'=>$data->fax,'website'=>$data->website]);
-
-        $vendorCategory = vendorCategory::create(['vendor_id'=>$vendorObj->id,'category_id'=>$data->category]);
-
+        
+        $categories= $data->category;
+        
+        foreach($categories as $category ){
+            
+            $vendorCategory = new vendorCategory();
+            $vendorCategory->vendor_id = $vendorObj->id;
+            $vendorCategory->category_id = $category;
+            $vendorCategory->save();
+        }
+        
         return $vendorObj;
     }
 
@@ -62,8 +84,9 @@ class VendorRepository implements VendorInterface{
      */
     public function all()
     {
-        $vendors = Vendor::with('vendorCategory','vendorCategory.category','company','user')->get();
-    	return $vendors;
+        $vendors = Vendor::with('vendorCategory','vendorCategory.category','company','user')->orderBy('id', 'desc')->get();
+        
+        return $vendors;
     }
 
     /**
@@ -103,16 +126,40 @@ class VendorRepository implements VendorInterface{
 
         $vendor->save();
 
-        $user = User::where('id','=',$vendor->user_id)->update(['email'=>$data->email,'is_verified'=>$data->verify_status]);
+        $user = User::where('id','=',$vendor->user_id)->first();
+        $user->email = $data->email;
+        $user->is_verified = $data->verify_status;
+        $user->password = bcrypt('vendor@123') ;
+        $user->save();
+
+        // if($user->is_verified == "approved"){
+            
+            /* Send email to vendor if verification status is approved*/
+            // $details['email'] = $user->email;
+            // $details['subject']='Vendor login verification';
+            // $details['body'] = 'Hi '.ucfirst($vendor->first_name).' '.ucfirst($vendor->last_name). ',your status is approved.Please use this password "vendor@123" for login in vendor management';
+            // $details['from']='Vendor Management System';
+            
+            // dispatch(new \App\Jobs\SendVerificationMailToVendor($details));
+        // }
+        
 
         $company = Company::where('vendor_id','=',$id)->update(['company_name'=>$data->company_name,
         'address'=>$data->address,'state'=>$data->state,'city'=>$data->city,'pincode'=>$data->pincode,'contact_number'=>$data->contact_number
         ,'fax'=>$data->fax,'website'=>$data->website]);
 
-        $vendorCategory = vendorCategory::where('vendor_id','=',$id)->update(['vendor_id'=>$vendor->id,'category_id'=>$data->category]);
-
+        $deleteVendorCategory = VendorCategory::where('vendor_id','=',$id)->delete();        
+        
+        $categories = $data->category ? $data->category : [];
+        
+        foreach($categories as $category ){
+            $vendorCategory = New VendorCategory();
+            $vendorCategory->vendor_id = $id;
+            $vendorCategory->category_id = $category;
+            $vendorCategory->save();
+        }
+        
         return $vendor;
-
     }
 
 }

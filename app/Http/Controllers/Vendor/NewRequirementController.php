@@ -7,8 +7,11 @@ use Illuminate\Http\Request;
 use DataTables;
 use Response;
 use App\Model\Vendor;
+use App\Model\User;
+use Mail;
 use App\Http\Requests\VendorQuotationRequest;
 use App\Repositories\NewRequirement\NewRequirementInterface as NewRequirementInterface;
+use App\Repositories\Notifications\NotificationsInterface as NotificationsInterface;
 
 class NewRequirementController extends Controller
 {
@@ -20,8 +23,9 @@ class NewRequirementController extends Controller
     */ 
     private $newRequirementRepository;
 
-    public function __construct(NewRequirementInterface $newRequirementRepository){
+    public function __construct(NewRequirementInterface $newRequirementRepository,NotificationsInterface $notificationRepository){
         $this->newRequirementRepository = $newRequirementRepository;
+        $this->notificationRepository = $notificationRepository;
     }
 
     /**
@@ -32,7 +36,9 @@ class NewRequirementController extends Controller
     */
     public function index(Request $request){
         
-        $category = $this->findCategory();
+        $categories = $this->findCategory();
+        
+        $categoryName = [];
         
         if($request->ajax()){
            
@@ -41,8 +47,12 @@ class NewRequirementController extends Controller
             return Datatables::of($data)
             ->addIndexColumn()
 
-            ->addColumn('category_name', function($data) use ($category){
-                    return $category->vendorCategory->category->name;
+            ->addColumn('category_name', function($data) use ($categories){
+               
+                foreach($categories->vendorCategory as $category){
+                    $categoryName[] = $category->category->name;
+                }
+                return $categoryName;
             })
             ->addColumn('action', function($row){
                 return view('vendorUser.newRequirement.actions', compact('row'));
@@ -119,8 +129,35 @@ class NewRequirementController extends Controller
     {
         $requestData = $request;
         
+        $details =[];
+        
         try{
             $newRequirement = $this->newRequirementRepository->update($id,$requestData);
+            
+            $user = \Auth::user();
+            $vendor = Vendor::where('user_id',$user->id)->first();
+            
+            //send notification to the admin
+            $adminUser = User::where(['role_id'=>1])->first();
+            
+            $notification = \Config::get('constants.QUOTATION_DOCUMENT');
+            
+            if($adminUser)
+            {
+                $data = ['user_id'=>$adminUser->id,'title'=>$notification['title'],'text'=>$vendor->first_name.' '.$vendor->last_name.' '.$notification['text'],
+                'type'=>$notification['type'],'status'=>$notification['status']]; 
+                $notification = $this->notificationRepository->save($data);
+            }
+            
+            /* Send mail to the admin*/
+            $details['email'] = $adminUser->email;
+            $details['subject']='A new quotation added';
+            $message ='There is new quotation uploaded by '.$vendor->first_name.' '.$vendor->last_name. '. Please check your admin portal for further details.';
+            $details['body'] = $message;
+            $details['from']= $user->email;
+
+            dispatch(new \App\Jobs\SendMailToAdmin($details));
+
             if($newRequirement){
                 return redirect()->route('new.requirement.index')->with('success', 'Vendor quotation upload successfully');
             }
@@ -138,7 +175,7 @@ class NewRequirementController extends Controller
      */
     public function getDocumentDownload($filename){
         
-        $file = public_path(). "/uploads/uploads/".$filename;
+        $file = public_path(). "/uploads/".$filename;
         
         $newFileName = 'proposal-document'.time();
 

@@ -36,7 +36,8 @@ class VendorController extends Controller
     */
     public function register(){
         
-        $categories = Category::where('status',1)->get();
+        $categories = Category::where('status',1)->get()
+        ->sortBy('name', SORT_NATURAL | SORT_FLAG_CASE)->pluck('name','id');
          
         return view('vendorUser.registration',compact('categories'));
     }

@@ -9,7 +9,7 @@ class VendorQuotation extends Model
 {
     use SoftDeletes;
     
-    protected $table = 'vms_vendor_quatation';
+    protected $table = 'vms_vendor_quotation';
 
     /**
      * The attributes that are mass assignable.
@@ -17,6 +17,6 @@ class VendorQuotation extends Model
      * @var array
      */
     protected $fillable = [
-        'assign_vendor_id','comment','admin_comment','quatation_doc','status'
+        'assign_vendor_id','comment','admin_comment','quotation_doc','status'
     ];
 }

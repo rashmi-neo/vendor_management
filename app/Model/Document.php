@@ -10,7 +10,7 @@ class Document extends Model
     protected $table = 'vms_documents';
     
     protected $fillable = [
-        'name','is_mandetory'
+        'name','is_mandatory'
     ];
 
     public function vendorDocument() 

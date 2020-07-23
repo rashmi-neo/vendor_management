@@ -23,10 +23,52 @@
                </tr>
                <tr>
                   <th>
+                     Description  : 
+                  </th>
+                  <td>
+                     <span>{{$pastRequirement->description}} </span>
+                  </td>
+               </tr>
+               <tr>
+                  <th>
+                     From Date  : 
+                  </th>
+                  <td>
+                     <span>{{$pastRequirement->from_date}}</span>
+                  </td>
+               </tr>
+               <tr>
+                  <th>
+                     To Date  : 
+                  </th>
+                  <td>
+                     <span>{{$pastRequirement->to_date}}</span>
+                  </td>
+               </tr>
+               <tr>
+                  <th>
                     Category  : 
                   </th>
                   <td>
-                     <span>{{$category->vendorCategory->category->name}}</span>
+                     @foreach($category->vendorCategory as $cat)
+                     <li>{{$cat->category->name}}</li>
+                     @endforeach
+                  </td>
+               </tr>
+               <tr>
+                  <th>
+                    Proposal Document  :
+                  </th>
+                  <td>
+                     <span> {{$pastRequirement->proposal_document}}</span>
+                  </td>
+               </tr>
+               <tr>
+                  <th>
+                    Budget  :
+                  </th>
+                  <td>
+                     <span> {{$pastRequirement->budget}}</span>
                   </td>
                </tr>
                <tr>
@@ -35,6 +77,14 @@
                   </th>
                   <td>
                      <span> {{$pastRequirement->priority}}</span>
+                  </td>
+               </tr>
+               <tr>
+                  <th>
+                     Comment  : 
+                  </th>
+                  <td>
+                     <span>{{empty($pastRequirement->comment)?"-":$pastRequirement->comment}}</span>
                   </td>
                </tr>
                <tr>

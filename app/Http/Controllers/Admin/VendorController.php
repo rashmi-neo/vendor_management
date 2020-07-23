@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Http\Requests\VendorStoreRequest;
 use App\Http\Requests\UpdateVendorRequest;
 use DataTables;
-use App\Model\Category;
 use App\Repositories\Vendor\VendorInterface as VendorInterface;
 
 
@@ -33,6 +32,9 @@ class VendorController extends Controller
     * @return void
     */
     public function index(Request $request){
+        
+        $categoryName = [];
+        
         if($request->ajax()){
             $data = $this->vendorRepository->all();
             
@@ -42,7 +44,10 @@ class VendorController extends Controller
                 return $data->first_name. ' ' .$data->last_name;
             })
             ->addColumn('category', function($data){
-                return $data->vendorCategory->category->name;
+                foreach($data->vendorCategory as $category){
+                    $categoryName[] = $category->category->name;
+                }
+                return $categoryName;
             })
             ->addColumn('contact_number', function($data){
                 return $data->company->contact_number;
@@ -81,9 +86,8 @@ class VendorController extends Controller
     */
     public function create()
 	{   
-        $categories = Category::where('status',1)->get()
-        ->sortBy('name', SORT_NATURAL | SORT_FLAG_CASE)->pluck('name','id');
         
+        $categories = $this->vendorRepository->getAllCategories();
         return view('admin.vendor.create',compact('categories'));
     }
     
@@ -115,14 +119,18 @@ class VendorController extends Controller
     public function edit($id)
     {   
         $vebdorId = $id;
-        $categories = Category::where('status',1)->get()
-        ->sortBy('name', SORT_NATURAL | SORT_FLAG_CASE)->pluck('name','id');
+        
+        $categories = $this->vendorRepository->getAllCategories();
         
         $vendor = $this->vendorRepository->find($vebdorId);
-       
+        
+        foreach($vendor->vendorCategory as $category){
+            $categoryId[] = $category->category_id;
+        }
+    
         try {
             if($vendor){
-    	        return view('admin.vendor.edit',compact('vendor','categories'));
+    	        return view('admin.vendor.edit',compact('vendor','categories','categoryId'));
             }else{
                 return redirect()->route('vendors.index')->with('error', 'Vendor not found');
             }

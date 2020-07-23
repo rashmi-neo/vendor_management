@@ -39,7 +39,7 @@ class RequirementRepository implements RequirementInterface{
      */
     public function all()
     {
-    	$requirement = Requirement::with("category") ->where('deleted_at',null)->get();
+    	$requirement = Requirement::with("category") ->where('deleted_at',null)->orderBy('id', 'desc')->get();
     	return $requirement;
     }
 
@@ -211,8 +211,8 @@ class RequirementRepository implements RequirementInterface{
     {
         return  Requirement::join('vms_assign_vendors','vms_requirements.id','=','vms_assign_vendors.requirement_id')
         ->join('vms_vendors','vms_assign_vendors.vendor_id','=','vms_vendors.id')
-        ->leftjoin('vms_vendor_quatation','vms_assign_vendors.id','=','vms_vendor_quatation.assign_vendor_id')
-        ->select('vms_vendors.first_name','vms_vendors.middle_name','vms_vendors.last_name','vms_vendors.mobile_number','vms_vendor_quatation.comment as vendor_comment','vms_vendor_quatation.admin_comment','vms_vendor_quatation.quatation_doc','vms_requirements.code','vms_requirements.id as requirement_id','vms_assign_vendors.id as assign_vendors_id','vms_assign_vendors.vendor_id','vms_requirements.title')
+        ->leftjoin('vms_vendor_quotation','vms_assign_vendors.id','=','vms_vendor_quotation.assign_vendor_id')
+        ->select('vms_vendors.first_name','vms_vendors.middle_name','vms_vendors.last_name','vms_vendors.mobile_number','vms_vendor_quotation.comment as vendor_comment','vms_vendor_quotation.admin_comment','vms_vendor_quotation.quotation_doc','vms_requirements.code','vms_requirements.id as requirement_id','vms_assign_vendors.id as assign_vendors_id','vms_assign_vendors.vendor_id','vms_requirements.title')
         ->where('vms_assign_vendors.requirement_id',$id)
         ->where('vms_assign_vendors.deleted_at',null)
         ->where('vms_vendors.deleted_at',null)

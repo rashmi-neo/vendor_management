@@ -5,11 +5,12 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-
+use App\User;
 class User extends Authenticatable
 {
     use Notifiable;
 
+    
     /**
      * The attributes that are mass assignable.
      *
@@ -36,4 +37,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function vendor()
+    {
+        return $this->hasOne('App\Model\Vendor','user_id');
+    }
 }

@@ -24,7 +24,7 @@
                <a href="{{route('categories.index')}}" class="nav-link {{ (request()->is('admin/categories*')) ? 'active' : '' }}">
                   <i class="nav-icon far fa-image"></i>
                   <p>
-                     Vendor Category
+                     Vendor Categories
                   </p>
                </a>
             </li>

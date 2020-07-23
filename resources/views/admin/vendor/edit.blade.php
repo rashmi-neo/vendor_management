@@ -250,7 +250,11 @@
                </div>
                <div class= "col-sm-6">
                   <div class="form-group">
+                  @if(!empty($vendor->profile_image))
                      <img src="{{asset('/uploads/images/'.$vendor->profile_image)}}" class="profile-image" alt="profile Image" height= "100px" height= "100px">
+                  @else
+                     <img src="{{asset('/dist/img/noimg.png')}}" class="profile-image" alt="profile Image" height= "100px" height= "100px">
+                  @endif
                   </div>
                </div>
             </div>

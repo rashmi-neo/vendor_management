@@ -45,7 +45,7 @@
             <i class="fas fa-user mr-2"></i> {{$value->title}}
             <span class="float-right text-muted text-sm">{{\Carbon\Carbon::parse($value->created_at)->toFormattedDateString()}}</span>
             <br>
-            <small>{{$value->text}}</small>
+            <p style="font-size: 12px;">{{$value->text}}</p>
             </a>
             <div class="dropdown-divider"></div>
             @endforeach

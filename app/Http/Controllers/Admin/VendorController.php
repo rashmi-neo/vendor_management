@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Http\Requests\VendorStoreRequest;
 use App\Http\Requests\UpdateVendorRequest;
 use DataTables;
-use App\Model\Category;
 use App\Repositories\Vendor\VendorInterface as VendorInterface;
 
 
@@ -87,9 +86,8 @@ class VendorController extends Controller
     */
     public function create()
 	{   
-        $categories = Category::where('status',1)->get()
-        ->sortBy('name', SORT_NATURAL | SORT_FLAG_CASE)->pluck('name','id');
         
+        $categories = $this->vendorRepository->getAllCategories();
         return view('admin.vendor.create',compact('categories'));
     }
     
@@ -121,8 +119,8 @@ class VendorController extends Controller
     public function edit($id)
     {   
         $vebdorId = $id;
-        $categories = Category::where('status',1)->get()
-        ->sortBy('name', SORT_NATURAL | SORT_FLAG_CASE)->pluck('name','id');
+        
+        $categories = $this->vendorRepository->getAllCategories();
         
         $vendor = $this->vendorRepository->find($vebdorId);
         

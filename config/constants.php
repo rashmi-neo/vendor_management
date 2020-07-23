@@ -37,5 +37,11 @@ return [
         'text' =>'has been uploaded quotation',
         'type' => 'document_update',
         'status' => 'unread'
-     ],
+    ],
+
+    'NOTIFICATION_STATUS' => [
+        'read' => 'Read',
+        'unread' => 'Unread'
+    ],
+
 ];

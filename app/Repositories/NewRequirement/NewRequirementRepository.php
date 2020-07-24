@@ -65,11 +65,13 @@ class  NewRequirementRepository implements NewRequirementInterface{
     public function update($id,$data)
     {   
         
+        $vendorId = Vendor::where('user_id',\Auth::user()->id)->first();
         
-        $assignRequirementId = AssignVendor::where('requirement_id',$id)->first();            
+        $assignRequirement = AssignVendor::where('requirement_id',$id)
+        ->whereIn('vendor_id',$vendorId)->first();            
         
         $vendorQuotation = new VendorQuotation();
-        $vendorQuotation->assign_vendor_id = $assignRequirementId->id;
+        $vendorQuotation->assign_vendor_id = $assignRequirement->id;
         
         if ($document = $data->file('quotation')) {
             $path = '/';

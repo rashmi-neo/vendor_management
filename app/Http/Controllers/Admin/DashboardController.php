@@ -10,6 +10,12 @@ use App\Model\User;
 class DashboardController extends Controller
 {
    
+    /**
+    * Show the count of total requirement,completed requirement, new requirement pending verifications,  
+    *@Author Bharti <bharati.tadvi@neosofttech.com>
+    *  
+    * @return $countRequirement,countCompletedRequirement,countNewRequirement,countPendingVerification
+    */
     public function index(){
         
         $totalRequirement = Requirement::get();

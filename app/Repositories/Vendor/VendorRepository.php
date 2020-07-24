@@ -6,8 +6,6 @@ use App\Model\User;
 use App\Model\Company;
 use App\Model\Category;
 use App\Model\VendorCategory;
-use Illuminate\Support\Str;
-
 
 class VendorRepository implements VendorInterface{
 
@@ -40,8 +38,7 @@ class VendorRepository implements VendorInterface{
     public function save($data)
     {
 
-        $randomPassword = Str::random(10);
-        $user = User::create(['role_id'=>2,'is_verified'=>$data->verify_status,'username'=>$data->first_name,'email'=>$data->email,'password'=>bcrypt($randomPassword)]);
+        $user = User::create(['role_id'=>2,'is_verified'=>$data->verify_status,'username'=>$data->first_name,'email'=>$data->email,'password'=>bcrypt('Vendor@123')]);
 
         $vendorObj = new Vendor();
         $vendorObj->user_id = $user->id;
@@ -129,20 +126,7 @@ class VendorRepository implements VendorInterface{
         $user = User::where('id','=',$vendor->user_id)->first();
         $user->email = $data->email;
         $user->is_verified = $data->verify_status;
-        $user->password = bcrypt('vendor@123') ;
         $user->save();
-
-        // if($user->is_verified == "approved"){
-            
-            /* Send email to vendor if verification status is approved*/
-            // $details['email'] = $user->email;
-            // $details['subject']='Vendor login verification';
-            // $details['body'] = 'Hi '.ucfirst($vendor->first_name).' '.ucfirst($vendor->last_name). ',your status is approved.Please use this password "vendor@123" for login in vendor management';
-            // $details['from']='Vendor Management System';
-            
-            // dispatch(new \App\Jobs\SendVerificationMailToVendor($details));
-        // }
-        
 
         $company = Company::where('vendor_id','=',$id)->update(['company_name'=>$data->company_name,
         'address'=>$data->address,'state'=>$data->state,'city'=>$data->city,'pincode'=>$data->pincode,'contact_number'=>$data->contact_number

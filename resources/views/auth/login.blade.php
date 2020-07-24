@@ -52,7 +52,7 @@
         @enderror
         <span id="emailError"></span>
         <div class="input-group mb-3">
-          {!! Form::password('password', ['class' => 'form-control ','placeholder' => 'Password',
+          {!! Form::password('password', ['class' => 'form-control','placeholder' => 'Password',
           'data-parsley-required' => 'true',
           'data-parsley-required-message' => 'Please enter password',
           'data-parsley-trigger' => "input",
@@ -73,8 +73,8 @@
           </div>
         @enderror
         <span id="passwordError"></span>
-        <div class="input-group mb-2 ml-5">
-            @captcha
+        <div class="form-control mb-3" id="imgCaptcha">
+          @captcha
         </div>
         <div class="form-group">
           {!! Form::text('captcha', null, ['class' => 'form-control','placeholder'=>'Captcha',

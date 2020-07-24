@@ -64,3 +64,6 @@
 .closeButton{
   color:white;
 }
+#imgCaptcha{
+  height: 60px;
+}

@@ -24,6 +24,7 @@ class AccountRepository implements AccountInterface{
     }
     
     public function findVendor(){
+        
         $userId = Auth::user()->id;
         
         $vendorUser = Vendor::with('vendorDocument','vendorDocument.document')->where('user_id',$userId)->first();

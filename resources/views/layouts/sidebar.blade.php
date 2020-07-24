@@ -61,7 +61,7 @@
                </a>
             </li>
          @endif
-         @if(Auth::check() && Auth::user()->role_id == 2) 
+         @if(Auth::check() && Auth::user()->role_id == 2)
          <li class="nav-item">
             <a href="{{url('vendor/dashboard')}}" class="nav-link {{ (request()->is('vendor/dashboard')) ? 'active' : '' }}">
                <i class="nav-icon far fa-image"></i>

@@ -119,7 +119,7 @@ return [
     |
     |
     */
-    'width'  => 180,
+    'width'  => 164,
     'height' => 50,
 
     /*
@@ -138,7 +138,7 @@ return [
     | You can specify an array or string.
     |
     */
-    'colors' => 'black',
+    'colors' => '2980b9',
 
     /*
     |--------------------------------------------------------------------------
@@ -147,7 +147,7 @@ return [
     | The number of scratches displayed in the Captcha.
     |
     */
-    'scratches' => [1, 6],
+    'scratches' => [0, 0],
 
     /*
     |--------------------------------------------------------------------------

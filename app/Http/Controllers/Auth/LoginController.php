@@ -50,6 +50,7 @@ class LoginController extends Controller
         $rules = [
             'email'    => 'required|email|exists:users|min:5|max:191',
             'password' => 'required|string|min:4|max:255',
+            'captcha' => 'required|captcha'
         ];
         $messages = [
             'email.exists' => 'These credentials do not match our records.',

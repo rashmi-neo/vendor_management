@@ -43,7 +43,7 @@ class RequirementController extends Controller
     public function index(Request $request){
         if($request->ajax()){
             $data = $this->requirementRepository->all();
-            
+
             return Datatables::of($data)
             ->addIndexColumn()
             ->editColumn('created_at', function ($row){
@@ -83,7 +83,7 @@ class RequirementController extends Controller
     public function store(StoreRequirementRequest $request){
 
         $requestData =$request;
-        
+        $username =\Auth::user()->username;
         try {
             $requirement = $this->requirementRepository->save($requestData);
             $emailResp = $this->sendMailToVendor($requestData,$requirement->title);
@@ -92,7 +92,7 @@ class RequirementController extends Controller
              $getVendorsData = Vendor::whereIn('id',$vendorsIds)->get();
             foreach($getVendorsData as $vendor)
             {
-                $data = ['user_id'=>$vendor->user_id,'title'=>Config::get('constants.NEW_REQUIREMENT.title'),'text'=>Config::get('constants.NEW_REQUIREMENT.text'),'type'=>Config::get('constants.NEW_REQUIREMENT.type'),'status'=>Config::get('constants.NEW_REQUIREMENT.status')];
+                $data = ['user_id'=>$vendor->user_id,'title'=>Config::get('constants.NEW_REQUIREMENT.title'),'text'=>Config::get('constants.NEW_REQUIREMENT.text').' '.$username,'type'=>Config::get('constants.NEW_REQUIREMENT.type'),'status'=>Config::get('constants.NEW_REQUIREMENT.status')];
                 $notification = $this->notificationRepository->save($data);
             }
             return redirect()->route('requirements.index')->with('success','Requirement details saved successfully');
@@ -192,9 +192,9 @@ class RequirementController extends Controller
         }
     }
 
-    public function showAssignVendors($requirementId,$vendorAssignId)
+    public function showQuotation($requirementId,$vendorAssignId)
     {
-        $showQuotationDetails = $this->requirementRepository->showAssignVendorDetails($vendorAssignId);
+        $showQuotationDetails = $this->requirementRepository->showQuotationDetails($vendorAssignId);
         return view('admin.requirement.showQuotation',compact("showQuotationDetails"));
     }
 }

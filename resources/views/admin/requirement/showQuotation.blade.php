@@ -25,7 +25,7 @@
                         <tr>
                             <td>{{ $key+1 }}</td>
                                 @if($quotation->quotation_doc != "")
-                                
+
                                 <td> <a href="{{ url('/') }}/uploads/{{ $quotation->quotation_doc }}">{{ $quotation->quotation_doc }} <i class="fa fa-download" aria-hidden="true"></i></a></td>
                                 @else
                                 <td>: </td>
@@ -59,7 +59,7 @@
                 <form method="POST"  data-parsley-validate="parsley">
                 @csrf
                 @method('PUT')
-                <input type="hidden" value="" id="vendorId" name="vendorId">
+                <input type="hidden" value="" id="quotationId" name="quotationId">
                 <input type="hidden" value="" id="assignVendorId" name="assignVendorId">
                 <div class="modal-header">
                 <h4 class="modal-title">Add Comment</h4>
@@ -106,7 +106,7 @@
     function openCommentModal(id,assignVendorId)
     {
         $("#modal-lg").modal('show');
-        $("#vendorId").val(id);
+        $("#quotationId").val(id);
         $("#assignVendorId").val(assignVendorId);
     }
 
@@ -117,15 +117,15 @@
         }
         });
         e.preventDefault();
-        var vendorId = $("#vendorId").val();
+        var quotationId = $("#quotationId").val();
         var comment = $("#comment").val();
         var assignVendorId = $("#assignVendorId").val();
-        if(vendorId !="" && comment !="" && assignVendorId !="")
+        if(quotationId !="" && comment !="" && assignVendorId !="")
         {
             $.ajax({
             type: "POST",
             url: "../../addComment",
-            data:{'id':vendorId,'comment':comment,'assignVendorId':assignVendorId},
+            data:{'id':quotationId,'comment':comment,'assignVendorId':assignVendorId},
             dataType: "json",
             success: function(result){
              if(result)

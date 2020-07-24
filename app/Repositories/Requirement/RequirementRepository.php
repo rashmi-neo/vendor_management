@@ -211,8 +211,8 @@ class RequirementRepository implements RequirementInterface{
     {
         return  Requirement::join('vms_assign_vendors','vms_requirements.id','=','vms_assign_vendors.requirement_id')
         ->join('vms_vendors','vms_assign_vendors.vendor_id','=','vms_vendors.id')
-        ->leftjoin('vms_vendor_quotation','vms_assign_vendors.id','=','vms_vendor_quotation.assign_vendor_id')
-        ->select('vms_vendors.first_name','vms_vendors.middle_name','vms_vendors.last_name','vms_vendors.mobile_number','vms_vendor_quotation.comment as vendor_comment','vms_vendor_quotation.admin_comment','vms_vendor_quotation.quotation_doc','vms_requirements.code','vms_requirements.id as requirement_id','vms_assign_vendors.id as assign_vendors_id','vms_assign_vendors.vendor_id','vms_requirements.title')
+   //  ->leftjoin('vms_vendor_quotation','vms_assign_vendors.id','=','vms_vendor_quotation.assign_vendor_id')
+        ->select('vms_vendors.first_name','vms_vendors.middle_name','vms_vendors.last_name','vms_vendors.mobile_number','vms_requirements.code','vms_requirements.id as requirement_id','vms_assign_vendors.id as assign_vendors_id','vms_assign_vendors.vendor_id','vms_requirements.title')
         ->where('vms_assign_vendors.requirement_id',$id)
         ->where('vms_assign_vendors.deleted_at',null)
         ->where('vms_vendors.deleted_at',null)
@@ -237,16 +237,16 @@ class RequirementRepository implements RequirementInterface{
     }
     public function addComment($request)
     {
-        $vendorId = $request->id;
+        $quotationId = $request->id;
         $comment = $request->comment;
         $assignVendorId = $request->assignVendorId;
-        if($vendorId != "" && $comment != "" &&  $assignVendorId != "")
+        if($quotationId != "" && $comment != "" &&  $assignVendorId != "")
         {
             return $vendorQuotationObj = VendorQuotation::where('assign_vendor_id', $assignVendorId)
-            ->update(['admin_comment'=>$comment]);
+            ->where('id', $quotationId)->update(['admin_comment'=>$comment]);
         }
     }
-    public function showAssignVendorDetails($vendorAssignId)
+    public function showQuotationDetails($vendorAssignId)
     {
         return VendorQuotation::where('deleted_at',null)->where('assign_vendor_id',$vendorAssignId)->get();
     }

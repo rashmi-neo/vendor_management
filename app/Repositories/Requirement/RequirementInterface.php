@@ -55,5 +55,5 @@ interface RequirementInterface{
 
     public function addComment($request);
 
-    public function showAssignVendorDetails($vendorAssignId);
+    public function showQuotationDetails($vendorAssignId);
 }

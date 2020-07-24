@@ -47,7 +47,7 @@ class RequirementController extends Controller
             return Datatables::of($data)
             ->addIndexColumn()
             ->editColumn('created_at', function ($row){
-                return date('d/m/y', strtotime($row->created_at) );
+                return date('d M Y', strtotime($row->created_at) );
             })
             ->editColumn('category_id', function ($row){
                return $row->category->name;

@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
+use Session;
 
 class VendorQuotationRequest extends FormRequest
 {
@@ -24,9 +25,18 @@ class VendorQuotationRequest extends FormRequest
      */
     public function rules(Request $request)
     {
-        return [
-            'quotation' => 'required|file|max:150|mimes:xls,pdf,xlsx'
-        ];
+        
+        
+
+        if($request->fromDate<=date('Y-m-d') && date('Y-m-d') <= $request->toDate){
+            return [
+                'quotation' => 'required|file|max:150|mimes:xls,pdf,xlsx',
+            ];
+        }else{
+            return [Session::put('error', 'you cant add quotation')];
+        }
+
+        
         
     }
 
@@ -38,7 +48,9 @@ class VendorQuotationRequest extends FormRequest
     public function messages()
     {
         return [
-            'quotation.required' => 'The Quotation is required'
+            'quotation.required' => 'The Quotation is required',
+            'toDate.before' => 'The Quotation cant',
+
         ];
     }
 }

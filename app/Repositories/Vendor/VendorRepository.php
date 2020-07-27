@@ -126,7 +126,20 @@ class VendorRepository implements VendorInterface{
         $user = User::where('id','=',$vendor->user_id)->first();
         $user->email = $data->email;
         $user->is_verified = $data->verify_status;
+        $user->password = bcrypt('vendor@123') ;
         $user->save();
+
+        if($user->is_verified == "approved"){
+            
+            /* Send email to vendor if verification status is approved*/
+            $details['email'] = $user->email;
+            $details['subject']='Vendor login verification';
+            $details['firstname'] = $vendor->first_name;
+            $details['lastname'] = $vendor->last_name;
+            $details['password'] = "vendor@123";
+            $details['from']='Vendor Management System';
+            dispatch(new \App\Jobs\SendVerificationMailToVendor($details));
+        }
 
         $company = Company::where('vendor_id','=',$id)->update(['company_name'=>$data->company_name,
         'address'=>$data->address,'state'=>$data->state,'city'=>$data->city,'pincode'=>$data->pincode,'contact_number'=>$data->contact_number

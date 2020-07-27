@@ -9,6 +9,7 @@ use Response;
 use App\Model\Vendor;
 use App\Model\User;
 use Mail;
+use Session;
 use App\Http\Requests\VendorQuotationRequest;
 use App\Repositories\NewRequirement\NewRequirementInterface as NewRequirementInterface;
 use App\Repositories\Notifications\NotificationsInterface as NotificationsInterface;
@@ -125,9 +126,17 @@ class NewRequirementController extends Controller
      * @param  int  $id
      * @return void
      */
-    public function update(VendorQuotationRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $requestData = $request;
+
+        if($requestData->fromDate<=date('Y-m-d') && date('Y-m-d') <=  $requestData->toDate){
+            $validatedData =  $requestData->validate([
+                'quotation' => 'required|file|max:150|mimes:xls,pdf,xlsx',
+            ]);
+        }else{
+            return redirect()->back()->with('error','You can upload quotation between start and to date only.');
+        }
         
         $details =[];
         
@@ -161,7 +170,7 @@ class NewRequirementController extends Controller
             if($newRequirement){
                 return redirect()->route('new.requirement.index')->with('success', 'Vendor quotation upload successfully');
             }
-            return redirect()->route('new.requirement.index')->with('error','Requirement not found');
+            return redirect()->route('new.requirement.index')->with('error','You can upload quotation between start and to date only.');
         }catch(\Exception $ex){
             return redirect()->route('new.requirement.index')->with('error','Something went wrong');
         }

@@ -7,7 +7,7 @@
       </div>
       <div class="card-body"> 
             {!! Form::model($newRequirement,['route' =>  ['new.requirement.update',$newRequirement->id],'class' => 'form-horizontal',
-               'method' => 'post','data-parsley-validate' => 'parsley','enctype' =>'multipart/form-data']) !!}
+              'id'=>'newRequirementForm','method' => 'post','data-parsley-validate' => 'parsley','enctype' =>'multipart/form-data']) !!}
                @csrf
             <div class="form-group row">
                <label for="inputTitle" class="col-sm-3 label_class">Title</label>
@@ -46,6 +46,9 @@
             <div class="form-group row">
                <label for="document" class="col-sm-3 label_class">Upload quotation</label>
                <div class="col-sm-7">
+               <input type="hidden" value="{{isset($newRequirement->from_date)?$newRequirement->from_date:now()}}" name="fromDate"/>
+               <input type="hidden" value="{{isset($newRequirement->to_date)?$newRequirement->to_date:date(y-m-d)}}" name="toDate"/>
+               
                   {!! Form::file('quotation', array('class' => 'form-control ','placeholder' => 'Upload Quotation',
                   'data-parsley-required' => 'true',
                   'data-parsley-required-message' => 'Please upload quotation',
@@ -56,7 +59,10 @@
                      <p>{{ $message }}</p>
                   </span>
                   @enderror
-               </div>
+                  @error('toDate')
+                  <p>{{ Session::get('error')}}</p> 
+                  @enderror              
+                 </div>
             </div>
             <div class="form-group row">
                <label for="comment" class="col-sm-3 label_class">Comment</label>
@@ -79,7 +85,16 @@
 </div>
 @endsection
 @section('scripts')
-<script type="text/javascript">
-	
-</script>
+@if(session()->get('success'))
+         <script>
+            var message = "{{ Session::get('success') }}"
+            toastr.success(message);
+         </script>
+      @endif
+      @if(session()->get('error'))
+         <script>
+            var message = "{{ Session::get('error') }}"
+            toastr.error(message);
+         </script>
+      @endif
 @endsection

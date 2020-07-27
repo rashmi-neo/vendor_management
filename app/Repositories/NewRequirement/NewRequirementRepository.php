@@ -67,23 +67,29 @@ class  NewRequirementRepository implements NewRequirementInterface{
         
         $vendorId = Vendor::where('user_id',\Auth::user()->id)->first();
         
-        $assignRequirement = AssignVendor::where('requirement_id',$id)
+        $assignRequirement = AssignVendor::with('requirement')
+        ->where('requirement_id',$id)
         ->whereIn('vendor_id',$vendorId)->first();            
-        
-        $vendorQuotation = new VendorQuotation();
-        $vendorQuotation->assign_vendor_id = $assignRequirement->id;
-        
-        if ($document = $data->file('quotation')) {
-            $path = '/';
-            $file = uploadFile($document,$path);
-            $vendorQuotation->quotation_doc = $file;
+         
+        $currentDate = date('Y-m-d');
+
+        if($assignRequirement->requirement->from_date<= $currentDate && $currentDate <= $assignRequirement->requirement->to_date ){
+            $vendorQuotation = new VendorQuotation();
+            $vendorQuotation->assign_vendor_id = $assignRequirement->id;
+            
+            if ($document = $data->file('quotation')) {
+                $path = '/';
+                $file = uploadFile($document,$path);
+                $vendorQuotation->quotation_doc = $file;
+            }
+            $vendorQuotation->comment = $data->vendor_comment;
+            $vendorQuotation->save();            
+            return  true;
         }
-        
-        $vendorQuotation->comment = $data->vendor_comment;
-        $vendorQuotation->save();            
-            
-        return  $vendorQuotation;
-            
+        else{
+            return false;
+        }
+                    
     }
 
 }

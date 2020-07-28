@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="../../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+  <link rel="stylesheet" type="text/css" href="https://parsleyjs.org/src/parsley.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
@@ -34,32 +35,81 @@
     <div class="card-body login-card-body">
       <p class="login-box-msg">You are only one step a way from your new password, recover your password now.</p>
 
-      <form action="{{route('password.update')}}" method="post">
+      
+        {!! Form::open(['route' => 'password.update','id' => 'resetForm','method' => 'post','data-parsley-validate' => 'parsley']) !!}
         @csrf
         <div class="input-group mb-3">
-          <input type="email" name="email" class="form-control" placeholder="Email">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-lock"></span>
-            </div>
-          </div>
-        </div>
-        <div class="input-group mb-3">
-          <input type="password" name="password" class="form-control" placeholder="Password">
+          {!! Form::email('email', null, ['class' => 'form-control ','placeholder' => 'Email Address',
+            'data-parsley-required' => 'true',
+            'data-parsley-required-message' => 'Please enter email address',
+            'data-parsley-trigger' => "input",
+            'data-parsley-errors-container'=>'#emailError',
+            'data-parsley-trigger'=>"blur"]) !!}
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
             </div>
           </div>
         </div>
+        @error('email')
+        <div class="errorMsg">
+          <span class="text-danger errormsg" role="alert">
+            {{ $message }}
+          </span>
+        <div>
+        @enderror
+        <span id="emailError"></span>
+
         <div class="input-group mb-3">
-          <input type="password" name="password_confirmation" class="form-control" placeholder="Confirm Password">
+          {!! Form::password('password', ['class' => 'form-control','placeholder' => 'Password',
+          'data-parsley-required' => 'true',
+          'data-parsley-required-message' => 'Please enter password',
+          'data-parsley-trigger' => "input",
+          'data-parsley-errors-container'=>'#passwordError',
+          'data-parsley-trigger'=>"blur"]) !!}
           <div class="input-group-append">
             <div class="input-group-text">
+          <span id="emailError"></span>
               <span class="fas fa-lock"></span>
             </div>
           </div>
         </div>
+        @error('password')
+         <div class="errorMsg">
+          <span class="text-danger errormsg" role="alert">
+              {{ $message }}
+          </span>
+          </div>
+        @enderror
+        <span id="passwordError"></span>
+
+
+        <div class="input-group mb-3">
+          {!! Form::password('password_confirmation', ['class' => 'form-control','placeholder' => 'Confirm Password',
+          'data-parsley-required' => 'true',
+          'data-parsley-required-message' => 'Please enter confirm password',
+          'data-parsley-trigger' => "input",
+          'data-parsley-errors-container'=>'#passwordConfirmError',
+          'data-parsley-trigger'=>"blur",
+          'data-parsley-equalto'=>"#password"
+
+          ]) !!}
+          <div class="input-group-append">
+            <div class="input-group-text">
+          <span id="emailError"></span>
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+        @error('password_confirmation')
+         <div class="errorMsg">
+          <span class="text-danger errormsg" role="alert">
+              {{ $message }}
+          </span>
+          </div>
+        @enderror
+        <span id="passwordConfirmError"></span>
+        
         <div class="row">
           <div class="col-12">
             <input type="hidden" name="token" value="{{$token}}" class="form-control">
@@ -82,6 +132,6 @@
 <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="../../dist/js/adminlte.min.js"></script>
-
+<script src="https://parsleyjs.org/dist/parsley.min.js"></script>
 </body>
 </html>

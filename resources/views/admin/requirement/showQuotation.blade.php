@@ -5,7 +5,7 @@
         <div class="card-header">
 			<h3 class="card-title">Quatation Details</h3>
             <div class="float-right">
-                <a class="btn btn-md btn-primary" href="{{ route('requirements.index') }}"> Back</a>
+                <a class="btn btn-md btn-primary" href="{{ route('requirements.show', $requirement_id) }}"> Back</a>
             </div>
 		</div>
         <div class="card-body">
@@ -36,14 +36,17 @@
                                 {{-- <button type="button" class="edit btn btn-primary btn-sm" title="add comment" onclick="openCommentModal({{ $vendor->vendor_id }},{{ $vendor->assign_vendors_id }})" id="comment_{{ $vendor->vendor_id }}" ><i class="fas fa-pencil-alt"></i></button> --}}
                               @if ($quotation->admin_comment == "" || $quotation->admin_comment == null)
                               <button type="button" class="edit btn btn-primary btn-sm" onclick="openCommentModal({{ $quotation->id }},{{ $quotation->assign_vendor_id }})" id="comment_{{ $quotation->assign_vendors_id }}" ><i class="fas fa-pencil-alt"></i></button>
-
                               @else
                               <button type="button" class="edit btn btn-primary btn-sm"  id="comment_{{ $quotation->assign_vendors_id }}" disabled><i class="fas fa-pencil-alt"></i></button>
-
                               @endif
 
-                                {{-- <a href="{{ route('requirements.edit', $quotation->assign_vendors_id)}}" rel="tooltip" title="Edit" class="edit btn btn-primary btn-sm editRequirement"><i class="fas fa-pencil-alt"></i></a>&nbsp; --}}
-                                {{-- <a href="{{ url('admin/showAssignVendors/'.$quotation->assign_vendors_id)}}" rel="tooltip" title="Show" class="edit btn btn-success btn-sm viewRequirement"><i class="fas fa-eye"></i></a>&nbsp; --}}
+                              @if($quotation->status =="in_process")
+                              <button type="button" class="btn btn-warning btn-sm" rel="tooltip" title="Approve" onclick="openStatusModal({{ $quotation->id }},{{ $quotation->assign_vendor_id }},{{$requirement_id}})" id="status_{{ $quotation->assign_vendors_id }}"><i class="fas fa-exclamation-circle"></i></button>
+                               @elseif($quotation->status  =="approved")
+                              <button type="button" class="btn btn-success btn-sm" rel="tooltip" title="Approved"><i class="fas fa-check"></i></button>
+                               @else
+                              <button type="button" class="btn btn-danger btn-sm" rel="tooltip" title="Rejected"><i style="font-size: 16px;" class="fas fa-window-close"></i></button>
+                              @endif
                             </td>
                         </tr>
                         @endforeach
@@ -84,7 +87,6 @@
                      @enderror
                     </div>
                 </div>
-
             </div>
             <div class="modal-footer justify-content-between">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -97,8 +99,38 @@
         <!-- /.modal-dialog -->
       </div>
       <!-- /.modal -->
-
+     
+      <!-- /.Quotation status modal -->
+    <div class="modal fade" id="quotationStatus">
+        <div class="modal-dialog modal-md">
+            <form method="POST"  data-parsley-validate="parsley">
+                <div class="modal-content">
+                    @csrf
+                    @method('PUT')
+                    <input type="hidden" value="" id="quotation_id" name="quotation_id">
+                    <input type="hidden" value="" id="assign_vendor_id" name="assign_vendor_id">
+                    <input type="hidden" value="" id="requirement_id" name="requirement_id">
+                    <div class="modal-body">
+                    <div class="swal2-icon swal2-warning swal2-icon-show" style="display: flex;">
+                        <div class="swal2-icon-content">!</div>
+                    </div>
+                    <div class="form-group">
+                        <div>
+                        <p style="font-size: 21px;font-family: initial;" class="ml-4">Are you sure want to approve this quotation?</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="updateStatus" >Yes,approve it</button>
+                </div>
+            </form>
+        </div>
+          <!-- /.modal-content -->
     </div>
+        <!-- /.modal-dialog -->
+</div>
+</div>
 </div>
 @endsection
 @section('scripts')
@@ -108,6 +140,14 @@
         $("#modal-lg").modal('show');
         $("#quotationId").val(id);
         $("#assignVendorId").val(assignVendorId);
+    }
+
+    function openStatusModal(id,assignVendorId,requirementId)
+    {
+        $("#quotationStatus").modal('show');
+        $("#quotation_id").val(id);
+        $("#requirement_id").val(requirementId);
+        $("#assign_vendor_id").val(assignVendorId);
     }
 
     $("#addComment").click(function (e) {
@@ -142,6 +182,36 @@
         {
             toastr.error('Please add comment');
         }
+    });
+    $("#updateStatus").click(function (e) {
+        
+        $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+        });
+        e.preventDefault();
+        var quotationId = $("#quotation_id").val();
+        var status = $("#status").val();
+        var assignVendorId = $("#assign_vendor_id").val();
+        var requirementId = $("#requirement_id").val();
+
+            $.ajax({
+            type: "POST",
+            url: "../../updateStatus",
+            data:{'status':status,'id':quotationId,'assignVendorId':assignVendorId,'requirementId':requirementId},
+            dataType: "json",
+            success: function(result){
+                
+             if(result)
+             {
+                $('#quotationStatus').modal('hide');
+                toastr.success('Status updated successfully');
+                setTimeout(function () {
+                    location.reload(true);
+                }, 2000);
+             }
+            }});
     });
 </script>
 @endsection

@@ -15,6 +15,7 @@ use Exception;
 use App\Repositories\Requirement\RequirementInterface as RequirementInterface;
 use App\Repositories\Notifications\NotificationsInterface as NotificationsInterface;
 use Config;
+use App\Model\VendorQuotation;
 class RequirementController extends Controller
 {
 
@@ -195,6 +196,26 @@ class RequirementController extends Controller
     public function showQuotation($requirementId,$vendorAssignId)
     {
         $showQuotationDetails = $this->requirementRepository->showQuotationDetails($vendorAssignId);
-        return view('admin.requirement.showQuotation',compact("showQuotationDetails"));
+        $requirement_id =$requirementId;
+        return view('admin.requirement.showQuotation',compact("showQuotationDetails",'requirement_id'));
+    }
+   
+    public function updateStatus(Request $request){
+        
+        $assignVendors = AssignVendor::with('requirement')
+        ->where('requirement_id',$request->requirementId)->get();  
+        
+        foreach($assignVendors as $assignVendor){
+            if($assignVendor->id == $request->assignVendorId){
+                VendorQuotation::where('assign_vendor_id',$request->assignVendorId)
+                ->where('id', $request->id)->update(['status'=>'approved']);
+            }
+
+            if($assignVendor->id != $request->assignVendorId){
+                VendorQuotation::where('assign_vendor_id','=',$assignVendor->id)
+                ->update(['status'=>'rejected']);
+            }
+        }
+        return true;        
     }
 }

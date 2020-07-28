@@ -38,6 +38,7 @@ Route::resource('vendors', 'VendorController');
 Route::resource('profiles', 'ProfileController');
 
 Route::post('addComment', 'RequirementController@addComment');
+Route::post('updateStatus', 'RequirementController@updateStatus');
 Route::get('showQuotation/{requirementId}/{vendorAssignId}', 'RequirementController@showQuotation');
 /**
 * Routes for Notifications.

@@ -69,7 +69,7 @@ class  NewRequirementRepository implements NewRequirementInterface{
         
         $assignRequirement = AssignVendor::with('requirement')
         ->where('requirement_id',$id)
-        ->whereIn('vendor_id',$vendorId)->first();            
+        ->whereIn('vendor_id',[$vendorId->id])->first();            
          
         $currentDate = date('Y-m-d');
 

@@ -9,8 +9,10 @@ use App\Model\Vendor;
 use App\Http\Requests\StoreRequirementRequest;
 use App\Http\Requests\UpdateRequirementRequest;
 use App\Http\Requests\StoreCommentRequest;
+use App\Http\Requests\PaymentReceiptRequest;
 use App\Model\AssignVendor;
 use App\Model\Requirement;
+use Illuminate\Support\Facades\Validator;
 use DataTables;
 use Exception;
 use App\Repositories\Requirement\RequirementInterface as RequirementInterface;
@@ -219,7 +221,14 @@ class RequirementController extends Controller
         $requirement_id =$requirementId;
         return view('admin.requirement.showQuotation',compact("showQuotationDetails",'requirement_id'));
     }
-   
+    
+    /**
+    * Update Quotation status.
+    *@author Bharti<bharti.tadvi@neosofttech.com>
+    *
+    *@param  Illuminate\Http\Request
+    *@return true
+    */
     public function updateStatus(Request $request){
         
         $assignVendors = AssignVendor::with('requirement')
@@ -239,7 +248,37 @@ class RequirementController extends Controller
         return true;        
     }
 
-    public function uploadPaymentReceipt(Request $request){
-        dd('hi');
+    /**
+    * Upload Payment receipt.
+    *@author Bharti<bharti.tadvi@neosofttech.com>
+    *
+    *@param  Illuminate\Http\Request
+    *@return $response
+    */
+    public function uploadPaymentReceipt(PaymentReceiptRequest $request){
+        
+        
+        $paymentReceipt = $this->requirementRepository->paymentReceipt($request);
+        
+
+        if (!empty($paymentReceipt)) {
+            $response = response()->json([
+                'success' => true,
+                'message' => "Payment receipt uploaded successfully",
+            ]);
+        
+            return $response;
+        
+        } else {
+            $response = response()->json([
+                'success' => false,
+                'message' => "Payment requirement not found",
+                'data' => [
+                'status_code' => 401
+                ]
+            ]);
+
+            return $response;
+        }
     }
 }

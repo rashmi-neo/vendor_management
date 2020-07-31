@@ -11,6 +11,7 @@ use App\Model\AssignVendor;
 use App\Model\User;
 use Mail;
 use Session;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\VendorQuotationRequest;
 use App\Repositories\NewRequirement\NewRequirementInterface as NewRequirementInterface;
 use App\Repositories\Notifications\NotificationsInterface as NotificationsInterface;
@@ -134,32 +135,26 @@ class NewRequirementController extends Controller
      */
     public function update(Request $request,$id)
     {
-        $requestData = $request;
-        //dd($requestData->all());
-        //if($requestData->fromDate<=date('Y-m-d') && date('Y-m-d') <=  $requestData->toDate){
-            // $validatedData =  $requestData->validate([
-            //     'quotation' => 'required|file|max:150|mimes:xls,pdf,xlsx',
-            // ]);
-                
-            // if($validatedData->fails()) {
-            //     return response()->json([
-            //       'success' => false,
-            //       'message'   => $validator->errors(),
-            //       'data' => [
-            //         'body' => $request->all()
-            //       ]
-            //     ]);
-            //   }
-          
-        // }else{
-            
-        //     return redirect()->back()->with('error','You can upload quotation between start and to date only.');
-        // }
         
+        
+        $validator = Validator::make($request->all(), [
+            'quotation' => 'required|file|max:150|mimes:xls,pdf,xlsx',
+        ]);
+    
+        if($validator->fails()) {
+            return response()->json([
+            'success' => false,
+            'message'   => $validator->errors(),
+            'data' => [
+                'body' => $request->all()
+            ]
+            ]);
+        }
+            
         $details =[];
     
         try{
-            $newRequirement = $this->newRequirementRepository->update($id,$requestData);
+            $newRequirement = $this->newRequirementRepository->update($id,$request);
            
             $user = \Auth::user();
             $vendor = Vendor::where('user_id',$user->id)->first();
@@ -184,13 +179,36 @@ class NewRequirementController extends Controller
             $details['from']= $user->email;
 
             dispatch(new \App\Jobs\SendMailToAdmin($details));
-                
-            if($newRequirement){
-               return response()->json(['success'=>'Vendor quotation upload successfully.']);
+            
+            if (!empty($newRequirement)) {
+                $response = response()->json([
+                    'success' => true,
+                    'message' => "Vendor uploaded quotation  successfully.",
+                ]);
+            
+                return $response;
+            
+            } else {
+                $response = response()->json([
+                    'success' => false,
+                    'message' => "You can upload quotation between start and to date only.",
+                    'data' => [
+                    'status_code' => 401
+                    ]
+                ]);
+    
+                return $response;
             }
-            return response()->json(['error'=>'You can upload quotation between start and to date only.']);
         }catch(\Exception $ex){
-            return redirect()->route('new.requirement.index')->with('error','Something went wrong');
+            
+            $response = response()->json([
+                'success' => false,
+                'message' => "Something went wrong",
+                'data' => [
+                'status_code' => 401
+                ]
+            ]);
+            return $response;
         }
     }
 

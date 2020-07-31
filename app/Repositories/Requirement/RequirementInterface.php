@@ -58,4 +58,6 @@ interface RequirementInterface{
     public function showQuotationDetails($vendorAssignId);
 
     public function getQuotationStatus($requirementId);
+
+    public function paymentReceipt($requestData);
 }

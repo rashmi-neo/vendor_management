@@ -7,6 +7,7 @@ use App\Model\Category;
 use App\Model\Vendor;
 use App\Model\VendorCategory;
 use App\Model\VendorQuotation;
+use App\Model\Payment;
 use App\Repositories\Requirement\RequirementInterface;
 
 class RequirementRepository implements RequirementInterface{
@@ -263,5 +264,24 @@ class RequirementRepository implements RequirementInterface{
             $query->where('deleted_at',null)->whereIn('status',['approved']);
         }])->where('requirement_id',$id)->get();
         return $quotationStatus;
+    }
+
+    public function paymentReceipt($requestData){
+        
+        $payementReceipt= New Payment();
+        $payementReceipt->vendor_id =$requestData->vendor_id;
+        $payementReceipt->requirement_id =$requestData->requirement_id; 
+        
+        if ($paymentReceipt = $requestData->file('payment_file')) {
+            $path = '/';
+            $file = uploadFile($paymentReceipt,$path);
+            $payementReceipt->receipt =$file; 
+        }
+
+        $payementReceipt->payment_date =$requestData->payment_date; 
+        $payementReceipt->amount =$requestData->amount; 
+        $payementReceipt->save();
+        return $payementReceipt;
+
     }
 }

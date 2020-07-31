@@ -18,6 +18,7 @@
 				</tr>
 			</thead>
 		</table>
+      
 	</div>
 </div>
 <form data-parsley-validate="parsley" id="QuotationForm" enctype ="multipart/form-data">
@@ -25,17 +26,20 @@
    <div class="modal fade" id="uploadQuotation"aria-modal="true">
       <input type="hidden" name="vendor_id" value=""/>
       <input type="hidden" id="requirementId" name="id" value=""/>
+      <input type="hidden" value="" name="fromDate" id="fromDate"/>
+      <input type="hidden" value="" name="toDate" id="toDate"/>
+               
       <div class="modal-dialog modal-md">
          <div class="modal-content">
             <div class="modal-header headerModal">
-               <h4 class="modal-title">Upload Document</h4>
+               <h4 class="modal-title">Upload Quotation</h4>
                <button type="button" class="close closeButton" data-dismiss="modal" aria-label="Close">
                <span aria-hidden="true">×</span>
                </button>
             </div>
             <div class="modal-body">
                <div class="form-group mb-3">
-               {!! Form::label('quotation','Upload quotation:',['class'=>"col-sm-2 col-form-label"],false) !!} 
+               {!! Form::label('quotation','Upload quotation:',['class'=>"col-sm-4 col-form-label"],false) !!} 
 				   <input type="file" class="form-control" name="quotation" 
                id="quotationFile" data-parsley-required="true" data-parsley-error-message="Please upload quotation" 
                data-parsley-trigger = "input"
@@ -92,24 +96,37 @@
 
 <script>
 	$('body').on('click', '.uploadQuotation', function () {
-         var requirementId = $(this).data('id');
-		 
-         $('#requirementId').val(requirementId);
+         
     });
 
+   function openQuotationModal(data){
+      $("#uploadQuotation").modal('show');
+      $('#fromDate').val(data.from_date);
+      $("#toDate").val(data.to_date);
+      $("#requirementId").val(data.id);
+   }
+
 	$("#saveQuotation").click(function (e) {
+      $('#comment').empty();
+      $('#quotationFile').empty();
       var quotation = $("#quotationFile").val();
+      var fromDate = $("#fromDate").val();
+      var toDate = $("#toDate").val();
+
       var comment = $("#comment").val();
       var requirementId = $("#requirementId").val();
       var fileData =  $("#quotationFile").prop('files')[0];
-     // alert(fileData);
-     e.preventDefault();
+
+      var form = $('#QuotationForm');
+      form.parsley().validate();
+      e.preventDefault();
 
       var url = "{{ url('vendor/new/requirements/update') }}";
       
       var formData = new FormData();
-      //alert($("#quotationFile").files);
       formData.append('id', requirementId);
+      formData.append('fromDate', fromDate);
+      formData.append('toDate', toDate);
       formData.append('vendor_comment', comment);
       formData.append('quotation',fileData);
    
@@ -118,7 +135,8 @@
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
         });
-        $.ajax({
+      if(form.parsley().isValid()){
+         $.ajax({
             type: "POST",
             url: url+'/'+requirementId,
             contentType: false,
@@ -126,17 +144,19 @@
             data:formData,
             dataType: "json",
             success: function(result){
-             if(result)
-             { 
                $('#uploadQuotation').modal('hide');
-                toastr.success('Quotation uploaded successfully');
-                setTimeout(function () {
-                    location.reload(true);
-                }, 2000);
+               
+               if(result.success ==true){
+                toastr.success(result.message);
+               }
 
-             }
+               if(result.success ==false){
+                toastr.error(result.message);
+               }
+               
             },
             error:function(result){
+               
                 if(typeof result.responseJSON.errors.quotation != "undefined"){
                   let quotation = (result.responseJSON.errors.quotation[0]);
                   $('.error-quotation').html(quotation);
@@ -144,7 +164,8 @@
                   $('.error-quotation').empty();
                 }
               }
-         });
+         });  
+      }       
     });
 </script>
 @endsection

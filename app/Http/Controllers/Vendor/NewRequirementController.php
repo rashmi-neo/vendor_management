@@ -135,27 +135,28 @@ class NewRequirementController extends Controller
      */
     public function update(Request $request,$id)
     {
-        
-        
-        $validator = Validator::make($request->all(), [
-            'quotation' => 'required|file|max:150|mimes:xls,pdf,xlsx',
-        ]);
-    
-        if($validator->fails()) {
-            return response()->json([
-            'success' => false,
-            'message'   => $validator->errors(),
-            'data' => [
-                'body' => $request->all()
-            ]
-            ]);
-        }
-            
+                    
         $details =[];
+        if($request->fromDate<=date('Y-m-d') && date('Y-m-d') <=  $request->toDate){            
+            $validateData = $request->validate([
+                'quotation' => 'required|file|max:10000|mimes:xls,pdf,xlsx',
+            ]);
+        }else{
+            $response = response()->json([
+                'success' => false,
+                'message' => "You can upload quotation between start and to date only.",
+                'data' => [
+                'status_code' => 401
+                ]
+            ]);
+            return $response;
+        }
+        
+        
     
         try{
             $newRequirement = $this->newRequirementRepository->update($id,$request);
-           
+            
             $user = \Auth::user();
             $vendor = Vendor::where('user_id',$user->id)->first();
             
@@ -181,9 +182,10 @@ class NewRequirementController extends Controller
             dispatch(new \App\Jobs\SendMailToAdmin($details));
             
             if (!empty($newRequirement)) {
+                
                 $response = response()->json([
                     'success' => true,
-                    'message' => "Vendor uploaded quotation  successfully.",
+                    'message' => "Vendor uploaded quotation successfully.",
                 ]);
             
                 return $response;

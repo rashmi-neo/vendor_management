@@ -26,18 +26,11 @@ class VendorQuotationRequest extends FormRequest
     public function rules(Request $request)
     {
         
-        
-
-        if($request->fromDate<=date('Y-m-d') && date('Y-m-d') <= $request->toDate){
-            return [
-                'quotation' => 'required|file|max:150|mimes:xls,pdf,xlsx',
-            ];
-        }else{
-            return [Session::put('error', 'you cant add quotation')];
-        }
-
-        
-        
+        return [
+            'quotation' => 'required|file|max:10000|mimes:xls,pdf,xlsx',
+        ]; 
+    
+           
     }
 
     /**
@@ -49,8 +42,6 @@ class VendorQuotationRequest extends FormRequest
     {
         return [
             'quotation.required' => 'The Quotation is required',
-            'toDate.before' => 'The Quotation cant',
-
         ];
     }
 }

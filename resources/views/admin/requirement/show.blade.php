@@ -116,83 +116,99 @@
                         @endforeach
                         @endforeach
                     </tbody>
-                </table>
+            </table>
             </div>
         </div>
+
+    <!-- /.Payment upload modal -->
         </div>
         <!-- /.card -->
     </div>
 </div>
 
-    <!-- /.Payment upload modal -->
-    <div class="modal fade" id="uploadPaymentReceipt">
-        <div class="modal-dialog modal-md">
-            <form method="POST">
-                <div class="modal-content">
-                <div class="modal-header headerModal">
-                    <h4 class="modal-title">Upload Payment Receipt</h4>
-                    <button type="button" class="close closeButton" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                    </button>
+{!! Form::open(['class' => 'form-horizontal', 'id'=>'PaymentForm',
+'method' => 'post','data-parsley-validate' => 'parsley','enctype' =>'multipart/form-data']) !!}
+   @csrf
+   <div class="modal fade" id="uploadPaymentReceipt"aria-modal="true">
+    <input type="hidden" value="" id="vendor_id" name="vendor_id">
+    <input type="hidden" value="" id="requirement_id" name="requirement_id">
+      <div class="modal-dialog modal-md">
+         <div class="modal-content">
+            <div class="modal-header headerModal">
+               <h4 class="modal-title">Upload Document</h4>
+               <button type="button" class="close closeButton" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">×</span>
+               </button>
+            </div>
+            <div class="modal-body">
+               <div class="form-group mb-3">
+                    {!! Form::label('Receipt','Payment Receipt:',['class'=>"col-sm-5 col-form-label"],false) !!} 
+                    {!! Form::file('payment_file', array('class' => 'form-control ','id' => 'paymentFile',
+                    'placeholder' => 'Payment file',
+                    'data-parsley-required' => 'true',
+                    'data-parsley-required-message' => 'Please upload payment receipt',
+                    'data-parsley-trigger' => "input",
+                    'data-parsley-trigger'=>"blur")) !!}
+                    <span class="text-danger error-payment-receipt" role="alert">
+                    </span> 
+               </div>
+               <div class="form-group mb-3">
+                    {!! Form::label('amount','Amount:',['class'=>"col-sm-5 col-form-label"],false) !!} 
+                    {!! Form::text('amount',null,['class' => 'form-control ','id' => 'amount','placeholder' => 'Amount','data-parsley-required' => 'true',
+                    'data-parsley-required-message' => 'Please add amount',
+                    'data-parsley-trigger' => "input",
+                    'data-parsley-minlength' => '2',
+                    'data-parsley-type'=>"digits",
+                    'data-parsley-maxlength' => '1000',
+                    'data-parsley-trigger'=>"blur"]) !!}
+                    <span class="text-danger error-amount" role="alert">
+                    </span> 
                 </div>
-                    @csrf
-                    @method('PUT')
-                    <input type="hidden" value="" id="vendor_id" name="vendor_id">
-                    <input type="hidden" value="" id="requirement_id" name="requirement_id">
-                    <div class="modal-body">
-                        <div class="form-group mb-3">
-                            {!! Form::label('Receipt','Payment Receipt:',['class'=>"col-sm-5 col-form-label"],false) !!} 
-                            {!! Form::file('payment_file', array('class' => 'form-control ','id' => 'paymentFile','placeholder' => 'Profile Image',
-                            'data-parsley-required' => 'true',
-                            'data-parsley-required-message' => 'Please upload payment receipt',
-                            'data-parsley-trigger' => "input",
-                            'data-parsley-trigger'=>"blur")) !!}
-                            <span class="text-danger error-payment-receipt" role="alert">
-                            </span> 
-                        </div>
-                        <div class="form-group mb-3">
-                            {!! Form::label('amount','Amount:',['class'=>"col-sm-5 col-form-label"],false) !!} 
-                            {!! Form::text('amount',null,['class' => 'form-control ','id' => 'amount','placeholder' => 'Amount','data-parsley-required' => 'true',
-                            'data-parsley-required-message' => 'Please add amount',
-                            'data-parsley-trigger' => "input",
-                            'data-parsley-minlength' => '2',
-                            'data-parsley-maxlength' => '1000',
-                            'data-parsley-trigger'=>"blur"]) !!}
-                            <span class="text-danger amount" role="alert">
-                            </span> 
-                        </div>
-                        <div class="form-group mb-3">
-                            {!! Form::label('payment_date','Payment Date:',['class'=>"col-sm-5 col-form-label"],false) !!} 
-                            {!! Form::text('payment_date',null,['class' => 'form-control','id' => 'paymentDate','placeholder' => 'Payment Date','data-parsley-required' => 'true',
-                            'data-parsley-required-message' => 'Please add Payment date',
-                            'data-parsley-trigger' => "input",
-                            'data-parsley-minlength' => '2',
-                            'data-parsley-maxlength' => '1000',
-                            'data-parsley-trigger'=>"blur"]) !!}
-                            <span class="text-danger error-payment-date" role="alert">
-                            </span> 
-                        </div>
-                    </div>
-                
-                <div class="modal-footer justify-content-center">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" id="uploadReceipt" >Save</button>
+                <div class="form-group mb-3">
+                    {!! Form::label('payment_date','Payment Date:',['class'=>"col-sm-5 col-form-label"],false) !!} 
+                    {!! Form::text('payment_date',null,['class' => 'form-control','id' => 'paymentDate','placeholder' => 'Payment Date','data-parsley-required' => 'true',
+                    'data-parsley-required-message' => 'Please add Payment date',
+                    'data-parsley-trigger' => "input",
+                    'data-parsley-trigger'=>"blur"]) !!}
+                    <span class="text-danger error-payment-date" role="alert">
+                    </span> 
                 </div>
-            </form>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
+            </div>
+            <div class="modal-footer justify-content-between">
+               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+               {!! Form::button('Upload', ['type' => 'button','id'=>'uploadReceipt','class' => 'btn btn-primary'] ) !!}
+            </div>
+         </div>
+         <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+   </div>
+{!! Form::close() !!}
+
 @endsection
 @section('scripts')
 <script>
-function openCommentModal(requirementId,vendorId){
-        $("#uploadPaymentReceipt").modal('show');
-        $("#vendor_id").val(vendorId);
-        $("#requirement_id").val(requirementId);
-}
+    function openCommentModal(requirementId,vendorId){
+            $("#uploadPaymentReceipt").modal('show');
+            $("#vendor_id").val(vendorId);
+            $("#requirement_id").val(requirementId);
+    }
+
+    $(function(){
+        var today = new Date();
+        $('#paymentDate').daterangepicker({
+            singleDatePicker: true,
+            showDropdowns: true,
+            locale: {
+            format: 'YYYY-MM-DD'
+            },
+        });
+    });
+
     $("#uploadReceipt").click(function (e) {
         
+        var form = $('#PaymentForm');
+        form.parsley().validate();
         $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -211,11 +227,13 @@ function openCommentModal(requirementId,vendorId){
         formData.append('payment_file',fileData);
         formData.append('payment_date',paymentDate);
         formData.append('amount',amount);
-
+        
+        if(form.parsley().isValid()){
             $.ajax({
                 type: "POST",
                 url: "{{route('upload.payment.receipt')}}",
                 contentType: false,
+                async:false,
                 processData:false,
                 data:formData,
                 dataType: "json",
@@ -227,14 +245,27 @@ function openCommentModal(requirementId,vendorId){
                 }
                 },
                 error:function(result){
-                    if(typeof result.responseJSON.errors.receipt != "undefined"){
-                    let receipt = (result.responseJSON.errors.receipt[0]);
-                    $('.error-payment-receipt').html(receipt);
+                    if(typeof result.responseJSON.errors.payment_file != "undefined"){
+                    let payment_file = (result.responseJSON.errors.payment_file[0]);
+                    $('.error-payment-receipt').html(payment_file);
                     }else{
                     $('.error-payment-receipt').empty();
                     }
+                    if(typeof result.responseJSON.errors.amount != "undefined"){
+                    let amount = (result.responseJSON.errors.amount[0]);
+                    $('.error-amount').html(amount);
+                    }else{
+                    $('.error-amount').empty();
+                    }
+                    if(typeof result.responseJSON.errors.payment_date != "undefined"){
+                    let payment_date = (result.responseJSON.errors.payment_date[0]);
+                    $('.error-payment-date').html(payment_date);
+                    }else{
+                    $('.error-payment-date').empty();
+                    }
                 }
             });
+        }
     });
 </script>
 @endsection

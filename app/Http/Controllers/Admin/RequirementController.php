@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Model\Category;
+use App\User;
 use App\Model\Vendor;
 use App\Http\Requests\StoreRequirementRequest;
 use App\Http\Requests\UpdateRequirementRequest;
@@ -161,7 +162,10 @@ class RequirementController extends Controller
     {
         $showRequirementDetails = $this->requirementRepository->get($id);
         $requirementVendors = $this->requirementRepository->getAssignVendors($id);
-        return view('admin.requirement.show',compact("showRequirementDetails","requirementVendors"));
+
+        $getQuotationStatus = $this->requirementRepository->getQuotationStatus($id);
+
+        return view('admin.requirement.show',compact("showRequirementDetails","requirementVendors","getQuotationStatus"));
     }
 
     public function sendMailToVendor($requestData,$requirementTitle)
@@ -183,6 +187,22 @@ class RequirementController extends Controller
     {
         try{
             $addComment = $this->requirementRepository->addComment($request);
+            
+            if($addComment){
+                $assignvendor =AssignVendor::where('id',$addComment->assign_vendor_id)->first();
+                $vendor =vendor::where('id',$assignvendor->vendor_id)->first();
+                
+                $notification = Config::get('constants.ADMIN_COMMENT');
+                $admin = User::where('id',\Auth::user()->id)->first();
+                $userName = $admin->username;
+
+                if($admin)
+                {
+                    $notificationDetail = ['user_id'=>$vendor->id,'title'=>$notification['title'],'text'=>$userName.' '.$notification['text'],
+                    'type'=>$notification['type'],'status'=>$notification['status']]; 
+                    $notification = $this->notificationRepository->save($notificationDetail);
+                }
+            }
             if($addComment){
                 return redirect()->route('requirements.show')->with('success', 'Comment added successfully');
             }
@@ -217,5 +237,9 @@ class RequirementController extends Controller
             }
         }
         return true;        
+    }
+
+    public function uploadPaymentReceipt(Request $request){
+        dd('hi');
     }
 }

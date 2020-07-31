@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use DataTables;
 use Response;
 use App\Model\Vendor;
+use App\Model\AssignVendor;
 use App\Model\User;
 use Mail;
 use Session;
@@ -75,10 +76,15 @@ class NewRequirementController extends Controller
         
         $category = $this->findCategory();
         $newRequirement = $this->newRequirementRepository->find($id);
+        $vendorId = Vendor::where('user_id',\Auth::user()->id)->first();
+        
+        $assignVendor = AssignVendor::with('requirement')
+        ->where('requirement_id',$newRequirement->id)
+        ->whereIn('vendor_id',[$vendorId->id])->first();
         
         try {
             if($newRequirement){
-    	        return view('vendorUser.newRequirement.show',compact('newRequirement','category'));
+    	        return view('vendorUser.newRequirement.show',compact('newRequirement','category','assignVendor'));
             }else{
                 return redirect()->route('new.requirement.index')->with('error', 'New requirement not found');
             }
@@ -126,23 +132,35 @@ class NewRequirementController extends Controller
      * @param  int  $id
      * @return void
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,$id)
     {
         $requestData = $request;
-
-        if($requestData->fromDate<=date('Y-m-d') && date('Y-m-d') <=  $requestData->toDate){
-            $validatedData =  $requestData->validate([
-                'quotation' => 'required|file|max:150|mimes:xls,pdf,xlsx',
-            ]);
-        }else{
-            return redirect()->back()->with('error','You can upload quotation between start and to date only.');
-        }
+        //dd($requestData->all());
+        //if($requestData->fromDate<=date('Y-m-d') && date('Y-m-d') <=  $requestData->toDate){
+            // $validatedData =  $requestData->validate([
+            //     'quotation' => 'required|file|max:150|mimes:xls,pdf,xlsx',
+            // ]);
+                
+            // if($validatedData->fails()) {
+            //     return response()->json([
+            //       'success' => false,
+            //       'message'   => $validator->errors(),
+            //       'data' => [
+            //         'body' => $request->all()
+            //       ]
+            //     ]);
+            //   }
+          
+        // }else{
+            
+        //     return redirect()->back()->with('error','You can upload quotation between start and to date only.');
+        // }
         
         $details =[];
-        
+    
         try{
             $newRequirement = $this->newRequirementRepository->update($id,$requestData);
-            
+           
             $user = \Auth::user();
             $vendor = Vendor::where('user_id',$user->id)->first();
             
@@ -166,11 +184,11 @@ class NewRequirementController extends Controller
             $details['from']= $user->email;
 
             dispatch(new \App\Jobs\SendMailToAdmin($details));
-
+                
             if($newRequirement){
-                return redirect()->route('new.requirement.index')->with('success', 'Vendor quotation upload successfully');
+               return response()->json(['success'=>'Vendor quotation upload successfully.']);
             }
-            return redirect()->route('new.requirement.index')->with('error','You can upload quotation between start and to date only.');
+            return response()->json(['error'=>'You can upload quotation between start and to date only.']);
         }catch(\Exception $ex){
             return redirect()->route('new.requirement.index')->with('error','Something went wrong');
         }
@@ -190,6 +208,29 @@ class NewRequirementController extends Controller
 
         return response()->download($file,$newFileName);
 
+    }
+
+    /**
+    * Show the form of specified quotation.
+    *@Author Bharti <bharati.tadvi@neosofttech.com>
+    *  
+    * @param  $id
+    * @return $pastRequirement
+    */
+    public function showQuotationDetail(Request $request,$id){
+        
+        
+        $quotations = $this->newRequirementRepository->findQuotation($id);
+        
+        try {
+            if($quotations){
+    	        return view('vendorUser.newRequirement.showQuotation',compact('quotations'));
+            }else{
+                return redirect()->route('new.requirement.index')->with('error', 'Quotation not found');
+            }
+        }catch(\Throwable $th){
+            return redirect()->route('new.requirement.index')->with('error', 'Something went wrong!');
+        }
     }
 
 }

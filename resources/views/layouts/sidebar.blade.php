@@ -53,6 +53,14 @@
                </a>
             </li>
             <li class="nav-item">
+               <a href="{{route('reports.index')}}" class="nav-link {{ (request()->is('admin/reports*')) ? 'active' : '' }}">
+                  <i class="nav-icon far fa-image"></i>
+                  <p>
+                     Reports
+                  </p>
+               </a>
+            </li>
+            <li class="nav-item">
                <a href="{{route('profiles.index')}}" class="nav-link {{ (request()->is('admin/profiles*')) ? 'active' : '' }}">
                   <i class="nav-icon far fa-image"></i>
                   <p>
@@ -93,6 +101,14 @@
                   New Requirement
                </p>
             </a>
+         </li>
+         <li class="nav-item">
+               <a href="{{route('notification.index')}}" class="nav-link  {{ (request()->is('admin/notification*')) ? 'active' : '' }}">
+                  <i class="nav-icon far fa-image"></i>
+                  <p>
+                     Notifications
+                  </p>
+               </a>
          </li>
          @endif
          </ul>

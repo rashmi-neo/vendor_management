@@ -19,4 +19,27 @@ class VendorQuotation extends Model
     protected $fillable = [
         'assign_vendor_id','comment','admin_comment','quotation_doc','status'
     ];
+
+    /**
+     * Get the Comment.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getCommentAttribute($value)
+    {
+        return ucfirst($value);
+    }
+
+    /**
+     * Get the Admin comment.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getAdminCommentAttribute($value)
+    {
+        return ucfirst($value);
+    }
+
 }

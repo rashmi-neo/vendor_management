@@ -40,6 +40,11 @@ Route::resource('profiles', 'ProfileController');
 Route::post('addComment', 'RequirementController@addComment');
 Route::post('updateStatus', 'RequirementController@updateStatus');
 Route::get('showQuotation/{requirementId}/{vendorAssignId}', 'RequirementController@showQuotation');
+Route::post('uploadPaymentReceipt', 'RequirementController@uploadPaymentReceipt')->name('upload.payment.receipt');
+
+
+Route::get('reports/index', 'ReportController@index')->name('reports.index');
+
 /**
 * Routes for Notifications.
 * @author Sukanya<sukanya.dharangaonkar@neosofttech.com>
@@ -72,8 +77,10 @@ Route::get('past/requirements/show/{id}', 'PastRequirementController@show')->nam
 Route::get('new/requirements', 'NewRequirementController@index')->name('new.requirement.index');
 Route::get('new/requirements/show/{id}', 'NewRequirementController@show')->name('new.requirement.show');
 Route::get('new/requirements/edit/{id}', 'NewRequirementController@edit')->name('new.requirement.edit');
-Route::post('new/requirements/update/{id}', 'NewRequirementController@update')->name('new.requirement.update');
+Route::post('new/requirements/update/{id}','NewRequirementController@update')->name('new.requirement.update');
 Route::get('download/document/{filename}','NewRequirementController@getDocumentDownload')->name('download.document');
+Route::get('showQuotationDetail/{id}/{assign_vendor_id}', 'NewRequirementController@showQuotationDetail')->name('quotation.show');
+
 });
 
 

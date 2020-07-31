@@ -1,103 +1,47 @@
 @extends('layouts.master')
 @section('main-content')
-<!-- vendor Entries Column -->
-<div class="col-md-12">
-   <!-- Vendor user -->
-   <div class="card mb-4">
-      <div class="card-header">
-         <h3 class="card-title">View New Requirement</h3>
-         <div class="float-right">
+<div class="card">
+   <div class="card-header">
+      <h3 class="card-title">View New Requirement</h3>
+      <div class="float-right">
             <a class="btn btn-primary" href="{{ route('new.requirement.index') }}"> Back</a>
          </div>
-      </div>
-      <div class="card-body"> 
-         <table class="table table-striped table-bordered" >
-            <tbody>
-               <tr>
-                  <th>
-                     Title  : 
-                  </th>
-                  <td>
-                     <span>{{$newRequirement->title}}</span>
-                  </td>
-               </tr>
-               <tr>
-                  <th>
-                     Description  : 
-                  </th>
-                  <td>
-                     <span>{{$newRequirement->description}} </span>
-                  </td>
-               </tr>
-               <tr>
-                  <th>
-                     From Date  : 
-                  </th>
-                  <td>
-                     <span>{{$newRequirement->from_date}}</span>
-                  </td>
-               </tr>
-               <tr>
-                  <th>
-                     To Date  : 
-                  </th>
-                  <td>
-                     <span>{{$newRequirement->to_date}}</span>
-                  </td>
-               </tr>
-               <tr>
-                  <th>
-                    Category  : 
-                  </th>
-                  <td>
-                     @foreach($category->vendorCategory as $cat)
-                     <li>{{$cat->category->name}}</li>
-                     @endforeach
-                  </td>
-               </tr>
-               <tr>
-                  <th>
-                    Proposal Document  :
-                  </th>
-                  <td>
-                     <span> {{$newRequirement->proposal_document}}</span>
-                  </td>
-               </tr>
-               <tr>
-                  <th>
-                    Budget  :
-                  </th>
-                  <td>
-                     <span> {{$newRequirement->budget}}</span>
-                  </td>
-               </tr>
-               <tr>
-                  <th>
-                    Priority  :
-                  </th>
-                  <td>
-                     <span> {{$newRequirement->priority}}</span>
-                  </td>
-               </tr>
-               <tr>
-                  <th>
-                     Comment  : 
-                  </th>
-                  <td>
-                     <span>{{empty($newRequirement->comment)?"-":$newRequirement->comment}}</span>
-                  </td>
-               </tr>
-               <tr>
-                  <th>
-                    Status  :
-                  </th>
-                  <td>
-                     <span>{{$newRequirement->status}}</span>
-                  </td>
-               </tr>
-            <tbody>
-         </table>     
-      </div>
+   </div>
+   
+   <div class="card-body">
+      <table id="newRequirementTable" class="table table-bordered table-hover">
+         <thead>
+            <tr>
+               <th>SrNo</th>
+               <th>Title</th>
+               <th>From Date</th>
+               <th>To Date</th>
+               <th>Category</th>
+               <th>Proposal Document</th>
+               <th>Budget</th>
+               <th>Comment</th>
+               <th>Action</th>
+            </tr>
+         </thead>
+         <tbody>
+            <tr>
+               <td>{{$newRequirement->code}}</td>
+               <td>{{$newRequirement->title}}</td>
+               <td>{{$newRequirement->from_date}}</td>
+               <td>{{$newRequirement->from_date}}</td>
+               <td>
+                  @foreach($category->vendorCategory as $cat)
+                  <li>{{$cat->category->name}}</li>
+                  @endforeach
+               </td>
+               <td>{{$newRequirement->proposal_document}}</td>
+               <td>{{$newRequirement->budget}}</td>
+               <td>{{empty($newRequirement->comment)?"-":$newRequirement->comment}}</td>
+
+               <td><a href="{{ url('vendor/showQuotationDetail/'.$newRequirement->id.'/'.$assignVendor->id)}}"  rel="tooltip" title="Show Quotation Detail" class="view btn btn-secondary btn-sm viewQuotation">	<i class="fas fa-file"></i></a>&nbsp;</td>
+            </tr>
+         </tbody>
+      </table>
    </div>
 </div>
 @endsection

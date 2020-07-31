@@ -17,6 +17,7 @@
                             <th>Quatation Document</th>
                             <th>Comment</th>
                             <th>Admin Comment</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -32,6 +33,7 @@
                                 @endif
                             <td>{{ empty($quotation->comment)?"-":$quotation->comment}}</td>
                             <td>{{ empty($quotation->admin_comment)? "-":$quotation->admin_comment}}</td>
+                            <td>{{ ucfirst($quotation->status)}}</td>
                             <td>
                                 {{-- <button type="button" class="edit btn btn-primary btn-sm" title="add comment" onclick="openCommentModal({{ $vendor->vendor_id }},{{ $vendor->assign_vendors_id }})" id="comment_{{ $vendor->vendor_id }}" ><i class="fas fa-pencil-alt"></i></button> --}}
                               @if ($quotation->admin_comment == "" || $quotation->admin_comment == null)
@@ -39,7 +41,6 @@
                               @else
                               <button type="button" class="edit btn btn-primary btn-sm"  id="comment_{{ $quotation->assign_vendors_id }}" disabled><i class="fas fa-pencil-alt"></i></button>
                               @endif
-
                               @if($quotation->status =="in_process")
                               <button type="button" class="btn btn-warning btn-sm" rel="tooltip" title="Approve" onclick="openStatusModal({{ $quotation->id }},{{ $quotation->assign_vendor_id }},{{$requirement_id}})" id="status_{{ $quotation->assign_vendors_id }}"><i class="fas fa-exclamation-circle"></i></button>
                                @elseif($quotation->status  =="approved")

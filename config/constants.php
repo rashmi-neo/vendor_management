@@ -43,5 +43,12 @@ return [
         'read' => 'Read',
         'unread' => 'Unread'
     ],
+    
+    'ADMIN_COMMENT'=>[
+        'title' => 'Admin added comment',
+        'text' =>'has been added comment',
+        'type' => 'admin_comment',
+        'status' => 'unread'
+    ]
 
 ];

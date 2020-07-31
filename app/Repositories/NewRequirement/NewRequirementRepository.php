@@ -53,6 +53,22 @@ class  NewRequirementRepository implements NewRequirementInterface{
     public function find($id)
     {
         return Requirement::find($id);
+
+        // dd($requirement);
+    }
+
+
+    public function findQuotation($id){
+        $vendorId = Vendor::where('user_id',\Auth::user()->id)->first();
+        
+        $assignRequirement = AssignVendor::with('requirement')
+        ->where('requirement_id',$id)
+        ->whereIn('vendor_id',[$vendorId->id])->first(); 
+        // dd($assignRequirement->id);
+        $vendorQuotation = VendorQuotation::where('assign_vendor_id',$assignRequirement->id)
+                ->get();
+                //dd($vendorQuotation);
+        return $vendorQuotation;
     }
 
     /**
@@ -74,6 +90,7 @@ class  NewRequirementRepository implements NewRequirementInterface{
         $currentDate = date('Y-m-d');
 
         if($assignRequirement->requirement->from_date<= $currentDate && $currentDate <= $assignRequirement->requirement->to_date ){
+            
             $vendorQuotation = new VendorQuotation();
             $vendorQuotation->assign_vendor_id = $assignRequirement->id;
             
@@ -83,7 +100,7 @@ class  NewRequirementRepository implements NewRequirementInterface{
                 $vendorQuotation->quotation_doc = $file;
             }
             $vendorQuotation->comment = $data->vendor_comment;
-            $vendorQuotation->save();            
+            $vendorQuotation->save();  
             return  true;
         }
         else{

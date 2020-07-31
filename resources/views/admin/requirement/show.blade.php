@@ -87,11 +87,130 @@
                 </table>
             </div>
             <div class="tab-pane fade" id="paymentTab" role="tabpanel" aria-labelledby="custom-tabs-four-messages-tab">
-                222Morbi turpis dolor, vulputate vitae felis non, tincidunt congue mauris. Phasellus volutpat augue id mi placerat mollis. Vivamus faucibus eu massa eget condimentum. Fusce nec hendrerit sem, ac tristique nulla. Integer vestibulum orci odio. Cras nec augue ipsum. Suspendisse ut velit condimentum, mattis urna a, malesuada nunc. Curabitur eleifend facilisis velit finibus tristique. Nam vulputate, eros non luctus efficitur, ipsum odio volutpat massa, sit amet sollicitudin est libero sed ipsum. Nulla lacinia, ex vitae gravida fermentum, lectus ipsum gravida arcu, id fermentum metus arcu vel metus. Curabitur eget sem eu risus tincidunt eleifend ac ornare magna.
+            <table id="assignVendorTable1" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>SrNo</th>
+                            <th>Vendor Name</th>
+                            <th>Quotation document</th>
+                            <th>Quotation Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($getQuotationStatus as $key=>$vendorRequirement)
+                        @foreach ($vendorRequirement->vendorQuotation as $statusVendor)
+                        <tr>
+                            <td>{{ $key+1 }}</td>
+                        <td>{{ $vendorRequirement->vendor->first_name . ' '.$vendorRequirement->vendor->last_name }}</td>
+                            <td>{{ $statusVendor->quotation_doc }}</td>
+                            <td>{{ ucfirst($statusVendor->status) }}</td>
+                            <td>
+                            <a href="#" onclick="openCommentModal({{$vendorRequirement->requirement_id}},{{ $vendorRequirement->vendor->id}})" data-id="" class="uploadPaymentReceipt btn btn-primary btn-sm" 
+                                data-toggle="modal" data-target="#uploadPaymentReceipt" rel="tooltip" title="Upload Payment Receipt">
+                            <i class="fas fa-plus"></i></a>&nbsp;
+                            </td>
+                        <tr>
+                        @endforeach
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
         </div>
         <!-- /.card -->
     </div>
 </div>
+
+    <!-- /.Payment upload modal -->
+    <div class="modal fade" id="uploadPaymentReceipt">
+        <div class="modal-dialog modal-md">
+            <form method="POST"  data-parsley-validate="parsley">
+                <div class="modal-content">
+                <div class="modal-header headerModal">
+                    <h4 class="modal-title">Upload Payment Receipt</h4>
+                    <button type="button" class="close closeButton" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                    @csrf
+                    @method('PUT')
+                    <input type="hidden" value="" id="vendor_id" name="vendor_id">
+                    <input type="hidden" value="" id="requirement_id" name="requirement_id">
+                    <div class="modal-body">
+                        <div class="form-group mb-3">
+                            {!! Form::label('Receipt','Payment Receipt:',['class'=>"col-sm-5 col-form-label"],false) !!} 
+                            {!! Form::file('file', array('class' => 'form-control ','placeholder' => 'Profile Image',
+                            'data-parsley-required' => 'true',
+                            'data-parsley-required-message' => 'Please upload payment receipt',
+                            'data-parsley-trigger' => "input",
+                            'data-parsley-trigger'=>"blur")) !!}
+                        </div>
+                        <div class="form-group mb-3">
+                            {!! Form::label('amount','Amount:',['class'=>"col-sm-5 col-form-label"],false) !!} 
+                            {!! Form::text('comment',null,['class' => 'form-control ','placeholder' => 'Amount','id'=>'comment', 'data-parsley-required' => 'true',
+                            'data-parsley-required-message' => 'Please add amount',
+                            'data-parsley-trigger' => "input",
+                            'data-parsley-minlength' => '2',
+                            'data-parsley-maxlength' => '1000',
+                            'data-parsley-trigger'=>"blur"]) !!}
+                        </div>
+                        <div class="form-group mb-3">
+                            {!! Form::label('payment_date','Payment Date:',['class'=>"col-sm-5 col-form-label"],false) !!} 
+                            {!! Form::text('payment_date',null,['class' => 'form-control ','placeholder' => 'Payment Date','id'=>'comment', 'data-parsley-required' => 'true',
+                            'data-parsley-required-message' => 'Please add Payment date',
+                            'data-parsley-trigger' => "input",
+                            'data-parsley-minlength' => '2',
+                            'data-parsley-maxlength' => '1000',
+                            'data-parsley-trigger'=>"blur"]) !!}
+                        </div>
+                    </div>
+                
+                <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="uploadReceipt" >Save</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+@endsection
+@section('scripts')
+<script>
+function openCommentModal(requirementId,vendorId)
+    {
+        $("#uploadPaymentReceipt").modal('show');
+        $("#vendor_id").val(vendorId);
+        $("#requirement_id").val(requirementId);
+    }
+    $("#uploadReceipt").click(function (e) {
+        
+        $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+        });
+        e.preventDefault();
+        var vendorId = $("#vendor_id").val();
+        var requirementId = $("#requirement_id").val();
+
+            $.ajax({
+            type: "POST",
+            url: "{{route('upload.payment.receipt')}}",
+            data:{'vendorId':vendorId,'requirementId':requirementId},
+            dataType: "json",
+            success: function(result){
+                
+             if(result)
+             {
+                $('#quotationStatus').modal('hide');
+                toastr.success('Status updated successfully');
+                setTimeout(function () {
+                    location.reload(true);
+                }, 2000);
+             }
+            }});
+    });
+</script>
 @endsection

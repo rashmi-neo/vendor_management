@@ -21,6 +21,9 @@ interface NewRequirementInterface{
      */
     public function find($id);
 
+    public function findQuotation($id);
+
+
     /**
      * Updates a New requirement.
      *

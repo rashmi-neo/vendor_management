@@ -30,4 +30,9 @@ class AssignVendor extends Model
     {   
         return $this->belongsTo('App\Model\Requirement','requirement_id');
     }
+
+    public function vendorQuotation(){
+        return $this->hasMany('App\Model\VendorQuotation','assign_vendor_id');
+
+    }
 }

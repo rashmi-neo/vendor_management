@@ -27,6 +27,7 @@ class RequirementRepository implements RequirementInterface{
     public function get($id)
     {
         return Requirement::with("vendor","category")->find($id);
+        
     }
 
 
@@ -211,7 +212,7 @@ class RequirementRepository implements RequirementInterface{
     {
         return  Requirement::join('vms_assign_vendors','vms_requirements.id','=','vms_assign_vendors.requirement_id')
         ->join('vms_vendors','vms_assign_vendors.vendor_id','=','vms_vendors.id')
-   //  ->leftjoin('vms_vendor_quotation','vms_assign_vendors.id','=','vms_vendor_quotation.assign_vendor_id')
+        ->leftjoin('vms_vendor_quotation','vms_assign_vendors.id','=','vms_vendor_quotation.assign_vendor_id')
         ->select('vms_vendors.first_name','vms_vendors.middle_name','vms_vendors.last_name','vms_vendors.mobile_number','vms_requirements.code','vms_requirements.id as requirement_id','vms_assign_vendors.id as assign_vendors_id','vms_assign_vendors.vendor_id','vms_requirements.title')
         ->where('vms_assign_vendors.requirement_id',$id)
         ->where('vms_assign_vendors.deleted_at',null)
@@ -240,14 +241,27 @@ class RequirementRepository implements RequirementInterface{
         $quotationId = $request->id;
         $comment = $request->comment;
         $assignVendorId = $request->assignVendorId;
+
         if($quotationId != "" && $comment != "" &&  $assignVendorId != "")
         {
-            return $vendorQuotationObj = VendorQuotation::where('assign_vendor_id', $assignVendorId)
-            ->where('id', $quotationId)->update(['admin_comment'=>$comment]);
+            
+            $vendorQuotationObj = VendorQuotation::where('assign_vendor_id', $assignVendorId)
+            ->where('id', $quotationId)->first();
+            $vendorQuotationObj->admin_comment =$comment;
+            $vendorQuotationObj->save();
+            return $vendorQuotationObj;
         }
     }
     public function showQuotationDetails($vendorAssignId)
     {
         return VendorQuotation::where('deleted_at',null)->where('assign_vendor_id',$vendorAssignId)->get();
+    }
+
+    public function getQuotationStatus($id){
+        
+        $quotationStatus = AssignVendor::with(['vendor','vendorQuotation'=>function ($query){
+            $query->where('deleted_at',null)->whereIn('status',['approved']);
+        }])->where('requirement_id',$id)->get();
+        return $quotationStatus;
     }
 }

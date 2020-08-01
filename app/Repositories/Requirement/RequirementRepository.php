@@ -258,6 +258,14 @@ class RequirementRepository implements RequirementInterface{
         return VendorQuotation::where('deleted_at',null)->where('assign_vendor_id',$vendorAssignId)->get();
     }
 
+
+    /**
+     * Get approved quotation status with vendor
+     *
+     * @Author Bharti <bharati.tadvi@neosofttech.com>
+     * @param $id
+     * @return $quotationStatus
+    */
     public function getQuotationStatus($id){
         
         $quotationStatus = AssignVendor::with(['vendor','vendorQuotation'=>function ($query){
@@ -265,7 +273,14 @@ class RequirementRepository implements RequirementInterface{
         }])->where('requirement_id',$id)->get();
         return $quotationStatus;
     }
-
+    
+    /**
+     * Upload Payment receipt and details
+     *
+     * @Author Bharti <bharati.tadvi@neosofttech.com>
+     * @param $requestData
+     * @return $payementReceipt
+    */
     public function paymentReceipt($requestData){
         
         $payementReceipt= New Payment();

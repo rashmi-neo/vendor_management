@@ -66,6 +66,7 @@
         var table = $('#requirementTable').DataTable({
             processing: true,
             serverSide: true,
+            "scrollX": true,
             bLengthChange: false,
             ajax: "{{ route('requirements.index') }}",
             columns: [
@@ -126,6 +127,7 @@
             }});
     });
 </script>
+
 @if(session()->get('success'))
 <script>
     var message = "{{ Session::get('success') }}"

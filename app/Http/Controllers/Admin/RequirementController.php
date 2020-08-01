@@ -166,7 +166,7 @@ class RequirementController extends Controller
         $requirementVendors = $this->requirementRepository->getAssignVendors($id);
 
         $getQuotationStatus = $this->requirementRepository->getQuotationStatus($id);
-
+           
         return view('admin.requirement.show',compact("showRequirementDetails","requirementVendors","getQuotationStatus"));
     }
 
@@ -191,16 +191,19 @@ class RequirementController extends Controller
             $addComment = $this->requirementRepository->addComment($request);
             
             if($addComment){
+                
+                //send notification to vendor
                 $assignvendor =AssignVendor::where('id',$addComment->assign_vendor_id)->first();
-                $vendor =vendor::where('id',$assignvendor->vendor_id)->first();
+                
+                $vendor = vendor::where('id',$assignvendor->vendor_id)->first();
                 
                 $notification = Config::get('constants.ADMIN_COMMENT');
                 $admin = User::where('id',\Auth::user()->id)->first();
-                $userName = $admin->username;
+                $userName = ucfirst($admin->username);
 
                 if($admin)
                 {
-                    $notificationDetail = ['user_id'=>$vendor->id,'title'=>$notification['title'],'text'=>$userName.' '.$notification['text'],
+                    $notificationDetail = ['user_id'=>$vendor->user_id,'title'=>$notification['title'],'text'=>$userName.' '.$notification['text'],
                     'type'=>$notification['type'],'status'=>$notification['status']]; 
                     $notification = $this->notificationRepository->save($notificationDetail);
                 }
@@ -257,10 +260,8 @@ class RequirementController extends Controller
     */
     public function uploadPaymentReceipt(PaymentReceiptRequest $request){
         
-        
         $paymentReceipt = $this->requirementRepository->paymentReceipt($request);
         
-
         if (!empty($paymentReceipt)) {
             $response = response()->json([
                 'success' => true,
@@ -272,7 +273,7 @@ class RequirementController extends Controller
         } else {
             $response = response()->json([
                 'success' => false,
-                'message' => "Payment requirement not found",
+                'message' => "Error to store payment receipt",
                 'data' => [
                 'status_code' => 401
                 ]

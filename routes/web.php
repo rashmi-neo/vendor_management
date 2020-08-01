@@ -39,9 +39,9 @@ Route::resource('profiles', 'ProfileController');
 
 Route::post('addComment', 'RequirementController@addComment');
 Route::post('updateStatus', 'RequirementController@updateStatus');
+Route::post('updateRequirementStatus', 'RequirementController@updateRequirementStatus')->name('update.requirement.status');
 Route::get('showQuotation/{requirementId}/{vendorAssignId}', 'RequirementController@showQuotation');
 Route::post('uploadPaymentReceipt', 'RequirementController@uploadPaymentReceipt')->name('upload.payment.receipt');
-
 
 Route::get('reports/index', 'ReportController@index')->name('reports.index');
 

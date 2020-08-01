@@ -284,4 +284,10 @@ class RequirementRepository implements RequirementInterface{
         return $payementReceipt;
 
     }
+
+    public function requirementStatus($request){
+        
+        $updateRequirementStatus = Requirement::where('id',$request->requirementId) ->update(['status'=>$request->status]);;
+        return $updateRequirementStatus;
+    }
 }

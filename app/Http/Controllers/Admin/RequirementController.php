@@ -281,4 +281,30 @@ class RequirementController extends Controller
             return $response;
         }
     }
+
+
+    public function updateRequirementStatus(Request $request){
+        
+        $requirementStatus = $this->requirementRepository->requirementStatus($request);
+        
+        if (!empty($requirementStatus)) {
+            $response = response()->json([
+                'success' => true,
+                'message' => "Requirement status updated successfully",
+            ]);
+        
+            return $response;
+        
+        } else {
+            $response = response()->json([
+                'success' => false,
+                'message' => "Requirement status not updated successfully",
+                'data' => [
+                'status_code' => 401
+                ]
+            ]);
+
+            return $response;
+        }
+    }
 }

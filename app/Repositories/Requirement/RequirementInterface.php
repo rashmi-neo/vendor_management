@@ -60,4 +60,7 @@ interface RequirementInterface{
     public function getQuotationStatus($requirementId);
 
     public function paymentReceipt($requestData);
+
+    public function requirementStatus($request);
+
 }

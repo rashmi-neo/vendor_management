@@ -42,4 +42,17 @@ class VendorQuotation extends Model
         return ucfirst($value);
     }
 
+
+    /**
+     * Get the Status.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getStatusAttribute($value)
+    {
+        $value = str_replace("_"," ",$value);
+        return ucfirst($value);
+    }
+
 }

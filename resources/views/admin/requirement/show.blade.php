@@ -87,6 +87,7 @@
                 </table>
             </div>
             <div class="tab-pane fade" id="paymentTab" role="tabpanel" aria-labelledby="custom-tabs-four-messages-tab">
+            
             <table id="assignVendorTable1" class="table table-bordered table-hover">
                     <thead>
                         <tr>

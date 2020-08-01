@@ -48,7 +48,7 @@
          <div class="col-md-4">
             <div class="box box-success">
                <div class="box-header with-border">
-                  <h5 class="box-title text-center">Requirements </h5>
+                  <h5 class="box-title text-center">Date wise Requirements </h5>
                   <div class="box-tools pull-right">
                   </div>
                </div>

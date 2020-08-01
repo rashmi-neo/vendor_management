@@ -22,6 +22,43 @@
 			</table>
 	</div>
 </div>
+
+<!-- /.Requirement status modal -->
+<div class="modal fade" id="requirementStatus">
+<div class="modal-dialog modal-md">
+    <form method="POST"  data-parsley-validate="parsley">
+        <div class="modal-content">
+            <div class="modal-header headerModal">
+               <h4 class="modal-title">Update status</h4>
+               <button type="button" class="close closeButton" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">×</span>
+               </button>
+            </div>
+            @csrf
+            <input type="hidden" value="" id="requirementId" name="requirement_id">
+            <div class="modal-body">
+            <div class="form-group">
+                <div>
+               {!! Form::label('status','Status:',['class'=>"col-sm-2 col-form-label"],false) !!} 
+               <select id="status" class="form-control" name="status">
+                    <option value="in_progress" selected>In Progress</option>
+                    <option value="Approved">Approved</option>
+                    <option value="Completed" >Completed</option>
+                    <option value="Cancelled">Cancelled</option>
+                </select>
+                
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" id="updateStatus" >save</button>
+        </div>
+    </form>
+</div>
+    <!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->
 @endsection
 @section('scripts')
 <script type="text/javascript">
@@ -29,6 +66,7 @@
         var table = $('#requirementTable').DataTable({
             processing: true,
             serverSide: true,
+            "scrollX": true,
             bLengthChange: false,
             ajax: "{{ route('requirements.index') }}",
             columns: [
@@ -40,10 +78,57 @@
                 {data: 'created_at', name: 'date'},
                 {data: 'status', name: 'status'},
                 {data: 'action', name: 'action'},
-            ]
+            ],
+            "columnDefs": [
+                { "width": "90px", "targets": 7 }
+                ],
         });
+        
+    });
+
+    function openStatusModal(data)
+    {
+       
+        $('#status option:selected').removeAttr('selected');
+        $("#requirementStatus").modal('show');
+        $("#requirementId").val(data.id);
+        var status = data.status;
+        $("select option[value='" + status + "']").attr("selected","selected");
+    }
+</script>
+<script>
+
+    $("#updateStatus").click(function (e) {
+        
+        $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+        });
+        e.preventDefault();
+        var requirementId = $("#requirementId").val();
+        var status = $("#status").val();
+
+
+            $.ajax({
+            type: "POST",
+            url: "{{ route('update.requirement.status') }}",
+            data:{'requirementId':requirementId,'status':status},
+            dataType: "json",
+            success: function(result){
+                
+             if(result)
+             {
+                $('#quotationStatus').modal('hide');
+                toastr.success('Status updated successfully');
+                setTimeout(function () {
+                    location.reload(true);
+                }, 2000);
+             }
+            }});
     });
 </script>
+
 @if(session()->get('success'))
 <script>
     var message = "{{ Session::get('success') }}"

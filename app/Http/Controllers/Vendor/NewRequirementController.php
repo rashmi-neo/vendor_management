@@ -152,8 +152,6 @@ class NewRequirementController extends Controller
             return $response;
         }
         
-        
-    
         try{
             $newRequirement = $this->newRequirementRepository->update($id,$request);
             

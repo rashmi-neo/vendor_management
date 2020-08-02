@@ -9,14 +9,18 @@ use App\User;
 use App\Model\AssignVendor;
 use App\Model\Requirement;
 use App\Charts\ReportChart;
-
-
 use DB;
 
 
 class ReportController extends Controller
 {
-   
+    /**
+    * Show  report .
+    *@author Bharti<bharti.tadvi@neosofttech.com>
+    *
+    *@param  void
+    *@return $totalRequirementChart, $chart, $completedRequirementChart
+    */
     public function index(){
         
         $countData=[];
@@ -27,7 +31,6 @@ class ReportController extends Controller
         ->pluck('count');
         $completedRequirement = Requirement::where('status',['completed'])->count();
         
-        //$totalRequirement = Requirement::where('created_at',['completed'])->get();
         $totalRequirement = DB::table('vms_requirements')
         ->select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as count'))
         ->groupBy('date')

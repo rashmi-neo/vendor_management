@@ -283,7 +283,13 @@ class RequirementController extends Controller
         }
     }
 
-
+    /**
+    * Update requirement status.
+    *@author Bharti<bharti.tadvi@neosofttech.com>
+    *
+    *@param  Illuminate\Http\Request
+    *@return $response
+    */
     public function updateRequirementStatus(Request $request){
         
         $requirementStatus = $this->requirementRepository->requirementStatus($request);

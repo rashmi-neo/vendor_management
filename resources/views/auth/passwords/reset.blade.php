@@ -91,8 +91,7 @@
           'data-parsley-trigger' => "input",
           'data-parsley-errors-container'=>'#passwordConfirmError',
           'data-parsley-trigger'=>"blur",
-          'data-parsley-equalto'=>"#password"
-
+          
           ]) !!}
           <div class="input-group-append">
             <div class="input-group-text">

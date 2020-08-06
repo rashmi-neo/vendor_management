@@ -86,6 +86,7 @@ Route::get('showQuotationDetail/{id}/{assign_vendor_id}', 'NewRequirementControl
 Route::get('reviews/index', 'ReviewRatingController@index')->name('vendor.reviews.index');
 Route::get('transaction/index', 'TransactionController@index')->name('transaction.index');
 Route::get('download/payment/{filename}','TransactionController@getPaymentFIleDownload')->name('download.payment.receipt');
+Route::get('review/rating/show/{id}', 'ReviewRatingController@show')->name('review.rating.show');
 
 });
 

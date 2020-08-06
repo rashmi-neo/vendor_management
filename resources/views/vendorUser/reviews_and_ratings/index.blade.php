@@ -17,9 +17,9 @@
 					<th>Requirement Id</th>
 					<th>Requirement Title</th>
 					<th>Category</th>
-					<th>Vendor Name</th>
 					<th>Rating</th>
 					<th>Review</th>
+					<th>Action</th>
 				</tr>
 			</thead>
 		</table>
@@ -40,12 +40,12 @@ $(function () {
             {data: 'requirement_id', name: 'requirement_id'},
             {data: 'requirement_title', name: 'requirement_title'},
             {data: 'category', name: 'category'},
-            {data: 'vendor_name', name: 'vendor_name'},
             {data: 'rating_star', name: 'rating'},
             {data: 'review', name: 'review'},
+            {data: 'action', name: 'action'},
         ],
         "columnDefs": [
-                { "width": "100px", "targets": 5 }
+                { "width": "100px", "targets": 4 }
                 ],
     });
   });

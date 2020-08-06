@@ -64,4 +64,8 @@ class  ReviewRatingRepository implements ReviewRatingInterface{
         return $reviewRating;
     }
 
+    public function find($id){
+       return $reviewRating = ReviewRating::with('vendor')->find($id);
+    }
+
 }

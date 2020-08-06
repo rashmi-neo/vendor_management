@@ -52,15 +52,30 @@ class ReviewRatingController extends Controller
             ->addColumn('category', function($data){
                 return $data->requirement->category->name;
             })
-            ->addColumn('vendor_name', function($data){
-                return $data->vendor->first_name. ' '.$data->vendor->last_name;
-            })
             ->addColumn('rating_star', function($row){
                 return view('vendorUser.reviews_and_ratings.star_rating', compact('row'));
+            })
+            ->addColumn('action', function($row){
+                return view('vendorUser.reviews_and_ratings.actions', compact('row'));
             })
             ->make(true);
         }
     	return view('vendorUser.reviews_and_ratings.index');
+    }
+
+    public function show($id){
+        
+        $reviewAndRating = $this->reviewRatingRepository->find($id);
+        
+        try {
+            if($reviewAndRating){
+    	        return view('vendorUser.reviews_and_ratings.show',compact('reviewAndRating'));
+            }else{
+                return redirect()->route('vendor.reviews.index')->with('error', 'Review and rating not found');
+            }
+        }catch(\Throwable $th){
+            return redirect()->route('vendor.reviews.index')->with('error', 'Something went wrong!');
+        }
     }
 
 }

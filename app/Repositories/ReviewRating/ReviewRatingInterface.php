@@ -31,7 +31,7 @@ interface ReviewRatingInterface{
     public function getVendorRating($data);
 
     /**
-     * Find review and rating as per vendor.
+     * Find review and rating.
      *@Author bharati <bharati.tadvi@neosofttech.com>
      * 
      * @param $id

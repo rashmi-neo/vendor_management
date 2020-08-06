@@ -1,5 +1,4 @@
 @extends('layouts.master')
-
 @section('main-content')
 <div class="card">
    <div class="card-header">
@@ -25,7 +24,7 @@
          </div>
          <div class="col-md-2">
          </div>
-         <div class="col-4 mt-1">
+         <div class="col-4 mt-1 ml-5">
             <div class="box box-info">
                <div class="box-header with-border">
                   <h5 class="box-title">Completed/Assigned Requirement</h5>
@@ -42,9 +41,8 @@
             <!-- /.box -->
          </div>
       </div>
-
       <!-- /.box-body -->
-	  <div class="row mt-5">
+      <div class="row mt-5">
          <div class="col-md-6">
             <div class="box box-success">
                <div class="box-header with-border">
@@ -54,7 +52,7 @@
                </div>
                <div class="box-body">
                   <div class="chart">
-				      {!! $totalRequirementChart->container() !!}
+                     {!! $totalRequirementChart->container() !!}
                   </div>
                </div>
                <!-- /.box-body -->
@@ -62,19 +60,13 @@
             <!-- /.box -->
          </div>
       </div>
-	  
       <!-- /.box-body -->
- 
    </div>
-</div>
 </div>
 @endsection
 @section('scripts')
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" ></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script>
-        {!! $chart->script() !!}
-        {!! $totalRequirementChart->script() !!}
-        {!! $completedRequirementChart->script() !!}
-
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script>
+   {!! $chart->script() !!}
+   {!! $totalRequirementChart->script() !!}
+   {!! $completedRequirementChart->script() !!}
 @endsection

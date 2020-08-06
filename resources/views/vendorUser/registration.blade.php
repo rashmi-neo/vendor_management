@@ -181,6 +181,7 @@
                            'data-parsley-trigger' => "input",
                            'data-parsley-errors-container'=>'#companyNameError',
                            'data-parsley-trigger'=>"blur",
+                           'data-parsley-minlength' => '5',
                            'data-parsley-maxlength' => '50']) !!}
                            <div class="input-group-append">
                               <div class="input-group-text">
@@ -203,6 +204,7 @@
                            'data-parsley-trigger' => "input",
                            'data-parsley-errors-container'=>'#addressError',
                            'data-parsley-trigger'=>"blur",
+                           'data-parsley-minlength' => '5',
                            'data-parsley-maxlength' => '50']) !!}
                            <div class="input-group-append">
                               <div class="input-group-text">

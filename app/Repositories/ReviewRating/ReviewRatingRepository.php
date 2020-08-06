@@ -64,8 +64,15 @@ class  ReviewRatingRepository implements ReviewRatingInterface{
         return $reviewRating;
     }
 
+    /**
+     * Find review and rating
+     *
+     * @Author Bharti <bharati.tadvi@neosofttech.com>
+     * @param $id
+     * @return collection
+    */
     public function find($id){
-       return $reviewRating = ReviewRating::with('vendor')->find($id);
+       return $reviewRating = ReviewRating::find($id);
     }
 
 }

@@ -29,26 +29,25 @@
 @section('scripts')
 
 <script type="text/javascript">
-$(function () {
+  $(function () {
     var table = $('#example2').DataTable({
-        processing: true,
-        serverSide: true,
-        bLengthChange: false,
-        ajax: "{{ route('vendor.reviews.index') }}",
-        columns: [
-            {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-            {data: 'requirement_id', name: 'requirement_id'},
-            {data: 'requirement_title', name: 'requirement_title'},
-            {data: 'category', name: 'category'},
-            {data: 'rating_star', name: 'rating'},
-            {data: 'review', name: 'review'},
-            {data: 'action', name: 'action'},
-        ],
-        "columnDefs": [
-                { "width": "100px", "targets": 4 }
-                ],
+      processing: true,
+      serverSide: true,
+      bLengthChange: false,
+      ajax: "{{ route('vendor.reviews.index') }}",
+      columns: [
+          {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+          {data: 'requirement_id', name: 'requirement_id'},
+          {data: 'requirement_title', name: 'requirement_title'},
+          {data: 'category', name: 'category'},
+          {data: 'rating_star', name: 'rating'},
+          {data: 'review', name: 'review'},
+          {data: 'action', name: 'action'},
+      ],
+      "columnDefs": [
+      { "width": "100px", "targets": 4 }
+      ],
     });
   });
-
 </script>
 @endsection

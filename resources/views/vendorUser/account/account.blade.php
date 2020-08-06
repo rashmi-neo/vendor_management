@@ -175,12 +175,10 @@
                         {!! Form::text('company_name', $vendor->company->company_name, ['class' => 'form-control ',
                         'placeholder' => 'Company Name',
                         'data-parsley-required' => 'true',
-                        'data-parsley-pattern'=>'^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$',
                         'data-parsley-required-message' => 'Company name is required',
-                        'data-parsley-pattern-message' => 'Please enter only alphabets and numbers',
                         'data-parsley-trigger' => "input",
                         'data-parsley-trigger'=>"blur",
-                        'data-parsley-minlength' => '10',
+                        'data-parsley-minlength' => '5',
                         'data-parsley-maxlength' => '50']) !!}
                         
                         @error('company_name')
@@ -196,12 +194,10 @@
                         {!! Form::text('company_address', $vendor->company->address, ['class' => 'form-control ',
                         'placeholder' => 'Company Address',
                         'data-parsley-required' => 'true',
-                        'data-parsley-pattern'=>'^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$',
                         'data-parsley-required-message' => 'Company address is required',
-                        'data-parsley-pattern-message' => 'Please enter only alphabets and numbers',
                         'data-parsley-trigger' => "input",
                         'data-parsley-trigger'=>"blur",
-                        'data-parsley-minlength' => '10',
+                        'data-parsley-minlength' => '5',
                         'data-parsley-maxlength' => '50']) !!}
                         
                         @error('company_address')

@@ -5,9 +5,9 @@
 }
 </style>
 @section('main-content')
-<!-- vendor Entries Column -->
+<!-- Review And Rating Entries Column -->
 <div class="col-md-12">
-   <!-- Vendor user -->
+   <!--   Review And Rating -->
    <div class="card mb-4">
       <div class="card-header">
          <h3 class="card-title">View Review and Rating</h3>
@@ -28,7 +28,7 @@
                </tr>
                <tr>
                   <th>
-                     Requirement Code  : 
+                     Requirement Id  : 
                   </th>
                   <td>
                      <span>{{$reviewAndRating->requirement->code}} </span>

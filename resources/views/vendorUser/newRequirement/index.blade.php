@@ -1,9 +1,9 @@
 @extends('layouts.master')
 @section('main-content')
 <div class="card">
-		<div class="card-header">
-			<h3 class="card-title">New Requirements</h3>
-		</div>
+	<div class="card-header">
+		<h3 class="card-title">New Requirements</h3>
+	</div>
 	<div class="card-body">
 		<table id="newRequirementTable" class="table table-bordered table-hover">
 			<thead>
@@ -18,7 +18,6 @@
 				</tr>
 			</thead>
 		</table>
-      
 	</div>
 </div>
 <form data-parsley-validate="parsley" id="QuotationForm" enctype ="multipart/form-data">

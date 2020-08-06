@@ -23,7 +23,7 @@
          @foreach($quotations as $quotation)
 
             <tr>
-            <td>{{$quotation->id}}</td>
+               <td>{{$quotation->id}}</td>
                <td>{{$quotation->quotation_doc}}</td>
                <td>{{empty($quotation->comment)?"-":$quotation->comment}}</td>
                <td>{{empty($quotation->admin_comment)?"-":$quotation->admin_comment}}</td>

@@ -29,7 +29,7 @@ class ReviewRatingController extends Controller
     *@Author Bharti <bharati.tadvi@neosofttech.com>
     *
     *@param  Illuminate\Http\Request;
-    * @return void
+    * @return $row
     */
     public function index(Request $request){
 
@@ -63,6 +63,14 @@ class ReviewRatingController extends Controller
     	return view('vendorUser.reviews_and_ratings.index');
     }
 
+
+    /**
+    * Show page of specified review and rating.
+    *@Author Bharti <bharati.tadvi@neosofttech.com>
+    *
+    *@param  $id;
+    * @return $reviewAndRating
+    */
     public function show($id){
         
         $reviewAndRating = $this->reviewRatingRepository->find($id);

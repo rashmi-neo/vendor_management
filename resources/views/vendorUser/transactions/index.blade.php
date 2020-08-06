@@ -1,21 +1,21 @@
 @extends('layouts.master')
 @section('main-content')
 <div class="card">
-		<div class="card-header">
-			<h3 class="card-title">Transaction Details</h3>
-		</div>
+	<div class="card-header">
+		<h3 class="card-title">Transaction Details</h3>
+	</div>
 	<div class="card-body">
-			<table id="transactionTable" class="table table-bordered table-hover">
-				<thead>
-					<tr>
-						<th>SrNo</th>
-						<th>Payment date</th>
-						<th>Amount</th>
-						<th>Payment File</th>
-						<th>Download Payment File</th>
-					</tr>
-				</thead>
-			</table>
+		<table id="transactionTable" class="table table-bordered table-hover">
+			<thead>
+				<tr>
+					<th>SrNo</th>
+					<th>Payment date</th>
+					<th>Amount</th>
+					<th>Payment File</th>
+					<th>Download Payment File</th>
+				</tr>
+			</thead>
+		</table>
 	</div>
 </div>
 @endsection

@@ -27,8 +27,8 @@ class ReportController extends Controller
         $dateWiseData =[];
 
         $vendors = Vendor::select(\DB::raw("COUNT(*) as count"))
-        ->groupBy(\DB::raw("Month(created_at)"))
         ->pluck('count');
+        
         $completedRequirement = Requirement::where('status',['completed'])->count();
         
         $totalRequirement = DB::table('vms_requirements')
@@ -40,7 +40,6 @@ class ReportController extends Controller
         ->select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as count'))
         ->groupBy('date')
         ->pluck('date');
-        
         
         foreach($totalRequirementdate as $date){
             
@@ -67,24 +66,25 @@ class ReportController extends Controller
             "rgba(205,220,57, 1.0)"
         ];
         $fillColors = [
-            "rgb(255, 99, 132, 0.2)",
-            "rgb(22,160,133, 0.2)",
-            "rgb(255, 205, 86, 0.2)",
-            "rgb(51,105,232, 0.2)",
-            "rgb(244,67,54, 0.2)",
-            "rgb(34,198,246, 0.2)",
-            "rgb(153, 102, 255, 0.2)",
-            "rgb(255, 159, 64, 0.2)",
-            "rgb(233,30,99, 0.2)",
-            "rgb(205,220,57, 0.2)"
-
+            "rgb(92, 219, 148)",
+            "rgb(255, 99, 132)",
+            "rgb(43, 79, 213)",
+            "rgb(255, 205, 86)",
+            "rgb(51,105,232)",
+            "rgb(244,67,54)",
+            "rgb(34,198,246)",
+            "rgb(153, 102, 255)",
+            "rgb(255, 159, 64)",
+            "rgb(233,30,99)",
+            "rgb(205,220,57)",
         ];
+
         $chart = new ReportChart;
         $chart->minimalist(true);
         $chart->labels(['Vendors']);
         $chart->dataset('Vendors', 'doughnut', [$vendors])
             ->color(['#007bff'])
-            ->backgroundcolor(['#007bff']);
+            ->backgroundcolor(['#007bff','#28a745']);
         
         $completedRequirementChart = new ReportChart;
         $completedRequirementChart->minimalist(true);
@@ -93,13 +93,12 @@ class ReportController extends Controller
             ->color($borderColors)
             ->backgroundcolor(['#e83e8c','#28a745']);
     
-
         $totalRequirementChart  = new ReportChart;
-        $totalRequirementChart->minimalist(true);
+        $totalRequirementChart->minimalist(false);
         $totalRequirementChart->labels($dateWiseData);
         $totalRequirementChart->dataset('Requirements', 'bar',$countData)
-            ->backgroundcolor(['#7158e2','#3ae374', '#ff3838']);
-    
+            ->backgroundcolor($fillColors);
+
         return view('admin.reports.index',compact('chart','completedRequirementChart','totalRequirementChart'));
         
     }

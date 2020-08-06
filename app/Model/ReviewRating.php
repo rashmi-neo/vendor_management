@@ -4,9 +4,9 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Payment extends Model
+class ReviewRating extends Model
 {
-    protected $table = 'vms_payments';
+    protected $table = 'vms_reviews_and_ratings';
 
      /**
      * The attributes that are mass assignable.
@@ -14,8 +14,20 @@ class Payment extends Model
      * @var array
      */
     protected $fillable = [
-        'vendor_id','requirement_id','receipt','amount','payment_date'
+        'requirement_id','vendor_id','rating','review'
     ];
+
+
+    /**
+     * Get the Review.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getReviewAttribute($value)
+    {
+        return ucfirst($value);
+    }
 
     public function requirement() 
     {   

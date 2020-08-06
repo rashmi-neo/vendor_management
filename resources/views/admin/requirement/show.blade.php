@@ -109,9 +109,15 @@
                             <td>Awarded</td>
                             @endif
                             <td>
-                            <a href="#" onclick="openCommentModal({{$vendorRequirement->requirement_id}},{{ $vendorRequirement->vendor->id}})" data-id="" class="uploadPaymentReceipt btn btn-primary btn-sm" 
+                            @if(empty($statusVendor->payment->receipt))
+                            <a href="#" onclick="openPaymentModal({{$vendorRequirement->requirement_id}},{{ $vendorRequirement->vendor->id}})" data-id="" class="uploadPaymentReceipt btn btn-primary btn-sm" 
                                 data-toggle="modal" data-target="#uploadPaymentReceipt" rel="tooltip" title="Upload Payment Receipt">
                             <i class="fas fa-plus"></i></a>&nbsp;
+                            @else
+                            <a href="#" class="uploadPaymentReceipt btn btn-primary btn-sm" rel="tooltip" 
+                            title="Upload Payment Receipt" disabled>
+                            <i class="fas fa-plus"></i></a>&nbsp;
+                            @endif
                             </td>
                         <tr>
                         @endforeach
@@ -189,7 +195,7 @@
 @endsection
 @section('scripts')
 <script>
-    function openCommentModal(requirementId,vendorId){
+    function openPaymentModal(requirementId,vendorId){
             $("#uploadPaymentReceipt").modal('show');
             $("#vendor_id").val(vendorId);
             $("#requirement_id").val(requirementId);

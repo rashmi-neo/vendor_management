@@ -175,9 +175,12 @@
                         {!! Form::text('company_name', $vendor->company->company_name, ['class' => 'form-control ',
                         'placeholder' => 'Company Name',
                         'data-parsley-required' => 'true',
+                        'data-parsley-pattern'=>'^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$',
                         'data-parsley-required-message' => 'Company name is required',
+                        'data-parsley-pattern-message' => 'Please enter only alphabets and numbers',
                         'data-parsley-trigger' => "input",
                         'data-parsley-trigger'=>"blur",
+                        'data-parsley-minlength' => '10',
                         'data-parsley-maxlength' => '50']) !!}
                         
                         @error('company_name')
@@ -193,9 +196,12 @@
                         {!! Form::text('company_address', $vendor->company->address, ['class' => 'form-control ',
                         'placeholder' => 'Company Address',
                         'data-parsley-required' => 'true',
+                        'data-parsley-pattern'=>'^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$',
                         'data-parsley-required-message' => 'Company address is required',
+                        'data-parsley-pattern-message' => 'Please enter only alphabets and numbers',
                         'data-parsley-trigger' => "input",
                         'data-parsley-trigger'=>"blur",
+                        'data-parsley-minlength' => '10',
                         'data-parsley-maxlength' => '50']) !!}
                         
                         @error('company_address')
@@ -345,7 +351,9 @@
                         'data-parsley-trigger'=>"blur",
                         'data-parsley-pattern'=>"/^[a-zA-Z ]*$/",
                         'data-parsley-pattern-message' => 'Please enter only alphabets',
+                        'data-parsley-minlength' => '2',
                         'data-parsley-maxlength' => '50']) !!}
+
 
                         @error('name')
                         <span class="text-danger errormsg" role="alert">
@@ -413,6 +421,7 @@
                         'data-parsley-trigger'=>"blur",
                         'data-parsley-pattern'=>"/^[a-zA-Z ]*$/",
                         'data-parsley-pattern-message' => 'Please enter only alphabets',
+                        'data-parsley-minlength' => '3',
                         'data-parsley-maxlength' => '50']) !!}
                         @error('bank_name')
                         <span class="text-danger errormsg" role="alert">
@@ -431,6 +440,7 @@
                         'data-parsley-pattern'=>"/^[a-zA-Z ]*$/",
                         'data-parsley-pattern-message' => 'Please enter only alphabets',
                         'data-parsley-trigger'=>"blur",
+                        'data-parsley-minlength' => '2',
                         'data-parsley-maxlength' => '50']) !!}
                        
                         @error('account_holder_name')
@@ -449,6 +459,7 @@
                         'data-parsley-trigger' => "input",
                         'data-parsley-trigger'=>"blur",
                         'data-parsley-type'=>"digits",
+                        'data-parsley-minlength' => '9',
                         'data-parsley-maxlength' => '50']) !!}
                        
                         @error('account_number')
@@ -465,8 +476,10 @@
                         'data-parsley-required' => 'true',
                         'data-parsley-required-message' => 'IFSC code is required',
                         'data-parsley-trigger' => "input",
+                        'data-parsley-pattern'=>"^[a-zA-Z0-9]*$",
+                        'data-parsley-required-message' => 'Please enter only alphabets and numbers',
                         'data-parsley-trigger'=>"blur",
-                        'data-parsley-maxlength' => '50']) !!}
+                        'data-parsley-minlength' => '11']) !!}
                         
                         @error('ifsc_code')
                         <span class="text-danger errormsg" role="alert">

@@ -42,6 +42,9 @@ Route::post('updateStatus', 'RequirementController@updateStatus');
 Route::post('updateRequirementStatus', 'RequirementController@updateRequirementStatus')->name('update.requirement.status');
 Route::get('showQuotation/{requirementId}/{vendorAssignId}', 'RequirementController@showQuotation');
 Route::post('uploadPaymentReceipt', 'RequirementController@uploadPaymentReceipt')->name('upload.payment.receipt');
+Route::get('reviews/index', 'ReviewRatingController@index')->name('reviews.index');
+Route::post('reviews/rating', 'ReviewRatingController@save')->name('save.review.rating');
+Route::get('transaction/index', 'TransactionController@index')->name('admin.transaction.index');
 
 Route::get('reports/index', 'ReportController@index')->name('reports.index');
 
@@ -80,8 +83,17 @@ Route::get('new/requirements/edit/{id}', 'NewRequirementController@edit')->name(
 Route::post('new/requirements/update/{id}','NewRequirementController@update')->name('new.requirement.update');
 Route::get('download/document/{filename}','NewRequirementController@getDocumentDownload')->name('download.document');
 Route::get('showQuotationDetail/{id}/{assign_vendor_id}', 'NewRequirementController@showQuotationDetail')->name('quotation.show');
+Route::get('reviews/index', 'ReviewRatingController@index')->name('vendor.reviews.index');
+Route::get('transaction/index', 'TransactionController@index')->name('transaction.index');
+Route::get('download/payment/{filename}','TransactionController@getPaymentFIleDownload')->name('download.payment.receipt');
 
 });
+
+Route::group(['namespace' => 'Admin','prefix' => 'vendor','middleware' => ['auth']],
+	function(){
+		Route::resource('notifications', 'NotificationController');
+		Route::get('notification/markAsRead/{id}','NotificationController@markAsRead')->name('notification.markAsRead');
+	});
 
 
 

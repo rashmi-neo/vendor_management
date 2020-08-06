@@ -116,11 +116,11 @@
             @if(count($notifList)>0)
             @foreach($notifList as $value)
             <div class="dropdown-divider"></div>
-            <a id="{{$value->id}}" href="{{$value->type=='vendor_register'?route('vendors.index'):''}}" class="dropdown-item markRead" onclick='markAsRead("{{$value->id}}")'>
+            <a id="{{$value->id}}" href="{{route('notifications.index')}}" class="dropdown-item markRead" onclick='markAsRead("{{$value->id}}")'>
             <i class="fas fa-user mr-2"></i> {{$value->title}}
             <span class="float-right text-muted text-sm">{{\Carbon\Carbon::parse($value->created_at)->toFormattedDateString()}}</span>
             <br>
-            <small>{{$value->text}}</small>
+            <p style="font-size: 12px;">{{$value->text}}</p>
             </a>
             <div class="dropdown-divider"></div>
             @endforeach

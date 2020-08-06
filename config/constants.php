@@ -9,7 +9,7 @@ return [
     'VENDOR_UPDATE' => [
         'title' => 'Email or mobile number updated',
         'text' =>'has been updated password or mobile number.',
-        'type' => 'document_update',
+        'type' => 'vendor_update',
         'status' => 'unread'
     ],
 
@@ -49,6 +49,14 @@ return [
         'text' =>'has been added comment',
         'type' => 'admin_comment',
         'status' => 'unread'
+    ],
+
+    'ADMIN_RATING_REVIEW'=>[
+        'title' => 'Admin added review and rating',
+        'text' =>'has been added review and rating.',
+        'type' => 'new_review_rating',
+        'status' => 'unread'
     ]
+
 
 ];

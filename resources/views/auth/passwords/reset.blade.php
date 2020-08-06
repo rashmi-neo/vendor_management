@@ -33,7 +33,7 @@
   @endif
   <div class="card">
     <div class="card-body login-card-body">
-      <p class="login-box-msg">You are only one step a way from your new password, recover your password now.</p>
+      <p class="login-box-msg">You are only one step away from your new password, recover your password now.</p>
 
       
         {!! Form::open(['route' => 'password.update','id' => 'resetForm','method' => 'post','data-parsley-validate' => 'parsley']) !!}
@@ -61,7 +61,7 @@
         <span id="emailError"></span>
 
         <div class="input-group mb-3">
-          {!! Form::password('password', ['class' => 'form-control','placeholder' => 'Password',
+          {!! Form::password('password', ['class' => 'form-control','id' => 'password','placeholder' => 'Password',
           'data-parsley-required' => 'true',
           'data-parsley-required-message' => 'Please enter password',
           'data-parsley-trigger' => "input",

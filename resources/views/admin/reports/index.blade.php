@@ -45,7 +45,7 @@
 
       <!-- /.box-body -->
 	  <div class="row mt-5">
-         <div class="col-md-4">
+         <div class="col-md-6">
             <div class="box box-success">
                <div class="box-header with-border">
                   <h5 class="box-title text-center">Date wise Requirements </h5>
@@ -54,7 +54,7 @@
                </div>
                <div class="box-body">
                   <div class="chart">
-				  {!! $totalRequirementChart->container() !!}
+				      {!! $totalRequirementChart->container() !!}
                   </div>
                </div>
                <!-- /.box-body -->
@@ -77,6 +77,4 @@
         {!! $totalRequirementChart->script() !!}
         {!! $completedRequirementChart->script() !!}
 
-        <script type="text/javascript">
-        </script>
 @endsection

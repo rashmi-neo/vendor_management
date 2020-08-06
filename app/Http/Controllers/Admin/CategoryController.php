@@ -36,25 +36,25 @@ class CategoryController extends Controller
         if($request->ajax()){
             $data = $this->categoryRepository->all();
             return Datatables::of($data)
-                    ->addIndexColumn()
-                    ->addColumn('action', function($row){
-                        return view('admin.category.actions', compact('row'));
-                    })
-                    ->editColumn('status', function($row){
-                    
-                        $status = \Config::get('constants.CATEGORY_STATUS');
+            ->addIndexColumn()
+            ->addColumn('action', function($row){
+                return view('admin.category.actions', compact('row'));
+            })
+            ->editColumn('status', function($row){
+            
+                $status = \Config::get('constants.CATEGORY_STATUS');
 
-                        if($row->status == 1){
-                            
-                            return $status['active'];
-                            
-                        }else{
-                            
-                            return $status['inactive'];
-                        }
-                    })
-                    ->rawColumns(['action'])
-                    ->make(true);
+                if($row->status == 1){
+                    
+                    return $status['active'];
+                    
+                }else{
+                    
+                    return $status['inactive'];
+                }
+            })
+            ->rawColumns(['action'])
+            ->make(true);
         }
     	return view('admin.category.index');
     }

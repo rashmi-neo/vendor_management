@@ -18,6 +18,12 @@ use App\Repositories\PastRequirement\PastRequirementRepository;
 use App\Repositories\PastRequirement\PastRequirementInterface;
 use App\Repositories\NewRequirement\NewRequirementRepository;
 use App\Repositories\NewRequirement\NewRequirementInterface;
+use App\Repositories\ReviewRating\ReviewRatingRepository;
+use App\Repositories\ReviewRating\ReviewRatingInterface;
+use App\Repositories\Transaction\TransactionRepository;
+use App\Repositories\Transaction\TransactionInterface;
+
+
 
 
 use Illuminate\Support\ServiceProvider;
@@ -39,6 +45,9 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(ProfileInterface::class, ProfileRepository::class);
         $this->app->bind(PastRequirementInterface::class, PastRequirementRepository::class);
         $this->app->bind(NewRequirementInterface::class, NewRequirementRepository::class);
+        $this->app->bind(ReviewRatingInterface::class, ReviewRatingRepository::class);
+        $this->app->bind(TransactionInterface::class, TransactionRepository::class);
+        
     }
 
     /**
@@ -60,6 +69,7 @@ class RepositoryServiceProvider extends ServiceProvider
             NotificationsInterface::class,
             AccountInterface::class, 
             PastRequirementInterface::class, 
+            ReviewRatingInterface::class, 
         ];
     }
 }

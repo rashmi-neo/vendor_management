@@ -65,7 +65,7 @@
                 @method('PUT')
                 <input type="hidden" value="" id="quotationId" name="quotationId">
                 <input type="hidden" value="" id="assignVendorId" name="assignVendorId">
-                <div class="modal-header">
+                <div class="modal-header headerModal">
                 <h4 class="modal-title">Add Comment</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>

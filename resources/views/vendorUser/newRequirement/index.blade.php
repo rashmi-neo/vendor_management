@@ -2,7 +2,7 @@
 @section('main-content')
 <div class="card">
 		<div class="card-header">
-			<h3 class="card-title">New Requirement</h3>
+			<h3 class="card-title">New Requirements</h3>
 		</div>
 	<div class="card-body">
 		<table id="newRequirementTable" class="table table-bordered table-hover">
@@ -49,7 +49,7 @@
                </div>
 			   <div class="form-group mb-3">
 			   {!! Form::label('comment','Comment:',['class'=>"col-sm-2 col-form-label"],false) !!} 
-                  {!! Form::textarea('vendor_comment',null,['class'=>'form-control','id' => 'comment','rows' => 2, 'cols' => 80,
+                  {!! Form::textarea('vendor_comment',null,['class'=>'form-control','id' => 'comment','rows' => 4, 'cols' => 80,
                   'placeholder'=>'Comment']) !!}
             </div>
             </div>

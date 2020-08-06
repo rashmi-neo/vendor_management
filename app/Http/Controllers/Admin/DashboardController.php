@@ -11,7 +11,7 @@ class DashboardController extends Controller
 {
    
     /**
-    * Show the count of total requirement,completed requirement, new requirement pending verifications,  
+    * Show the count of total requirement,completed requirement, new requirement,pending verifications,  
     *@Author Bharti <bharati.tadvi@neosofttech.com>
     *  
     * @return $countRequirement,countCompletedRequirement,countNewRequirement,countPendingVerification

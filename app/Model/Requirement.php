@@ -58,4 +58,13 @@ class Requirement extends Model
       return $this->belongsTo('App\Model\Category','category_id');
     }
 
+    public function reviewRating(){
+        return $this->hasOne('App\Model\ReviewRating','requirement_id');
+    }
+
+
+    public function payment(){
+        return $this->hasOne('App\Model\Payment','requirement_id');
+    }
+
 }

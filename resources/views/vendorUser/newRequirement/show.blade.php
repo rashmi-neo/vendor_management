@@ -16,7 +16,7 @@
                <th>Title</th>
                <th>From Date</th>
                <th>To Date</th>
-               <th>Category</th>
+               <th width="200px">Category</th>
                <th>Proposal Document</th>
                <th>Budget</th>
                <th>Comment</th>

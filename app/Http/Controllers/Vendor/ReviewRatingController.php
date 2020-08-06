@@ -1,0 +1,66 @@
+<?php
+
+namespace App\Http\Controllers\Vendor;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use DataTables;
+use App\Repositories\ReviewRating\ReviewRatingInterface as ReviewRatingInterface;
+
+
+class ReviewRatingController extends Controller
+{
+    
+	/**
+    * Initialize Repository
+    *@Author Bharti <bharati.tadvi@neosofttech.com>
+    *
+    * @return \App\Repositories\ReviewRatingRepository
+    */
+    private $reviewRatingRepository;
+
+    public function __construct(ReviewRatingInterface $reviewRatingRepository){
+        $this->reviewRatingRepository = $reviewRatingRepository;
+    }
+
+
+    /**
+    * Index page of review and rating.
+    *@Author Bharti <bharati.tadvi@neosofttech.com>
+    *
+    *@param  Illuminate\Http\Request;
+    * @return void
+    */
+    public function index(Request $request){
+
+        
+        if($request->ajax()){
+            
+            $currentUser = \Auth::user();
+            $whereData = ['user_id'=>$currentUser->id];
+            $data = $this->reviewRatingRepository->getVendorRating($whereData);
+            
+            return Datatables::of($data)
+
+            ->addIndexColumn()
+            ->addColumn('requirement_id', function($data){
+                return $data->requirement->code;
+            })
+            ->addColumn('requirement_title', function($data){
+                return $data->requirement->title;
+            })
+            ->addColumn('category', function($data){
+                return $data->requirement->category->name;
+            })
+            ->addColumn('vendor_name', function($data){
+                return $data->vendor->first_name. ' '.$data->vendor->last_name;
+            })
+            ->addColumn('rating_star', function($row){
+                return view('vendorUser.reviews_and_ratings.star_rating', compact('row'));
+            })
+            ->make(true);
+        }
+    	return view('vendorUser.reviews_and_ratings.index');
+    }
+
+}

@@ -9,6 +9,7 @@
          </div><!-- /.col -->
          <div class="col-sm-6">
          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="{{url('admin/dashboard')}}">Dashboard</a></li>
             <li class="breadcrumb-item active">Requirements</li>
          </ol>
          </div><!-- /.col -->
@@ -94,7 +95,7 @@
                 </div>
                 <div class="modal-footer justify-content-center">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" id="saveRatingReview" >save</button>
+                    <button type="button" class="btn btn-primary" id="saveRatingReview" >Save</button>
                 </div>
             </form>
         </div>
@@ -130,7 +131,7 @@
             </div>
             <div class="modal-footer justify-content-center">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-primary" id="updateStatus" >save</button>
+            <button type="button" class="btn btn-primary" id="updateStatus" >Save</button>
             </div>
         </form>
     </div>

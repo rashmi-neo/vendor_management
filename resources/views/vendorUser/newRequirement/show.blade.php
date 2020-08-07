@@ -8,6 +8,7 @@
          </div><!-- /.col -->
          <div class="col-sm-6">
          <ol class="breadcrumb float-sm-right">
+			   <li class="breadcrumb-item"><a href="{{url('vendor/dashboard')}}">Dashboard</a></li>
             <li class="breadcrumb-item"><a href="{{ route('new.requirement.index') }}">New Requirement</a></li>
             <li class="breadcrumb-item active"> View  </li>
          </ol>

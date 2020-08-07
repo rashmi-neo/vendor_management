@@ -13,6 +13,7 @@
          </div><!-- /.col -->
          <div class="col-sm-6">
          <ol class="breadcrumb float-sm-right">
+		      <li class="breadcrumb-item"><a href="{{url('vendor/dashboard')}}">Dashboard</a></li>
             <li class="breadcrumb-item"><a href="{{ route('vendor.reviews.index') }}">Reviews and Ratings</a></li>
             <li class="breadcrumb-item active">View </li>
          </ol>

@@ -37,6 +37,11 @@ class Requirement extends Model
         return ucfirst($value);
     }
 
+    public function getTitleAttribute($value)
+    {
+        return ucfirst($value);
+    }
+
     public function setStatusAttribute($value)
     {
         $this->attributes['status'] = strtolower($value);

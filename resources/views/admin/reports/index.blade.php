@@ -5,63 +5,88 @@
       <div class="row mb-2">
          <div class="col-sm-6">
             <h1 class="m-0 text-dark">Reports</h1>
-         </div><!-- /.col -->
+         </div>
+         <!-- /.col -->
          <div class="col-sm-6">
-         <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">Reports</li>
-         </ol>
-         </div><!-- /.col -->
-      </div><!-- /.row -->
-   </div><!-- /.container-fluid -->
+            <ol class="breadcrumb float-sm-right">
+   		 	   <li class="breadcrumb-item"><a href="{{url('admin/dashboard')}}">Dashboard</a></li>
+               <li class="breadcrumb-item active">Reports</li>
+            </ol>
+         </div>
+         <!-- /.col -->
+      </div>
+      <!-- /.row -->
+   </div>
+   <!-- /.container-fluid -->
+</div>
+<div class="container-fluid">
+<div class ="row">
+   <div class="col-lg-6">
+      <div class="card">
+         <div class="card-header">
+            <h3 class="card-title">Vendors</h3>
+         </div>
+         <div class="card-body ml-2">
+            <div class="row">
+               <div class="box box-success">
+                  <div class="box-body ml-4">
+                     <div class="chart ml-5">
+                        {!! $chart->container() !!}
+                     </div>
+                  </div>
+                  <!-- /.box-body -->
+               </div>
+               <!-- /.box -->
+            </div>
+            <!-- /.box-body -->
+            <div class="d-flex flex-row justify-content-end">
+               <span class="mr-2">
+               <i class="fas fa-square text-primary"></i> All Vendors
+               </span>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="col-lg-6">
+      <div class="card">
+         <div class="card-header">
+            <h3 class="card-title">Completed/Assigned Requirement</h3>
+         </div>
+         <div class="card-body  ml-2">
+            <div class="row">
+               <div class="box box-success">
+                  <div class="box-body ml-4">
+                     <div class="chart ml-5">
+                        {!! $completedRequirementChart->container() !!}
+                     </div>
+                  </div>
+                  <!-- /.box-body -->
+               </div>
+               <!-- /.box -->
+            </div>
+            <!-- /.box-body -->
+            <div class="d-flex flex-row justify-content-end">
+               <span class="mr-2">
+               <i class="fas fa-square text-success"></i> Completed Requirements
+               </span>
+               <span class="mr-2">
+               <i class="fas fa-square text-pink"></i> Assigned Requirements
+               </span>
+            </div>
+         </div>
+      </div>
+   </div>
 </div>
 <div class="card">
    <div class="card-header">
-      <h3 class="card-title">Report Charts</h3>
+      <h3 class="card-title">Date wise Requirements </h3>
    </div>
    <div class="card-body">
-      <div class="row">
-         <div class="col-md-4">
-            <div class="box box-success">
-               <div class="box-header with-border">
-                  <h5 class="box-title text-center">Vendors</h5>
-                  <div class="box-tools pull-right">
-                  </div>
-               </div>
-               <div class="box-body">
-                  <div class="chart">
-                     {!! $chart->container() !!}
-                  </div>
-               </div>
-               <!-- /.box-body -->
-            </div>
-            <!-- /.box -->
-         </div>
-         <div class="col-md-2">
-         </div>
-         <div class="col-4 mt-1 ml-5">
-            <div class="box box-info">
-               <div class="box-header with-border">
-                  <h5 class="box-title">Completed/Assigned Requirement</h5>
-                  <div class="box-tools pull-right">
-                  </div>
-               </div>
-               <div class="box-body">
-                  <div class="chart">
-                     {!! $completedRequirementChart->container() !!}
-                  </div>
-               </div>
-               <!-- /.box-body -->
-            </div>
-            <!-- /.box -->
-         </div>
-      </div>
       <!-- /.box-body -->
-      <div class="row mt-5">
+      <div class="row">
          <div class="col-md-6">
             <div class="box box-success">
                <div class="box-header with-border">
-                  <h5 class="box-title text-center">Date wise Requirements </h5>
                   <div class="box-tools pull-right">
                   </div>
                </div>
@@ -76,6 +101,11 @@
          </div>
       </div>
       <!-- /.box-body -->
+      <div class="d-flex flex-row justify-content-end">
+         <span class="mr-2">
+         <i class="fas fa-square text-faint-green"></i> Date wise Requirements
+         </span>
+      </div>
    </div>
 </div>
 @endsection

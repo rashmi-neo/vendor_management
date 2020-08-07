@@ -50,7 +50,7 @@
    <div class="col-lg-6">
       <div class="card">
          <div class="card-header">
-            <h3 class="card-title">Completed/Assigned Requirement</h3>
+            <h3 class="card-title">Completed/Assigned Requirements</h3>
          </div>
          <div class="card-body  ml-2">
             <div class="row">

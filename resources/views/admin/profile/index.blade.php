@@ -1,5 +1,6 @@
 @extends('layouts.master')
 @section('main-content')
+
 <div class="card">
 		<div class="card-header">
 			<h3 class="card-title">Profiles</h3>

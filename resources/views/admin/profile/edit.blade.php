@@ -1,9 +1,23 @@
 @extends('layouts.master')
 @section('main-content')
+<div class="content-header">
+   <div class="container-fluid">
+      <div class="row mb-2">
+         <div class="col-sm-6">
+            <h1 class="m-0 text-dark">My Account</h1>
+         </div><!-- /.col -->
+         <div class="col-sm-6">
+         <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item active">My Account</li>
+         </ol>
+         </div><!-- /.col -->
+      </div><!-- /.row -->
+   </div><!-- /.container-fluid -->
+</div>
 <div class="col-md-12">
    <div class="card">
       <div class="card-header">
-         <h3 class="card-title">Edit Profile</h3>
+         <h3 class="card-title">My Account</h3>
       </div>
       <div class="card-body">
             {!! Form::model($user,['route' =>  ['profiles.update', $user->id],'class' => 'form-horizontal',

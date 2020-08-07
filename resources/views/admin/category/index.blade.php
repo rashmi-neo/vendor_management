@@ -1,10 +1,26 @@
 @extends('layouts.master')
 @section('main-content')
+<div class="content-header">
+   <div class="container-fluid">
+      <div class="row mb-2">
+         <div class="col-sm-6">
+            <h1 class="m-0 text-dark">Vendor Categories</h1>
+         </div><!-- /.col -->
+         <div class="col-sm-6">
+         <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item active">Vendor Categories</li>
+         </ol>
+         </div><!-- /.col -->
+      </div><!-- /.row -->
+   </div><!-- /.container-fluid -->
+</div>
+
 <div class="card">
 		<div class="card-header">
 			<h3 class="card-title">Vendor Categories</h3>
 			<a class="btn btn-success float-right btn-sm" href="{{route('categories.create')}}" style="margin-left: 826px;">Add New</a>
 		</div>
+		
 	<div class="card-body">
 		<table id="example2" class="table table-bordered table-hover">
 			<thead>

@@ -5,6 +5,21 @@
 }
 </style>
 @section('main-content')
+<div class="content-header">
+   <div class="container-fluid">
+      <div class="row mb-2">
+         <div class="col-sm-6">
+            <h1 class="m-0 text-dark"> View Reviews and Ratings</h1>
+         </div><!-- /.col -->
+         <div class="col-sm-6">
+         <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="{{ route('vendor.reviews.index') }}">Reviews and Ratings</a></li>
+            <li class="breadcrumb-item active">View </li>
+         </ol>
+         </div><!-- /.col -->
+      </div><!-- /.row -->
+   </div><!-- /.container-fluid -->
+</div>
 <!-- Review And Rating Entries Column -->
 <div class="col-md-12">
    <!--   Review And Rating -->

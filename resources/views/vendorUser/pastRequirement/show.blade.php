@@ -1,5 +1,20 @@
 @extends('layouts.master')
 @section('main-content')
+<div class="content-header">
+   <div class="container-fluid">
+      <div class="row mb-2">
+         <div class="col-sm-6">
+            <h1 class="m-0 text-dark"> View Past Requirements</h1>
+         </div><!-- /.col -->
+         <div class="col-sm-6">
+         <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="{{ route('past.requirement.index') }}">Past Requirements</a></li>
+            <li class="breadcrumb-item active">View </li>
+         </ol>
+         </div><!-- /.col -->
+      </div><!-- /.row -->
+   </div><!-- /.container-fluid -->
+</div>
 <!-- Past Requirement Entries Column -->
 <div class="col-md-12">
    <!-- Past Requirement -->

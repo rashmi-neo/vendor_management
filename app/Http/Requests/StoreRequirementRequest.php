@@ -31,6 +31,7 @@ class StoreRequirementRequest extends FormRequest
             'fromDate' => 'required',
             'toDate' => 'required',
             'proposal_document' => 'required|file|max:10000|mimes:xls,pdf,xlsx,doc,docx',
+            'description' => 'max:200',
         ];
     }
         /**

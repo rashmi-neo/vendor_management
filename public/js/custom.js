@@ -38,7 +38,7 @@ $(document).ready(function(){
               },
             });
         }else{
-          Swal.fire("Your file is safe.");
+          Swal.fire("Your record is safe.");
         }
       });
     });

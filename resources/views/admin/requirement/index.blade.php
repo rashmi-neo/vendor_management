@@ -163,7 +163,7 @@
                 {data: 'action', name: 'action'},
             ],
             "columnDefs": [
-                { "width": "150px", "targets": 7 }
+                { "width": "200px", "targets": 7 }
                 ],
         });
     });

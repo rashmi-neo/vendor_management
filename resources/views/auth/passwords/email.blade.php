@@ -26,12 +26,7 @@
     <p class="text-center h2 mb-5">Vendor Management</p>
   </div>
   <!-- /.login-logo -->
-  @if(session()->get('error'))
-        <p class="alert alert-danger alert-dismissible">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-        <i class="icon fa fa-check"></i>{{ Session::get('error') }}
-      </p><br />
-  @endif
+  
   <div class="card">
     <div class="card-body login-card-body">
       <p class="login-box-msg">You forgot your password? Here you can easily retrieve a new password.</p>

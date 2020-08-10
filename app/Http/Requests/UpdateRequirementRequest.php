@@ -32,6 +32,7 @@ class UpdateRequirementRequest extends FormRequest
             'toDate' => 'required',
             'priority' => 'required',
             'proposal_document' => 'file|max:10000|mimes:xls,pdf,xlsx,doc,docx',
+            'description' => 'max:200',
         ];
     }
 

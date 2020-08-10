@@ -183,7 +183,18 @@
         $('#vendor').select2({
             theme: 'bootstrap4'
         })
-});
+    });
+    $(function(){
+        var today = new Date();
+        $('#requirmentToDate').daterangepicker({
+            singleDatePicker: true,
+            showDropdowns: true,
+            minDate:today,
+            locale: {
+            format: 'YYYY-MM-DD'
+            },
+        });
+    });
 </script>
 <script>
 window.ParsleyValidator

@@ -183,4 +183,36 @@ class VendorController extends Controller
             return redirect()->route('vendors.index')->with('error', 'Something went wrong!');
         }
     }
+
+    /**
+    * Update Vendor Status.
+    *@author Bharti<bharti.tadvi@neosofttech.com>
+    *
+    *@param  Illuminate\Http\Request
+    *@return $response
+    */
+    public function updateVendorStatus(Request $request){
+        
+        $vendorStatus = $this->vendorRepository->vendorStatus($request);
+        
+        if (!empty($vendorStatus)) {
+            $response = response()->json([
+                'success' => true,
+                'message' => "Vendor status updated successfully",
+            ]);
+        
+            return $response;
+        
+        } else {
+            $response = response()->json([
+                'success' => false,
+                'message' => "Vendor status not updated successfully",
+                'data' => [
+                'status_code' => 401
+                ]
+            ]);
+
+            return $response;
+        }
+    }
 }

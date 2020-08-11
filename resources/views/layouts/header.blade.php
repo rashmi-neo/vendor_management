@@ -65,24 +65,29 @@
          <span class="hidden-xs"></span>
          </a>
          <ul class="dropdown-menu">
-            <!-- User image -->
-            <li class="">
-               <p class="text-center">{{ Auth::user()->username }}</p>
-            </li>
-            <!-- Menu Footer-->
-            <li class="user-footer">
-               <div class="float-right">
-                  <a href="{{ route('logout') }}" class="btn btn-primary btn-md"
-                     onclick="event.preventDefault();
-                     document.getElementById('logout-form').submit();">
-                     Log out  </a>
-                  <form id="logout-form" action="{{ route('logout') }}" method="POST">
-                     {{ csrf_field() }}
-                  </form>
-               </div>
-            </li>
-            @endguest
-         </ul>
+                <!-- The user image in the menu -->
+                <li class="user-header" style="background-color:#0c7fc1;color:white">
+                  <!-- Vendor name and image -->
+                  <img src="../../dist/img/dummy.jpeg" class="img-circle" alt="User Image">
+                  <p class="text-center">{{ Auth::user()->username }}</p>
+                </li>
+                <!-- Menu Footer-->
+                <li class="user-footer">
+                  <div class="float-left">
+                    <a href="{{route('profiles.index')}}" class="btn btn-default btn-flat">Profile</a>
+                  </div>
+                  <div class="float-right">
+                     <a href="{{ route('logout') }}" class="btn btn-default btn-flat"
+                        onclick="event.preventDefault();
+                        document.getElementById('logout-form').submit();">
+                        Log out  </a>
+                     <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                        {{ csrf_field() }}
+                     </form>
+                  </div>
+                </li>
+               @endguest
+              </ul>
       </li>
    </ul>
 </nav>
@@ -140,28 +145,43 @@
          <span class="hidden-xs"></span>
          </a>
          <ul class="dropdown-menu">
-            <!-- Vendor name -->
-            <li class="">
-            <?php
-            $user = \Auth::user();
-            $vendor = App\Model\Vendor::where('user_id',$user->id)->first();
-            echo '<p class="text-center">'. $vendor->first_name.' '.$vendor->last_name.'</p>';
-            ?>
-            </li>
-            <!-- Menu Footer-->
-            <li class="user-footer">
-               <div class="float-right">
-                  <a href="{{ route('logout') }}" class="btn btn-primary btn-md"
-                     onclick="event.preventDefault();
-                     document.getElementById('logout-form').submit();">
-                     Log out  </a>
-                  <form id="logout-form" action="{{ route('logout') }}" method="POST">
-                     {{ csrf_field() }}
-                  </form>
-               </div>
-            </li>
-            @endguest
-         </ul>
+                <!-- The user image in the menu -->
+                <li class="user-header" style="background-color:#0c7fc1;color:white">
+                  
+                  <!-- Vendor name and image -->
+                  <?php 
+                  $user = \Auth::user();
+                  $vendor = App\Model\Vendor::where('user_id',$user->id)->first();
+                  
+                  if(!empty($vendor->profile_image)){
+                     $filepath= asset('/uploads/images/'.$vendor->profile_image); 
+                     echo "<img src='" . $filepath . "' alt='User Image' class='img-circle'>";
+                  }
+                  else{
+                     $filepath= '/dist/img/dummy.jpeg'; 
+                     echo "<img src='" . $filepath . "' alt='User Image' class='img-circle'>";
+                  }
+                  echo '<p class="text-center">'. $vendor->first_name.' '.$vendor->last_name.'</p>';
+                  ?>
+                  
+                </li>
+                <!-- Menu Footer-->
+                <li class="user-footer">
+                  <div class="float-left">
+                    <a href="{{route('accounts.index')}}" class="btn btn-default btn-flat">Profile</a>
+                  </div>
+                  <div class="float-right">
+                     <a href="{{ route('logout') }}" class="btn btn-default btn-flat"
+                        onclick="event.preventDefault();
+                        document.getElementById('logout-form').submit();">
+                        Log out  </a>
+                     <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                        {{ csrf_field() }}
+                     </form>
+                  </div>
+                </li>
+               @endguest
+              </ul>
       </li>
    </ul>
 </nav>

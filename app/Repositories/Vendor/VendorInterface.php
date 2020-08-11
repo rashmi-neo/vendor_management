@@ -42,9 +42,17 @@ interface VendorInterface{
      *
      * @Author Bharti <bharti.tadvi@neosofttech.com>
      * @param void
-     * @return collection
+     * @return void
      */
     public function getAllCategories();
 
+    /**
+     * Update vendor status.
+     *
+     * @Author Bharti <bharti.tadvi@neosofttech.com>
+     * @param void
+     * @return void
+     */
+    public function vendorStatus($data);
 
 }

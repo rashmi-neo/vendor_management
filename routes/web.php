@@ -37,6 +37,7 @@ Route::resource('requirements', 'RequirementController');
 Route::resource('vendors', 'VendorController');
 Route::resource('profiles', 'ProfileController');
 
+Route::post('updateVendorStatus', 'VendorController@updateVendorStatus')->name('update.vendor.status');
 Route::post('addComment', 'RequirementController@addComment');
 Route::post('updateStatus', 'RequirementController@updateStatus');
 Route::post('updateRequirementStatus', 'RequirementController@updateRequirementStatus')->name('update.requirement.status');
@@ -45,7 +46,6 @@ Route::post('uploadPaymentReceipt', 'RequirementController@uploadPaymentReceipt'
 Route::get('reviews/index', 'ReviewRatingController@index')->name('reviews.index');
 Route::post('reviews/rating', 'ReviewRatingController@save')->name('save.review.rating');
 Route::get('transaction/index', 'TransactionController@index')->name('admin.transaction.index');
-
 Route::get('reports/index', 'ReportController@index')->name('reports.index');
 
 /**

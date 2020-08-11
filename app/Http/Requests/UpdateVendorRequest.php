@@ -33,12 +33,13 @@ class UpdateVendorRequest extends FormRequest
             'mobile_number' => 'required|min:10|max:12',
             'company_name' => 'required|max:50',
             'address' => 'required|max:50',
+            'profile_image' => 'image|mimes:jpeg,png,jpg|max:1024',
             'category' => 'required',
-            'state' => 'required|alpha|max:20',
-            'city' => 'required|alpha|max:20',
+            'state' => 'required|max:20',
+            'city' => 'required|max:20',
             'pincode' => 'required|min:6|max:10',
             'contact_number' => 'required|min:10|max:12',
-            'fax' => 'required|max:20',
+            'fax' => 'max:20',
             'website'=>'max:20',
         ];
     }

@@ -125,20 +125,19 @@ class VendorRepository implements VendorInterface{
 
         $user = User::where('id','=',$vendor->user_id)->first();
         $user->email = $data->email;
-        $user->is_verified = $data->verify_status;
-        $user->password = bcrypt('vendor@123') ;
+        $user->password = bcrypt($data->password) ;
         $user->save();
 
-        if($user->is_verified == "approved"){
+        if($data->password){
             
-            /* Send email to vendor if verification status is approved*/
+            /* Send email to vendor if password  is update*/
             $details['email'] = $user->email;
-            $details['subject']='Vendor login verification';
+            $details['subject']='Vendor login password update';
             $details['firstname'] = $vendor->first_name;
             $details['lastname'] = $vendor->last_name;
-            $details['password'] = "vendor@123";
+            $details['password'] = $data->password;
             $details['from']='Vendor Management System';
-            dispatch(new \App\Jobs\SendVerificationMailToVendor($details));
+            dispatch(new \App\Jobs\SendUpdatePasswordMailToVendor($details));
         }
 
         $company = Company::where('vendor_id','=',$id)->update(['company_name'=>$data->company_name,
@@ -157,6 +156,35 @@ class VendorRepository implements VendorInterface{
         }
         
         return $vendor;
+    }
+
+
+    /**
+     * Update vendor status.
+     *
+     * @Author Bharti <bharti.tadvi@neosofttech.com>
+     * @param void
+     * @return $user
+     */
+    public function vendorStatus($data){
+        
+        $vendor = Vendor::where('id',$data->vendorId)->first();
+        $user = User::where('id','=',$vendor->user_id)->first();
+        $user->is_verified = $data->status;
+        $user->save();
+
+        if($user->is_verified == "approved"){
+            
+            /* Send email to vendor if verification status is approved*/
+            $details['email'] = $user->email;
+            $details['subject']='Vendor login verification';
+            $details['firstname'] = $vendor->first_name;
+            $details['lastname'] = $vendor->last_name;
+            $details['password'] = "Vendor@123";
+            $details['from']='Vendor Management System';
+            dispatch(new \App\Jobs\SendVerificationMailToVendor($details));
+        }
+        return $user;
     }
 
 }

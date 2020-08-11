@@ -24,7 +24,7 @@ class DocumentRequest extends FormRequest
     public function rules()
     {
         return [
-            'file'=> 'required|max:100'
+            'file'=> 'required|max:10000|mimes:pdf,doc,docx'
         ];
     }
 

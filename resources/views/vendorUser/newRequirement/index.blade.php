@@ -55,9 +55,8 @@
                <div class="form-group mb-3">
                {!! Form::label('quotation','Upload quotation:',['class'=>"col-sm-4 col-form-label"],false) !!} 
 				   <input type="file" class="form-control" name="quotation" 
-               id="quotationFile" data-parsley-required="true" data-parsley-error-message="Please upload quotation" 
-               data-parsley-trigger = "input"
-               data-parsley-trigger="blur">
+               id="quotationFile" data-parsley-required="true" data-parsley-required-message="Please upload quotation" 
+               data-parsley-trigger = "input"data-parsley-fileextension="pdf,doc,docx",data-parsley-trigger="blur" >
 				  <span class="text-danger error-quotation" role="alert">
                   </span> 
                </div>
@@ -104,11 +103,30 @@
 				{data: 'action',   name: 'action'},
 			]
 		});
-	});
-
+	}); 
+   $(function(){
+      window.ParsleyValidator.addValidator('fileextension', function (value, requirement) {
+        		var tagslistarr = requirement.split(',');
+            var fileExtension = value.split('.').pop();
+						var arr=[];
+						$.each(tagslistarr,function(i,val){
+   						 arr.push(val);
+						});
+              
+            if(jQuery.inArray(fileExtension, arr)!='-1') {
+              return true;
+            } else {
+              return false;
+            }
+        }, 32)
+      .addMessage('en', 'fileextension', 'The extension should be pdf,xls and xlsx');
+      $("#QuotationForm").parsley();
+   });
 </script>
 
 <script>
+
+
 	$('body').on('click', '.uploadQuotation', function () {
          
     });
@@ -180,6 +198,17 @@
               }
          });  
       }       
-    });
+   });
+
+   $('#uploadQuotation').on('hidden.bs.modal', function() {
+      
+      $('input[type="file"]').val("");
+      $('.parsley-required').empty('parsley-required');
+      $('.parsley-fileextension').empty('parsley-fileextension');
+      $('.parsley-fileextension').empty('parsley-fileextension');
+      $('.parsley-error').removeClass('parsley-error');
+      $('.parsley-success').removeClass('parsley-success');
+
+   });
 </script>
 @endsection

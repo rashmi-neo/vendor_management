@@ -514,7 +514,7 @@
    </div>
 </div>
 
-{!! Form::open(['route' => 'accounts.document.store','class' => 'form-horizontal',
+{!! Form::open(['route' => 'accounts.document.store','class' => 'form-horizontal','id' => 'documentForm',
 'method' => 'post','data-parsley-validate' => 'parsley','enctype' =>'multipart/form-data']) !!}
    @csrf
    <div class="modal fade" id="uploadDocument"aria-modal="true">
@@ -531,11 +531,10 @@
             <div class="modal-body">
                <div class="form-group mb-3">
                {!! Form::label('document','Document:',['class'=>"col-sm-2 col-form-label"],false) !!} 
-                  {!! Form::file('file', array('class' => 'form-control ','placeholder' => 'Profile Image',
+                  {!! Form::file('file', array('class' => 'form-control','id' => 'document','placeholder' => 'Document',
                   'data-parsley-required' => 'true',
                   'data-parsley-required-message' => 'Please upload document',
-                  'data-parsley-trigger' => "input",
-                  'data-parsley-trigger'=>"blur")) !!}
+                  'data-parsley-fileextension'=>'pdf,doc,docx')) !!}
                
                   @error('file')
                   <span class="text-danger errormsg" role="alert">
@@ -583,10 +582,35 @@
          var document_id = $(this).data('id');
          $('#documentFile').val(document_id);
       });
-      
-      $('#custom-tabs-four-tab a[href="#{{ old('tab') }}"]').tab('show')
+      $('#custom-tabs-four-tab a[href="#{{ old('tab') }}"]').tab('show');
 
+      window.ParsleyValidator.addValidator('fileextension', function (value, requirement) {
+        		var tagslistarr = requirement.split(',');
+            var fileExtension = value.split('.').pop();
+						var arr=[];
+						$.each(tagslistarr,function(i,val){
+   						 arr.push(val);
+						});
+            if(jQuery.inArray(fileExtension, arr)!='-1') {
+              return true;
+            } else {
+              return false;
+            }
+        }, 32)
+      .addMessage('en', 'fileextension', 'The extension should be pdf,doc and docx');
+
+      $("#documentForm").parsley();
+
+      $('#uploadDocument').on('hidden.bs.modal', function() {
+      
+         $('input[type="file"]').val("");
+         $('.parsley-required').empty('parsley-required');
+         $('.parsley-fileextension').empty('parsley-fileextension');
+         $('.parsley-fileextension').empty('parsley-fileextension');
+         $('.parsley-error').removeClass('parsley-error');
+      });
    });
+
 </script>
 
 @endsection

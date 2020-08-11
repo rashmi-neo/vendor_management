@@ -22,7 +22,7 @@
          <h3 class="card-title">Create Vendor</h3>
       </div>
       <div class="card-body">
-         {!! Form::open(['route' => 'vendors.store','class' => 'form-horizontal',
+         {!! Form::open(['route' => 'vendors.store','class' => 'form-horizontal','id' => 'vendorForm',
             'method' => 'post','data-parsley-validate' => 'parsley','enctype' =>'multipart/form-data']) !!}
             @csrf
             <input type="hidden" class="form-control" name="verify_status" value="Approved">
@@ -114,7 +114,8 @@
                <div class="form-group">
                   {!! Form::file('profile_image', array('class' => 'form-control ','placeholder' => 'Profile Image',
                      'data-parsley-trigger' => "input",
-                     'data-parsley-trigger'=>"blur",'data-parsley-maxlength' => '50')) !!}
+                     'data-parsley-fileextension'=>'jpg,png,jpeg',
+                     'data-parsley-trigger'=>"blur",'data-parsley-maxlength' => '1000')) !!}
                  </div> 
                   @error('profile_image')
                   <span class="text-danger errormsg" role="alert">
@@ -175,6 +176,8 @@
                      {!! Form::text('state', null, ['class' => 'form-control ','placeholder' => 'Company State',
                      'data-parsley-required' => 'true',
                      'data-parsley-required-message' => 'State is required',
+                     'data-parsley-pattern' => '/^[a-zA-Z ]*$/',
+                     'data-parsley-pattern-message' => 'Please enter only alphabets',
                      'data-parsley-trigger' => "input",
                      'data-parsley-trigger'=>"blur",
                      'data-parsley-maxlength' => '20']) !!}
@@ -190,6 +193,8 @@
                      {!! Form::text('city', null, ['class' => 'form-control ','placeholder' => 'City',
                      'data-parsley-required' => 'true',
                      'data-parsley-required-message' => 'City is required',
+                     'data-parsley-pattern' => '/^[a-zA-Z ]*$/',
+                     'data-parsley-pattern-message' => 'Please enter only alphabets',
                      'data-parsley-trigger' => "input",
                      'data-parsley-trigger'=>"blur",
                      'data-parsley-maxlength' => '20']) !!}
@@ -236,18 +241,11 @@
                <div class= "col-sm-6">
                   <div class="form-group">
                      {!! Form::text('fax', null, ['class' => 'form-control ','placeholder' => 'Company Fax',
-                     'data-parsley-required' => 'true',
-                     'data-parsley-required-message' => 'Company Fax is required',
                      'data-parsley-trigger' => "input",
                      'data-parsley-trigger'=>"blur",
                      'data-parsley-pattern'=>"^[\d\+\-\.\(\)\/\s]+$",
                      'data-parsley-maxlength' => '20']) !!}
                   </div>
-                  @error('fax')
-                  <span class="text-danger errormsg" role="alert">
-                     <p>{{ $message }}</p>
-                  </span>
-                  @enderror
                </div>
                <div class= "col-sm-12">
                   <div class="form-group">
@@ -257,11 +255,6 @@
                      'data-parsley-type'=>'url',
                      'data-parsley-maxlength' => '20']) !!}
                   </div>
-                  @error('website')
-                  <span class="text-danger errormsg" role="alert">
-                     <p>{{ $message }}</p>
-                  </span>
-                  @enderror
                </div>
             </div>
             <div class="form-group row mt-4">
@@ -284,5 +277,25 @@
                theme: 'bootstrap4'
          })
    });
+
+   $(document).ready(function() {
+    window.ParsleyValidator.addValidator('fileextension', function (value, requirement) {
+        		var tagslistarr = requirement.split(',');
+            var fileExtension = value.split('.').pop();
+						var arr=[];
+						$.each(tagslistarr,function(i,val){
+   						 arr.push(val);
+						});
+            if(jQuery.inArray(fileExtension, arr)!='-1') {
+              return true;
+            } else {
+              return false;
+            }
+        }, 32)
+      .addMessage('en', 'fileextension', 'The extension should be jpg,png and jpeg');
+
+    $("#vendorForm").parsley();
+    
+});
 </script>
 @endsection

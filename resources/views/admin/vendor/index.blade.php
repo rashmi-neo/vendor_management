@@ -45,6 +45,46 @@ width:100px;
 			</table>
 	</div>
 </div>
+
+<!-- /.Vendor status modal -->
+<div class="modal hide fade" id="vendorStatus" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-md">
+        <form method="POST"  data-parsley-validate="parsley">
+            <div class="modal-content">
+                <div class="modal-header headerModal">
+                <h4 class="modal-title">Update Vendor Status</h4>
+                <button type="button" class="close closeButton" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+                </button>
+                </div>
+                @csrf
+                <input type="hidden" value="" id="vendorId" name="vendorId">
+                <div class="modal-body">
+                <div class="form-group">
+                    <div>
+                    {!! Form::label('status','Status:',['class'=>"col-sm-2 col-form-label"],false) !!} 
+						<select class="form-control" style="width: 100%;" name="verify_status" id="status"
+							data-parsley-errors-container="#statusError" data-parsley-required="true"
+							data-parsley-error-message="Please select verification status">
+							<option value="">Select Verification status</option>
+							<option value="pending">Pending</option>
+							<option value="approved">Approved</option>
+							<option value="rejected">Rejected</option>
+                     	</select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-center">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary" id="updateStatus" >Save</button>
+            </div>
+        </form>
+    </div>
+        <!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->
+
+
 @endsection
 @section('scripts')
 @if(session()->get('success'))
@@ -86,5 +126,45 @@ width:100px;
              ]
 		});  
 	});
+
+	function openStatusModal(data)
+    {
+       
+        $('#status option:selected').removeAttr('selected');
+        $("#vendorStatus").modal('show');
+        $("#vendorId").val(data.id);
+        var status = data.user.is_verified;
+        $("select option[value='" + status + "']").attr("selected","selected");
+    }
+
+	$("#updateStatus").click(function (e) {
+        
+        $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+        });
+        e.preventDefault();
+        var vendorId = $("#vendorId").val();
+        var status = $("#status").val();
+
+
+            $.ajax({
+            type: "POST",
+            url: "{{ route('update.vendor.status') }}",
+            data:{'vendorId':vendorId,'status':status},
+            dataType: "json",
+            success: function(result){
+                
+             if(result)
+             {
+                $('#vendorStatus').modal('hide');
+                toastr.success(result.message);
+                setTimeout(function () {
+                    location.reload(true);
+                }, 2000);
+             }
+            }});
+    });
 </script>
 @endsection

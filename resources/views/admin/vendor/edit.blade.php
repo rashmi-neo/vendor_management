@@ -23,7 +23,7 @@
       </div>
       <div class="card-body">
          {!! Form::model($vendor,['route' =>  ['vendors.update', $vendor->id],'class' => 'form-horizontal',
-            'method' => 'put','data-parsley-validate' => 'parsley','enctype' =>'multipart/form-data']) !!}
+            'id' => 'vendorForm','method' => 'put','data-parsley-validate' => 'parsley','enctype' =>'multipart/form-data']) !!}
             @csrf
             <input type="hidden" class="form-control" name="verify_status" value="Approved">
             <input type="hidden" name="user_id" value="{{$vendor->user_id}}"/>
@@ -111,9 +111,19 @@
                   </span>
                   @enderror
                </div>
+               <div class="col-sm-6">
+                  {!! Form::password('password', ['class' => 'form-control','placeholder' => 'Password',
+                  'data-parsley-trigger' => "input",
+                  'data-parsley-trigger'=>"blur",
+                  'data-parsley-maxlength' => '8']) !!}
+               </div>
                <div class= "col-sm-6">
                <div class="form-group">
-               {!! Form::file('profile_image', array('class' => 'form-control ','placeholder' => 'Profile Image')) !!}
+               {!! Form::file('profile_image', array('class' => 'form-control ','placeholder' => 'Profile Image',
+                  'data-parsley-trigger' => "input",
+                  'data-parsley-fileextension'=>'jpg,png,jpeg',
+                  'data-parsley-trigger'=>"blur",
+                  'data-parsley-maxlength' => '100')) !!}
                  </div> 
                </div>
                <div class= "col-sm-6">
@@ -163,6 +173,8 @@
                      {!! Form::text('state', $vendor->company->state, ['class' => 'form-control ','placeholder' => 'Company State',
                      'data-parsley-required' => 'true',
                      'data-parsley-required-message' => 'State is required',
+                     'data-parsley-pattern' => '/^[a-zA-Z ]*$/',
+                     'data-parsley-pattern-message' => 'Please enter only alphabets',
                      'data-parsley-trigger' => "input",
                      'data-parsley-trigger'=>"blur",
                      'data-parsley-maxlength' => '20']) !!}
@@ -178,6 +190,8 @@
                      {!! Form::text('city', $vendor->company->city, ['class' => 'form-control ','placeholder' => 'City',
                      'data-parsley-required' => 'true',
                      'data-parsley-required-message' => 'City is required',
+                     'data-parsley-pattern' => '/^[a-zA-Z ]*$/',
+                     'data-parsley-pattern-message' => 'Please enter only alphabets',
                      'data-parsley-trigger' => "input",
                      'data-parsley-trigger'=>"blur",
                      'data-parsley-maxlength' => '20']) !!}
@@ -224,18 +238,11 @@
                <div class= "col-sm-6">
                   <div class="form-group">
                      {!! Form::text('fax', $vendor->company->fax, ['class' => 'form-control ','placeholder' => 'Company Fax',
-                     'data-parsley-required' => 'true',
-                     'data-parsley-required-message' => 'Company Fax is required',
                      'data-parsley-trigger' => "input",
                      'data-parsley-trigger'=>"blur",
                      'data-parsley-pattern'=>"^[\d\+\-\.\(\)\/\s]+$",
                      'data-parsley-maxlength' => '20']) !!}
                   </div>
-                  @error('fax')
-                  <span class="text-danger errormsg" role="alert">
-                     <p>{{ $message }}</p>
-                  </span>
-                  @enderror
                </div>
                <div class= "col-sm-6">
                   <div class="form-group">
@@ -244,29 +251,8 @@
                      'data-parsley-type'=>'url',
                      'data-parsley-maxlength' => '20']) !!}
                   </div>
-                  @error('website')
-                  <span class="text-danger errormsg" role="alert">
-                     <p>{{ $message }}</p>
-                  </span>
-                  @enderror
                </div>
-               <div class= "col-sm-6">
-                  <div class="form-group">
-                     <select class="form-control" style="width: 100%;" name="verify_status" id="status"
-                        data-parsley-errors-container="#statusError" data-parsley-required="true"
-                        data-parsley-error-message="Please select verification status">
-                        <option value="">Select Verification status</option>
-                        <option value="pending"@if($vendor->user->is_verified == "pending") selected="selected" @endif>Pending</option>
-                        <option value="approved"@if($vendor->user->is_verified == "approved") selected="selected" @endif>Approved</option>
-                        <option value="rejected"@if($vendor->user->is_verified == "rejected") selected="selected" @endif>Rejected</option>
-                     </select>
-                     @error('verify_status')
-                     <span class="text-danger errormsg" role="alert">
-                        <p>{{ $message }}</p>
-                     </span>
-                     @enderror
-                  </div>
-               </div>
+               
                <div class= "col-sm-6">
                   <div class="form-group">
                   @if(!empty($vendor->profile_image))
@@ -297,5 +283,25 @@
                theme: 'bootstrap4'
          })
    });
+
+   $(document).ready(function() {
+    window.ParsleyValidator.addValidator('fileextension', function (value, requirement) {
+        		var tagslistarr = requirement.split(',');
+            var fileExtension = value.split('.').pop();
+						var arr=[];
+						$.each(tagslistarr,function(i,val){
+   						 arr.push(val);
+						});
+            if(jQuery.inArray(fileExtension, arr)!='-1') {
+              return true;
+            } else {
+              return false;
+            }
+        }, 32)
+      .addMessage('en', 'fileextension', 'The extension should be jpg,png and jpeg');
+
+    $("#vendorForm").parsley();
+});
 </script>
+
 @endsection

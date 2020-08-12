@@ -76,7 +76,7 @@ class NotificationsRepository implements NotificationsInterface{
      */
     public function getWhereData($data)
     {
-        $notification = Notifications::where($data)->get();
+        $notification = Notifications::where($data)->with('user.vendor.assignVendor.vendorQuotation')->get();
         return $notification;
     }
 

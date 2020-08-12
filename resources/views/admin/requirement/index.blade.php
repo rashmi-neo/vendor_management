@@ -86,6 +86,8 @@
                             'data-parsley-required-message' => 'Review is required',
                             'data-parsley-trigger' => "input",
                             'data-parsley-trigger'=>"blur",
+                            'data-parsley-pattern'=>'/^[a-zA-Z ]*$/',
+                            'data-parsley-pattern-message' => 'Please enter alphabets',
                             'data-parsley-minlength' => '4',
                             'data-parsley-maxlength' => '200']) !!}
                         </div>
@@ -313,6 +315,17 @@
         // JUST RESPONSE (Not needed)
         var ratingValue = parseInt($('#stars li.selected').last().data('value'), 10);
         
+    });
+    
+    $('#modal2').on('hidden.bs.modal', function() {  
+        $('#review').val("");
+        $('.parsley-required').empty();
+        $('.parsley-fileextension').empty();
+        $('.parsley-error').removeClass('parsley-error');
+        $('.parsley-success').removeClass('parsley-success');
+        $('.parsley-minlength').empty();
+        $('.parsley-pattern').empty();
+        $('#stars li.selected').removeClass('selected');
     });
 
 </script>

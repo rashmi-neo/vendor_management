@@ -66,9 +66,9 @@
          </a>
          <ul class="dropdown-menu">
                 <!-- The user image in the menu -->
-                <li class="user-header" style="background-color:#0c7fc1;color:white">
+                <li class="user-header userData">
                   <!-- Vendor name and image -->
-                  <img src="../../dist/img/dummy.jpeg" class="img-circle" alt="User Image">
+                  <img src="{{asset('dist/img/dummy.jpeg')}}" class="img-circle" alt="User Image">
                   <p class="text-center">{{ Auth::user()->username }}</p>
                 </li>
                 <!-- Menu Footer-->
@@ -146,7 +146,7 @@
          </a>
          <ul class="dropdown-menu">
                 <!-- The user image in the menu -->
-                <li class="user-header" style="background-color:#0c7fc1;color:white">
+                <li class="user-header userData">
                   
                   <!-- Vendor name and image -->
                   <?php 
@@ -158,7 +158,7 @@
                      echo "<img src='" . $filepath . "' alt='User Image' class='img-circle'>";
                   }
                   else{
-                     $filepath= '/dist/img/dummy.jpeg'; 
+                     $filepath= asset('/dist/img/dummy.jpeg'); 
                      echo "<img src='" . $filepath . "' alt='User Image' class='img-circle'>";
                   }
                   echo '<p class="text-center">'. $vendor->first_name.' '.$vendor->last_name.'</p>';

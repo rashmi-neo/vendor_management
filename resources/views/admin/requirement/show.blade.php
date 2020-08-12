@@ -158,7 +158,7 @@
       <div class="modal-dialog modal-md">
          <div class="modal-content">
             <div class="modal-header headerModal">
-               <h4 class="modal-title">Upload Document</h4>
+               <h4 class="modal-title">Payment Detail</h4>
                <button type="button" class="close closeButton" data-dismiss="modal" aria-label="Close">
                <span aria-hidden="true">×</span>
                </button>
@@ -171,7 +171,8 @@
                     'data-parsley-required' => 'true',
                     'data-parsley-required-message' => 'Please upload payment receipt',
                     'data-parsley-trigger' => "input",
-                    'data-parsley-trigger'=>"blur")) !!}
+                    'data-parsley-trigger'=>"blur",
+                    'data-parsley-fileextension'=>'pdf')) !!}
                     <span class="text-danger error-payment-receipt" role="alert">
                     </span> 
                </div>
@@ -199,7 +200,7 @@
             </div>
             <div class="modal-footer justify-content-between">
                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-               {!! Form::button('Upload', ['type' => 'button','id'=>'uploadReceipt','class' => 'btn btn-primary'] ) !!}
+               {!! Form::button('Save', ['type' => 'button','id'=>'uploadReceipt','class' => 'btn btn-primary'] ) !!}
             </div>
          </div>
          <!-- /.modal-content -->
@@ -229,7 +230,7 @@
     });
 
     $("#uploadReceipt").click(function (e) {
-        
+        $('#amount').val("");
         var form = $('#PaymentForm');
         form.parsley().validate();
         $.ajaxSetup({
@@ -290,5 +291,31 @@
             });
         }
     });
+
+    $('#uploadPaymentReceipt').on('hidden.bs.modal', function() {  
+        $('#amount').val("");
+        $('input[type="file"]').val("");
+        $('.parsley-required').empty();
+        $('.parsley-fileextension').empty();
+        $('.parsley-error').removeClass('parsley-error');
+        $('.parsley-success').removeClass('parsley-success');
+        $('.parsley-minlength').empty();
+    });
+
+    window.ParsleyValidator.addValidator('fileextension', function (value, requirement) {
+        		var tagslistarr = requirement.split(',');
+            var fileExtension = value.split('.').pop();
+						var arr=[];
+						$.each(tagslistarr,function(i,val){
+   						 arr.push(val);
+						});
+            if(jQuery.inArray(fileExtension, arr)!='-1') {
+              return true;
+            } else {
+              return false;
+            }
+        }, 32)
+    .addMessage('en', 'fileextension', 'The extension should be pdf only.');
+
 </script>
 @endsection

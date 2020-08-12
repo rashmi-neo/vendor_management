@@ -54,7 +54,6 @@ class  NewRequirementRepository implements NewRequirementInterface{
     {
         return Requirement::find($id);
 
-        // dd($requirement);
     }
 
 
@@ -64,10 +63,10 @@ class  NewRequirementRepository implements NewRequirementInterface{
         $assignRequirement = AssignVendor::with('requirement')
         ->where('requirement_id',$id)
         ->whereIn('vendor_id',[$vendorId->id])->first(); 
-        // dd($assignRequirement->id);
+        
         $vendorQuotation = VendorQuotation::where('assign_vendor_id',$assignRequirement->id)
                 ->get();
-                //dd($vendorQuotation);
+               
         return $vendorQuotation;
     }
 

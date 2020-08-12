@@ -76,7 +76,7 @@
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
             {{-- <form method="POST"  action="{{ route('addComment',$showRequirementDetails->id) }}" data-parsley-validate="parsley"> --}}
-                <form method="POST"  data-parsley-validate="parsley">
+                <form method="POST"  data-parsley-validate="parsley" id="CommentForm">
                 @csrf
                 @method('PUT')
                 <input type="hidden" value="" id="quotationId" name="quotationId">
@@ -91,17 +91,15 @@
                 <div class="form-group">
                     <div>
                     {!! Form::label('comment', 'Comment',['class' => 'col-sm-3 label_class']) !!}
-                    {!! Form::textarea('comment',null,['class' => 'form-control ','placeholder' => 'Comment','id'=>'comment', 'data-parsley-required' => 'true',
+                    {!! Form::textarea('comment',null,['class' => 'form-control ','placeholder' => 'Comment','id'=>'comment',
+                    'data-parsley-required' => 'true',
                     'data-parsley-required-message' => 'Please add comment',
                     'data-parsley-trigger' => "input",
                     'data-parsley-minlength' => '2',
                     'data-parsley-maxlength' => '1000',
                     'data-parsley-trigger'=>"blur"]) !!}
-                     @error('comment')
-                     <span class="text-danger errormsg" role="alert">
-                        <p>{{ $message }}</p>
+                     <span class="text-danger error-comment" role="alert">
                      </span>
-                     @enderror
                     </div>
                 </div>
             </div>
@@ -177,27 +175,33 @@
         var quotationId = $("#quotationId").val();
         var comment = $("#comment").val();
         var assignVendorId = $("#assignVendorId").val();
-        if(quotationId !="" && comment !="" && assignVendorId !="")
-        {
+        var form = $('#CommentForm');
+        form.parsley().validate();
+        if(form.parsley().isValid()){
             $.ajax({
             type: "POST",
             url: "../../addComment",
             data:{'id':quotationId,'comment':comment,'assignVendorId':assignVendorId},
             dataType: "json",
             success: function(result){
-             if(result)
-             {
+             
+             if(result){ 
                 $('#modal-lg').modal('hide');
                 toastr.success('Comment added successfully');
                 setTimeout(function () {
                     location.reload(true);
                 }, 2000);
-             }
-            }});
-        }
-        else
-        {
-            toastr.error('Please add comment');
+                }
+                },
+                error:function(result){
+                    if(typeof result.responseJSON.errors.comment != "undefined"){
+                    let comment = (result.responseJSON.errors.comment[0]);
+                    $('.error-comment').html(comment);
+                    }else{
+                    $('.error-comment').empty();
+                    }
+                }
+            });
         }
     });
     $("#updateStatus").click(function (e) {
@@ -230,5 +234,17 @@
              }
             }});
     });
+
+    $('#modal-lg').on('hidden.bs.modal', function() {
+      
+      $('#comment').val("");
+      $('.parsley-required').empty();
+      $('.parsley-error').removeClass('parsley-error');
+      $('.parsley-success').removeClass('parsley-success');
+      $('.parsley-minlength').empty();
+      $('.error-comment').empty();
+
+   });
+
 </script>
 @endsection

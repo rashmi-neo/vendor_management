@@ -329,8 +329,6 @@
                      <div class= "col-sm-6">
                         <div class="input-group mb-3">
                            {!! Form::text('fax', null, ['class' => 'form-control ','placeholder' => 'Company Fax',
-                           'data-parsley-required' => 'true',
-                           'data-parsley-required-message' => 'Company Fax is required',
                            'data-parsley-trigger' => "input",
                            'data-parsley-trigger'=>"blur",
                            'data-parsley-errors-container'=>'#faxError',

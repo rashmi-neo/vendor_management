@@ -533,6 +533,8 @@
                {!! Form::label('document','Document:',['class'=>"col-sm-2 col-form-label"],false) !!} 
                   {!! Form::file('file', array('class' => 'form-control','id' => 'document','placeholder' => 'Document',
                   'data-parsley-required' => 'true',
+                  'data-parsley-trigger' => "input",
+                  'data-parsley-trigger'=>"blur",
                   'data-parsley-required-message' => 'Please upload document',
                   'data-parsley-fileextension'=>'pdf,doc,docx')) !!}
                
@@ -604,9 +606,9 @@
       $('#uploadDocument').on('hidden.bs.modal', function() {
       
          $('input[type="file"]').val("");
-         $('.parsley-required').empty('parsley-required');
-         $('.parsley-fileextension').empty('parsley-fileextension');
-         $('.parsley-fileextension').empty('parsley-fileextension');
+         $('.parsley-required').empty();
+         $('.parsley-fileextension').empty();
+         $('.parsley-success').removeClass('parsley-success');
          $('.parsley-error').removeClass('parsley-error');
       });
    });

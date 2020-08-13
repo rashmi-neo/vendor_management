@@ -42,7 +42,7 @@
                      Description  : 
                   </th>
                   <td>
-                     <span>{{$pastRequirement->description}} </span>
+                     <span> {{ empty($pastRequirement->description)? "-":$pastRequirement->description}} </span>
                   </td>
                </tr>
                <tr>

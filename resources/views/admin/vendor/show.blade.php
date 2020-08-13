@@ -31,7 +31,7 @@
             <tbody>
                <tr>
                   <th>
-                     First name  : 
+                     First Name  : 
                   </th>
                   <td>
                      <span>{{$vendor->first_name}}</span>
@@ -39,7 +39,7 @@
                </tr>
                <tr>
                   <th>
-                     Middle name  : 
+                     Middle Name  : 
                   </th>
                   <td>
                    <span>{{empty($vendor->middle_name)?"-":$vendor->middle_name}}</span>
@@ -47,7 +47,7 @@
                </tr>
                <tr>
                   <th>
-                     Last name  : 
+                     Last Name  : 
                   </th>
                   <td>
                      <span>{{$vendor->last_name}}</span>
@@ -55,7 +55,15 @@
                </tr>
                <tr>
                   <th>
-                     Mobile number  : 
+                     Email Address  : 
+                  </th>
+                  <td>
+                     <span>{{$vendor->user->email}}</span>
+                  </td>
+               </tr>
+               <tr>
+                  <th>
+                     Mobile Number  : 
                   </th>
                   <td>
                      <span>{{$vendor->mobile_number}}</span>
@@ -63,7 +71,7 @@
                </tr>
                <tr>
                   <th>
-                     Comapny name  : 
+                     Comapny Name  : 
                   </th>
                   <td>
                      <span>{{$vendor->company->company_name }}</span>
@@ -71,7 +79,7 @@
                </tr>
                <tr>
                   <th>
-                     Comapny address  : 
+                     Comapny Address  : 
                   </th>
                   <td>
                      <span>{{$vendor->company->address }}</span>
@@ -79,7 +87,7 @@
                </tr>
                <tr>
                   <th>
-                     Comapny state  : 
+                     Comapny State  : 
                   </th>
                   <td>
                      <span>{{$vendor->company->state}}</span>
@@ -87,7 +95,7 @@
                </tr>
                <tr>
                   <th>
-                     Comapny city  : 
+                     Comapny City  : 
                   </th>
                   <td>
                      <span>{{$vendor->company->city}}</span>
@@ -95,7 +103,7 @@
                </tr>
                <tr>
                   <th>
-                     Comapny pincode  : 
+                     Comapny Pincode  : 
                   </th>
                   <td>
                      <span>{{$vendor->company->pincode}}</span>
@@ -103,7 +111,7 @@
                </tr>
                <tr>
                   <th>
-                     Company Comapny number  : 
+                     Company Comapny Number  : 
                   </th>
                   <td>
                      <span>{{$vendor->company->contact_number}}</span>
@@ -121,7 +129,15 @@
                </tr>
                <tr>
                   <th>
-                     Comapny website : 
+                     Comapny Fax Number : 
+                  </th>
+                  <td>
+                     <span>{{empty($vendor->company->fax)? "-" :$vendor->company->fax}}</span>
+                  </td>
+               </tr>
+               <tr>
+                  <th>
+                     Comapny Website : 
                   </th>
                   <td>
                      <span>{{empty($vendor->company->website)? "-" :$vendor->company->website}}</span>
@@ -129,7 +145,7 @@
                </tr>
                <tr>
                   <th>
-                     Verification status : 
+                     Verification Status : 
                   </th>
                   @if($vendor->user->is_verified == "pending")
                   <td>

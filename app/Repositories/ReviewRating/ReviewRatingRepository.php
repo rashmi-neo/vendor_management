@@ -23,7 +23,7 @@ class  ReviewRatingRepository implements ReviewRatingInterface{
      *
      *@Author Bharti <bharti.tadvi@neosofttech.com>
      *@param  void
-     *@return $users
+     *@return collection
      */
     public function all(){
         
@@ -49,6 +49,14 @@ class  ReviewRatingRepository implements ReviewRatingInterface{
         return $reviewRatingObj;
     }
     
+
+    /**
+     * Save review and rating
+     *
+     * @Author Bharti <bharati.tadvi@neosofttech.com>
+     * @param $data
+     * @return collection
+    */
     public function findVendorRequirement($data){
         
         return AssignVendor::with(['vendor','requirement','vendorQuotation'=>function ($query){
@@ -56,6 +64,14 @@ class  ReviewRatingRepository implements ReviewRatingInterface{
         }])->where('requirement_id',$data['requirementId'])->first();
     }
 
+
+    /**
+     * Get vendor rating
+     *
+     * @Author Bharti <bharati.tadvi@neosofttech.com>
+     * @param $data
+     * @return $reviewRating
+    */
     public function getVendorRating($data){
         $vendor = Vendor::where('user_id',$data)->first();
 

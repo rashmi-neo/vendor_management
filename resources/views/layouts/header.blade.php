@@ -41,7 +41,7 @@
             @if(count($notifList)>0)
             @foreach($notifList as $value)
             <div class="dropdown-divider"></div>
-            <a id="{{$value->id}}" href="{{$value->type=='vendor_register'?route('vendors.index'):''}}" class="dropdown-item markRead" onclick='markAsRead("{{$value->id}}")'>
+            <a id="{{$value->id}}" href="{{route('notification.index')}}" class="dropdown-item markRead" onclick='markAsRead("{{$value->id}}")'>
             <i class="fas fa-user mr-2"></i> {{$value->title}}
             <span class="float-right text-muted text-sm">{{\Carbon\Carbon::parse($value->created_at)->toFormattedDateString()}}</span>
             <br>
@@ -65,29 +65,29 @@
          <span class="hidden-xs"></span>
          </a>
          <ul class="dropdown-menu">
-                <!-- The user image in the menu -->
-                <li class="user-header userData">
-                  <!-- Vendor name and image -->
-                  <img src="{{asset('dist/img/dummy.jpeg')}}" class="img-circle" alt="User Image">
-                  <p class="text-center">{{ Auth::user()->username }}</p>
-                </li>
-                <!-- Menu Footer-->
-                <li class="user-footer">
-                  <div class="float-left">
-                    <a href="{{route('profiles.index')}}" class="btn btn-default btn-flat">Profile</a>
-                  </div>
-                  <div class="float-right">
-                     <a href="{{ route('logout') }}" class="btn btn-default btn-flat"
-                        onclick="event.preventDefault();
-                        document.getElementById('logout-form').submit();">
-                        Log out  </a>
-                     <form id="logout-form" action="{{ route('logout') }}" method="POST">
-                        {{ csrf_field() }}
-                     </form>
-                  </div>
-                </li>
-               @endguest
-              </ul>
+            <!-- The user image in the menu -->
+            <li class="user-header userData">
+            <!-- Vendor name and image -->
+            <img src="{{asset('dist/img/dummy.jpeg')}}" class="img-circle" alt="User Image">
+            <p class="text-center">{{ Auth::user()->username }}</p>
+            </li>
+            <!-- Menu Footer-->
+            <li class="user-footer">
+            <div class="float-left">
+               <a href="{{route('profiles.index')}}" class="btn btn-default btn-flat">Profile</a>
+            </div>
+            <div class="float-right">
+               <a href="{{ route('logout') }}" class="btn btn-default btn-flat"
+                  onclick="event.preventDefault();
+                  document.getElementById('logout-form').submit();">
+                  Log out  </a>
+               <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                  {{ csrf_field() }}
+               </form>
+            </div>
+            </li>
+            @endguest
+         </ul>
       </li>
    </ul>
 </nav>
@@ -141,47 +141,57 @@
       </li>
       <li class="dropdown user user-menu">
          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-         <img src="{{asset('dist/img/dummy.jpeg')}}" class="user-image" alt="User Image">
+         <?php 
+            $user = \Auth::user();
+            $vendor = App\Model\Vendor::where('user_id',$user->id)->first();
+            
+            if(!empty($vendor->profile_image)){
+               $filepath= asset('/uploads/images/'.$vendor->profile_image); 
+               echo "<img src='" . $filepath . "' alt='User Image' class='user-image'>";
+            }else{
+               $filepath= asset('/dist/img/dummy.jpeg'); 
+               echo "<img src='" . $filepath . "' alt='User Image' class='user-image'>";
+            }
+         ?>
          <span class="hidden-xs"></span>
          </a>
          <ul class="dropdown-menu">
-                <!-- The user image in the menu -->
-                <li class="user-header userData">
-                  
-                  <!-- Vendor name and image -->
-                  <?php 
-                  $user = \Auth::user();
-                  $vendor = App\Model\Vendor::where('user_id',$user->id)->first();
-                  
-                  if(!empty($vendor->profile_image)){
-                     $filepath= asset('/uploads/images/'.$vendor->profile_image); 
-                     echo "<img src='" . $filepath . "' alt='User Image' class='img-circle'>";
-                  }
-                  else{
-                     $filepath= asset('/dist/img/dummy.jpeg'); 
-                     echo "<img src='" . $filepath . "' alt='User Image' class='img-circle'>";
-                  }
-                  echo '<p class="text-center">'. $vendor->first_name.' '.$vendor->last_name.'</p>';
-                  ?>
-                  
-                </li>
-                <!-- Menu Footer-->
-                <li class="user-footer">
-                  <div class="float-left">
-                    <a href="{{route('accounts.index')}}" class="btn btn-default btn-flat">Profile</a>
-                  </div>
-                  <div class="float-right">
-                     <a href="{{ route('logout') }}" class="btn btn-default btn-flat"
-                        onclick="event.preventDefault();
-                        document.getElementById('logout-form').submit();">
-                        Log out  </a>
-                     <form id="logout-form" action="{{ route('logout') }}" method="POST">
-                        {{ csrf_field() }}
-                     </form>
-                  </div>
-                </li>
-               @endguest
-              </ul>
+            <!-- The user image in the menu -->
+            <li class="user-header userData">
+            
+            <!-- Vendor name and image -->
+            <?php 
+            $user = \Auth::user();
+            $vendor = App\Model\Vendor::where('user_id',$user->id)->first();
+            
+            if(!empty($vendor->profile_image)){
+               $filepath= asset('/uploads/images/'.$vendor->profile_image); 
+               echo "<img src='" . $filepath . "' alt='User Image' class='img-circle'>";
+            }else{
+               $filepath= asset('/dist/img/dummy.jpeg'); 
+               echo "<img src='" . $filepath . "' alt='User Image' class='img-circle'>";
+            }
+            echo '<p class="text-center">'. $vendor->first_name.' '.$vendor->last_name.'</p>';
+            ?>
+            
+            </li>
+            <!-- Menu Footer-->
+            <li class="user-footer">
+            <div class="float-left">
+               <a href="{{route('accounts.index')}}" class="btn btn-default btn-flat">Profile</a>
+            </div>
+            <div class="float-right">
+               <a href="{{ route('logout') }}" class="btn btn-default btn-flat"
+                  onclick="event.preventDefault();
+                  document.getElementById('logout-form').submit();">
+                  Log out  </a>
+               <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                  {{ csrf_field() }}
+               </form>
+            </div>
+            </li>
+         @endguest
+         </ul>
       </li>
    </ul>
 </nav>

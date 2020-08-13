@@ -5,14 +5,8 @@
         <span class="ml-1">
         <a href="#" class="btn btn-info btn-sm"  rel="tooltip" title="Change Status" onclick="openStatusModal({{ $row }})" id=""><i class="fas fa-exclamation-circle"></i></a></span>
         @if($row->status =="Completed")
-        @if(!empty($row->reviewRating->rating))
         <span class="ml-1"><button href="#" style="background-color:tomato;color:white" 
-        class="btn btn-sm" rel="tooltip" title="review and rating" disabled><i class="fa fa-star"></i></button></span>
-        @else
-        <span class="ml-1"><button href="#" style="background-color:tomato;color:white" 
-        class="btn btn-sm" rel="tooltip" title="Give review and rating" onclick="openRatingModal({{ $row }})"><i class="fa fa-star"></i></button></span>
-        @endif 
+        class="btn btn-sm" rel="tooltip" title="Give review and rating" onclick="openRatingModal({{ $row }})" {{ (empty($row->reviewRating->rating)) ? "" : "disabled" }}><i class="fa fa-star"></i></button></span>
         @endif    
-
     </div>
 </div>

@@ -53,7 +53,7 @@
                     </tr>
                     <tr>
                         <th>Description</th>
-                        <td>: {{ $showRequirementDetails->description }}</td>
+                        <td>:  {{ empty($showRequirementDetails->description)? "-":$showRequirementDetails->description}}</td>
                     </tr>
                     <tr>
                         <th>Spacial Remark</th>
@@ -92,7 +92,7 @@
                             <td>{{ $key+1 }}</td>
                             <td>{{ $vendor->code }}</td>
                             <td>{{ $vendor->title }}</td>
-                            <td>{{ $vendor->first_name }}</td>
+                            <td>{{ $vendor->first_name .' '.$vendor->last_name }}</td>
                             <td>{{ $vendor->mobile_number }}</td>
                             <td>
                                 <a href="{{ url('admin/showQuotation/'.$showRequirementDetails->id.'/'.$vendor->assign_vendors_id)}}" rel="tooltip" title="Show" class="edit btn btn-success btn-sm viewRequirement"><i class="fas fa-eye"></i></a>&nbsp;
@@ -125,15 +125,9 @@
                             <td>Awarded</td>
                             @endif
                             <td>
-                            @if(empty($statusVendor->payment->receipt))
-                            <a href="#" onclick="openPaymentModal({{$vendorRequirement->requirement_id}},{{ $vendorRequirement->vendor->id}})" data-id="" class="uploadPaymentReceipt btn btn-primary btn-sm" 
-                                data-toggle="modal" data-target="#uploadPaymentReceipt" rel="tooltip" title="Upload Payment Receipt">
-                            <i class="fas fa-plus"></i></a>&nbsp;
-                            @else
-                            <a href="#" class="uploadPaymentReceipt btn btn-primary btn-sm" rel="tooltip" 
-                            title="Upload Payment Receipt" disabled>
-                            <i class="fas fa-plus"></i></a>&nbsp;
-                            @endif
+                            <button href="#" onclick="openPaymentModal({{$vendorRequirement->requirement_id}},{{ $vendorRequirement->vendor->id}})" data-id="" class="uploadPaymentReceipt btn btn-primary btn-sm" 
+                                data-toggle="modal" data-target="#uploadPaymentReceipt" rel="tooltip" title="Upload Payment Receipt" {{ (empty($showRequirementDetails->payment)) ? "" : "disabled" }}>
+                            <i class="fas fa-plus"></i></button>&nbsp;
                             </td>
                         <tr>
                         @endforeach
@@ -142,13 +136,11 @@
             </table>
             </div>
         </div>
-
-    <!-- /.Payment upload modal -->
         </div>
         <!-- /.card -->
     </div>
 </div>
-
+<!-- /.Payment upload modal -->
 {!! Form::open(['class' => 'form-horizontal', 'id'=>'PaymentForm',
 'method' => 'post','data-parsley-validate' => 'parsley','enctype' =>'multipart/form-data']) !!}
    @csrf
@@ -264,6 +256,9 @@
                 if(result){ 
                 $('#uploadPaymentReceipt').modal('hide');
                     toastr.success(result.message);
+                    setTimeout(function () {
+                    location.reload(true);
+                }, 2000);
                 }
                 },
                 error:function(result){

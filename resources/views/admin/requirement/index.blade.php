@@ -96,7 +96,7 @@
                     </div>
                 </div>
                 <div class="modal-footer justify-content-center">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary" id="saveRatingReview" >Save</button>
                 </div>
             </form>
@@ -161,7 +161,7 @@
                 {data: 'action', name: 'action'},
             ],
             "columnDefs": [
-                { "width": "200px", "targets": 7 }
+                { "width": "150px", "targets": 7 }
                 ],
         });
     });

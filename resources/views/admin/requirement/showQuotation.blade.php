@@ -58,7 +58,7 @@
                               <button type="button" class="edit btn btn-primary btn-sm"  id="comment_{{ $quotation->assign_vendors_id }}" disabled><i class="fas fa-pencil-alt"></i></button>
                               @endif
                               @if($quotation->status =="In process")
-                              <button type="button" class="btn btn-secondary btn-sm" rel="tooltip" title="Approve" onclick="openStatusModal({{ $quotation->id }},{{ $quotation->assign_vendor_id }},{{$requirement_id}})" id="status_{{ $quotation->assign_vendors_id }}"><i class="fas fa-exclamation-circle"></i></button>
+                              <button type="button" class="btn btn-info btn-sm" rel="tooltip" title="Approve" onclick="openStatusModal({{ $quotation->id }},{{ $quotation->assign_vendor_id }},{{$requirement_id}})" id="status_{{ $quotation->assign_vendors_id }}"><i class="fas fa-exclamation-circle"></i></button>
                                @elseif($quotation->status  =="Approved")
                               <button type="button" class="btn btn-success btn-sm" rel="tooltip" title="Approved"><i class="fas fa-check"></i></button>
                                @else

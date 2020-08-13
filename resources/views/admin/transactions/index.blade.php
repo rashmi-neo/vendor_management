@@ -45,6 +45,7 @@
 			processing: true,
 			serverSide: true,
 			bLengthChange: false,
+            "scrollX": true,
 			ajax: "{{ route('admin.transaction.index') }}",
 			columns: [
 				{data: 'DT_RowIndex', name: 'DT_RowIndex'},
@@ -54,8 +55,11 @@
                 {data: 'vendor_name', name: 'vendor_name'},
 				{data: 'payment_date', name: 'payment_date'},
 				{data: 'amount', name: 'amount'},
-				{data: 'receipt', name: 'receipt'},
-			]
+				{data: 'action', name: 'action'},
+			],
+			"columnDefs": [
+                { "width": "200px", "targets": 7 }
+                ],
 		});
 	});
 </script>

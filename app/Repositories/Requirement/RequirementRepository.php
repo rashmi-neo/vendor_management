@@ -27,7 +27,7 @@ class RequirementRepository implements RequirementInterface{
      */
     public function get($id)
     {
-        return Requirement::with("vendor","category")->find($id);
+        return Requirement::with("vendor","category","payment")->find($id);
         
     }
 
@@ -237,6 +237,15 @@ class RequirementRepository implements RequirementInterface{
         ->where('vms_requirements.deleted_at',null)
         ->pluck('first_name','id');
     }
+    
+
+    /**
+     * Save the admin comment against vendor quotation.
+     *
+     * @Author Vikas <vikas.salekar@neosofttech.com>
+     * @param $request
+     * @return $vendorQuotationObj
+     */
     public function addComment($request)
     {
         $quotationId = $request->id;
@@ -253,11 +262,12 @@ class RequirementRepository implements RequirementInterface{
             return $vendorQuotationObj;
         }
     }
+    
+    
     public function showQuotationDetails($vendorAssignId)
     {
         return VendorQuotation::where('deleted_at',null)->where('assign_vendor_id',$vendorAssignId)->get();
     }
-
 
     /**
      * Get approved quotation status with vendor
@@ -300,6 +310,13 @@ class RequirementRepository implements RequirementInterface{
 
     }
 
+    /**
+     * Update requirement status
+     *
+     * @Author Bharti <bharati.tadvi@neosofttech.com>
+     * @param $request
+     * @return $updateRequirementStatus
+    */
     public function requirementStatus($request){
         
         $updateRequirementStatus = Requirement::where('id',$request->requirementId) ->update(['status'=>$request->status]);;

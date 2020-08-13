@@ -58,12 +58,13 @@
                id="quotationFile" data-parsley-required="true" data-parsley-required-message="Please upload quotation" 
                data-parsley-trigger = "input"data-parsley-fileextension="pdf,doc,docx",data-parsley-trigger="blur" >
 				  <span class="text-danger error-quotation" role="alert">
-                  </span> 
+               </span> 
                </div>
 			   <div class="form-group mb-3">
-			   {!! Form::label('comment','Comment:',['class'=>"col-sm-2 col-form-label"],false) !!} 
-                  {!! Form::textarea('vendor_comment',null,['class'=>'form-control','id' => 'comment','rows' => 4, 'cols' => 80,
-                  'placeholder'=>'Comment']) !!}
+			      {!! Form::label('comment','Comment:',['class'=>"col-sm-2 col-form-label"],false) !!} 
+               {!! Form::textarea('vendor_comment',null,['class'=>'form-control','id' => 'comment','rows' => 4, 'cols' => 80,'placeholder'=>'Comment','data-parsley-minlength' => '2',
+               'data-parsley-maxlength' => '100','data-parsley-trigger' => "input",
+               'data-parsley-trigger'=>"blur",]) !!}
             </div>
             </div>
             <div class="modal-footer justify-content-between">
@@ -203,10 +204,12 @@
    $('#uploadQuotation').on('hidden.bs.modal', function() {
       
       $('input[type="file"]').val("");
-      $('.parsley-required').empty('parsley-required');
-      $('.parsley-fileextension').empty('parsley-fileextension');
-      $('.parsley-fileextension').empty('parsley-fileextension');
+      $('#comment').val("");
+      $('.parsley-required').empty();
+      $('.parsley-fileextension').empty();
+      $('.parsley-fileextension').empty();
       $('.parsley-error').removeClass('parsley-error');
+      $('.parsley-minlength').empty('');
       $('.parsley-success').removeClass('parsley-success');
 
    });

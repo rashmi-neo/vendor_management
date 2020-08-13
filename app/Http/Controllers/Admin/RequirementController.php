@@ -166,7 +166,7 @@ class RequirementController extends Controller
         $requirementVendors = $this->requirementRepository->getAssignVendors($id);
 
         $getQuotationStatus = $this->requirementRepository->getQuotationStatus($id);
-           
+       
         return view('admin.requirement.show',compact("showRequirementDetails","requirementVendors","getQuotationStatus"));
     }
 

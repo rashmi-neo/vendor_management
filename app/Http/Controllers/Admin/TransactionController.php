@@ -50,6 +50,10 @@ class TransactionController extends Controller
             ->addColumn('vendor_name', function($data){
                 return $data->vendor->first_name. ' '.$data->vendor->last_name;
             })
+            ->addColumn('action', function($row){
+                return view('admin.transactions.action', compact('row'));
+            })
+            ->rawColumns(['action'])
             ->make(true);
         }
     	return view('admin.transactions.index');

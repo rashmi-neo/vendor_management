@@ -1,0 +1,1 @@
+<a href="{{ url('/') }}/uploads/{{ $row->receipt}}">{{ $row->receipt}} <i class="fa fa-download" aria-hidden="true"></i></a>

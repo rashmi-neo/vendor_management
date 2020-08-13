@@ -21,6 +21,13 @@ interface NewRequirementInterface{
      */
     public function find($id);
 
+
+    /**
+     * Get's a Quotation  by it's ID
+     *
+     * @Author Bharti <bharati.tadvi@neosofttech.com>
+     * @param $id
+     */
     public function findQuotation($id);
 
 

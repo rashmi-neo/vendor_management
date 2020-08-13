@@ -167,7 +167,12 @@
                   <div class="form-group row">
                      {!! Form::label('image','Upload Image',['class'=>"col-sm-2 col-form-label"],false) !!} 
                      <div class="col-sm-8">
-                        {!! Form::file('profile_image', array('class' => 'form-control ','placeholder' => 'Profile Image')) !!}
+                        {!! Form::file('profile_image', array('class' => 'form-control ',
+                           'placeholder' => 'Profile Image',
+                           'data-parsley-trigger' => "input",
+                           'data-parsley-fileextension'=>'jpg,png,jpeg',
+                           'data-parsley-trigger'=>"blur",
+                           'data-parsley-maxlength' => '1000')) !!}
                      </div>
                   </div>
                   <div class="form-group row">
@@ -612,6 +617,25 @@
          $('.parsley-error').removeClass('parsley-error');
       });
    });
+   $(document).ready(function() {
+    window.ParsleyValidator.addValidator('fileextension', function (value, requirement) {
+        		var tagslistarr = requirement.split(',');
+            var fileExtension = value.split('.').pop();
+						var arr=[];
+						$.each(tagslistarr,function(i,val){
+   						 arr.push(val);
+						});
+            if(jQuery.inArray(fileExtension, arr)!='-1') {
+              return true;
+            } else {
+              return false;
+            }
+        }, 32)
+      .addMessage('en', 'fileextension', 'The extension should be jpg,png and jpeg');
+
+    $("#vendorForm").parsley();
+    
+});
 
 </script>
 

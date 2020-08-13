@@ -83,8 +83,6 @@ width:100px;
         <!-- /.modal-content -->
 </div>
 <!-- /.modal-dialog -->
-
-
 @endsection
 @section('scripts')
 @if(session()->get('success'))

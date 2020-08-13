@@ -140,10 +140,6 @@
         <!-- /.modal-content -->
 </div>
 <!-- /.modal-dialog -->
-
-
-
-
 @endsection
 @section('scripts')
 <script type="text/javascript">

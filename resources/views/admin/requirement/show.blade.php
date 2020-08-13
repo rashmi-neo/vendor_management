@@ -208,7 +208,6 @@
       <!-- /.modal-dialog -->
    </div>
 {!! Form::close() !!}
-
 @endsection
 @section('scripts')
 <script>

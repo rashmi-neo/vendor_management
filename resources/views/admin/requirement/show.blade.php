@@ -230,7 +230,7 @@
     });
 
     $("#uploadReceipt").click(function (e) {
-        $('#amount').val("");
+        
         var form = $('#PaymentForm');
         form.parsley().validate();
         $.ajaxSetup({

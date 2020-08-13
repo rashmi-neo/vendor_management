@@ -199,7 +199,7 @@
                 </div>
             </div>
             <div class="modal-footer justify-content-between">
-               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+               <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                {!! Form::button('Save', ['type' => 'button','id'=>'uploadReceipt','class' => 'btn btn-primary'] ) !!}
             </div>
          </div>
@@ -230,7 +230,7 @@
     });
 
     $("#uploadReceipt").click(function (e) {
-        
+        $('#amount').val("");
         var form = $('#PaymentForm');
         form.parsley().validate();
         $.ajaxSetup({

@@ -53,7 +53,7 @@
                     <div class="modal-body">
                     <div class="form-group">
                         <div>
-                            {!! Form::label('rating','Rating:',['class'=>"col-sm-2 col-form-label"],false) !!} 
+                            {!! Form::label('rating','Rating:',['class'=>"col-sm-2 required col-form-label"],false) !!} 
                                 <!-- Rating Stars Box -->
                                 <div class='rating-stars text-center'>
                                     <ul id='stars'>
@@ -79,7 +79,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                    {!! Form::label('review','Review:',['class'=>"col col-form-label"],false) !!} 
+                    {!! Form::label('review','Review:',['class'=>"col required col-form-label"],false) !!} 
                         <div>
                             {!! Form::textarea('review', null, ['class' => 'form-control','id' => 'review','rows'=>'4','cols'=>'4','placeholder' => 'Review',
                             'data-parsley-required' => 'true',

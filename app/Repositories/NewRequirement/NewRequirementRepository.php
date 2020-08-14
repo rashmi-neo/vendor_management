@@ -56,7 +56,13 @@ class  NewRequirementRepository implements NewRequirementInterface{
 
     }
 
-
+    /**
+     * Find a Quotation by Requirement's ID
+     *
+     * @Author Bharti <bharati.tadvi@neosofttech.com>
+     * @param $id
+     * @return collection
+     */
     public function findQuotation($id){
         $vendorId = Vendor::where('user_id',\Auth::user()->id)->first();
         
@@ -71,11 +77,11 @@ class  NewRequirementRepository implements NewRequirementInterface{
     }
 
     /**
-     * Updates a New requirement
+     * Upload a New quotation
      *
      * @Author Bharti <bharati.tadvi@neosofttech.com>
      * @param $id,$data
-     * @return 
+     * @return true,false
     */
     public function update($id,$data)
     {   

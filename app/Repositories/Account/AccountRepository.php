@@ -23,6 +23,13 @@ class AccountRepository implements AccountInterface{
         
     }
     
+    /**
+     * Find a Login Vendor.
+     *
+     * @Author Bharti <bharati.tadvi@neosofttech.com>
+     * @param  void
+     * @return $vendorUser
+     */
     public function findVendor(){
         
         $userId = Auth::user()->id;
@@ -36,7 +43,7 @@ class AccountRepository implements AccountInterface{
      *
      * @Author Bharti <bharati.tadvi@neosofttech.com>
      * @param  $data
-     * @return 
+     * @return $vendorDocument
      */
     public function documentSave($data)
     {
@@ -60,7 +67,7 @@ class AccountRepository implements AccountInterface{
      *
      * @Author Bharti <bharati.tadvi@neosofttech.com>
      * @param  $data
-     * @return 
+     * @return $contactObject
      */
     public function supportContactSave($data)
     {
@@ -81,7 +88,7 @@ class AccountRepository implements AccountInterface{
      *
      * @Author Bharti <bharati.tadvi@neosofttech.com>
      * @param  $data
-     * @return 
+     * @return $bankDetail
      */
     public function bankDetailSave($data)
     {
@@ -102,7 +109,7 @@ class AccountRepository implements AccountInterface{
      *
      * @Author Bharti <bharati.tadvi@neosofttech.com>
      * @param $id,$data
-     * @return 
+     * @return $user
      */
     public function updateVendor($id,$data)
     {

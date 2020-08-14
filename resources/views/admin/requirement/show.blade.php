@@ -157,7 +157,7 @@
             </div>
             <div class="modal-body">
                <div class="form-group mb-3">
-                    {!! Form::label('Receipt','Payment Receipt:',['class'=>"col-sm-5 col-form-label"],false) !!} 
+                    {!! Form::label('Receipt','Payment Receipt:',['class'=>"col-sm-5 required col-form-label"],false) !!} 
                     {!! Form::file('payment_file', array('class' => 'form-control ','id' => 'paymentFile',
                     'placeholder' => 'Payment file',
                     'data-parsley-required' => 'true',
@@ -169,7 +169,7 @@
                     </span> 
                </div>
                <div class="form-group mb-3">
-                    {!! Form::label('amount','Amount:',['class'=>"col-sm-5 col-form-label"],false) !!} 
+                    {!! Form::label('amount','Amount:',['class'=>"col-sm-5 required col-form-label"],false) !!} 
                     {!! Form::text('amount',null,['class' => 'form-control ','id' => 'amount','placeholder' => 'Amount','data-parsley-required' => 'true',
                     'data-parsley-required-message' => 'Please add amount',
                     'data-parsley-trigger' => "input",
@@ -181,7 +181,7 @@
                     </span> 
                 </div>
                 <div class="form-group mb-3">
-                    {!! Form::label('payment_date','Payment Date:',['class'=>"col-sm-5 col-form-label"],false) !!} 
+                    {!! Form::label('payment_date','Payment Date:',['class'=>"col-sm-5 required col-form-label"],false) !!} 
                     {!! Form::text('payment_date',null,['class' => 'form-control','id' => 'paymentDate','placeholder' => 'Payment Date','data-parsley-required' => 'true',
                     'data-parsley-required-message' => 'Please add Payment date',
                     'data-parsley-trigger' => "input",

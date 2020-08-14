@@ -71,3 +71,9 @@
   background-color:#0c7fc1;
   color:white;
 }
+label.required:after {
+  color: #cc0000;
+  content: "*";
+  font-weight: bold;
+  margin-left: 3px;
+}

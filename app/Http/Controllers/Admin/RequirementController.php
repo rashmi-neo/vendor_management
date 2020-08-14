@@ -85,7 +85,7 @@ class RequirementController extends Controller
     *@return void
     */
     public function store(StoreRequirementRequest $request){
-
+       
         $requestData =$request;
         $username =\Auth::user()->username;
         try {

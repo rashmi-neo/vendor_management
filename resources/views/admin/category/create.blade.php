@@ -26,7 +26,8 @@
             'method' => 'post','data-parsley-validate' => 'parsley']) !!}
             	@csrf
 				<div class="form-group row">
-					 <label for="inputName" class="col-sm-2 col-form-label">Name</label>
+					 <label for="inputName" class="col-sm-2 col-form-label">Name <span class="text-red ml-2">*</span></label>
+					 
 					 	<div class="col-sm-8">
 							{!! Form::text('name', null, ['class' => 'form-control ','placeholder' => 'Category Name',
 							'data-parsley-required' => 'true',
@@ -44,7 +45,8 @@
 	                    </div>
 				</div>
 				<div class="form-group row">
-					<label for="inputStatus" class="col-sm-2 col-form-label">Status</label>
+					<label for="inputStatus" class="col-sm-2 col-form-label">Status
+					<span class="text-red ml-2">*</span></label></label>
 					<div class="form-check ml-1 mt-2">
 						{{ Form::radio('status', '1', true, array('class'=>'form-check-input','id'=>'activeCheck')) }}
 						{{ Form::label('status', 'Active',array('class'=>'form-check-label')) }}

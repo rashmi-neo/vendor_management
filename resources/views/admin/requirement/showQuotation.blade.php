@@ -90,7 +90,7 @@
                 <div class="modal-body">
                 <div class="form-group">
                     <div>
-                    {!! Form::label('comment', 'Comment',['class' => 'col-sm-3 label_class']) !!}
+                    {!! Form::label('comment', 'Comment:',['class' => 'col-sm-3 required label_class']) !!}
                     {!! Form::textarea('comment',null,['class' => 'form-control ','placeholder' => 'Comment','id'=>'comment',
                     'data-parsley-required' => 'true',
                     'data-parsley-required-message' => 'Please add comment',

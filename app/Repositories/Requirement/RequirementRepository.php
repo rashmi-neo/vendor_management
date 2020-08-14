@@ -55,7 +55,7 @@ class RequirementRepository implements RequirementInterface{
      */
     public function save($data)
     {
-
+        
         $requirementObj = new Requirement();
         $requirementObj->category_id = $data->category_id;
         $requirementObj->code = getRequirementCode();
@@ -68,29 +68,35 @@ class RequirementRepository implements RequirementInterface{
         {
             $requirementObj->description = $data->description;
         }
+        
         $requirementObj->comment = $data->comment;
         $requirementObj->budget = $data->budget;
         $requirementObj->from_date =  $data->fromDate;
         $requirementObj->to_date = $data->toDate;
-        $requirementObj->priority = $data->priority;
-        $vendors = $data->vendor_id;
+        
+        if($data->priority== null){
+            $requirementObj->priority = "";
+        }
 
+        $requirementObj->priority = $data->priority;
+        
+        $vendors = $data->vendor_id;
+        
         if ($document = $data->file('proposal_document')) {
             $path = '/';
-            $data = uploadFile($document,$path);
-            $requirementObj->proposal_document = $data;
+            $dataFile = uploadFile($document,$path);
+            $requirementObj->proposal_document = $dataFile;
         }
+        
         $requirementObj->save();
-
+       
         foreach($vendors as $vendor){
             $assignVendor = new AssignVendor();
             $assignVendor->vendor_id = $vendor;
             $assignVendor->requirement_id = $requirementObj->id;
             $assignVendor->save();
         }
-
-       // $emailResp = $this->sendMailToVendor($data);
-
+       
         return  $requirementObj;
     }
 

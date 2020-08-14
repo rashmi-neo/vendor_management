@@ -26,7 +26,7 @@
                 @csrf
                 @method('PUT')
                 <div class="form-group row">
-                    {!! Form::label('title','Title',['class' => 'col-sm-3 label_class']) !!}
+                    {!! Form::label('title','Title',['class' => 'col-sm-3 required label_class']) !!}
                         <div class="col-sm-7">
                             {!! Form::text('title', $requirementEditDetails->title, ['class' => 'form-control','placeholder' => 'Title',
                             'data-parsley-required' => 'true',
@@ -72,7 +72,7 @@
 				 		</div>
                     </div>
                     <div class="form-group row">
-                        {!! Form::label('budget', 'Budget',['class' => 'col-sm-3 label_class']) !!}
+                        {!! Form::label('budget', 'Budget',['class' => 'col-sm-3 required label_class']) !!}
                             <div class="col-sm-7">
                                 {!! Form::text('budget', $requirementEditDetails->budget, ['class' => 'form-control ','placeholder' => 'Budget',
                                 'data-parsley-required' => 'true',
@@ -91,7 +91,7 @@
                             </div>
                     </div>
                     <div class="form-group row">
-                        {!! Form::label('fromDate', 'From Date',['class' => 'col-sm-3 label_class']) !!}
+                        {!! Form::label('fromDate', 'From Date',['class' => 'col-sm-3 required label_class']) !!}
                             <div class="col-sm-7">
                                 {!! Form::text('fromDate', $requirementEditDetails->from_date, ['class' => 'form-control ','data-date-format'=>'yyyy-mm-dd','id'=>'requirmentFromDate','placeholder' => 'Select From date',
                                 'data-parsley-required' => 'true',
@@ -107,7 +107,7 @@
                             </div>
                     </div>
                     <div class="form-group row">
-                        {!! Form::label('toDate', 'To Date',['class' => 'col-sm-3 label_class']) !!}
+                        {!! Form::label('toDate', 'To Date',['class' => 'col-sm-3 required label_class']) !!}
                             <div class="col-sm-7">
                                 {!! Form::text('toDate', $requirementEditDetails->to_date, ['class' => 'form-control ','data-date-format'=>'yyyy-mm-dd','id'=>'requirmentToDate','placeholder' => 'Select To date',
                                 'data-parsley-required' => 'true',
@@ -140,7 +140,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        {!! Form::label('document', 'Proposal Document(if/any)',['class' => 'col-sm-3 label_class']) !!}
+                        {!! Form::label('document', 'Proposal Document(if/any)',['class' => 'col-sm-3 required label_class']) !!}
                         <div class="col-sm-7">
                             {!! Form::file('proposal_document', array('class' => 'form-control ','placeholder' => 'Proposal Document')) !!}
                             <div>{{$requirementEditDetails->proposal_document}}</div>

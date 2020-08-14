@@ -22,7 +22,7 @@ class CreateVmsRequirementsTable extends Migration
             $table->string('budget',100);
             $table->date('from_date');
             $table->date('to_date');
-            $table->enum('priority', ['low','medium', 'high'])->nullable();
+            $table->enum('priority', ['low','medium', 'high',''])->nullable();
             $table->string('proposal_document',100);
             $table->text('comment')->nullable();
             $table->enum('status', ['in_progress','approved', 'completed','cancelled'])->default('in_progress');

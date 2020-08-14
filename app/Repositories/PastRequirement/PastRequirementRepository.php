@@ -19,7 +19,7 @@ class  PastRequirementRepository implements PastRequirementInterface{
      *
      *@Author Bharti <bharti.tadvi@neosofttech.com>
      *@param  void
-     *@return 
+     *@return $requirements
      */
     public function all()
     {

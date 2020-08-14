@@ -26,7 +26,7 @@
             @csrf
             @method('PUT')
             <div class="form-group row">
-            {!! Form::label('user_name','Username',['class'=>"col-sm-2 col-form-label"],false) !!} 
+            {!! Form::label('user_name','Username',['class'=>"col-sm-2 required col-form-label"],false) !!} 
                <div class="col-sm-8">
                   {!! Form::text('username', $user->username, ['class' => 'form-control ','placeholder' => 'Username',
                   'data-parsley-required' => 'true',
@@ -43,7 +43,7 @@
                </div>
             </div>
             <div class="form-group row">
-               {!! Form::label('email','Email',['class'=>"col-sm-2 col-form-label"],false) !!} 
+               {!! Form::label('email','Email',['class'=>"col-sm-2 required col-form-label"],false) !!} 
                <div class="col-sm-8">
                   {!! Form::email('email', $user->email, ['class' => 'form-control ','placeholder' => 'Email Address',
                   'data-parsley-required' => 'true',
@@ -60,7 +60,7 @@
                </div>
             </div>
             <div class="form-group row">
-               {!! Form::label('current_password','Current Password',['class'=>"col-sm-2 col-form-label"],false) !!} 
+               {!! Form::label('current_password','Current Password',['class'=>"col-sm-2 required col-form-label"],false) !!} 
                <div class="col-sm-8">
                   {!! Form::password('current_password', ['class' => 'form-control ','placeholder' => 'Current Password',
                   'data-parsley-required' => 'true',
@@ -77,7 +77,7 @@
                </div>
             </div>
             <div class="form-group row">
-               {!! Form::label('new_password','New Password',['class'=>"col-sm-2 col-form-label"],false) !!} 
+               {!! Form::label('new_password','New Password',['class'=>"col-sm-2 required  col-form-label"],false) !!} 
                <div class="col-sm-8">
                   {!! Form::password('new_password',array('class' => 'form-control','id' => 'newPassword','placeholder' => 'New  Password',
                   'data-parsley-required' => 'true',
@@ -94,7 +94,7 @@
                </div>
             </div>
             <div class="form-group row">
-               {!! Form::label('confirm_password','Confirm New Password',['class'=>"col-sm-2 col-form-label"],false) !!} 
+               {!! Form::label('confirm_password','Confirm New Password',['class'=>"col-sm-2 required col-form-label"],false) !!} 
                <div class="col-sm-8">
                   {!! Form::password('new_confirm_password', ['class' => 'form-control','placeholder' => 'Confirm New Password',
                   'data-parsley-required' => 'true',

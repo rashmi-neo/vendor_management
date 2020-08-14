@@ -42,6 +42,28 @@ $(document).ready(function(){
         }
       });
     });
+    window.ParsleyValidator.addValidator('fileextension', function (value, requirement) {
+      var tagslistarr = requirement.split(',');
+      var fileExtension = value.split('.').pop();
+      var arr=[];
+      $.each(tagslistarr,function(i,val){
+          arr.push(val);
+      });
+      if(jQuery.inArray(fileExtension, arr)!='-1') {
+        return true;
+      } else {
+        return false;
+      }
+  }, 32)
+  .addMessage('en', 'fileextension', 'The extension should be jpg,png and jpeg');
+  $("#vendorForm").parsley();
+   
+    window.ParsleyValidator.addValidator('urlstrict', function (value, requirement){
+
+        var regExp = /^(ftp|http|https):\/\/[^ "]+$/;
+        return '' !== value ? regExp.test( value ) : false;
+    }, 32)
+    .addMessage('en', 'urlstrict', 'Must be a valid strict URL');
   });
 
 function markAsRead(id)

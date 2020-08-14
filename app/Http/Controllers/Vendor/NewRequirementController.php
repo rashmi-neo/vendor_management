@@ -49,14 +49,12 @@ class NewRequirementController extends Controller
            
             return Datatables::of($data)
             ->addIndexColumn()
-
-            ->addColumn('category_name', function($data) use ($categories){
-               
-                foreach($categories->vendorCategory as $category){
-                    $categoryName[] = $category->category->name;
-                }
-                return $categoryName;
+            ->editColumn('priority',function ($row){
+                return empty($row->priority)? "-":$row->priority;
             })
+            ->editColumn('category_name', function ($row){
+                return $row->category->name;
+             })
             ->addColumn('action', function($row){
                 return view('vendorUser.newRequirement.actions', compact('row'));
             })

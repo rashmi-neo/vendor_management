@@ -37,7 +37,6 @@
          </thead>
          <tbody>
          @foreach($quotations as $quotation)
-
             <tr>
                <td>{{$quotation->id}}</td>
                <td>{{$quotation->quotation_doc}}</td>
@@ -45,13 +44,9 @@
                <td>{{empty($quotation->admin_comment)?"-":$quotation->admin_comment}}</td>
                <td>{{ucfirst($quotation->status)}}</td>
             </tr>
-            @endforeach
-
+         @endforeach
          </tbody>
       </table>
    </div>
 </div>
-
-
-
 @endsection

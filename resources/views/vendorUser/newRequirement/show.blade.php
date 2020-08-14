@@ -46,9 +46,7 @@
                <td>{{$newRequirement->from_date}}</td>
                <td>{{$newRequirement->from_date}}</td>
                <td>
-                  @foreach($category->vendorCategory as $cat)
-                  <li>{{$cat->category->name}}</li>
-                  @endforeach
+                  {{$newRequirement->category->name}}
                </td>
                <td width="240px"><a href="{{ url('/') }}/uploads/{{$newRequirement->proposal_document}}">{{$newRequirement->proposal_document}} <i class="fa fa-download" aria-hidden="true"></i></a></td>
                <td>{{$newRequirement->budget}}</td>

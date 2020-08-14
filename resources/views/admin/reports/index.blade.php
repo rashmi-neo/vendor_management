@@ -90,7 +90,7 @@
                   <div class="box-tools pull-right">
                   </div>
                </div>
-               <div class="box-body">
+               <div class="box-body px-5">
                   <div class="chart">
                      {!! $totalRequirementChart->container() !!}
                   </div>

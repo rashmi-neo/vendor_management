@@ -25,7 +25,7 @@
                 {!! Form::open(['route' => 'requirements.store','class' => 'form-horizontal','id' => 'requirementForm','method' => 'post','data-parsley-validate' => 'parsley','enctype' =>'multipart/form-data']) !!}
                 @csrf
                 <div class="form-group row">
-                    {!! Form::label('title', 'Title',['class' => 'col-sm-3 required label_class']) !!}
+                    {!! Form::label('title', 'Title :',['class' => 'col-sm-3 required label_class']) !!}
                         <div class="col-sm-7">
                             {!! Form::text('title', null, ['class' => 'form-control','placeholder' => 'Title',
                             'data-parsley-required' => 'true',
@@ -44,7 +44,7 @@
                        </div>
                     </div>
                     <div class="form-group row">
-                        {!! Form::label('category_id', 'Category',['class' => 'col-sm-3 required label_class']) !!}
+                        {!! Form::label('category_id', 'Category :',['class' => 'col-sm-3 required label_class']) !!}
                         <div class="col-sm-7">
                             {!! Form::select('category_id',$categories,null, array('class'=>'form-control', 'id'=>'category_id','placeholder'=>'Select Category', 'data-parsley-required' => 'true',
                             'data-parsley-required-message' => 'Please select category',
@@ -58,7 +58,7 @@
                         </div>
                     </div>
 					 <div class="form-group row">
-                        {!! Form::label('vendor_id', 'Select Vendors',['class' => 'col-sm-3 required label_class']) !!}
+                        {!! Form::label('vendor_id', 'Select Vendors:',['class' => 'col-sm-4 required label_class']) !!}
 				 		<div class="col-sm-7">
                             {!! Form::select('vendor_id[]',[],null, array('class'=>'form-control vendor','multiple'=>'multiple','id'=>'vendor', 'data-parsley-required' => 'true',
                             'data-parsley-required-message' => 'Please select vendor',
@@ -74,7 +74,7 @@
 				 		</div>
                     </div>
                     <div class="form-group row">
-                        {!! Form::label('budget', 'Budget',['class' => 'col-sm-3 required label_class']) !!}
+                        {!! Form::label('budget', 'Budget :',['class' => 'col-sm-3 required label_class']) !!}
                             <div class="col-sm-7">
                                 {!! Form::text('budget', null, ['class' => 'form-control ','placeholder' => 'Budget',
                                 'data-parsley-required' => 'true',
@@ -93,7 +93,7 @@
                             </div>
                     </div>
                     <div class="form-group row">
-                        {!! Form::label('fromDate', 'From Date',['class' => 'col-sm-3 required label_class']) !!}
+                        {!! Form::label('fromDate', 'From Date :',['class' => 'col-sm-3 required label_class']) !!}
                             <div class="col-sm-7">
                                 {!! Form::text('fromDate', null, ['class' => 'form-control','data-date-format'=>'yyyy-mm-dd','id'=>'requirmentFromDate','placeholder' => 'Select From date',
                                 'data-parsley-required' => 'true',
@@ -109,7 +109,7 @@
                             </div>
                     </div>
                     <div class="form-group row">
-                        {!! Form::label('toDate', 'To Date',['class' => 'col-sm-3 required label_class']) !!}
+                        {!! Form::label('toDate', 'To Date :',['class' => 'col-sm-3 required label_class']) !!}
                             <div class="col-sm-7">
                                 {!! Form::text('toDate', null, ['class' => 'form-control toDate','data-date-format'=>'yyyy-mm-dd','id'=>'requirmentToDate','placeholder' => 'Select To date',
                                 'data-parsley-required' => 'true',
@@ -127,13 +127,13 @@
                             </div>
                     </div>
                     <div class="form-group row">
-                        {!! Form::label('priority', 'Priority',['class' => 'col-sm-3 label_class']) !!}
+                        {!! Form::label('priority', 'Priority :',['class' => 'col-sm-3 label_class']) !!}
                         <div class="col-sm-7">
                             {!! Form::select('priority',['low' => 'Low', 'medium' => 'Medium','high'=>'High'],null, array('class'=>'form-control', 'placeholder'=>'Select priority')) !!}
                         </div>
                     </div>
                     <div class="form-group row">
-                        {!! Form::label('document', 'Proposal Document(if/any)',['class' => 'col-sm-3 required label_class']) !!}
+                        {!! Form::label('document', 'Proposal Document(if/any) :',['class' => 'col-sm-3 required label_class']) !!}
                         <div class="col-sm-7">
                             {!! Form::file('proposal_document', array('class' => 'form-control ','placeholder' => 'Proposal Document',
                             'data-parsley-required' => 'true',
@@ -148,13 +148,13 @@
                         </div>
                     </div>
 				 	<div class="form-group row">
-                        {!! Form::label('description', 'Description',['class' => 'col-sm-3 label_class']) !!}
+                        {!! Form::label('description', 'Description :',['class' => 'col-sm-3 label_class']) !!}
 						   <div class="col-sm-7">
                                 {!! Form::textarea('description', null, ['class' => 'form-control ','placeholder' => 'Brief description']) !!}
 						 	</div>
 				 	</div>
 				 	<div class="form-group row">
-                        {!! Form::label('comment', 'Note/Special Comment',['class' => 'col-sm-3 label_class']) !!}
+                        {!! Form::label('comment', 'Note/Special Comment :',['class' => 'col-sm-3 label_class']) !!}
 						   <div class="col-sm-7">
                                 {!! Form::textarea('comment', null, ['class' => 'form-control ','placeholder' => 'Special Comment']) !!}
 						 	</div>

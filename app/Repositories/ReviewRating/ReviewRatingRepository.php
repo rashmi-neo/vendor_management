@@ -17,7 +17,6 @@ class  ReviewRatingRepository implements ReviewRatingInterface{
 	$this->reviewRating = $reviewRating;
     }
     
-
     /**
      * Get's all reviews and ratings.
      *
@@ -51,7 +50,7 @@ class  ReviewRatingRepository implements ReviewRatingInterface{
     
 
     /**
-     * Save review and rating
+     * Find vendor who's requirement status is approved 
      *
      * @Author Bharti <bharati.tadvi@neosofttech.com>
      * @param $data
@@ -66,7 +65,7 @@ class  ReviewRatingRepository implements ReviewRatingInterface{
 
 
     /**
-     * Get vendor rating
+     * Get's a vendor rating as per login vendor
      *
      * @Author Bharti <bharati.tadvi@neosofttech.com>
      * @param $data

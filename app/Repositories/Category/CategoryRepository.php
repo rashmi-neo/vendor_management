@@ -24,7 +24,7 @@ class CategoryRepository implements CategoryInterface{
      *
      *@Author Pooja <pooja.lavhat@neosofttech.com>
      *@param  void
-     *@return $product
+     *@return $category
      */
     public function all()
     {
@@ -38,7 +38,7 @@ class CategoryRepository implements CategoryInterface{
      *
      * @Author Pooja <pooja.lavhat@neosofttech.com>
      * @param  $data
-     * @return $category
+     * @return collection
      */
     public function save(array $data)
     {
@@ -50,7 +50,7 @@ class CategoryRepository implements CategoryInterface{
      * Updates a category.
      *
      * @param int
-     * @param $array
+     * @param collection
      */
     public function update($id,array $data)
     {
@@ -61,7 +61,7 @@ class CategoryRepository implements CategoryInterface{
      * Deletes a category.
      *
      * @Author Pooja <pooja.lavhat@neosofttech.com>
-     * @param int
+     * @param collection
      */
     public function delete($id)
     {

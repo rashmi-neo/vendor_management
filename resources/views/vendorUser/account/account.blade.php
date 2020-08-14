@@ -45,7 +45,7 @@
                   <input type="hidden" name="user_id" value="{{$vendor->user_id}}"/>
 
                   <div class="form-group row">
-                     {!! Form::label('firstName','First Name',['class'=>"col-sm-2 col-form-label"],false) !!} 
+                     {!! Form::label('firstName','First Name :',['class'=>"col-sm-2 required col-form-label"],false) !!} 
                      <div class="col-sm-8">
                         {!! Form::text('first_name', null, ['class' => 'form-control ','placeholder' => 'First Name',
                         'data-parsley-required' => 'true',
@@ -64,7 +64,7 @@
                      </div>
                   </div>
                   <div class="form-group row">
-                     {!! Form::label('middleName','Middle Name',['class'=>"col-sm-2 col-form-label"],false) !!} 
+                     {!! Form::label('middleName','Middle Name :',['class'=>"col-sm-2 required col-form-label"],false) !!} 
                      <div class="col-sm-8">
                         {!! Form::text('middle_name', $vendor->middle_name, ['class' => 'form-control ','placeholder' => 'Middle Name',
                         'data-parsley-trigger' => "input",
@@ -76,7 +76,7 @@
                      </div>
                   </div>
                   <div class="form-group row">
-                     {!! Form::label('lastName','Last Name',['class'=>"col-sm-2 col-form-label"],false) !!} 
+                     {!! Form::label('lastName','Last Name :',['class'=>"col-sm-2 required col-form-label"],false) !!} 
                      <div class="col-sm-8">
                         {!! Form::text('last_name', $vendor->last_name, ['class' => 'form-control ','placeholder' => 'Last Name',
                         'data-parsley-required' => 'true',
@@ -96,7 +96,7 @@
                      </div>
                   </div>
                   <div class="form-group row">
-                     {!! Form::label('phone_number','Phone Number',['class'=>"col-sm-2 col-form-label"],false) !!} 
+                     {!! Form::label('phone_number','Phone Number :',['class'=>"col-sm-2 required col-form-label"],false) !!} 
                      <div class="col-sm-8">
                         {!! Form::text('phone_number', $vendor->mobile_number, ['class' => 'form-control ','placeholder' => 'Phone Number',
                         'data-parsley-required' => 'true',
@@ -115,7 +115,7 @@
                      </div>
                   </div>
                   <div class="form-group row">
-                     {!! Form::label('email_address','Email Address',['class'=>"col-sm-2 col-form-label"],false) !!} 
+                     {!! Form::label('email_address','Email Address :',['class'=>"col-sm-2 required col-form-label"],false) !!} 
                      <div class="col-sm-8">
                         {!! Form::email('email', $vendor->user->email, ['class' => 'form-control ','placeholder' => 'Email Address',
                         'data-parsley-required' => 'true',
@@ -131,7 +131,7 @@
                      </div>
                   </div>
                   <div class="form-group row">
-                     {!! Form::label('current_password','Current Password',['class'=>"col-sm-2 col-form-label"],false) !!} 
+                     {!! Form::label('current_password','Current Password :',['class'=>"col-sm-2 required col-form-label"],false) !!} 
                      <div class="col-sm-8">
                         {!! Form::password('current_password', ['class' => 'form-control ','placeholder' => 'Current Password',
                         'data-parsley-required' => 'true',
@@ -148,7 +148,7 @@
                      </div>
                   </div>
                   <div class="form-group row">
-                     {!! Form::label('new_password','New Password',['class'=>"col-sm-2 col-form-label"],false) !!} 
+                     {!! Form::label('new_password','New Password :',['class'=>"col-sm-2 required col-form-label"],false) !!} 
                      <div class="col-sm-8">
                         {!! Form::password('new_password',array('class' => 'form-control','placeholder' => 'New  Password',
                         'data-parsley-required' => 'true',
@@ -165,7 +165,7 @@
                      </div>
                   </div>
                   <div class="form-group row">
-                     {!! Form::label('image','Upload Image',['class'=>"col-sm-2 col-form-label"],false) !!} 
+                     {!! Form::label('image','Upload Image :',['class'=>"col-sm-2 col-form-label"],false) !!} 
                      <div class="col-sm-8">
                         {!! Form::file('profile_image', array('class' => 'form-control ',
                            'placeholder' => 'Profile Image',
@@ -190,7 +190,7 @@
                   @csrf
                   <input type="hidden" name="tab" value="company-detail">
                   <div class="form-group row">
-                  {!! Form::label('company_name','Company Name',['class'=>"col-sm-2 col-form-label"],false) !!} 
+                  {!! Form::label('company_name','Company Name :',['class'=>"col-sm-2 required col-form-label"],false) !!} 
                      <div class="col-sm-8">
                         {!! Form::text('company_name', $vendor->company->company_name, ['class' => 'form-control ',
                         'placeholder' => 'Company Name',
@@ -209,7 +209,7 @@
                      </div>
                   </div>
                   <div class="form-group row">
-                  {!! Form::label('company_address','Company Address',['class'=>"col-sm-2 col-form-label"],false) !!} 
+                  {!! Form::label('company_address','Company Address :',['class'=>"col-sm-2 required col-form-label"],false) !!} 
                      <div class="col-sm-8">
                         {!! Form::text('company_address', $vendor->company->address, ['class' => 'form-control ',
                         'placeholder' => 'Company Address',
@@ -228,7 +228,7 @@
                      </div>
                   </div>
                   <div class="form-group row">
-                  {!! Form::label('contact_number','Contact Number',['class'=>"col-sm-2 col-form-label"],false) !!} 
+                  {!! Form::label('contact_number','Contact Number :',['class'=>"col-sm-2 required col-form-label"],false) !!} 
                      <div class="col-sm-8">
                         {!! Form::text('contact_number', $vendor->company->contact_number, ['class' => 'form-control ',
                         'placeholder' => 'Company Contact Number',
@@ -248,7 +248,7 @@
                      </div>
                   </div>
                   <div class="form-group row">
-                  {!! Form::label('state','State',['class'=>"col-sm-2 col-form-label"],false) !!} 
+                  {!! Form::label('state','State :',['class'=>"col-sm-2 required col-form-label"],false) !!} 
                      <div class="col-sm-8">
                         {!! Form::text('state', $vendor->company->state, ['class' => 'form-control ',
                         'placeholder' => 'state',
@@ -268,7 +268,7 @@
                      </div>
                   </div>
                   <div class="form-group row">
-                  {!! Form::label('city','City',['class'=>"col-sm-2 col-form-label"],false) !!} 
+                  {!! Form::label('city','City :',['class'=>"col-sm-2 required col-form-label"],false) !!} 
                      <div class="col-sm-8">
                         {!! Form::text('city', $vendor->company->city, ['class' => 'form-control ',
                         'placeholder' => 'City',
@@ -288,7 +288,7 @@
                      </div>
                   </div>
                   <div class="form-group row">
-                     {!! Form::label('pincode','Pincode',['class'=>"col-sm-2 col-form-label"],false) !!} 
+                     {!! Form::label('pincode','Pincode :',['class'=>"col-sm-2 required col-form-label"],false) !!} 
                      <div class="col-sm-8">
                         {!! Form::text('pincode', $vendor->company->pincode, ['class' => 'form-control ',
                         'placeholder' => 'Pincode',
@@ -358,7 +358,7 @@
                   <input type="hidden" name="tab" value="supportContactDetail">
                   <input type="hidden" name="vendor_id" value="{{$vendor->id}}"/>
                   <div class="form-group row">
-                  {!! Form::label('name','Name',['class'=>"col-sm-2 col-form-label"],false) !!} 
+                  {!! Form::label('name','Name :',['class'=>"col-sm-2 required col-form-label"],false) !!} 
                      <div class="col-sm-8">
                         {!! Form::text('name', null, ['class' => 'form-control ','placeholder' => 'Name',
                         'data-parsley-required' => 'true',
@@ -379,7 +379,7 @@
                      </div>
                   </div>
                   <div class="form-group row">
-                  {!! Form::label('phone_number','Phone Number',['class'=>"col-sm-2 col-form-label"],false) !!} 
+                  {!! Form::label('phone_number','Phone Number :',['class'=>"col-sm-2 required col-form-label"],false) !!} 
                      <div class="col-sm-8">
                         {!! Form::text('contact_number', null, ['class' => 'form-control ','placeholder' => 'Phone Number',
                         'data-parsley-required' => 'true',
@@ -397,7 +397,7 @@
                      </div>
                   </div>
                   <div class="form-group row">
-                  {!! Form::label('email_address','Email Address',['class'=>"col-sm-2 col-form-label"],false) !!} 
+                  {!! Form::label('email_address','Email Address :',['class'=>"col-sm-2 required col-form-label"],false) !!} 
                      <div class="col-sm-8">
                         {!! Form::email('email_address', null, ['class' => 'form-control ','placeholder' => 'Email Address',
                         'data-parsley-required' => 'true',
@@ -428,7 +428,7 @@
                   <input type="hidden" name="vendor_id" value="{{$vendor->id}}"/>
                   <input type="hidden" name="tab" value="bankDetail">
                   <div class="form-group row">
-                  {!! Form::label('bank_name','Bank Name',['class'=>"col-sm-2 col-form-label"],false) !!} 
+                  {!! Form::label('bank_name','Bank Name :',['class'=>"col-sm-3 required col-form-label"],false) !!} 
                      <div class="col-sm-8">
                         {!! Form::text('bank_name', null, ['class' => 'form-control ','placeholder' => 'Bank Name',
                         'data-parsley-required' => 'true',
@@ -447,7 +447,7 @@
                      </div>
                   </div>
                   <div class="form-group row">
-                  {!! Form::label('account_holder_name','Account Holder Name',['class'=>"col-sm-2 col-form-label"],false) !!} 
+                  {!! Form::label('account_holder_name','Account Holder Name :',['class'=>"col-sm-3 required col-form-label"],false) !!} 
                      <div class="col-sm-8">
                         {!! Form::text('account_holder_name', null, ['class' => 'form-control ','placeholder' => 'Account Holder Name',
                         'data-parsley-required' => 'true',
@@ -467,7 +467,7 @@
                      </div>
                   </div>
                   <div class="form-group row">
-                  {!! Form::label('account_number','Account Number',['class'=>"col-sm-2 col-form-label"],false) !!} 
+                  {!! Form::label('account_number','Account Number :',['class'=>"col-sm-3 required col-form-label"],false) !!} 
                      <div class="col-sm-8">
                         {!! Form::text('account_number', null, ['class' => 'form-control ','placeholder' => 'Account Number',
                         'data-parsley-required' => 'true',
@@ -486,7 +486,7 @@
                      </div>
                   </div>
                   <div class="form-group row">
-                  {!! Form::label('ifsc_code','IFSC Code',['class'=>"col-sm-2 col-form-label"],false) !!} 
+                  {!! Form::label('ifsc_code','IFSC Code :',['class'=>"col-sm-3 required col-form-label"],false) !!} 
                      <div class="col-sm-8">
                         {!! Form::text('ifsc_code', null, ['class' => 'form-control ','placeholder' => 'IFSC Code',
                         'data-parsley-required' => 'true',
@@ -505,7 +505,7 @@
                      </div>
                   </div>
                   <div class="form-group row">
-                     <div class="col-sm-2"></div>
+                     <div class="col-sm-3"></div>
                      <div class="col-sm-6">
                         {!! Form::button('Save', ['type' => 'submit', 'class' => 'btn btn-primary'] ) !!}
                         <a href="{{route('accounts.index')}}" class="btn btn-default">Cancel</a>
@@ -535,7 +535,7 @@
             </div>
             <div class="modal-body">
                <div class="form-group mb-3">
-               {!! Form::label('document','Document:',['class'=>"col-sm-2 col-form-label"],false) !!} 
+               {!! Form::label('document','Document:',['class'=>"col-sm-2 required col-form-label"],false) !!} 
                   {!! Form::file('file', array('class' => 'form-control','id' => 'document','placeholder' => 'Document',
                   'data-parsley-required' => 'true',
                   'data-parsley-trigger' => "input",
@@ -591,21 +591,6 @@
       });
       $('#custom-tabs-four-tab a[href="#{{ old('tab') }}"]').tab('show');
 
-      window.ParsleyValidator.addValidator('fileextension', function (value, requirement) {
-        		var tagslistarr = requirement.split(',');
-            var fileExtension = value.split('.').pop();
-						var arr=[];
-						$.each(tagslistarr,function(i,val){
-   						 arr.push(val);
-						});
-            if(jQuery.inArray(fileExtension, arr)!='-1') {
-              return true;
-            } else {
-              return false;
-            }
-        }, 32)
-      .addMessage('en', 'fileextension', 'The extension should be pdf,doc and docx');
-
       $("#documentForm").parsley();
 
       $('#uploadDocument').on('hidden.bs.modal', function() {
@@ -618,23 +603,7 @@
       });
    });
    $(document).ready(function() {
-    window.ParsleyValidator.addValidator('fileextension', function (value, requirement) {
-        		var tagslistarr = requirement.split(',');
-            var fileExtension = value.split('.').pop();
-						var arr=[];
-						$.each(tagslistarr,function(i,val){
-   						 arr.push(val);
-						});
-            if(jQuery.inArray(fileExtension, arr)!='-1') {
-              return true;
-            } else {
-              return false;
-            }
-        }, 32)
-      .addMessage('en', 'fileextension', 'The extension should be jpg,png and jpeg');
-
     $("#vendorForm").parsley();
-    
 });
 
 </script>

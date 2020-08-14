@@ -69,7 +69,7 @@
                     </tr>
                     <tr>
                         <th>Prority</th>
-                        <td>: {{ $showRequirementDetails->priority }}</td>
+                        <td>: {{ empty($showRequirementDetails->priority)? "-":$showRequirementDetails->priority}}</td>
                     </tr>
                 </table>
             </div>

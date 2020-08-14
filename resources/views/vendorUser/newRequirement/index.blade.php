@@ -53,7 +53,7 @@
             </div>
             <div class="modal-body">
                <div class="form-group mb-3">
-               {!! Form::label('quotation','Upload quotation:',['class'=>"col-sm-4 col-form-label"],false) !!} 
+               {!! Form::label('quotation','Upload quotation:',['class'=>"col-sm-4 required col-form-label"],false) !!} 
 				   <input type="file" class="form-control" name="quotation" 
                id="quotationFile" data-parsley-required="true" data-parsley-required-message="Please upload quotation" 
                data-parsley-trigger = "input"data-parsley-fileextension="pdf,doc,docx",data-parsley-trigger="blur" >

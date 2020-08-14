@@ -157,6 +157,7 @@
                         <div class="input-group  mb-3">
                               {!! Form::file('profile_image', array('class' => 'form-control ','placeholder' => 'Profile Image',
                               'data-parsley-trigger' => "input",
+                              'data-parsley-fileextension'=>'jpg,png,jpeg',
                               'data-parsley-errors-container'=>'#profileError',
                               'data-parsley-trigger'=>"blur",
                               'data-parsley-maxlength' => '50')) !!}
@@ -353,7 +354,7 @@
                            'data-parsley-trigger' => "input",
                            'data-parsley-trigger'=>"blur",
                            'data-parsley-errors-container'=>'#websiteError',
-                           'data-parsley-type'=>'url',
+                           'data-parsley-urlstrict' =>'https://www.google.com',
                            'data-parsley-maxlength' => '20']) !!}
                            <div class="input-group-append">
                               <div class="input-group-text">
@@ -395,6 +396,7 @@
       <script src="{{asset('js/toastr.min.js')}}" type="text/javascript"></script>
       <script src="{{asset('js/ui-toastr.min.js')}}" type="text/javascript"></script>
       <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
+
       <script type="text/javascript">
          $(function(){
             $('#category').select2({
@@ -414,5 +416,32 @@
             toastr.error(message);
          </script>
       @endif
+      <script>
+      $(document).ready(function() {
+         window.ParsleyValidator.addValidator('fileextension', function (value, requirement) {
+                  var tagslistarr = requirement.split(',');
+                  var fileExtension = value.split('.').pop();
+                        var arr=[];
+                        $.each(tagslistarr,function(i,val){
+                           arr.push(val);
+                        });
+                  if(jQuery.inArray(fileExtension, arr)!='-1') {
+                  return true;
+                  } else {
+                  return false;
+                  }
+            }, 32)
+            .addMessage('en', 'fileextension', 'The extension should be jpg,png and jpeg');
+
+         $("#vendorForm").parsley();
+
+    window.ParsleyValidator.addValidator('urlstrict', function (value, requirement){
+            var url = 'http://www.google.com';
+            var regExp = /^(ftp|http|https):\/\/[^ "]+$/;
+            return '' !== value ? regExp.test( value ) : false;
+        }, 32)
+        .addMessage('en', 'urlstrict', 'Must be a valid strict URL');
+      });
+      </script>
    </body>
 </html>

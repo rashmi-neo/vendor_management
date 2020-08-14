@@ -56,6 +56,9 @@ class RequirementController extends Controller
             ->editColumn('category_id', function ($row){
                return $row->category->name;
             })
+            ->editColumn('priority',function ($row){
+                return empty($row->priority)? "-":$row->priority;
+            })
             ->addColumn('action', function($row){
                 return view('admin.requirement.actions', compact('row'));
             })

@@ -246,15 +246,25 @@
                      'data-parsley-pattern'=>"^[\d\+\-\.\(\)\/\s]+$",
                      'data-parsley-maxlength' => '20']) !!}
                   </div>
+                  @error('fax')
+                  <span class="text-danger errormsg" role="alert">
+                     <p>{{ $message }}</p>
+                  </span>
+                  @enderror
                </div>
                <div class= "col-sm-12">
                   <div class="form-group">
                      {!! Form::text('website', null, ['class' => 'form-control ','placeholder' => 'Company Website URL',
                      'data-parsley-trigger' => "input",
                      'data-parsley-trigger'=>"blur",
-                     'data-parsley-type'=>'url',
+                     'data-parsley-urlstrict' =>'https://www.google.com',
                      'data-parsley-maxlength' => '20']) !!}
                   </div>
+                  @error('website')
+                  <span class="text-danger errormsg" role="alert">
+                     <p>{{ $message }}</p>
+                  </span>
+                  @enderror
                </div>
             </div>
             <div class="form-group row mt-4">
@@ -277,25 +287,5 @@
                theme: 'bootstrap4'
          })
    });
-
-   $(document).ready(function() {
-    window.ParsleyValidator.addValidator('fileextension', function (value, requirement) {
-        		var tagslistarr = requirement.split(',');
-            var fileExtension = value.split('.').pop();
-						var arr=[];
-						$.each(tagslistarr,function(i,val){
-   						 arr.push(val);
-						});
-            if(jQuery.inArray(fileExtension, arr)!='-1') {
-              return true;
-            } else {
-              return false;
-            }
-        }, 32)
-      .addMessage('en', 'fileextension', 'The extension should be jpg,png and jpeg');
-
-    $("#vendorForm").parsley();
-    
-});
 </script>
 @endsection

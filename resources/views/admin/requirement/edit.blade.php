@@ -26,7 +26,7 @@
                 @csrf
                 @method('PUT')
                 <div class="form-group row">
-                    {!! Form::label('title','Title',['class' => 'col-sm-3 required label_class']) !!}
+                    {!! Form::label('title','Title :',['class' => 'col-sm-3 required label_class']) !!}
                         <div class="col-sm-7">
                             {!! Form::text('title', $requirementEditDetails->title, ['class' => 'form-control','placeholder' => 'Title',
                             'data-parsley-required' => 'true',
@@ -45,7 +45,7 @@
                        </div>
                     </div>
                     <div class="form-group row">
-                        {!! Form::label('category_id', 'Category',['class' => 'col-sm-3 label_class']) !!}
+                        {!! Form::label('category_id', 'Category :',['class' => 'col-sm-3 label_class']) !!}
                         <div class="col-sm-7">
                             {!! Form::select('category_id',$categories,$requirementEditDetails->category_id, array('class'=>'form-control', 'id'=>'category_id','disabled'=>'disabled','placeholder'=>'Select Category')) !!}
                            @error('category_id')
@@ -61,7 +61,8 @@
                     @endforeach
 
 					 <div class="form-group row">
-                        {!! Form::label('vendor_id', 'Select Vendors',['class' => 'col-sm-3 label_class']) !!}
+                        {!! Form::label('vendor_id', 'Select Vendors:',['class' => 'col-sm-4  label_class']) !!}
+
 				 		<div class="col-sm-7">
                             {!! Form::select('vendor_id[]',$vendorDetails,$selectedVendors, array('class'=>'form-control vendor','multiple'=>'multiple','id'=>'vendor','disabled'=>'disabled')) !!}
                             @error('vendor_id')
@@ -72,7 +73,7 @@
 				 		</div>
                     </div>
                     <div class="form-group row">
-                        {!! Form::label('budget', 'Budget',['class' => 'col-sm-3 required label_class']) !!}
+                        {!! Form::label('budget', 'Budget :',['class' => 'col-sm-3 required label_class']) !!}
                             <div class="col-sm-7">
                                 {!! Form::text('budget', $requirementEditDetails->budget, ['class' => 'form-control ','placeholder' => 'Budget',
                                 'data-parsley-required' => 'true',
@@ -91,7 +92,7 @@
                             </div>
                     </div>
                     <div class="form-group row">
-                        {!! Form::label('fromDate', 'From Date',['class' => 'col-sm-3 required label_class']) !!}
+                        {!! Form::label('fromDate', 'From Date :',['class' => 'col-sm-3 required label_class']) !!}
                             <div class="col-sm-7">
                                 {!! Form::text('fromDate', $requirementEditDetails->from_date, ['class' => 'form-control ','data-date-format'=>'yyyy-mm-dd','id'=>'requirmentFromDate','placeholder' => 'Select From date',
                                 'data-parsley-required' => 'true',
@@ -107,7 +108,7 @@
                             </div>
                     </div>
                     <div class="form-group row">
-                        {!! Form::label('toDate', 'To Date',['class' => 'col-sm-3 required label_class']) !!}
+                        {!! Form::label('toDate', 'To Date :',['class' => 'col-sm-3 required label_class']) !!}
                             <div class="col-sm-7">
                                 {!! Form::text('toDate', $requirementEditDetails->to_date, ['class' => 'form-control ','data-date-format'=>'yyyy-mm-dd','id'=>'requirmentToDate','placeholder' => 'Select To date',
                                 'data-parsley-required' => 'true',
@@ -126,7 +127,7 @@
                     </div>
 
                     <div class="form-group row">
-                        {!! Form::label('priority', 'Priority',['class' => 'col-sm-3 label_class']) !!}
+                        {!! Form::label('priority', 'Priority :',['class' => 'col-sm-3 label_class']) !!}
                         <div class="col-sm-7">
                             {!! Form::select('priority',['Low' => 'Low', 'Medium' => 'Medium','High'=>'High'],$requirementEditDetails->priority, array('class'=>'form-control', 'placeholder'=>'Select priority', 'data-parsley-required' => 'true',
                             'data-parsley-required-message' => 'Please select priority',
@@ -140,7 +141,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        {!! Form::label('document', 'Proposal Document(if/any)',['class' => 'col-sm-3 required label_class']) !!}
+                        {!! Form::label('document', 'Proposal Document(if/any) :',['class' => 'col-sm-3 required label_class']) !!}
                         <div class="col-sm-7">
                             {!! Form::file('proposal_document', array('class' => 'form-control ','placeholder' => 'Proposal Document')) !!}
                             <div>{{$requirementEditDetails->proposal_document}}</div>
@@ -152,13 +153,13 @@
                         </div>
                     </div>
 				 	<div class="form-group row">
-                        {!! Form::label('description', 'Description',['class' => 'col-sm-3 label_class']) !!}
+                        {!! Form::label('description', 'Description :',['class' => 'col-sm-3 label_class']) !!}
 						   <div class="col-sm-7">
                                 {!! Form::textarea('description',$requirementEditDetails->description, ['class' => 'form-control ','placeholder' => 'Brief description']) !!}
 						 	</div>
 				 	</div>
 				 	<div class="form-group row">
-                        {!! Form::label('comment', 'Note/Special Comment',['class' => 'col-sm-3 label_class']) !!}
+                        {!! Form::label('comment', 'Note/Special Comment :',['class' => 'col-sm-3 label_class']) !!}
 						   <div class="col-sm-7">
                                 {!! Form::textarea('comment',$requirementEditDetails->comment, ['class' => 'form-control ','placeholder' => 'Special Comment']) !!}
 						 	</div>

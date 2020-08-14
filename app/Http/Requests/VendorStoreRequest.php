@@ -40,7 +40,7 @@ class VendorStoreRequest extends FormRequest
             'pincode' => 'required|min:6|max:10',
             'contact_number' => 'required|min:10|max:12',
             'fax' => 'max:20',
-            'website' => 'max:20',
+            'website' => 'max:20|nullable|url',
         ];
     }
 

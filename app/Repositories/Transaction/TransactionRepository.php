@@ -14,11 +14,11 @@ class TransactionRepository implements TransactionInterface{
 	}
       
     /**
-     * Get's vendor transactions.
+     * Get's transactions as per login vendor.
      *
      *@Author Bharti <bharti.tadvi@neosofttech.com>
      *@param  void
-     *@return $users
+     *@return $payments
      */
     public function getVendorPayment($data)
     {
@@ -28,6 +28,13 @@ class TransactionRepository implements TransactionInterface{
     	return $payments;
     }
 
+    /**
+     * Get's vendor transactions.
+     *
+     *@Author Bharti <bharti.tadvi@neosofttech.com>
+     *@param  void
+     *@return collection
+     */
     public function all(){
         
         return Payment::orderBy('id', 'desc')->get();

@@ -66,9 +66,7 @@
                     Category  : 
                   </th>
                   <td>
-                     @foreach($category->vendorCategory as $cat)
-                     <li>{{$cat->category->name}}</li>
-                     @endforeach
+                     {{$pastRequirement->category->name}}
                   </td>
                </tr>
                <tr>
@@ -92,7 +90,7 @@
                     Priority  :
                   </th>
                   <td>
-                     <span> {{$pastRequirement->priority}}</span>
+                     <span>{{empty($pastRequirement->priority)? "-":$pastRequirement->priority}}</span>
                   </td>
                </tr>
                <tr>

@@ -23,11 +23,12 @@ class TransactionController extends Controller
         $this->transactionRepository = $transactionRepository;
     }
     
-    /* Index page of payments.
+    /**
+    * Index page of payments.
     *@Author Bharti <bharati.tadvi@neosofttech.com>
     *
     *@param  Illuminate\Http\Request;
-    * @return void
+    * @return Datatables
     */
     public function index(Request $request){
 

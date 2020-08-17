@@ -541,7 +541,7 @@
                   'data-parsley-trigger' => "input",
                   'data-parsley-trigger'=>"blur",
                   'data-parsley-required-message' => 'Please upload document',
-                  'data-parsley-fileextension'=>'pdf,doc,docx')) !!}
+                  'data-parsley-extension'=>'pdf,doc,docx')) !!}
                
                   @error('file')
                   <span class="text-danger errormsg" role="alert">
@@ -597,13 +597,30 @@
       
          $('input[type="file"]').val("");
          $('.parsley-required').empty();
-         $('.parsley-fileextension').empty();
+         $('.parsley-extension').empty();
+         $('.errormsg').empty('');
          $('.parsley-success').removeClass('parsley-success');
          $('.parsley-error').removeClass('parsley-error');
       });
    });
    $(document).ready(function() {
     $("#vendorForm").parsley();
+
+    window.ParsleyValidator.addValidator('extension', function (value, requirement) {
+        var tagslistarr = requirement.split(',');
+        var fileExtension = value.split('.').pop();
+            var arr=[];
+            $.each(tagslistarr,function(i,val){
+                arr.push(val);
+            });
+        if(jQuery.inArray(fileExtension, arr)!='-1') {
+        return true;
+        } else {
+        return false;
+        }
+    }, 32)
+    .addMessage('en', 'extension', 'The extension should be pdf,doc,docx');
+
 });
 
 </script>

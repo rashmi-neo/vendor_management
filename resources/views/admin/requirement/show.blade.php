@@ -164,7 +164,7 @@
                     'data-parsley-required-message' => 'Please upload payment receipt',
                     'data-parsley-trigger' => "input",
                     'data-parsley-trigger'=>"blur",
-                    'data-parsley-fileextension'=>'pdf')) !!}
+                    'data-parsley-extension'=>'pdf')) !!}
                     <span class="text-danger error-payment-receipt" role="alert">
                     </span> 
                </div>
@@ -295,7 +295,7 @@
         $('.parsley-minlength').empty();
     });
 
-    window.ParsleyValidator.addValidator('fileextension', function (value, requirement) {
+    window.ParsleyValidator.addValidator('extension', function (value, requirement) {
         		var tagslistarr = requirement.split(',');
             var fileExtension = value.split('.').pop();
 						var arr=[];
@@ -308,7 +308,7 @@
               return false;
             }
         }, 32)
-    .addMessage('en', 'fileextension', 'The extension should be pdf only.');
+    .addMessage('en', 'extension', 'The extension should be pdf only.');
 
 </script>
 @endsection

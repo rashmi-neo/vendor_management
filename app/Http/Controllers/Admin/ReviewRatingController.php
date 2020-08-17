@@ -36,7 +36,7 @@ class ReviewRatingController extends Controller
     *@Author Bharti <bharati.tadvi@neosofttech.com>
     *
     *@param  Illuminate\Http\Request;
-    * @return void
+    * @return Datatables
     */
     public function index(Request $request){
 

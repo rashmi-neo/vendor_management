@@ -56,7 +56,7 @@
                {!! Form::label('quotation','Upload quotation:',['class'=>"col-sm-4 required col-form-label"],false) !!} 
 				   <input type="file" class="form-control" name="quotation" 
                id="quotationFile" data-parsley-required="true" data-parsley-required-message="Please upload quotation" 
-               data-parsley-trigger = "input"data-parsley-fileextension="pdf,doc,docx",data-parsley-trigger="blur" >
+               data-parsley-trigger = "input"data-parsley-extension="pdf,xls,xlsx",data-parsley-trigger="blur" >
 				  <span class="text-danger error-quotation" role="alert">
                </span> 
                </div>
@@ -106,7 +106,7 @@
 		});
 	}); 
    $(function(){
-      window.ParsleyValidator.addValidator('fileextension', function (value, requirement) {
+      window.ParsleyValidator.addValidator('extension', function (value, requirement) {
         		var tagslistarr = requirement.split(',');
             var fileExtension = value.split('.').pop();
 						var arr=[];
@@ -120,7 +120,7 @@
               return false;
             }
         }, 32)
-      .addMessage('en', 'fileextension', 'The extension should be pdf,xls and xlsx');
+      .addMessage('en', 'extension', 'The extension should be pdf,xls and xlsx');
       $("#QuotationForm").parsley();
    });
 </script>
@@ -129,7 +129,7 @@
 
 
 	$('body').on('click', '.uploadQuotation', function () {
-         
+      
     });
 
    function openQuotationModal(data){
@@ -206,8 +206,7 @@
       $('input[type="file"]').val("");
       $('#comment').val("");
       $('.parsley-required').empty();
-      $('.parsley-fileextension').empty();
-      $('.parsley-fileextension').empty();
+      $('.parsley-extension').empty();
       $('.parsley-error').removeClass('parsley-error');
       $('.parsley-minlength').empty('');
       $('.parsley-success').removeClass('parsley-success');

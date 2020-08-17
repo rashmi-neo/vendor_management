@@ -48,7 +48,11 @@
                <td>
                   {{$newRequirement->category->name}}
                </td>
-               <td width="240px"><a href="{{ url('/') }}/uploads/{{$newRequirement->proposal_document}}">{{$newRequirement->proposal_document}} <i class="fa fa-download" aria-hidden="true"></i></a></td>
+               @if($newRequirement->proposal_document != "")
+                  <td><a href="{{ url('/') }}/uploads/{{ $newRequirement->proposal_document }}">{{ $newRequirement->proposal_document }} <i class="fa fa-download" aria-hidden="true"></i></a></td>
+               @else
+                  <td> - </td>
+               @endif
                <td>{{$newRequirement->budget}}</td>
                <td>{{empty($newRequirement->comment)?"-":$newRequirement->comment}}</td>
                <td><a href="{{ url('vendor/showQuotationDetail/'.$newRequirement->id.'/'.$assignVendor->id)}}"  rel="tooltip" title="Show Quotation Detail" class="view btn btn-secondary btn-sm viewQuotation">	<i class="fas fa-file"></i></a>&nbsp;</td>

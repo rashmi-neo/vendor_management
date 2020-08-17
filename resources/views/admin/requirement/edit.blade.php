@@ -127,7 +127,7 @@
                     </div>
 
                     <div class="form-group row">
-                        {!! Form::label('priority', 'Priority :',['class' => 'col-sm-3 label_class']) !!}
+                        {!! Form::label('priority', 'Priority :',['class' => 'col-sm-3 required label_class']) !!}
                         <div class="col-sm-7">
                             {!! Form::select('priority',['Low' => 'Low', 'Medium' => 'Medium','High'=>'High'],$requirementEditDetails->priority, array('class'=>'form-control', 'placeholder'=>'Select priority', 'data-parsley-required' => 'true',
                             'data-parsley-required-message' => 'Please select priority',
@@ -141,9 +141,11 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        {!! Form::label('document', 'Proposal Document(if/any) :',['class' => 'col-sm-3 required label_class']) !!}
+                        {!! Form::label('document', 'Proposal Document(if/any) :',['class' => 'col-sm-3 label_class']) !!}
                         <div class="col-sm-7">
-                            {!! Form::file('proposal_document', array('class' => 'form-control ','placeholder' => 'Proposal Document')) !!}
+                            {!! Form::file('proposal_document', array('class' => 'form-control ','placeholder' => 'Proposal Document','data-parsley-trigger' => "input",
+                            'data-parsley-extension'=>'jpg,png,jpeg',
+                            'data-parsley-trigger'=>"blur",'data-parsley-maxlength' => '1000')) !!}
                             <div>{{$requirementEditDetails->proposal_document}}</div>
                             @error('proposal_document')
                             <span class="text-danger errormsg" role="alert">
@@ -213,7 +215,7 @@
 //     });
 </script>
 <script>
-window.ParsleyValidator
+    window.ParsleyValidator
     .addValidator('maxdate', function (value, requirement) {
         
         var fromDate = $('#requirmentFromDate').val();
@@ -224,6 +226,21 @@ window.ParsleyValidator
         return isNaN(toDate) ? false : toDate >= startDate;    
     }, 32)
     .addMessage('en', 'maxdate', 'This date should be greater than or equal to  %s');
+    
+    window.ParsleyValidator.addValidator('extension', function (value, requirement) {
+                  var tagslistarr = requirement.split(',');
+                  var fileExtension = value.split('.').pop();
+                        var arr=[];
+                        $.each(tagslistarr,function(i,val){
+                           arr.push(val);
+                        });
+                  if(jQuery.inArray(fileExtension, arr)!='-1') {
+                  return true;
+                  } else {
+                  return false;
+                  }
+            }, 32)
+            .addMessage('en', 'extension', 'The extension should be xls,pdf,xlsx,doc,docx');
 
 $('#requirementForm').parsley();
 </script>

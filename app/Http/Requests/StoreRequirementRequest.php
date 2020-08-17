@@ -30,7 +30,8 @@ class StoreRequirementRequest extends FormRequest
             'budget' => 'required|numeric',
             'fromDate' => 'required',
             'toDate' => 'required',
-            'proposal_document' => 'required|file|max:10000|mimes:xls,pdf,xlsx,doc,docx',
+            'priority' => 'required',
+            'proposal_document' => 'file|max:10000|mimes:xls,pdf,xlsx,doc,docx',
             'description' => 'max:200',
         ];
     }
@@ -50,7 +51,7 @@ class StoreRequirementRequest extends FormRequest
             'budget.numeric' => 'Please enter numbers in budget',
             'fromDate.required' => 'Please select from date',
             'toDate.required' => 'Please select to date',
-            'proposal_document.required' => 'Please upload proposal document',
+            'priority.required' => 'Please select priority',
             'proposal_document.max' => 'Maximum file size to upload is 10MB',
         ];
     }

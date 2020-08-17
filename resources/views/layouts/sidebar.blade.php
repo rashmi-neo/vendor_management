@@ -22,7 +22,7 @@
             </li>
             <li class="nav-item">
                <a href="{{route('categories.index')}}" class="nav-link {{ (request()->is('admin/categories*')) ? 'active' : '' }}">
-                  <i class="nav-icon fas fa-copy"></i>
+                  <i class="nav-icon fas fa-list-alt"></i>
                   <p>
                      Vendor Categories
                   </p>

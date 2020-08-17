@@ -73,9 +73,12 @@
                   <th>
                     Proposal Document  :
                   </th>
-                  <td>
-                     <span> {{$pastRequirement->proposal_document}}</span>
-                  </td>
+                  @if($pastRequirement->proposal_document != "")
+                     <td>
+                     <span><a href="{{ url('/') }}/uploads/{{ $pastRequirement->proposal_document }}">{{ $pastRequirement->proposal_document }} <i class="fa fa-download" aria-hidden="true"></i></a></span></td>
+                  @else
+                     <td> <span> - </span></td>
+                  @endif
                </tr>
                <tr>
                   <th>
@@ -90,7 +93,7 @@
                     Priority  :
                   </th>
                   <td>
-                     <span>{{empty($pastRequirement->priority)? "-":$pastRequirement->priority}}</span>
+                     <span>{{$pastRequirement->priority}}</span>
                   </td>
                </tr>
                <tr>

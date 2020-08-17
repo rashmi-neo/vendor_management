@@ -25,12 +25,10 @@ class UpdateRequirementRequest extends FormRequest
     {
         return [
             'title' => 'required|min:2|max:50',
-            // 'category_id' => 'required',
-            // 'vendor_id' => 'required',
             'budget' => 'required|numeric',
             'fromDate' => 'required',
             'toDate' => 'required',
-            // 'priority' => 'required',
+            'priority' => 'required',
             'proposal_document' => 'file|max:10000|mimes:xls,pdf,xlsx,doc,docx',
             'description' => 'max:200',
         ];
@@ -52,10 +50,8 @@ class UpdateRequirementRequest extends FormRequest
             'budget.numeric' => 'Please enter numbers in budget',
             'fromDate.required' => 'Please select from date',
             'toDate.required' => 'Please select to date',
-            // 'priority.required' => 'Please select priority',
-            // 'proposal_document.required' => 'Please upload proposal document',
-            // 'proposal_document.max' => 'Maximum file size to upload is 10MB',
-           // 'contact_number.mimes' => 'Please select valid file',
+            'priority.required' => 'Please select priority',
+            'proposal_document.max' => 'Maximum file size to upload is 10MB',
         ];
     }
 }

@@ -127,18 +127,23 @@
                             </div>
                     </div>
                     <div class="form-group row">
-                        {!! Form::label('priority', 'Priority :',['class' => 'col-sm-3 label_class']) !!}
+                        {!! Form::label('priority', 'Priority :',['class' => 'col-sm-3 required label_class']) !!}
                         <div class="col-sm-7">
-                            {!! Form::select('priority',['low' => 'Low', 'medium' => 'Medium','high'=>'High'],null, array('class'=>'form-control', 'placeholder'=>'Select priority')) !!}
+                            {!! Form::select('priority',['low' => 'Low', 'medium' => 'Medium','high'=>'High'],null, array('class'=>'form-control','placeholder'=>'Select priority','data-parsley-required' => 'true',
+                            'data-parsley-required-message' => 'Please select priority')) !!}
+                            @error('priority')
+                            <span class="text-danger errormsg" role="alert">
+                               <p>{{ $message }}</p>
+                            </span>
+                            @enderror
                         </div>
                     </div>
                     <div class="form-group row">
-                        {!! Form::label('document', 'Proposal Document(if/any) :',['class' => 'col-sm-3 required label_class']) !!}
+                        {!! Form::label('document', 'Proposal Document(if/any) :',['class' => 'col-sm-3  label_class']) !!}
                         <div class="col-sm-7">
                             {!! Form::file('proposal_document', array('class' => 'form-control ','placeholder' => 'Proposal Document',
-                            'data-parsley-required' => 'true',
-                            'data-parsley-required-message' => 'Please select proposal document',
                             'data-parsley-trigger' => "input",
+                            'data-parsley-extension'=>'xls,pdf,xlsx,doc,docx',
                             'data-parsley-trigger'=>"blur")) !!}
                            @error('proposal_document')
                             <span class="text-danger errormsg" role="alert">
@@ -192,8 +197,7 @@
     });
 </script>
 <script>
-window.ParsleyValidator
-    .addValidator('maxdate', function (value, requirement) {
+    window.ParsleyValidator.addValidator('maxdate', function (value, requirement) {
         
         var fromDate = $('#requirmentFromDate').val();
         
@@ -203,6 +207,21 @@ window.ParsleyValidator
         return isNaN(toDate) ? false : toDate >= startDate;    
     }, 32)
     .addMessage('en', 'maxdate', 'This date should be greater than or equal to  %s');
+
+    window.ParsleyValidator.addValidator('extension', function (value, requirement) {
+        var tagslistarr = requirement.split(',');
+        var fileExtension = value.split('.').pop();
+            var arr=[];
+            $.each(tagslistarr,function(i,val){
+                arr.push(val);
+            });
+        if(jQuery.inArray(fileExtension, arr)!='-1') {
+        return true;
+        } else {
+        return false;
+        }
+    }, 32)
+    .addMessage('en', 'extension', 'The extension should be xls,pdf,xlsx,doc,docx');
 
 $('#requirementForm').parsley();
 </script>

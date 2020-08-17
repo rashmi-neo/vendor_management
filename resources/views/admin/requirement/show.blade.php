@@ -64,7 +64,7 @@
                         @if($showRequirementDetails->proposal_document != "")
                         <td>: <a href="{{ url('/') }}/uploads/{{ $showRequirementDetails->proposal_document }}">{{ $showRequirementDetails->proposal_document }} <i class="fa fa-download" aria-hidden="true"></i></a></td>
                         @else
-                        <td>: </td>
+                        <td>: - </td>
                         @endif
                     </tr>
                     <tr>

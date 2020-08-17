@@ -281,6 +281,18 @@
 </div>
 @endsection
 @section('scripts')
+@if(session()->get('success'))
+	<script>
+		var message = "{{ Session::get('success') }}"
+		toastr.success(message);
+	</script>
+@endif
+@if(session()->get('error'))
+	<script>
+		var message = "{{ Session::get('error') }}"
+		toastr.error(message);
+	</script>
+@endif
 <script type="text/javascript">
    $(function(){
          $('#category').select2({

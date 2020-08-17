@@ -36,9 +36,7 @@ class VendorController extends Controller
     */
     public function register(){
         
-        $categories = Category::where('status',1)->get()
-        ->sortBy('name', SORT_NATURAL | SORT_FLAG_CASE)->pluck('name','id');
-         
+        $categories = $this->vendorRepository->getAllCategories();
         return view('vendorUser.registration',compact('categories'));
     }
 
@@ -69,10 +67,8 @@ class VendorController extends Controller
                 $data = ['user_id'=>$adminId->id,'title'=>'New Vendor Registered','text'=>'New vendor '.$requestData['first_name'].' '.$requestData['last_name'].' has been registered.','type'=>'vendor_register','status'=>'unread']; 
                 $notification = $this->notificationRepository->save($data);
             }
-            
-
             return redirect()->back()->with('success','Registration done successfully');
-        } catch (Exception $e) {
+        } catch (Exception $ex) {
             return redirect()->back()->with('error',$ex->getMessage);
         }
     }

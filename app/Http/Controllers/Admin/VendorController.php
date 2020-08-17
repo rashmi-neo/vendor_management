@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\VendorStoreRequest;
 use App\Http\Requests\UpdateVendorRequest;
 use DataTables;
+use DB;
 use App\Repositories\Vendor\VendorInterface as VendorInterface;
 
 
@@ -85,8 +86,7 @@ class VendorController extends Controller
     *@return $categories
     */
     public function create()
-	{   
-        
+	{    
         $categories = $this->vendorRepository->getAllCategories();
         return view('admin.vendor.create',compact('categories'));
     }
@@ -99,13 +99,22 @@ class VendorController extends Controller
     */
     public function store(VendorStoreRequest $request){
         
-        $requestData =$request;
+        $requestData = $request;
+        
+        DB::beginTransaction();
         
         try {
-            $vendor = $this->vendorRepository->save($requestData);
-            return redirect()->route('vendors.index')->with('success','Vendor details save successfully');
-        } catch (Exception $e) {
-            return redirect()->back()->with('error','Something went wrong');
+            $result = $this->vendorRepository->save($requestData);
+            if($result) {
+                DB::commit();
+                return redirect()->route('vendors.index')->with('success','Vendor details save successfully');
+            } else {
+                DB::rollback();
+                return redirect()->back()->with('error', 'Something went wrong!');
+            }
+        } catch(\Exception $e) {
+            DB::rollback();
+            return redirect()->back()->with('error', json_encode($e->getMessage()));
         }
     }
 
@@ -134,8 +143,8 @@ class VendorController extends Controller
             }else{
                 return redirect()->route('vendors.index')->with('error', 'Vendor not found');
             }
-        }catch(\Throwable $th){
-            return redirect()->route('vendors.index')->with('error', 'Something went wrong!');
+        }catch(\Exception $e){
+            return redirect()->route('vendors.index')->with('error', json_encode($e->getMessage()));
         }
     }
 
@@ -148,16 +157,20 @@ class VendorController extends Controller
      */
     public function update(UpdateVendorRequest $request, $id)
     {
-        $requestData = $request;
+        
+        DB::beginTransaction();
         
         try{
-            $vendor = $this->vendorRepository->update($id,$requestData);
+            $vendor = $this->vendorRepository->update($id,$request);
             if($vendor){
-                return redirect()->route('vendors.index')->with('success', 'Vendor is successfully updated');
-            }
-            return redirect()->route('vendors.index')->with('error','Vendor not found');
-        }catch(\Exception $ex){
-            return redirect()->route('vendors.index')->with('error','Something went wrong');
+                return redirect()->route('vendors.index')->with('success', 'Vendor is successfully updated.');
+            } else {
+                DB::rollback();
+                return redirect()->back()->with('error', 'Vendor not found.');
+            }            
+        }catch(\Exception $e){
+            DB::rollback();
+            return redirect()->back()->with('error',json_encode($e->getMessage()));
         }
     }
 
@@ -179,8 +192,8 @@ class VendorController extends Controller
             }else{
                 return redirect()->route('vendors.index')->with('error', 'Vendor not found');
             }
-        }catch(\Throwable $th){
-            return redirect()->route('vendors.index')->with('error', 'Something went wrong!');
+        }catch(\Exception $e){
+            return redirect()->route('vendors.index')->with('error', json_encode($e->getMessage()));
         }
     }
 

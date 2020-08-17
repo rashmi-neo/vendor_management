@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use DataTables;
 use App\Repositories\Category\CategoryInterface as CategoryInterface;
 use App\Http\Requests\VendorCategory;
+use DB;
 
 class CategoryController extends Controller
 {
@@ -28,8 +29,7 @@ class CategoryController extends Controller
     * Index page of category.
     *@author Pooja<pooja.lavhat@neosofttech.com>
     * 
-    * @param void
-    * @return void
+    * @param Illuminate\Http\Request
     * @return \Illuminate\Http\Response
     */
     public function index(Request $request){
@@ -74,8 +74,22 @@ class CategoryController extends Controller
     public function store(VendorCategory $request)
     {
     	$category = $request->all();
-        $this->categoryRepository->save($category);
-        return redirect('admin/categories')->with('success', 'Category  is successfully saved');
+        
+        DB::beginTransaction();
+        
+        try {
+            $result = $this->categoryRepository->save($category);
+            if($result) {
+                DB::commit();
+                return redirect('admin/categories')->with('success', 'Category added successfully.');
+            } else {
+                DB::rollback();
+                return redirect('admin/categories')->with('error', 'Something went wrong!');
+            }
+        } catch(\Exception $e) {
+            DB::rollback();
+            return redirect('admin/categories')->with('error', json_encode($e->getMessage()));
+        }
     }
 
     /**
@@ -88,9 +102,17 @@ class CategoryController extends Controller
     public function edit($id)
     {
     	$categoryId = $id;
-        $category = $this->categoryRepository->get($categoryId);
         
-    	return view('admin.category.edit',compact('category','categoryId'));
+        try {
+            $category = $this->categoryRepository->get($categoryId);
+            if($category){
+                return view('admin.category.edit',compact('category','categoryId'));
+            }else{
+                return redirect('admin/categories')->with('error', 'Category not found');
+            }
+        }catch(\Exception $e){
+            return redirect('admin/categories')->with('error', json_encode($e->getMessage()));
+        }
     }
 
     /**
@@ -115,14 +137,18 @@ class CategoryController extends Controller
     {
     	$categoryUpdate = $request->all();
         
-        try{
+        DB::beginTransaction();
+        
+        try {
             $category =  $this->categoryRepository->update($id,$categoryUpdate);
             if($category){
-                return redirect('admin/categories')->with('success', 'Category is successfully updated');
+                return redirect('admin/categories')->with('success', 'Category is successfully updated.');
             }
-                return redirect('admin/categories')->with('error','Category not found');
-        }catch(\Exception $ex){
-            return redirect('admin/categories')->with('error','Something went wrong!');
+                DB::rollback();
+                return redirect('admin/categories')->with('error','Category not found.');
+        } catch(\Exception $e) {
+            DB::rollback();
+            return redirect('admin/categories')->with('error', json_encode($e->getMessage()));
         }
     }
 

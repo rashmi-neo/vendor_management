@@ -8,8 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\VendorStoreRequest;
 use App\Model\Category;
 use App\Model\User;
-
-
+use DB;
 
 class VendorController extends Controller
 {
@@ -26,7 +25,6 @@ class VendorController extends Controller
         $this->vendorRepository = $vendorRepository;
         $this->notificationRepository = $notificationRepository;
     }
-
 
     /**
     * Show the registration form.
@@ -50,6 +48,8 @@ class VendorController extends Controller
         
         $requestData =$request;
         
+        DB::beginTransaction();
+
         try {
             $vendorRegister = $this->vendorRepository->save($requestData);
             
@@ -67,9 +67,11 @@ class VendorController extends Controller
                 $data = ['user_id'=>$adminId->id,'title'=>'New Vendor Registered','text'=>'New vendor '.$requestData['first_name'].' '.$requestData['last_name'].' has been registered.','type'=>'vendor_register','status'=>'unread']; 
                 $notification = $this->notificationRepository->save($data);
             }
+            DB::commit();
             return redirect()->back()->with('success','Registration done successfully');
         } catch (Exception $ex) {
-            return redirect()->back()->with('error',$ex->getMessage);
+            DB::rollback();
+            return redirect()->back()->with('error',json_encode($e->getMessage()));
         }
     }
 }

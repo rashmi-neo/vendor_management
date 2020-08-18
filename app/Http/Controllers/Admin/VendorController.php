@@ -30,7 +30,7 @@ class VendorController extends Controller
     *@Author Bharti <bharati.tadvi@neosofttech.com>
     * 
     *@param  Illuminate\Http\Request;
-    * @return void
+    * @return Datatables
     */
     public function index(Request $request){
         
@@ -211,7 +211,7 @@ class VendorController extends Controller
         if (!empty($vendorStatus)) {
             $response = response()->json([
                 'success' => true,
-                'message' => "Vendor status updated successfully",
+                'message' => "Vendor status updated successfully.",
             ]);
         
             return $response;
@@ -219,7 +219,7 @@ class VendorController extends Controller
         } else {
             $response = response()->json([
                 'success' => false,
-                'message' => "Vendor status not updated successfully",
+                'message' => "Vendor status not updated successfully.",
                 'data' => [
                 'status_code' => 401
                 ]

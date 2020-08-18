@@ -18,6 +18,7 @@ use Exception;
 use App\Repositories\Requirement\RequirementInterface as RequirementInterface;
 use App\Repositories\Notifications\NotificationsInterface as NotificationsInterface;
 use Config;
+use DB;
 use App\Model\VendorQuotation;
 class RequirementController extends Controller
 {
@@ -38,11 +39,11 @@ class RequirementController extends Controller
 
 
     /**
-    * Index page of vendor.
+    * Index page of Requirement.
     *@Author Bharti <bharati.tadvi@neosofttech.com>
     *
     *@param  Illuminate\Http\Request;
-    * @return void
+    * @return Datatable
     */
     public function index(Request $request){
         if($request->ajax()){
@@ -91,7 +92,11 @@ class RequirementController extends Controller
        
         $requestData =$request;
         $username =\Auth::user()->username;
+        
+        DB::beginTransaction();
+
         try {
+
             $requirement = $this->requirementRepository->save($requestData);
             $emailResp = $this->sendMailToVendor($requestData,$requirement->title);
             //send notification to vendors
@@ -102,8 +107,10 @@ class RequirementController extends Controller
                 $data = ['user_id'=>$vendor->user_id,'title'=>Config::get('constants.NEW_REQUIREMENT.title'),'text'=>Config::get('constants.NEW_REQUIREMENT.text').' '.$username,'type'=>Config::get('constants.NEW_REQUIREMENT.type'),'status'=>Config::get('constants.NEW_REQUIREMENT.status')];
                 $notification = $this->notificationRepository->save($data);
             }
+            DB::commit();
             return redirect()->route('requirements.index')->with('success','Requirement details saved successfully');
         } catch (Exception $e) {
+            DB::rollback();
             return redirect()->back()->with('error',$e->getMessage());
         }
     }
@@ -132,13 +139,18 @@ class RequirementController extends Controller
     public function update(UpdateRequirementRequest $request, $id)
     {
         $requestData = $request;
+
+        DB::beginTransaction();
+
         try{
             $requirements = $this->requirementRepository->update($id,$requestData);
             if($requirements){
+                DB::commit();
                 return redirect()->route('requirements.index')->with('success', 'Requirement is successfully updated');
             }
             return redirect()->route('requirements.index')->with('error','Requirement not found');
         }catch(Exception $ex){
+            DB::rollback();
             return redirect()->route('requirements.index')->with('error',$ex->getMessage());
         }
     }
@@ -188,8 +200,19 @@ class RequirementController extends Controller
             dispatch(new \App\Jobs\SendMailToVendor($details))->delay(now()->addSeconds(5));
         }
     }
+
+    /**
+    * Store  Comment against vendor quotation.
+    *@author Vikas<vikas.salekar@neosofttech.com>
+    *
+    *@param  Illuminate\Http\Request
+    *@return void
+    */
     public function addComment(StoreCommentRequest $request )
     {
+        
+        DB::beginTransaction();
+        
         try{
             $addComment = $this->requirementRepository->addComment($request);
             
@@ -212,15 +235,25 @@ class RequirementController extends Controller
                 }
             }
             if($addComment){
+                DB::commit();
                 return redirect()->route('requirements.show')->with('success', 'Comment added successfully');
             }
+            DB::rollback();
             return redirect()->route('requirements.show')->with('error','Error in add comment');
         }
         catch(Exception $ex){
+            DB::rollback();
             return redirect()->route('requirements.index')->with('error',$ex->getMessage());
         }
     }
 
+    /**
+    * Show Quotation.
+    *@author Bharti<bharti.tadvi@neosofttech.com>
+    *
+    *@param  Illuminate\Http\Request
+    *@return $requirement_id,$showQuotationDetails
+    */
     public function showQuotation($requirementId,$vendorAssignId)
     {
         $showQuotationDetails = $this->requirementRepository->showQuotationDetails($vendorAssignId);

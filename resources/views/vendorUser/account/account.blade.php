@@ -133,13 +133,13 @@
                   <div class="form-group row">
                      {!! Form::label('current_password','Current Password :',['class'=>"col-sm-2 required col-form-label"],false) !!} 
                      <div class="col-sm-8">
-                        {!! Form::password('current_password', ['class' => 'form-control ','placeholder' => 'Current Password',
+                        {!! Form::password('current_password', ['class' => 'form-control ','placeholder' => 'Current Password','id' => 'current_password',
                         'data-parsley-required' => 'true',
                         'data-parsley-required-message' => 'Password is required',
                         'data-parsley-trigger' => "input",
                         'data-parsley-trigger'=>"blur",
-                        'data-parsley-maxlength' => '100']) !!}
-                     
+                        'data-parsley-minlength' => '6',
+                        'data-parsley-maxlength' => '8']) !!}
                         @error('current_password')
                         <span class="text-danger errormsg" role="alert">
                            <p>{{ $message }}</p>
@@ -150,12 +150,13 @@
                   <div class="form-group row">
                      {!! Form::label('new_password','New Password :',['class'=>"col-sm-2 required col-form-label"],false) !!} 
                      <div class="col-sm-8">
-                        {!! Form::password('new_password',array('class' => 'form-control','placeholder' => 'New  Password',
+                        {!! Form::password('new_password',array('class' => 'form-control','placeholder' => 'New  Password','id' => 'new_password',
                         'data-parsley-required' => 'true',
                         'data-parsley-required-message' => 'New Password is required',
                         'data-parsley-trigger' => "input",
                         'data-parsley-trigger'=>"blur",
-                        'data-parsley-maxlength' => '100')) !!}
+                        'data-parsley-minlength' => '6',
+                        'data-parsley-maxlength' => '8')) !!}
                         
                         @error('new_password')
                         <span class="text-danger errormsg" role="alert">
@@ -168,7 +169,7 @@
                      {!! Form::label('image','Upload Image :',['class'=>"col-sm-2 col-form-label"],false) !!} 
                      <div class="col-sm-8">
                         {!! Form::file('profile_image', array('class' => 'form-control ',
-                           'placeholder' => 'Profile Image',
+                           'placeholder' => 'Profile Image','id' => 'profile_image',
                            'data-parsley-trigger' => "input",
                            'data-parsley-fileextension'=>'jpg,png,jpeg',
                            'data-parsley-trigger'=>"blur",
@@ -360,7 +361,7 @@
                   <div class="form-group row">
                   {!! Form::label('name','Name :',['class'=>"col-sm-2 required col-form-label"],false) !!} 
                      <div class="col-sm-8">
-                        {!! Form::text('name', null, ['class' => 'form-control ','placeholder' => 'Name',
+                        {!! Form::text('name', null, ['class' => 'form-control ','placeholder' => 'Name','id' => 'contact_name',
                         'data-parsley-required' => 'true',
                         'data-parsley-required-message' => 'Name is required',
                         'data-parsley-trigger' => "input",
@@ -369,7 +370,6 @@
                         'data-parsley-pattern-message' => 'Please enter only alphabets',
                         'data-parsley-minlength' => '2',
                         'data-parsley-maxlength' => '50']) !!}
-
 
                         @error('name')
                         <span class="text-danger errormsg" role="alert">
@@ -381,7 +381,7 @@
                   <div class="form-group row">
                   {!! Form::label('phone_number','Phone Number :',['class'=>"col-sm-2 required col-form-label"],false) !!} 
                      <div class="col-sm-8">
-                        {!! Form::text('contact_number', null, ['class' => 'form-control ','placeholder' => 'Phone Number',
+                        {!! Form::text('contact_number', null, ['class' => 'form-control ','placeholder' => 'Phone Number','id' => 'mobile_number',
                         'data-parsley-required' => 'true',
                         'data-parsley-required-message' => 'Contact number is required',
                         'data-parsley-trigger' => "input",
@@ -399,7 +399,7 @@
                   <div class="form-group row">
                   {!! Form::label('email_address','Email Address :',['class'=>"col-sm-2 required col-form-label"],false) !!} 
                      <div class="col-sm-8">
-                        {!! Form::email('email_address', null, ['class' => 'form-control ','placeholder' => 'Email Address',
+                        {!! Form::email('email_address', null, ['class' => 'form-control ','placeholder' => 'Email Address','id' => 'email_address',
                         'data-parsley-required' => 'true',
                         'data-parsley-required-message' => 'Email address is required',
                         'data-parsley-trigger' => "input",
@@ -430,7 +430,7 @@
                   <div class="form-group row">
                   {!! Form::label('bank_name','Bank Name :',['class'=>"col-sm-3 required col-form-label"],false) !!} 
                      <div class="col-sm-8">
-                        {!! Form::text('bank_name', null, ['class' => 'form-control ','placeholder' => 'Bank Name',
+                        {!! Form::text('bank_name', null, ['class' => 'form-control ','placeholder' => 'Bank Name','id' => 'bank_name',
                         'data-parsley-required' => 'true',
                         'data-parsley-required-message' => 'Bank name is required',
                         'data-parsley-trigger' => "input",
@@ -449,7 +449,7 @@
                   <div class="form-group row">
                   {!! Form::label('account_holder_name','Account Holder Name :',['class'=>"col-sm-3 required col-form-label"],false) !!} 
                      <div class="col-sm-8">
-                        {!! Form::text('account_holder_name', null, ['class' => 'form-control ','placeholder' => 'Account Holder Name',
+                        {!! Form::text('account_holder_name', null, ['class' => 'form-control ','placeholder' => 'Account Holder Name','id' => 'account_holder_name',
                         'data-parsley-required' => 'true',
                         'data-parsley-required-message' => 'Account holder name is required',
                         'data-parsley-trigger' => "input",
@@ -469,7 +469,7 @@
                   <div class="form-group row">
                   {!! Form::label('account_number','Account Number :',['class'=>"col-sm-3 required col-form-label"],false) !!} 
                      <div class="col-sm-8">
-                        {!! Form::text('account_number', null, ['class' => 'form-control ','placeholder' => 'Account Number',
+                        {!! Form::text('account_number', null, ['class' => 'form-control ','placeholder' => 'Account Number','id' => 'account_number',
                         'data-parsley-required' => 'true',
                         'data-parsley-required-message' => 'Account number is required',
                         'data-parsley-trigger' => "input",
@@ -488,14 +488,14 @@
                   <div class="form-group row">
                   {!! Form::label('ifsc_code','IFSC Code :',['class'=>"col-sm-3 required col-form-label"],false) !!} 
                      <div class="col-sm-8">
-                        {!! Form::text('ifsc_code', null, ['class' => 'form-control ','placeholder' => 'IFSC Code',
+                        {!! Form::text('ifsc_code', null, ['class' => 'form-control ','placeholder' => 'IFSC Code','id' => 'ifsc_code',
                         'data-parsley-required' => 'true',
                         'data-parsley-required-message' => 'IFSC code is required',
                         'data-parsley-trigger' => "input",
                         'data-parsley-pattern'=>"^[a-zA-Z0-9]*$",
-                        'data-parsley-required-message' => 'Please enter only alphabets and numbers',
+                        'data-parsley-pattern-message' => 'Please enter only alphabets and numbers',
                         'data-parsley-trigger'=>"blur",
-                        'data-parsley-minlength' => '11']) !!}
+                        'data-parsley-minlength' => '11','data-parsley-maxlength' => '11']) !!}
                         
                         @error('ifsc_code')
                         <span class="text-danger errormsg" role="alert">
@@ -508,7 +508,7 @@
                      <div class="col-sm-3"></div>
                      <div class="col-sm-6">
                         {!! Form::button('Save', ['type' => 'submit', 'class' => 'btn btn-primary'] ) !!}
-                        <a href="{{route('accounts.index')}}" class="btn btn-default">Cancel</a>
+                        <a href="{{route('accounts.index')}}" class="btn btn-default cancel">Cancel</a>
                      </div>
                   </div>
                {!! Form::close() !!}
@@ -571,18 +571,18 @@
    });
 </script>
 @endif
-@if(session()->get('success'))
-	<script>
-		var message = "{{ Session::get('success') }}"
-		toastr.success(message);
-	</script>
-@endif
-@if(session()->get('error'))
-	<script>
-		var message = "{{ Session::get('error') }}"
-		toastr.error(message);
-	</script>
-@endif
+   @if(session()->get('success'))
+      <script>
+         var message = "{{ Session::get('success') }}"
+         toastr.success(message);
+      </script>
+   @endif
+   @if(session()->get('error'))
+      <script>
+         var message = "{{ Session::get('error') }}"
+         toastr.error(message);
+      </script>
+   @endif
 <script type="text/javascript">
    $(document).ready(function() {
       $('body').on('click', '.uploadDocument', function () {
@@ -602,6 +602,30 @@
          $('.parsley-success').removeClass('parsley-success');
          $('.parsley-error').removeClass('parsley-error');
       });
+
+      $('.nav-link').on('click', function() {
+         
+         $('#current_password').val("");
+         $('#new_password').val("");
+         $('#profile_image').val("");
+         $('.parsley-fileextension').empty();
+         $('#contact_name').val("");
+         $('#mobile_number').val("");
+         $('#email_address').val("");
+         $('#bank_name').val("");
+         $('#account_holder_name').val("");
+         $('#account_number').val("");
+         $('#ifsc_code').val("");
+         $('.parsley-minlength').empty();
+         $('.parsley-required').empty();
+         $('.errormsg').empty('');
+         $('.parsley-success').removeClass('parsley-success');
+         $('.parsley-error').removeClass('parsley-error');
+         $('.parsley-pattern').removeClass('parsley-pattern');
+         $('.parsley-type').empty();
+         $('.parsley-minlength').empty();
+         $('.parsley-maxlength').empty();
+      });
    });
    $(document).ready(function() {
     $("#vendorForm").parsley();
@@ -620,7 +644,6 @@
         }
     }, 32)
     .addMessage('en', 'extension', 'The extension should be pdf,doc,docx');
-
 });
 
 </script>

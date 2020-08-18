@@ -158,7 +158,6 @@ class VendorRepository implements VendorInterface{
         return $vendor;
     }
 
-
     /**
      * Update vendor status.
      *

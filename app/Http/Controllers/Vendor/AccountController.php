@@ -10,6 +10,7 @@ use App\Http\Requests\SupportContactRequest;
 use App\Http\Requests\CompanyRequest;
 use App\Http\Requests\VendorRequest;
 use App\Model\Document;
+use DB;
 use App\Repositories\Account\AccountInterface as AccountInterface;
 
 
@@ -28,7 +29,6 @@ class AccountController extends Controller
         $this->accountRepository = $accountRepository;
     }  
     
-
     /**
     * get all Vendor details.
     *@author Bharti<bharati.tadvi@neosofttech.com> 
@@ -60,11 +60,15 @@ class AccountController extends Controller
     */
     public function documentStore(DocumentRequest $request){
         
+        DB::beginTransaction();
+
         try {
             $vendor = $this->accountRepository->documentSave($request);
+            DB::commit();
             return redirect()->route('accounts.index')->with('success','Document save successfully');
         } catch (Exception $e) {
-            return redirect()->back()->with('error','Something went wrong');
+            DB::rollback();
+            return redirect()->back()->with('error',json_encode($e->getMessage()));
         }
 
     }
@@ -78,12 +82,16 @@ class AccountController extends Controller
     */
     public function supportContactStore(SupportContactRequest $request){
         
+        DB::beginTransaction();
+
         try {
             $tab = $request->get('tab');
             $contactDetail = $this->accountRepository->supportContactSave($request);
+            DB::commit();
             return redirect()->route('accounts.index')->withInput(['tab'=>$tab])->with('success','Contact detail save successfully');
         } catch (Exception $e) {
-            return redirect()->back()->with('error','Something went wrong');
+            DB::rollback();
+            return redirect()->back()->with('error',json_encode($e->getMessage()));
         }
     }
 
@@ -95,13 +103,17 @@ class AccountController extends Controller
     *@return void
     */
     public function bankDetailStore(BankDetailRequest $request){
-                
+        
+        DB::beginTransaction();
+            
         try {
             $tab = $request->get('tab');
             $bankDetail = $this->accountRepository->bankDetailSave($request);
+            DB::commit();
             return redirect()->route('accounts.index')->withInput(['tab'=>$tab])->with('success','Bank details save successfully');
         } catch (Exception $e) {
-            return redirect()->back()->with('error','Something went wrong');
+            DB::rollback();
+            return redirect()->back()->with('error',json_encode($e->getMessage()));
         }
     }
 
@@ -117,16 +129,20 @@ class AccountController extends Controller
     {
         $requestData = $request;
        
+        DB::beginTransaction();
+
         try{
             
             $vendorDetail = $this->accountRepository->updateVendor($id,$requestData);
                     
             if($vendorDetail){
+                DB::commit();
                 return redirect()->route('accounts.index')->with('success', 'Vendor Detail is successfully updated');
             }
             return redirect()->route('accounts.index')->with('error','Vendor not found');
         }catch(\Exception $ex){
-            return redirect()->route('accounts.index')->with('error','Something went wrong');
+            DB::rollback();
+            return redirect()->route('accounts.index')->with('error',json_encode($ex->getMessage()));
         }
     }  
     
@@ -141,15 +157,19 @@ class AccountController extends Controller
     {
         $requestData = $request;
         
+        DB::beginTransaction();
+        
         try{
             $tab = $request->get('tab');
             $companyDetail = $this->accountRepository->updateCompany($id,$requestData);
             if($companyDetail){
+                DB::commit();
                 return redirect()->route('accounts.index')->withInput(['tab'=>$tab])->with('success', 'Company Detail is successfully updated');
             }
             return redirect()->route('accounts.index')->with('error','Company not found');
         }catch(\Exception $ex){
-            return redirect()->route('accounts.index')->with('error','Something went wrong');
+            DB::rollback();
+            return redirect()->route('accounts.index')->with('error',json_encode($ex->getMessage()));
         }
     }
     

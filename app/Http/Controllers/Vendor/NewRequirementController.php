@@ -11,6 +11,7 @@ use App\Model\AssignVendor;
 use App\Model\User;
 use Mail;
 use Session;
+use DB;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\VendorQuotationRequest;
 use App\Repositories\NewRequirement\NewRequirementInterface as NewRequirementInterface;
@@ -65,11 +66,11 @@ class NewRequirementController extends Controller
     }
 
      /**
-    * Show the form of specified Post requirement.
+    * Show the form of specified New requirement.
     *@Author Bharti <bharati.tadvi@neosofttech.com>
     *  
     * @param  $id
-    * @return $pastRequirement
+    * @return $newRequirement,$category,$assignVendor
     */
     public function show(Request $request,$id){
         
@@ -150,6 +151,8 @@ class NewRequirementController extends Controller
             return $response;
         }
         
+        DB::beginTransaction();
+
         try{
             $newRequirement = $this->newRequirementRepository->update($id,$request);
             
@@ -176,12 +179,12 @@ class NewRequirementController extends Controller
             $details['from']= $user->email;
 
             dispatch(new \App\Jobs\SendMailToAdmin($details));
-            
+            DB::commit();
             if (!empty($newRequirement)) {
                 
                 $response = response()->json([
                     'success' => true,
-                    'message' => "Vendor uploaded quotation successfully.",
+                    'message' => "Vendor uploaded quotation successfully",
                 ]);
             
                 return $response;
@@ -198,7 +201,7 @@ class NewRequirementController extends Controller
                 return $response;
             }
         }catch(\Exception $ex){
-            
+            DB::rollback();
             $response = response()->json([
                 'success' => false,
                 'message' => "Something went wrong",
@@ -231,10 +234,9 @@ class NewRequirementController extends Controller
     *@Author Bharti <bharati.tadvi@neosofttech.com>
     *  
     * @param  $id
-    * @return $pastRequirement
+    * @return $quotations
     */
     public function showQuotationDetail(Request $request,$id){
-        
         
         $quotations = $this->newRequirementRepository->findQuotation($id);
         
@@ -244,8 +246,8 @@ class NewRequirementController extends Controller
             }else{
                 return redirect()->route('new.requirement.index')->with('error', 'Quotation not found');
             }
-        }catch(\Throwable $th){
-            return redirect()->route('new.requirement.index')->with('error', 'Something went wrong!');
+        }catch(\Exception $ex){
+            return redirect()->route('new.requirement.index')->with('error',json_encode($ex->getMessage()));
         }
     }
 

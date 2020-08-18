@@ -55,8 +55,6 @@ class PastRequirementController extends Controller
         }
     	return view('vendorUser.pastRequirement.index');
     }
-
-
     
     /**
     * Show the form of specified Post requirement.

@@ -18,7 +18,6 @@ class CategoryRepository implements CategoryInterface{
         return Category::find($id);
     }
 
-
     /**
      * Get's all category.
      *
@@ -32,7 +31,6 @@ class CategoryRepository implements CategoryInterface{
     	return $category;
     }
 
-
     /**
      * Save a category.
      *
@@ -44,7 +42,6 @@ class CategoryRepository implements CategoryInterface{
     {
     	return Category::create($data);
     }
-
 
     /**
      * Updates a category.

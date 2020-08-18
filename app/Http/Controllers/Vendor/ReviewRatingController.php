@@ -33,7 +33,6 @@ class ReviewRatingController extends Controller
     */
     public function index(Request $request){
 
-        
         if($request->ajax()){
             
             $currentUser = \Auth::user();
@@ -62,7 +61,6 @@ class ReviewRatingController extends Controller
         }
     	return view('vendorUser.reviews_and_ratings.index');
     }
-
 
     /**
     * Show page of specified review and rating.

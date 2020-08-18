@@ -81,14 +81,14 @@ class CategoryController extends Controller
             $result = $this->categoryRepository->save($category);
             if($result) {
                 DB::commit();
-                return redirect('admin/categories')->with('success', 'Category added successfully.');
+                return redirect('admin/categories')->with('success', 'Category added successfully');
             } else {
                 DB::rollback();
                 return redirect('admin/categories')->with('error', 'Something went wrong!');
             }
         } catch(\Exception $e) {
             DB::rollback();
-            return redirect('admin/categories')->with('error', json_encode($e->getMessage()));
+            return redirect('admin/categories')->with('error',json_encode($e->getMessage()));
         }
     }
 
@@ -142,10 +142,11 @@ class CategoryController extends Controller
         try {
             $category =  $this->categoryRepository->update($id,$categoryUpdate);
             if($category){
-                return redirect('admin/categories')->with('success', 'Category is successfully updated.');
+                DB::commit();
+                return redirect('admin/categories')->with('success', 'Category is successfully updated');
             }
                 DB::rollback();
-                return redirect('admin/categories')->with('error','Category not found.');
+                return redirect('admin/categories')->with('error','Category not found');
         } catch(\Exception $e) {
             DB::rollback();
             return redirect('admin/categories')->with('error', json_encode($e->getMessage()));

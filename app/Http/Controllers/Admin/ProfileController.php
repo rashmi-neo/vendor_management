@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use DataTables;
 use App\User;
+use DB;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProfileRequest;
 use App\Repositories\Profile\ProfileInterface as ProfileInterface;
@@ -44,7 +45,6 @@ class ProfileController extends Controller
         }
     }
     
-
     /**
      * Update the specified resource in storage.
      *
@@ -55,15 +55,20 @@ class ProfileController extends Controller
     public function update(ProfileRequest $request, $id)
     {
         
+        DB::beginTransaction();
+
         try{
             $user = $this->profileRepository->update($id,$request);
             
             if($user){
+                DB::commit();
                 return redirect()->route('profiles.index')->with('success', 'Profile is successfully updated');
             }
-                return redirect()->route('profiles.index')->with('error','User profile not found');
+            DB::rollback();
+            return redirect()->route('profiles.index')->with('error','User profile not found');
         }catch(\Exception $ex){
-            return redirect()->route('profiles.index')->with('error','Something went wrong!');
+            DB::rollback();
+            return redirect()->route('profiles.index')->with('error',json_encode($ex->getMessage()));
         }
     }
 }

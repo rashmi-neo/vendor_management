@@ -315,6 +315,7 @@
     
     $('#modal2').on('hidden.bs.modal', function() {  
         $('#review').val("");
+        $('.error-rating').empty();
         $('.parsley-required').empty();
         $('.parsley-fileextension').empty();
         $('.parsley-error').removeClass('parsley-error');
@@ -323,7 +324,6 @@
         $('.parsley-pattern').empty();
         $('#stars li.selected').removeClass('selected');
     });
-
 </script>
 
 @if(session()->get('success'))

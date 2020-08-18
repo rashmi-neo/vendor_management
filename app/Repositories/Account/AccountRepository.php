@@ -38,6 +38,7 @@ class AccountRepository implements AccountInterface{
        
         return $vendorUser;
     }
+
     /**
      * Save a Vendor document.
      *
@@ -156,7 +157,7 @@ class AccountRepository implements AccountInterface{
      *
      * @Author Bharti <bharati.tadvi@neosofttech.com>
      * @param $id,$data
-     * @return 
+     * @return $company
      */
     public function updateCompany($id,$data)
     {

@@ -31,7 +31,6 @@ class RequirementRepository implements RequirementInterface{
         
     }
 
-
     /**
      * Get's all requirement.
      *
@@ -269,7 +268,13 @@ class RequirementRepository implements RequirementInterface{
         }
     }
     
-    
+    /**
+     * Show Quotation Details
+     *
+     * @Author Vikas <vikas.salekar@neosofttech.com>
+     * @param $vendorAssignId
+     * @return collection
+    */
     public function showQuotationDetails($vendorAssignId)
     {
         return VendorQuotation::where('deleted_at',null)->where('assign_vendor_id',$vendorAssignId)->get();

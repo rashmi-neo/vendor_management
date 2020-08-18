@@ -289,7 +289,7 @@
         $('#amount').val("");
         $('input[type="file"]').val("");
         $('.parsley-required').empty();
-        $('.parsley-fileextension').empty();
+        $('.parsley-extension').empty();
         $('.parsley-error').removeClass('parsley-error');
         $('.parsley-success').removeClass('parsley-success');
         $('.parsley-minlength').empty();

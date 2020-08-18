@@ -22,7 +22,7 @@ class  NewRequirementRepository implements NewRequirementInterface{
      *
      *@Author Bharti <bharti.tadvi@neosofttech.com>
      *@param  void
-     *@return 
+     *@return $requirements
      */
     public function all()
     {
@@ -61,7 +61,7 @@ class  NewRequirementRepository implements NewRequirementInterface{
      *
      * @Author Bharti <bharati.tadvi@neosofttech.com>
      * @param $id
-     * @return collection
+     * @return $vendorQuotation
      */
     public function findQuotation($id){
         $vendorId = Vendor::where('user_id',\Auth::user()->id)->first();

@@ -40,7 +40,6 @@ class ReviewRatingController extends Controller
     */
     public function index(Request $request){
 
-        
         if($request->ajax()){
             $data = $this->reviewRatingRepository->all();
 

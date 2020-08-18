@@ -5,7 +5,6 @@ use Illuminate\Http\Request;
 
 interface AccountInterface{ 
 	
-
     /**
      * Find specific  vendor .
      *
@@ -22,7 +21,6 @@ interface AccountInterface{
      */
     public function documentSave($requestData);
 
-
 	/**
      * Save Support contact detail  .
      *
@@ -30,7 +28,6 @@ interface AccountInterface{
      * @param $requestData
      */
     public function supportContactSave($requestData);
-
 
 	/**
      * Save Bank detail .

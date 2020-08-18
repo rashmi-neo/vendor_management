@@ -6,6 +6,7 @@ use App\Model\ReviewRating;
 use App\Model\Requirement;
 use App\Model\AssignVendor;
 use App\Model\Vendor;
+use App\Model\VendorQuotation;
 
 
 class  ReviewRatingRepository implements ReviewRatingInterface{
@@ -39,9 +40,10 @@ class  ReviewRatingRepository implements ReviewRatingInterface{
     public function save($data){
         
         $assignVendor = $this->findVendorRequirement($data);
+        
         $reviewRatingObj = new ReviewRating;
         $reviewRatingObj->requirement_id = $data['requirementId'];
-        $reviewRatingObj->vendor_id = $assignVendor->vendor_id;
+        $reviewRatingObj->vendor_id = $assignVendor;
         $reviewRatingObj->review = $data['review'];
         $reviewRatingObj->rating = $data['rating'];
         $reviewRatingObj->save();
@@ -57,10 +59,17 @@ class  ReviewRatingRepository implements ReviewRatingInterface{
      * @return collection
     */
     public function findVendorRequirement($data){
-        
-        return AssignVendor::with(['vendor','requirement','vendorQuotation'=>function ($query){
-            $query->where('deleted_at',null)->whereIn('status',['approved']);
-        }])->where('requirement_id',$data['requirementId'])->first();
+       
+        $assignVendor = AssignVendor::where('requirement_id',$data['requirementId'])->with(['vendor','requirement','vendorQuotation'=>function ($query){
+            $query->where('deleted_at',null)->where('status','approved');
+        }])->get();
+
+        foreach($assignVendor as $datarequire){
+            if(!$datarequire->vendorQuotation->isEmpty()){
+                $vendor_id = $datarequire->vendor_id;
+            } 
+        }
+        return $vendor_id;     
     }
 
 

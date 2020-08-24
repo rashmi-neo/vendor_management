@@ -64,7 +64,7 @@
                      </div>
                   </div>
                   <div class="form-group row">
-                     {!! Form::label('middleName','Middle Name :',['class'=>"col-sm-2 required col-form-label"],false) !!} 
+                     {!! Form::label('middleName','Middle Name :',['class'=>"col-sm-2  col-form-label"],false) !!} 
                      <div class="col-sm-8">
                         {!! Form::text('middle_name', $vendor->middle_name, ['class' => 'form-control ','placeholder' => 'Middle Name',
                         'data-parsley-trigger' => "input",
@@ -131,7 +131,7 @@
                      </div>
                   </div>
                   <div class="form-group row">
-                     {!! Form::label('current_password','Current Password :',['class'=>"col-sm-2 required col-form-label"],false) !!} 
+                     {!! Form::label('current_password','Current Password:',['class'=>"col-sm-2 required col-form-label"],false) !!} 
                      <div class="col-sm-8">
                         {!! Form::password('current_password', ['class' => 'form-control ','placeholder' => 'Current Password','id' => 'current_password',
                         'data-parsley-required' => 'true',
@@ -210,7 +210,7 @@
                      </div>
                   </div>
                   <div class="form-group row">
-                  {!! Form::label('company_address','Company Address :',['class'=>"col-sm-2 required col-form-label"],false) !!} 
+                  {!! Form::label('company_address','Company Address:',['class'=>"col-sm-2 required col-form-label"],false) !!} 
                      <div class="col-sm-8">
                         {!! Form::text('company_address', $vendor->company->address, ['class' => 'form-control ',
                         'placeholder' => 'Company Address',
@@ -647,5 +647,4 @@
 });
 
 </script>
-
 @endsection

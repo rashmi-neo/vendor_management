@@ -95,7 +95,7 @@
                             <td>{{ $vendor->first_name .' '.$vendor->last_name }}</td>
                             <td>{{ $vendor->mobile_number }}</td>
                             <td>
-                                <a href="{{ url('admin/showQuotation/'.$showRequirementDetails->id.'/'.$vendor->assign_vendors_id)}}" rel="tooltip" title="Show" class="edit btn btn-success btn-sm viewRequirement"><i class="fas fa-eye"></i></a>&nbsp;
+                                <a href="{{ url('admin/requirements/showQuotation/'.$showRequirementDetails->id.'/'.$vendor->assign_vendors_id)}}" rel="tooltip" title="Show" class="edit btn btn-success btn-sm viewRequirement"><i class="fas fa-eye"></i></a>&nbsp;
                             </td>
                         <tr>
                         @endforeach

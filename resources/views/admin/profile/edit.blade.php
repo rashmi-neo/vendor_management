@@ -60,7 +60,7 @@
                </div>
             </div>
             <div class="form-group row">
-               {!! Form::label('current_password','Current Password :',['class'=>"col-sm-2 required col-form-label"],false) !!} 
+               {!! Form::label('current_password','Current Password:',['class'=>"col-sm-2 required col-form-label"],false) !!} 
                <div class="col-sm-8">
                   {!! Form::password('current_password', ['class' => 'form-control ','placeholder' => 'Current Password',
                   'data-parsley-required' => 'true',

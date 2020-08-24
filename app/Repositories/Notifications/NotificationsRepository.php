@@ -76,7 +76,7 @@ class NotificationsRepository implements NotificationsInterface{
      */
     public function getWhereData($data)
     {
-        $notification = Notifications::where($data)->get();
+        $notification = Notifications::where($data)->latest()->get();
         return $notification;
     }
 

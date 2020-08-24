@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use DataTables;
 use App\Model\Vendor;
+use App\Model\AssignVendor;
 use App\Repositories\PastRequirement\PastRequirementInterface as PastRequirementInterface;
 
 
@@ -67,10 +68,14 @@ class PastRequirementController extends Controller
         
         $category = $this->findCategory();
         $pastRequirement = $this->pastRequirementRepository->find($id);
+        $vendorId = Vendor::where('user_id',\Auth::user()->id)->first();
+        $assignVendor = AssignVendor::with('requirement')
+        ->where('requirement_id',$pastRequirement->id)
+        ->whereIn('vendor_id',[$vendorId->id])->first();
         
         try {
             if($pastRequirement){
-    	        return view('vendorUser.pastRequirement.show',compact('pastRequirement','category'));
+    	        return view('vendorUser.pastRequirement.show',compact('pastRequirement','category','assignVendor'));
             }else{
                 return redirect()->route('past.requirement.index')->with('error', 'Past requirement not found');
             }
@@ -93,5 +98,28 @@ class PastRequirementController extends Controller
         $categoryName = Vendor::where('user_id',$id)->where('deleted_at',null)
             ->with('vendorCategory','vendorCategory.category')->first();
         return $categoryName;
+    }
+
+
+    /**
+    * Show the form of specified quotation.
+    *@Author Bharti <bharati.tadvi@neosofttech.com>
+    *  
+    * @param  $id
+    * @return $quotations
+    */
+    public function showQuotationDetail(Request $request,$id){
+        
+        $quotations = $this->pastRequirementRepository->findQuotation($id);
+        
+        try {
+            if($quotations){
+    	        return view('vendorUser.pastRequirement.showQuotation',compact('quotations'));
+            }else{
+                return redirect()->route('past.requirement.index')->with('error', 'Quotation not found');
+            }
+        }catch(\Exception $ex){
+            return redirect()->route('past.requirement.index')->with('error',json_encode($ex->getMessage()));
+        }
     }
 }

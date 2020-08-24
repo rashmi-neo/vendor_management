@@ -19,7 +19,7 @@
 <div class="card">
 		<div class="card-header">
 			<h3 class="card-title">Vendor Categories</h3>
-			<a class="btn btn-success float-right btn-sm" href="{{route('categories.create')}}" style="margin-left: 826px;">Add New</a>
+			<a class="btn btn-success float-right btn-sm" rel="tooltip" title="Add New" href="{{route('categories.create')}}" style="margin-left: 826px;">Add New</a>
 		</div>
 		
 	<div class="card-body">
@@ -61,7 +61,8 @@ $(function () {
             {data: 'name', name: 'name'},
             {data: 'status', name: 'status'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
-        ]
+        ],
+        "columnDefs": [{ className:"text-center", "targets":[3]} ],
     });
   });
 $(document).ready(function(){

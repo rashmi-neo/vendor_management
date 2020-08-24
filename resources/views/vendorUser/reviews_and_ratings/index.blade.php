@@ -62,6 +62,7 @@
       "columnDefs": [
       { "width": "100px", "targets": 4 }
       ],
+			"columnDefs": [{ className:"text-center", "targets":[6]} ],
     });
   });
 </script>

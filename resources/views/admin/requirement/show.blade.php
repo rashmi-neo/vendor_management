@@ -94,8 +94,8 @@
                             <td>{{ $vendor->title }}</td>
                             <td>{{ $vendor->first_name .' '.$vendor->last_name }}</td>
                             <td>{{ $vendor->mobile_number }}</td>
-                            <td>
-                                <a href="{{ url('admin/requirements/showQuotation/'.$showRequirementDetails->id.'/'.$vendor->assign_vendors_id)}}" rel="tooltip" title="Show" class="edit btn btn-success btn-sm viewRequirement"><i class="fas fa-eye"></i></a>&nbsp;
+                            <td class="text-center">
+                                <a href="{{ url('admin/requirements/showQuotation/'.$showRequirementDetails->id.'/'.$vendor->assign_vendors_id)}}" rel="tooltip" title="Show Quatation Details" class="edit btn btn-success btn-sm viewRequirement"><i class="fas fa-eye"></i></a>&nbsp;
                             </td>
                         <tr>
                         @endforeach
@@ -124,7 +124,7 @@
                             @if($statusVendor->status)
                             <td>Awarded</td>
                             @endif
-                            <td>
+                            <td class="text-center">
                             <button href="#" onclick="openPaymentModal({{$vendorRequirement->requirement_id}},{{ $vendorRequirement->vendor->id}})" data-id="" class="uploadPaymentReceipt btn btn-primary btn-sm" 
                                 data-toggle="modal" data-target="#uploadPaymentReceipt" rel="tooltip" title="Upload Payment Receipt" {{ (empty($showRequirementDetails->payment)) ? "" : "disabled" }}>
                             <i class="fas fa-plus"></i></button>&nbsp;

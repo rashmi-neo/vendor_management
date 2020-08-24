@@ -49,7 +49,8 @@
 				{data: 'amount', name: 'amount'},
 				{data: 'receipt', name: 'receipt'},
 				{data: 'download_file', name: 'download_file'},
-			]
+			],
+			"columnDefs": [{ className:"text-center", "targets":[4]} ],
 		});
 	});
 </script>

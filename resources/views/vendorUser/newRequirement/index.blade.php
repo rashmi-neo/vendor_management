@@ -102,7 +102,8 @@
 				{data: 'priority', name: 'priority'},
 				{data: 'status', name: 'status'},
 				{data: 'action',   name: 'action'},
-			]
+			],
+			"columnDefs": [{ className:"text-center", "targets":[6]} ],
 		});
 	}); 
    $(function(){

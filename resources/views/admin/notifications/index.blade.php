@@ -58,9 +58,9 @@ $(function () {
             {data: 'status', name: 'status'},
             {data: 'created_at', name: 'created_at'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
-        ]
+        ],
+        "columnDefs": [{ className:"text-center", "targets":[6]} ],
     });
-    
   });
 $(document).ready(function(){
     $("[rel=tooltip]").tooltip();

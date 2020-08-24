@@ -343,7 +343,7 @@
                         @else
                         <td>Upload
                            <a href="#" data-id="{{$document->id}}" class="uploadDocument btn btn-primary btn-sm" 
-                              data-toggle="modal" data-target="#uploadDocument" rel="tooltip" title="Upload">
+                              data-toggle="modal" data-target="#uploadDocument" rel="tooltip" title="Upload Document">
                            <i class="fas fa-upload"></i></a>&nbsp;
                         </td>
                         @endif

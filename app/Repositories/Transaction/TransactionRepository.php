@@ -17,7 +17,7 @@ class TransactionRepository implements TransactionInterface{
      * Get's transactions as per login vendor.
      *
      *@Author Bharti <bharti.tadvi@neosofttech.com>
-     *@param  void
+     *@param  $data
      *@return $payments
      */
     public function getVendorPayment($data)

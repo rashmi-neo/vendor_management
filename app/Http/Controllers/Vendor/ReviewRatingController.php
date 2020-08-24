@@ -15,7 +15,7 @@ class ReviewRatingController extends Controller
     * Initialize Repository
     *@Author Bharti <bharati.tadvi@neosofttech.com>
     *
-    * @return \App\Repositories\ReviewRatingRepository
+    *@return \App\Repositories\ReviewRating\ReviewRatingRepository
     */
     private $reviewRatingRepository;
 
@@ -23,13 +23,12 @@ class ReviewRatingController extends Controller
         $this->reviewRatingRepository = $reviewRatingRepository;
     }
 
-
     /**
     * Index page of review and rating.
     *@Author Bharti <bharati.tadvi@neosofttech.com>
     *
     *@param  Illuminate\Http\Request;
-    * @return Datatables
+    *@return Datatables
     */
     public function index(Request $request){
 
@@ -67,7 +66,7 @@ class ReviewRatingController extends Controller
     *@Author Bharti <bharati.tadvi@neosofttech.com>
     *
     *@param  $id;
-    * @return $reviewAndRating
+    *@return $reviewAndRating
     */
     public function show($id){
         

@@ -10,6 +10,12 @@ use DataTables;
 class NotificationController extends Controller
 {
 
+    /**
+    * Initialize Repository
+    *@Author Bharti <bharati.tadvi@neosofttech.com>
+    *
+    * @return \App\Repositories\Notifications\NotificationsRepository
+    */ 
     private $notificationRepository;
 
     public function __construct(NotificationsInterface $notificationRepository)
@@ -48,10 +54,10 @@ class NotificationController extends Controller
 
                 if($data->status == "read"){
                     return $status['read'];
-                }elseif($data->status == "unread"){
+                }else{
                     return $status['unread'];
                 }
-                return "Rejected";
+            
             })
             ->addColumn('created_at', function($data){
                 return \Carbon\Carbon::parse($data->created_at)->toFormattedDateString();

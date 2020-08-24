@@ -27,7 +27,7 @@ class RequirementController extends Controller
     * Initialize Repository
     *@Author Bharti <bharati.tadvi@neosofttech.com>
     *
-    * @return \App\Repositories\RequirementRepository
+    * @return \App\Repositories\Requirement\RequirementRepository
     */
     private $requirementRepository;
     private $notificationRepository;
@@ -119,8 +119,8 @@ class RequirementController extends Controller
     * showing edit requirement page.
     *@author Vikas<vikas.salekar@neosofttech.com>
     *
-    *@param  Illuminate\Http\Request
-    *@return void
+    *@param  Illuminate\Http\Request,$id
+    *@return $requirementEditDetails, $categories,$vendorDetails
     */
     public function edit($id){
         $requirementEditDetails = $this->requirementRepository->get($id);
@@ -159,8 +159,8 @@ class RequirementController extends Controller
     * getting vendors as per category id.
     *@author Vikas<vikas.salekar@neosofttech.com>
     *
-    *@param  Illuminate\Http\Request
-    *@return void
+    *@param  $id
+    *@return $vendorDetails
     */
     public function getVendorDetails($id)
     {
@@ -173,7 +173,7 @@ class RequirementController extends Controller
     *@author Vikas<vikas.salekar@neosofttech.com>
     *
     *@param  Illuminate\Http\Request
-    *@return void
+    *@return $showRequirementDetails,$requirementVendors,$getQuotationStatus
     */
     public function show(Request $request,$id)
     {
@@ -251,7 +251,7 @@ class RequirementController extends Controller
     * Show Quotation.
     *@author Bharti<bharti.tadvi@neosofttech.com>
     *
-    *@param  Illuminate\Http\Request
+    *@param  $requirementId,$vendorAssignId
     *@return $requirement_id,$showQuotationDetails
     */
     public function showQuotation($requirementId,$vendorAssignId)

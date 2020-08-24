@@ -16,7 +16,7 @@ class ProfileController extends Controller
     * Initialize Repository
     *@Author Bharti <bharati.tadvi@neosofttech.com>
     *
-    * @return \App\Repositories\ProfileRepository
+    * @return \App\Repositories\Profile\ProfileRepository
     */ 
     private $profileRepository;
 

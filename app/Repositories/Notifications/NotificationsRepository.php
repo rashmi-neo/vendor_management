@@ -6,7 +6,6 @@ use App\Repositories\Notifications\NotificationsInterface;
 
 class NotificationsRepository implements NotificationsInterface{
 
-
 	/**
      * Get's a Notifications by it's ID
      *
@@ -17,7 +16,6 @@ class NotificationsRepository implements NotificationsInterface{
     {
         return Notifications::find($id);
     }
-
 
     /**
      * Get's all notification.
@@ -32,7 +30,6 @@ class NotificationsRepository implements NotificationsInterface{
     	return $notification;
     }
 
-
     /**
      * Save a notification.
      *
@@ -44,7 +41,6 @@ class NotificationsRepository implements NotificationsInterface{
     {
     	Notifications::create($data);
     }
-
 
     /**
      * Updates a notification.
@@ -79,6 +75,4 @@ class NotificationsRepository implements NotificationsInterface{
         $notification = Notifications::where($data)->latest()->get();
         return $notification;
     }
-
-
 }

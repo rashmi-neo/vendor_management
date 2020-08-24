@@ -23,7 +23,7 @@ class NewRequirementController extends Controller
     * Initialize Repository
     *@Author Bharti <bharati.tadvi@neosofttech.com>
     *
-    * @return \App\Repositories\NewRequirementRepository
+    * @return \App\Repositories\NewRequirement\NewRequirementRepository
     */ 
     private $newRequirementRepository;
 
@@ -37,6 +37,7 @@ class NewRequirementController extends Controller
     *@Author Bharti <bharati.tadvi@neosofttech.com>
     * 
     *@param  Illuminate\Http\Request;
+    *@return Datatable
     */
     public function index(Request $request){
         

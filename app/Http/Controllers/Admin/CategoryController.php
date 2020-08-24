@@ -15,7 +15,7 @@ class CategoryController extends Controller
     * Initialize Repository
     *@Author Pooja <Pooja.lavhat@neosofttech.com>
     *
-    * @return \App\Repositories\CategoryRepository
+    * @return \App\Repositories\Category\CategoryRepository
     */ 
 
     private $categoryRepository;

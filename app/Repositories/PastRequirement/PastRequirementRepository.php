@@ -54,7 +54,6 @@ class  PastRequirementRepository implements PastRequirementInterface{
         return Requirement::find($id);
     }
 
-
     /**
      * Find a Quotation by Requirement's ID
      *

@@ -17,7 +17,7 @@ class VendorController extends Controller
     * Initialize Repository
     *@Author Bharti <bharati.tadvi@neosofttech.com>
     *
-    * @return \App\Repositories\VendorRepository
+    * @return \App\Repositories\Vendor\VendorRepository
     */ 
     private $vendorRepository;
 
@@ -127,18 +127,17 @@ class VendorController extends Controller
     */
     public function edit($id)
     {   
-        $vebdorId = $id;
+        $categoryId = [];
         
         $categories = $this->vendorRepository->getAllCategories();
         
-        $vendor = $this->vendorRepository->find($vebdorId);
+        $vendor = $this->vendorRepository->find($id);
         
-        foreach($vendor->vendorCategory as $category){
-            $categoryId[] = $category->category_id;
-        }
-    
         try {
             if($vendor){
+                foreach($vendor->vendorCategory as $category){
+                    $categoryId[] = $category->category_id;
+                }
     	        return view('admin.vendor.edit',compact('vendor','categories','categoryId'));
             }else{
                 return redirect()->route('vendors.index')->with('error', 'Vendor not found');

@@ -20,7 +20,7 @@ class ReviewRatingController extends Controller
     * Initialize Repository
     *@Author Bharti <bharati.tadvi@neosofttech.com>
     *
-    * @return \App\Repositories\ReviewRatingRepository,\App\Repositories\NotificationRepository
+    * @return \App\Repositories\ReviewRating\ReviewRatingRepository,\App\Repositories\Notifications\NotificationRepository
     */
     private $reviewRatingRepository;
     private $notificationRepository;
@@ -29,7 +29,6 @@ class ReviewRatingController extends Controller
         $this->reviewRatingRepository = $reviewRatingRepository;
         $this->notificationRepository = $notificationRepository;
     }
-
 
     /**
     * Index page of Review and rating.
@@ -65,12 +64,11 @@ class ReviewRatingController extends Controller
     	return view('admin.reviewsAndRatings.index');
     }
 
-
     /**
     * Store rating and review .
     *@author Bharti<bharati.tadvi@neosofttech.com> 
-    * 
-    *@return void
+    * @param Illuminate\Http\Request
+    *@@return \Illuminate\Http\Response
     */
     public function save(ReviewRatingRequest $request){
         

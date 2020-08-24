@@ -16,7 +16,7 @@ class PastRequirementController extends Controller
     * Initialize Repository
     *@Author Bharti <bharati.tadvi@neosofttech.com>
     *
-    * @return \App\Repositories\PastRequirementRepository
+    * @return \App\Repositories\PastRequirement\PastRequirementRepository
     */ 
     private $pastRequirementRepository;
 
@@ -28,7 +28,8 @@ class PastRequirementController extends Controller
     * Index page of Past requirement.
     *@Author Bharti <bharati.tadvi@neosofttech.com>
     * 
-    *@param  Illuminate\Http\Request;
+    *@param  Illuminate\Http\Request
+    *@return Datatables
     */
     public function index(Request $request){
         
@@ -62,7 +63,7 @@ class PastRequirementController extends Controller
     *@Author Bharti <bharati.tadvi@neosofttech.com>
     *  
     * @param  $id
-    * @return $pastRequirement
+    * @return $pastRequirement,category,assignVendor
     */
     public function show(Request $request,$id){
         

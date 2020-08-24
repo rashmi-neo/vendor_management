@@ -15,7 +15,7 @@ class TransactionController extends Controller
     * Initialize Repository
     *@Author Bharti <bharati.tadvi@neosofttech.com>
     *
-    * @return \App\Repositories\TransactionRepository
+    * @return \App\Repositories\Transaction\TransactionRepository
     */
     private $transactionRepository;
 
@@ -62,6 +62,5 @@ class TransactionController extends Controller
         $newFileName = 'Payment-receipt'.time();
 
         return response()->download($file,$newFileName);
-
     }
 }

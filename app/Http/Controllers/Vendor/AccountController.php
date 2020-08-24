@@ -21,7 +21,7 @@ class AccountController extends Controller
     * Initialize Repository
     *@Author Bharti <bharati.tadvi@neosofttech.com>
     *
-    * @return \App\Repositories\AccountRepository
+    * @return \App\Repositories\Account\AccountRepository
     */ 
     private $accountRepository;
 
@@ -73,7 +73,7 @@ class AccountController extends Controller
 
     }
 
-     /**
+    /**
     * Store Support contact details.
     *@author Bharti<bharati.tadvi@neosofttech.com> 
     *

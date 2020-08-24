@@ -138,8 +138,7 @@
                         'data-parsley-required-message' => 'Password is required',
                         'data-parsley-trigger' => "input",
                         'data-parsley-trigger'=>"blur",
-                        'data-parsley-minlength' => '6',
-                        'data-parsley-maxlength' => '8']) !!}
+                        'data-parsley-minlength' => '6']) !!}
                         @error('current_password')
                         <span class="text-danger errormsg" role="alert">
                            <p>{{ $message }}</p>

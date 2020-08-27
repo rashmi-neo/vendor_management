@@ -37,7 +37,7 @@ class TransactionRepository implements TransactionInterface{
      */
     public function all(){
         
-        return Payment::orderBy('id', 'desc')->get();
+        return Payment::latest()->get();
     }
 
 }

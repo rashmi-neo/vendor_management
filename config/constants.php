@@ -56,7 +56,18 @@ return [
         'text' =>'has been added review and rating.',
         'type' => 'new_review_rating',
         'status' => 'unread'
+    ],
+    'DOCUMENT_REASON'=>[
+        'title' => 'Admin added reason',
+        'text' =>'has been added reason for document.Please check your document.',
+        'type' => 'document_reason',
+        'status' => 'unread'
+    ],
+
+    'DOCUMENT_STATUS'=>[
+        'title' => 'Document status updated',
+        'text' =>'has been updated document status.',
+        'type' => 'document_status_update',
+        'status' => 'unread'
     ]
-
-
 ];

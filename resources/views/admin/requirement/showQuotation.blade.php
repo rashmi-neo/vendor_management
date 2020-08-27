@@ -1,21 +1,5 @@
 @extends('layouts.master')
 @section('main-content')
-<div class="content-header">
-   <div class="container-fluid">
-      <div class="row mb-2">
-         <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Quatation Details</h1>
-         </div><!-- /.col -->
-         <div class="col-sm-6">
-         <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="{{url('admin/dashboard')}}">Dashboard</a></li>
-            <li class="breadcrumb-item"><a href="{{ route('requirements.index') }}">Requirement</a></li>
-            <li class="breadcrumb-item active">Quatation Details</li>
-         </ol>
-         </div><!-- /.col -->
-      </div><!-- /.row -->
-   </div><!-- /.container-fluid -->
-</div>
 <div class="col-12 col-sm-12">
     <div class="card card-primary card-outline card-outline-tabs">
         <div class="card-header">
@@ -50,16 +34,16 @@
                             <td>{{ empty($quotation->comment)?"-":$quotation->comment}}</td>
                             <td>{{ empty($quotation->admin_comment)? "-":$quotation->admin_comment}}</td>
                             <td>{{ ucfirst($quotation->status)}}</td>
-                            <td class="text-center">
+                            <td>
                                 {{-- <button type="button" class="edit btn btn-primary btn-sm" title="add comment" onclick="openCommentModal({{ $vendor->vendor_id }},{{ $vendor->assign_vendors_id }})" id="comment_{{ $vendor->vendor_id }}" ><i class="fas fa-pencil-alt"></i></button> --}}
                               @if ($quotation->admin_comment == "" || $quotation->admin_comment == null)
-                              <button type="button" class="edit btn btn-primary btn-sm" rel="tooltip" title="Add Comment" onclick="openCommentModal({{ $quotation->id }},{{ $quotation->assign_vendor_id }})" id="comment_{{ $quotation->assign_vendors_id }}" ><i class="fas fa-pencil-alt"></i></button>
+                              <button type="button" class="edit btn btn-primary btn-sm" onclick="openCommentModal({{ $quotation->id }},{{ $quotation->assign_vendor_id }})" id="comment_{{ $quotation->assign_vendors_id }}" ><i class="fas fa-pencil-alt"></i></button>
                               @else
                               <button type="button" class="edit btn btn-primary btn-sm"  id="comment_{{ $quotation->assign_vendors_id }}" disabled><i class="fas fa-pencil-alt"></i></button>
                               @endif
-                              @if($quotation->status =="In process")
-                              <button type="button" class="btn btn-info btn-sm" rel="tooltip" title="Change Status" onclick="openStatusModal({{ $quotation->id }},{{ $quotation->assign_vendor_id }},{{$requirement_id}})" id="status_{{ $quotation->assign_vendors_id }}"><i class="fas fa-exclamation-circle"></i></button>
-                               @elseif($quotation->status  =="Approved")
+                              @if($quotation->status =="in_process")
+                              <button type="button" class="btn btn-warning btn-sm" rel="tooltip" title="Approve" onclick="openStatusModal({{ $quotation->id }},{{ $quotation->assign_vendor_id }},{{$requirement_id}})" id="status_{{ $quotation->assign_vendors_id }}"><i class="fas fa-exclamation-circle"></i></button>
+                               @elseif($quotation->status  =="approved")
                               <button type="button" class="btn btn-success btn-sm" rel="tooltip" title="Approved"><i class="fas fa-check"></i></button>
                                @else
                               <button type="button" class="btn btn-danger btn-sm" rel="tooltip" title="Rejected"><i style="font-size: 16px;" class="fas fa-window-close"></i></button>
@@ -76,12 +60,12 @@
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
             {{-- <form method="POST"  action="{{ route('addComment',$showRequirementDetails->id) }}" data-parsley-validate="parsley"> --}}
-                <form method="POST"  data-parsley-validate="parsley" id="CommentForm">
+                <form method="POST"  data-parsley-validate="parsley">
                 @csrf
                 @method('PUT')
                 <input type="hidden" value="" id="quotationId" name="quotationId">
                 <input type="hidden" value="" id="assignVendorId" name="assignVendorId">
-                <div class="modal-header headerModal">
+                <div class="modal-header">
                 <h4 class="modal-title">Add Comment</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -90,16 +74,18 @@
                 <div class="modal-body">
                 <div class="form-group">
                     <div>
-                    {!! Form::label('comment', 'Comment:',['class' => 'col-sm-3 required label_class']) !!}
-                    {!! Form::textarea('comment',null,['class' => 'form-control ','placeholder' => 'Comment','id'=>'comment',
-                    'data-parsley-required' => 'true',
+                    {!! Form::label('comment', 'Comment',['class' => 'col-sm-3 label_class']) !!}
+                    {!! Form::textarea('comment',null,['class' => 'form-control ','placeholder' => 'Comment','id'=>'comment', 'data-parsley-required' => 'true',
                     'data-parsley-required-message' => 'Please add comment',
                     'data-parsley-trigger' => "input",
                     'data-parsley-minlength' => '2',
                     'data-parsley-maxlength' => '1000',
                     'data-parsley-trigger'=>"blur"]) !!}
-                     <span class="text-danger error-comment" role="alert">
+                     @error('comment')
+                     <span class="text-danger errormsg" role="alert">
+                        <p>{{ $message }}</p>
                      </span>
+                     @enderror
                     </div>
                 </div>
             </div>
@@ -175,33 +161,27 @@
         var quotationId = $("#quotationId").val();
         var comment = $("#comment").val();
         var assignVendorId = $("#assignVendorId").val();
-        var form = $('#CommentForm');
-        form.parsley().validate();
-        if(form.parsley().isValid()){
+        if(quotationId !="" && comment !="" && assignVendorId !="")
+        {
             $.ajax({
             type: "POST",
-            url: "../../addComment",
+            url: "{{route('add.comment')}}",
             data:{'id':quotationId,'comment':comment,'assignVendorId':assignVendorId},
             dataType: "json",
             success: function(result){
-             
-             if(result){ 
+             if(result)
+             {
                 $('#modal-lg').modal('hide');
                 toastr.success('Comment added successfully');
                 setTimeout(function () {
                     location.reload(true);
                 }, 2000);
-                }
-                },
-                error:function(result){
-                    if(typeof result.responseJSON.errors.comment != "undefined"){
-                    let comment = (result.responseJSON.errors.comment[0]);
-                    $('.error-comment').html(comment);
-                    }else{
-                    $('.error-comment').empty();
-                    }
-                }
-            });
+             }
+            }});
+        }
+        else
+        {
+            toastr.error('Please add comment');
         }
     });
     $("#updateStatus").click(function (e) {
@@ -234,17 +214,5 @@
              }
             }});
     });
-
-    $('#modal-lg').on('hidden.bs.modal', function() {
-      
-      $('#comment').val("");
-      $('.parsley-required').empty();
-      $('.parsley-error').removeClass('parsley-error');
-      $('.parsley-success').removeClass('parsley-success');
-      $('.parsley-minlength').empty();
-      $('.error-comment').empty();
-
-   });
-
 </script>
 @endsection

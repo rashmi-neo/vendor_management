@@ -16,3 +16,10 @@
 @if($row->type=='New review rating')
 <a href="{{route('vendor.reviews.index')}}" class="view btn btn-success btn-sm" rel="tooltip" title="View"><i class="fas fa-eye"></i></a>&nbsp;
 @endif
+@if($row->type=='Document reason')
+<a href="{{route('accounts.index')}}" class="view btn btn-success btn-sm" rel="tooltip" title="View"><i class="fas fa-eye"></i></a>&nbsp;
+@endif
+
+@if($row->type=='Document status update')
+<a href="{{route('accounts.index')}}" class="view btn btn-success btn-sm" rel="tooltip" title="View"><i class="fas fa-eye"></i></a>&nbsp;
+@endif

@@ -130,6 +130,23 @@
                         @enderror
                      </div>
                   </div>
+                  <div class= "form-group row">
+                  {!! Form::label('category','Category :',['class'=>"col-sm-2 required col-form-label"],false) !!} 
+                  <div class="col-sm-8">
+                     {!!Form::select('category[]', $categories, $categoryId, 
+                     array('class'=>'form-control', 'placeholder'=>'Select Category',
+                     'multiple'=>'multiple','id'=>'category',
+                     'data-parsley-required' => 'true',
+                     'data-parsley-errors-container'=>'#categoryError',
+                     'data-parsley-required-message' => 'Category is required')) !!}
+                     @error('category')
+                     <span class="text-danger errormsg" role="alert">
+                        <p>{{ $message }}</p>
+                     </span>
+                     @enderror
+                     <span id="categoryError"><span>
+                  </div>
+               </div>
                   <div class="form-group row">
                      {!! Form::label('current_password','Current Password:',['class'=>"col-sm-2 required col-form-label"],false) !!} 
                      <div class="col-sm-8">
@@ -323,6 +340,7 @@
                         <th>Document Name</th>
                         <th>Mandatory</th>
                         <th>Status</th>
+                        <th>Reason</th>
                         <th>File</th>
                         <th>Action</th>
                      </tr>
@@ -333,20 +351,20 @@
                         <td>{{$document->name}}</td>
                         <td>{{ucfirst($document->is_mandatory)}}</td>
                         <td>{{isset($document->vendorDocument->status)?$document->vendorDocument->status:"-"}}</td>
-                        <td>{{isset($document->vendorDocument->file_name)?$document->vendorDocument->file_name:"-"}}</td>
-                      
-                       @if(!empty($document->vendorDocument->file_name))
-                       <td>
-                           <a href="#" class="btn btn-primary btn-sm ml-5">
-                           <i class="fas fa-check-circle"></i></a>&nbsp;
-                        </td>
+                        <td>{{isset($document->vendorDocument->reason)?$document->vendorDocument->reason:"-"}}</td>
+                        @if(isset($document->vendorDocument->file_name))
+                        <td> <a href="{{ url('/') }}/uploads/{{ $document->vendorDocument->file_name }}">{{$document->vendorDocument->file_name }} <i class="fa fa-download" aria-hidden="true"></i></a></td>
                         @else
-                        <td>Upload
-                           <a href="#" data-id="{{$document->id}}" class="uploadDocument btn btn-primary btn-sm" 
-                              data-toggle="modal" data-target="#uploadDocument" rel="tooltip" title="Upload Document">
-                           <i class="fas fa-upload"></i></a>&nbsp;
-                        </td>
+                        <td>-</td>
                         @endif
+                        <td>
+                        
+                        @if(isset($document->vendorDocument->status))
+                        <button class="btn btn-primary btn-sm"  rel="tooltip" title="Add Reason" onclick="openReasonModal({{ $document }})" {{ ($document->vendorDocument->status == "Approved") ? "disabled" : "" }}><i class="fas fa-upload"></i></button>
+                        @else
+                        <button class="btn btn-primary btn-sm"  rel="tooltip" title="Add Reason" onclick="openReasonModal({{ $document }})"><i class="fas fa-upload"></i></button>
+                        @endif
+                        </td>
                         @endforeach
                   </tbody>
                </table>
@@ -522,7 +540,8 @@
 'method' => 'post','data-parsley-validate' => 'parsley','enctype' =>'multipart/form-data']) !!}
    @csrf
    <div class="modal fade" id="uploadDocument"aria-modal="true">
-      <input type="hidden" name="vendor_id" value="{{$vendor->id}}"/>
+   <input type="hidden" name="vendor_id" value="{{$vendor->id}}"/>
+      <input type="hidden" id="docId" name="id" value=""/>
       <input type="hidden" id="documentFile" name="document_id" value=""/>
       <div class="modal-dialog modal-md">
          <div class="modal-content">
@@ -582,12 +601,29 @@
          toastr.error(message);
       </script>
    @endif
+
+   
 <script type="text/javascript">
+
+   $(function(){
+            $('#category').select2({
+                  theme: 'bootstrap4'
+            })
+   });
+
+   function openReasonModal(data)
+    {
+     
+      if(data.vendor_document != "undefined" && data.vendor_document !== null){
+         $("#docId").val(data.vendor_document.id);
+      }
+
+      $("#documentFile").val(data.id);
+      $("#uploadDocument").modal('show');
+    }
+    
    $(document).ready(function() {
-      $('body').on('click', '.uploadDocument', function () {
-         var document_id = $(this).data('id');
-         $('#documentFile').val(document_id);
-      });
+      
       $('#custom-tabs-four-tab a[href="#{{ old('tab') }}"]').tab('show');
 
       $("#documentForm").parsley();

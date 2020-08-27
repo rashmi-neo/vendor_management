@@ -6,6 +6,7 @@ use App\Model\User;
 use App\Model\Company;
 use App\Model\Category;
 use App\Model\VendorCategory;
+use App\Model\VendorDocument;
 
 class VendorRepository implements VendorInterface{
 
@@ -81,7 +82,7 @@ class VendorRepository implements VendorInterface{
      */
     public function all()
     {
-        $vendors = Vendor::with('vendorCategory','vendorCategory.category','company','user')->orderBy('id', 'desc')->get();
+        $vendors = Vendor::with('vendorCategory','vendorCategory.category','company','user','document')->latest()->get();
         
         return $vendors;
     }
@@ -184,6 +185,38 @@ class VendorRepository implements VendorInterface{
             dispatch(new \App\Jobs\SendVerificationMailToVendor($details));
         }
         return $user;
+    }
+
+    /**
+     * Update document status.
+     *
+     * @Author Bharti <bharti.tadvi@neosofttech.com>
+     * @param $data
+     * @return $document
+     */
+    public function documentStatus($data){
+
+        $document = VendorDocument::where('id',$data->documentId)->first();
+        $document->status = $data->status;
+        $document->save();
+
+        return $document;
+    }
+
+    /**
+     * Add Document reason.
+     *
+     * @Author Bharti <bharti.tadvi@neosofttech.com>
+     * @param $data
+     * @return $document
+     */
+    public function addReason($data){
+        
+        $document = VendorDocument::where('id',$data->documentId)->first();
+        $document->reason = $data->reason;
+        $document->save();
+
+        return $document;
     }
 
 }

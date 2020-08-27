@@ -14,7 +14,7 @@ class AlterTypeToVmsNotifications extends Migration
     public function up()
     {
         Schema::table('vms_notifications', function (Blueprint $table) {
-            DB::statement("ALTER TABLE vms_notifications CHANGE `type` `type` ENUM('vendor_register','document_update','vendor_update','new_requirement','admin_comment','new_review_rating')");
+            DB::statement("ALTER TABLE vms_notifications CHANGE `type` `type` ENUM('vendor_register','document_update','vendor_update','new_requirement','admin_comment','document_reason','document_status_update','new_review_rating')");
         });
     }
 

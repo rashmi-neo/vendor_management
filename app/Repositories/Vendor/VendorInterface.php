@@ -50,9 +50,29 @@ interface VendorInterface{
      * Update vendor status.
      *
      * @Author Bharti <bharti.tadvi@neosofttech.com>
-     * @param void
-     * @return void
+     * @param $data
+     * @return  void
      */
     public function vendorStatus($data);
+
+    /**
+     * Update document status.
+     *
+     * @Author Bharti <bharti.tadvi@neosofttech.com>
+     * @param $data
+     * @return  void
+     */
+    public function documentStatus($data);
+
+
+    /**
+     * Add  document reason.
+     *
+     * @Author Bharti <bharti.tadvi@neosofttech.com>
+     * @param $data
+     * @return void
+     */
+    public function addReason($data);
+
 
 }

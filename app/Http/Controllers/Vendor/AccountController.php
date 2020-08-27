@@ -10,6 +10,8 @@ use App\Http\Requests\SupportContactRequest;
 use App\Http\Requests\CompanyRequest;
 use App\Http\Requests\VendorRequest;
 use App\Model\Document;
+use App\Model\Vendor;
+use App\Model\Category;
 use DB;
 use App\Repositories\Account\AccountInterface as AccountInterface;
 
@@ -38,17 +40,25 @@ class AccountController extends Controller
     */
     public function index(){
         
+        $categories = Category::where('status',1)->get()
+            ->sortBy('name', SORT_NATURAL | SORT_FLAG_CASE)->pluck('name','id');
+        
+        $id =\Auth::user()->id;
+    
         $vendor = $this->accountRepository->findVendor();
         
         $vendorId = $vendor->id;
+
+        foreach($vendor->vendorCategory as $category){
+            $categoryId[] = $category->category_id;
+        }
         
         if(!empty($vendorId)){
             $documents = Document::with(['vendorDocument' => function ($query) use ($vendorId){
                 $query->where('vendor_id', $vendorId);
             }])->get();
         }
-        
-        return view('vendorUser.account.account',compact('vendor','documents'));
+        return view('vendorUser.account.account',compact('vendor','documents','categories','categoryId'));
     }
 
     /**

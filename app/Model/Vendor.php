@@ -92,4 +92,9 @@ class Vendor extends Model
     {
         return $this->belongsToMany('App\Model\Requirement','vms_assign_vendors','vendor_id','requirement_id');
     }
+
+    public function document()
+    {
+      return $this->hasMany('App\Model\VendorDocument','vendor_id');
+    }
 }

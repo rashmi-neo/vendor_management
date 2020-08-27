@@ -5,6 +5,7 @@ use App\Model\Vendor;
 use App\Model\VendorDocument;
 use App\Model\SupportContactDetail;
 use App\Model\BankDetail;
+use App\Model\VendorCategory;
 use App\User;
 use Auth;
 use Config;
@@ -49,6 +50,10 @@ class AccountRepository implements AccountInterface{
     public function documentSave($data)
     {
         
+        if(!empty($data->id)){
+            $deleteVendorDocument = VendorDocument::where('id','=',$data->id)->delete();        
+        }
+
         $vendorDocument = New VendorDocument();
         $vendorDocument->vendor_id = $data->vendor_id;
         $vendorDocument->document_id = $data->document_id;
@@ -146,6 +151,18 @@ class AccountRepository implements AccountInterface{
         }
 
         $vendor->save();
+
+
+        $deleteVendorCategory = VendorCategory::where('vendor_id','=',$id)->delete();        
+        
+        $categories = $data->category ? $data->category : [];
+        
+        foreach($categories as $category ){
+            $vendorCategory = New VendorCategory();
+            $vendorCategory->vendor_id = $id;
+            $vendorCategory->category_id = $category;
+            $vendorCategory->save();
+        }
        
         $user = User::where('id','=',$vendor->user_id)->update(['email'=>$data->email,'password'=>Hash::make($data->new_password)]);
 

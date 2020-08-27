@@ -114,14 +114,9 @@ width:100px;
 				{data: 'verification_status', name: 'verification_status'},
 				{data: 'action', name: 'action', orderable: false, searchable: false},
 			],
-			columnDefs: [
-                {
-                    render: function (data, type, full, meta) {
-                        return "<div class='text-wrap width-200'>" + data + "</div>";
-                    },
-                    targets: 6
-                }
-             ]
+			"columnDefs": [
+                { "width": "150px", "targets": 6 }
+                ],
 		});  
 	});
 

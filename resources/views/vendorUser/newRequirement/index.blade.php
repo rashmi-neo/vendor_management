@@ -28,6 +28,8 @@
 					<th>Title</th>
 					<th>Category</th>
 					<th>Priority</th>
+					<th>From Date</th>
+					<th>To Date</th>
 					<th>Status</th>
 					<th>Action</th>
 				</tr>
@@ -100,6 +102,8 @@
 				{data: 'title', name: 'title'},
 				{data: 'category_name', name: 'category_name'},
 				{data: 'priority', name: 'priority'},
+				{data: 'from_date', name: 'from_date'},
+				{data: 'to_date', name: 'to_date'},
 				{data: 'status', name: 'status'},
 				{data: 'action',   name: 'action'},
 			],

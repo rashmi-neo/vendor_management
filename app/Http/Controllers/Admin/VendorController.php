@@ -6,10 +6,14 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\VendorStoreRequest;
 use App\Http\Requests\UpdateVendorRequest;
+use App\Http\Requests\StoreReasonRequest;
 use DataTables;
+use App\Model\Document;
+use App\Model\Vendor;
+use App\User;
 use DB;
 use App\Repositories\Vendor\VendorInterface as VendorInterface;
-
+use App\Repositories\Notifications\NotificationsInterface as NotificationsInterface;
 
 class VendorController extends Controller
 {
@@ -20,9 +24,11 @@ class VendorController extends Controller
     * @return \App\Repositories\Vendor\VendorRepository
     */ 
     private $vendorRepository;
+    private $notificationRepository;
 
-    public function __construct(VendorInterface $vendorRepository){
+    public function __construct(VendorInterface $vendorRepository,NotificationsInterface $notificationRepository){
         $this->vendorRepository = $vendorRepository;
+        $this->notificationRepository = $notificationRepository;
     }
 
     /**
@@ -38,7 +44,7 @@ class VendorController extends Controller
         
         if($request->ajax()){
             $data = $this->vendorRepository->all();
-            
+        
             return Datatables::of($data)
             ->addIndexColumn()
             ->addColumn('name', function($data){
@@ -220,6 +226,108 @@ class VendorController extends Controller
             $response = response()->json([
                 'success' => false,
                 'message' => "Vendor status not updated successfully",
+                'data' => [
+                'status_code' => 401
+                ]
+            ]);
+
+            return $response;
+        }
+    }
+
+    public function showDocument($id){
+
+        if(!empty($id)){
+            $documents = Document::with(['vendorDocument' => function ($query) use ($id){
+                $query->where('vendor_id', $id);
+            }])->get();
+        }
+        return view('admin.vendor.showDocument',compact('documents'));
+    }
+
+    /**
+    * Update Document status.
+    *@author Bharti<bharti.tadvi@neosofttech.com>
+    *
+    *@param  Illuminate\Http\Request
+    *@return $response
+    */
+    public function updateDocumentStatus(Request $request){
+        
+        $documentStatus = $this->vendorRepository->documentStatus($request);
+        
+
+        $vendor = vendor::where('id',$request->vendorId)->first();
+                
+        $notification = \Config::get('constants.DOCUMENT_STATUS');
+        $admin = User::where('id',\Auth::user()->id)->first();
+        $userName = ucfirst($admin->username);
+
+        if($admin)
+        {
+            $notificationDetail = ['user_id'=>$vendor->user_id,'title'=>$notification['title'],'text'=>$userName.' '.$notification['text'],
+            'type'=>$notification['type'],'status'=>$notification['status']]; 
+            $notification = $this->notificationRepository->save($notificationDetail);
+        }
+
+        if (!empty($documentStatus)) {
+            $response = response()->json([
+                'success' => true,
+                'message' => "Document status updated successfully",
+            ]);
+        
+            return $response;
+        
+        } else {
+            $response = response()->json([
+                'success' => false,
+                'message' => "Document status not updated successfully",
+                'data' => [
+                'status_code' => 401
+                ]
+            ]);
+
+            return $response;
+        }
+    }
+
+    /**
+    * Update Document status.
+    *@author Bharti<bharti.tadvi@neosofttech.com>
+    *
+    *@param  Illuminate\Http\Request
+    *@return $response
+    */
+    public function addDocumentReason(StoreReasonRequest $request){
+        
+        $addReason = $this->vendorRepository->addReason($request);
+        
+
+        $vendor = vendor::where('id',$request->vendorId)->first();
+                
+        $notification = \Config::get('constants.DOCUMENT_REASON');
+        $admin = User::where('id',\Auth::user()->id)->first();
+        $userName = ucfirst($admin->username);
+
+        if($admin)
+        {
+            $notificationDetail = ['user_id'=>$vendor->user_id,'title'=>$notification['title'],'text'=>$userName.' '.$notification['text'],
+            'type'=>$notification['type'],'status'=>$notification['status']]; 
+            $notification = $this->notificationRepository->save($notificationDetail);
+        }
+
+        if (!empty($addReason)) {
+            $response = response()->json([
+                'success' => true,
+                'message' => "Reason added successfully",
+            ]);
+        
+            return $response;
+        
+        } else {
+            $response = response()->json([
+                'success' => false,
+                'message' => "Reason not added successfully",
                 'data' => [
                 'status_code' => 401
                 ]

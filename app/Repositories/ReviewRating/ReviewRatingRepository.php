@@ -27,7 +27,7 @@ class  ReviewRatingRepository implements ReviewRatingInterface{
      */
     public function all(){
         
-        return ReviewRating::with('vendor')->orderBy('id', 'desc')->get();
+        return ReviewRating::with('vendor')->latest()->get();
     }
     
     /**

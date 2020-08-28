@@ -41,6 +41,15 @@ class TransactionController extends Controller
             return Datatables::of($data)
 
             ->addIndexColumn()
+            ->addColumn('requirement_id', function($data){
+                return $data->requirement->code;
+            })
+            ->addColumn('requirement_title', function($data){
+                return $data->requirement->title;
+            })
+            ->addColumn('category', function($data){
+                return $data->requirement->category->name;
+            })
             ->addColumn('download_file', function($data){
                 return view('vendorUser.transactions.download_payment_file', compact('data'));
             })

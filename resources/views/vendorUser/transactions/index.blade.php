@@ -24,6 +24,9 @@
 			<thead>
 				<tr>
 					<th>SrNo</th>
+					<th>Requirement Id</th>
+					<th>Requirement Title</th>
+					<th>Category</th>
 					<th>Payment date</th>
 					<th>Amount</th>
 					<th>Payment File</th>
@@ -45,12 +48,15 @@
 			ajax: "{{ route('transaction.index') }}",
 			columns: [
 				{data: 'DT_RowIndex', name: 'DT_RowIndex'},
+				{data: 'requirement_id', name: 'requirement_id'},
+				{data: 'requirement_title', name: 'requirement_title'},
+				{data: 'category', name: 'category'},
 				{data: 'payment_date', name: 'payment_date'},
 				{data: 'amount', name: 'amount'},
 				{data: 'receipt', name: 'receipt'},
 				{data: 'download_file', name: 'download_file'},
 			],
-			"columnDefs": [{ className:"text-center", "targets":[4]} ],
+			"columnDefs": [{ className:"text-center", "targets":[7]} ],
 		});
 	});
 </script>

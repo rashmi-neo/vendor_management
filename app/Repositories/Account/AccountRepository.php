@@ -11,6 +11,7 @@ use Auth;
 use Config;
 use Illuminate\Support\Facades\Hash;
 use App\Model\Company;
+use App\Model\Category;
 use App\Repositories\Notifications\NotificationsInterface as NotificationsInterface;
 
 
@@ -41,6 +42,19 @@ class AccountRepository implements AccountInterface{
     }
 
     /**
+     * get all categories details.
+     *
+     * @Author Bharti <bharti.tadvi@neosofttech.com>
+     * @param void
+     * @return collection
+     */
+    public function getAllCategories()
+    {
+        return Category::where('status',1)->get()
+            ->sortBy('name', SORT_NATURAL | SORT_FLAG_CASE)->pluck('name','id');
+    }
+
+    /**
      * Save a Vendor document.
      *
      * @Author Bharti <bharati.tadvi@neosofttech.com>
@@ -57,6 +71,7 @@ class AccountRepository implements AccountInterface{
         $vendorDocument = New VendorDocument();
         $vendorDocument->vendor_id = $data->vendor_id;
         $vendorDocument->document_id = $data->document_id;
+        $vendorDocument->is_uploaded = "yes";
         
         if ($document = $data->file('file')) {
             $path = '/';
@@ -65,6 +80,7 @@ class AccountRepository implements AccountInterface{
         }
         
         $vendorDocument->save();
+
         return $vendorDocument;
     }
 

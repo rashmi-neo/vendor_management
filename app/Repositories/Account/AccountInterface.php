@@ -12,6 +12,15 @@ interface AccountInterface{
      * @param void
      */
     public function findVendor();
+
+    /**
+     * get all categories details.
+     *
+     * @Author Bharti <bharti.tadvi@neosofttech.com>
+     * @param void
+     * @return void
+     */
+    public function getAllCategories();
     
     /**
      * Save vendor document .

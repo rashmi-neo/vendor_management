@@ -352,17 +352,18 @@
                         <td>{{ucfirst($document->is_mandatory)}}</td>
                         <td>{{isset($document->vendorDocument->status)?$document->vendorDocument->status:"-"}}</td>
                         <td>{{isset($document->vendorDocument->reason)?$document->vendorDocument->reason:"-"}}</td>
+                        
                         @if(isset($document->vendorDocument->file_name))
                         <td> <a href="{{ url('/') }}/uploads/{{ $document->vendorDocument->file_name }}">{{$document->vendorDocument->file_name }} <i class="fa fa-download" aria-hidden="true"></i></a></td>
                         @else
                         <td>-</td>
                         @endif
-                        <td>
                         
+                        <td>
                         @if(isset($document->vendorDocument->status))
-                        <button class="btn btn-primary btn-sm"  rel="tooltip" title="Add Reason" onclick="openReasonModal({{ $document }})" {{ ($document->vendorDocument->status == "Approved") ? "disabled" : "" }}><i class="fas fa-upload"></i></button>
+                        <button class="btn btn-primary btn-sm"  rel="tooltip" title="Upload Document" onclick="openReasonModal({{ $document }})" {{ ($document->vendorDocument->status == "Approved") ? "disabled" : "" }}><i class="fas fa-upload"></i></button>
                         @else
-                        <button class="btn btn-primary btn-sm"  rel="tooltip" title="Add Reason" onclick="openReasonModal({{ $document }})"><i class="fas fa-upload"></i></button>
+                        <button class="btn btn-primary btn-sm"  rel="tooltip" title="Upload Document" onclick="openReasonModal({{ $document }})"><i class="fas fa-upload"></i></button>
                         @endif
                         </td>
                         @endforeach

@@ -11,7 +11,6 @@ use App\Http\Requests\CompanyRequest;
 use App\Http\Requests\VendorRequest;
 use App\Model\Document;
 use App\Model\Vendor;
-use App\Model\Category;
 use DB;
 use App\Repositories\Account\AccountInterface as AccountInterface;
 
@@ -36,12 +35,13 @@ class AccountController extends Controller
     *@author Bharti<bharati.tadvi@neosofttech.com> 
     *
     *@param  Illuminate\Http\Request
-    *@return $vendor,$document
+    *@return $vendor,$documents,$categories
     */
     public function index(){
         
-        $categories = Category::where('status',1)->get()
-            ->sortBy('name', SORT_NATURAL | SORT_FLAG_CASE)->pluck('name','id');
+        $categoryId = [];
+
+        $categories = $this->accountRepository->getAllCategories();
         
         $id =\Auth::user()->id;
     

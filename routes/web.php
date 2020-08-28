@@ -35,7 +35,7 @@ Route::get('dashboard', 'DashboardController@index')->name('admin.dashboard');
 Route::resource('categories', 'CategoryController');
 Route::resource('requirements', 'RequirementController');
 Route::resource('vendors', 'VendorController');
-Route::get('show/vendor/document/{id}', 'VendorController@showDocument')->name('vendors.document.show');
+Route::get('vendors/show/document/{id}', 'VendorController@showDocument')->name('vendors.document.show');
 Route::post('updateDocumentStatus', 'VendorController@updateDocumentStatus')->name('update.document.status');
 Route::post('add/document/reason', 'VendorController@addDocumentReason')->name('add.document.reason');
 
@@ -43,7 +43,7 @@ Route::resource('profiles', 'ProfileController');
 
 Route::post('updateVendorStatus', 'VendorController@updateVendorStatus')->name('update.vendor.status');
 Route::post('addComment', 'RequirementController@addComment')->name('add.comment');
-Route::post('updateStatus', 'RequirementController@updateStatus');
+Route::post('updateStatus', 'RequirementController@updateStatus')->name('update.quotation.status');
 Route::post('updateRequirementStatus', 'RequirementController@updateRequirementStatus')->name('update.requirement.status');
 Route::get('requirements/showQuotation/{requirementId}/{vendorAssignId}', 'RequirementController@showQuotation');
 Route::post('uploadPaymentReceipt', 'RequirementController@uploadPaymentReceipt')->name('upload.payment.receipt');

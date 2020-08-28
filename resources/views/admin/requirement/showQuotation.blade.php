@@ -37,13 +37,13 @@
                             <td>
                                 {{-- <button type="button" class="edit btn btn-primary btn-sm" title="add comment" onclick="openCommentModal({{ $vendor->vendor_id }},{{ $vendor->assign_vendors_id }})" id="comment_{{ $vendor->vendor_id }}" ><i class="fas fa-pencil-alt"></i></button> --}}
                               @if ($quotation->admin_comment == "" || $quotation->admin_comment == null)
-                              <button type="button" class="edit btn btn-primary btn-sm" onclick="openCommentModal({{ $quotation->id }},{{ $quotation->assign_vendor_id }})" id="comment_{{ $quotation->assign_vendors_id }}" ><i class="fas fa-pencil-alt"></i></button>
+                              <button type="button" class="edit btn btn-primary btn-sm" onclick="openCommentModal({{ $quotation->id }},{{ $quotation->assign_vendor_id }})" rel="tooltip" title="Add Admin Comment"  id="comment_{{ $quotation->assign_vendors_id }}" ><i class="fas fa-pencil-alt"></i></button>
                               @else
-                              <button type="button" class="edit btn btn-primary btn-sm"  id="comment_{{ $quotation->assign_vendors_id }}" disabled><i class="fas fa-pencil-alt"></i></button>
+                              <button type="button" class="edit btn btn-primary btn-sm"  id="comment_{{ $quotation->assign_vendors_id }}"  rel="tooltip" title="Add Admin Comment" disabled><i class="fas fa-pencil-alt"></i></button>
                               @endif
-                              @if($quotation->status =="in_process")
-                              <button type="button" class="btn btn-warning btn-sm" rel="tooltip" title="Approve" onclick="openStatusModal({{ $quotation->id }},{{ $quotation->assign_vendor_id }},{{$requirement_id}})" id="status_{{ $quotation->assign_vendors_id }}"><i class="fas fa-exclamation-circle"></i></button>
-                               @elseif($quotation->status  =="approved")
+                              @if($quotation->status =="In process")
+                              <button type="button" class="btn btn-info btn-sm" rel="tooltip" title="Approve" onclick="openStatusModal({{ $quotation->id }},{{ $quotation->assign_vendor_id }},{{$requirement_id}})" id="status_{{ $quotation->assign_vendors_id }}"><i class="fas fa-exclamation-circle"></i></button>
+                               @elseif($quotation->status  =="Approved")
                               <button type="button" class="btn btn-success btn-sm" rel="tooltip" title="Approved"><i class="fas fa-check"></i></button>
                                @else
                               <button type="button" class="btn btn-danger btn-sm" rel="tooltip" title="Rejected"><i style="font-size: 16px;" class="fas fa-window-close"></i></button>
@@ -59,13 +59,12 @@
       <div class="modal fade" id="modal-lg">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
-            {{-- <form method="POST"  action="{{ route('addComment',$showRequirementDetails->id) }}" data-parsley-validate="parsley"> --}}
-                <form method="POST"  data-parsley-validate="parsley">
+                <form method="POST"  data-parsley-validate="parsley" id="addCommentForm">
                 @csrf
                 @method('PUT')
                 <input type="hidden" value="" id="quotationId" name="quotationId">
                 <input type="hidden" value="" id="assignVendorId" name="assignVendorId">
-                <div class="modal-header">
+                <div class="modal-header headerModal">
                 <h4 class="modal-title">Add Comment</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -161,27 +160,33 @@
         var quotationId = $("#quotationId").val();
         var comment = $("#comment").val();
         var assignVendorId = $("#assignVendorId").val();
-        if(quotationId !="" && comment !="" && assignVendorId !="")
-        {
-            $.ajax({
-            type: "POST",
-            url: "{{route('add.comment')}}",
-            data:{'id':quotationId,'comment':comment,'assignVendorId':assignVendorId},
-            dataType: "json",
-            success: function(result){
-             if(result)
-             {
-                $('#modal-lg').modal('hide');
-                toastr.success('Comment added successfully');
-                setTimeout(function () {
-                    location.reload(true);
-                }, 2000);
-             }
-            }});
-        }
-        else
-        {
-            toastr.error('Please add comment');
+        var form = $('#addCommentForm');
+        form.parsley().validate();
+
+        if(form.parsley().isValid()){
+
+            if(quotationId !="" && comment !="" && assignVendorId !="")
+            {
+                $.ajax({
+                type: "POST",
+                url: "{{route('add.comment')}}",
+                data:{'id':quotationId,'comment':comment,'assignVendorId':assignVendorId},
+                dataType: "json",
+                success: function(result){
+                if(result)
+                {
+                    $('#modal-lg').modal('hide');
+                    toastr.success('Comment added successfully');
+                    setTimeout(function () {
+                        location.reload(true);
+                    }, 2000);
+                }
+                }});
+            }
+            else
+            {
+                toastr.error('Please add comment');
+            }
         }
     });
     $("#updateStatus").click(function (e) {
@@ -199,7 +204,7 @@
 
             $.ajax({
             type: "POST",
-            url: "../../updateStatus",
+            url: "{{route('update.quotation.status')}}",
             data:{'status':status,'id':quotationId,'assignVendorId':assignVendorId,'requirementId':requirementId},
             dataType: "json",
             success: function(result){
@@ -213,6 +218,15 @@
                 }, 2000);
              }
             }});
+    });
+
+    $('#modal-lg').on('hidden.bs.modal', function() {  
+        $('#comment').val("");
+        $('.error-rating').empty();
+        $('.parsley-required').empty();
+        $('.parsley-error').removeClass('parsley-error');
+        $('.parsley-success').removeClass('parsley-success');
+        $('.parsley-minlength').empty();
     });
 </script>
 @endsection

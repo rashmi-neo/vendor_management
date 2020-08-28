@@ -63,8 +63,10 @@ class VendorController extends Controller
             //send notification to admin
             $adminId = User::where(['role_id'=>1])->first();
             if($adminId)
-            {
-                $data = ['user_id'=>$adminId->id,'title'=>'New Vendor Registered','text'=>'New vendor '.$requestData['first_name'].' '.$requestData['last_name'].' has been registered.','type'=>'vendor_register','status'=>'unread']; 
+            {   
+                $notification = \Config::get('constants.VENDOR_REGISTER');
+
+                $data = ['user_id'=>$adminId->id,'title'=>$notification['title'],'text'=>'New vendor '.$requestData['first_name'].' '.$requestData['last_name'].' has been registered.','type'=>$notification['type'],'status'=>$notification['status']]; 
                 $notification = $this->notificationRepository->save($data);
             }
             DB::commit();

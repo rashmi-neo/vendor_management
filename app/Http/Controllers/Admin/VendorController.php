@@ -235,14 +235,24 @@ class VendorController extends Controller
         }
     }
 
-    public function showDocument($id){
 
+    /**
+    * Show Document details.
+    *@author Bharti<bharti.tadvi@neosofttech.com>
+    *
+    *@param  $id
+    *@return $documents
+    */
+    public function showDocument($id){
+        
         if(!empty($id)){
-            $documents = Document::with(['vendorDocument' => function ($query) use ($id){
-                $query->where('vendor_id', $id);
-            }])->get();
+            
+            $documents = $this->vendorRepository->findVendorDocument($id);
+
+            if($documents){
+                return view('admin.vendor.showDocument',compact('documents'));
+            }
         }
-        return view('admin.vendor.showDocument',compact('documents'));
     }
 
     /**
@@ -256,7 +266,6 @@ class VendorController extends Controller
         
         $documentStatus = $this->vendorRepository->documentStatus($request);
         
-
         $vendor = vendor::where('id',$request->vendorId)->first();
                 
         $notification = \Config::get('constants.DOCUMENT_STATUS');
@@ -302,7 +311,6 @@ class VendorController extends Controller
         
         $addReason = $this->vendorRepository->addReason($request);
         
-
         $vendor = vendor::where('id',$request->vendorId)->first();
                 
         $notification = \Config::get('constants.DOCUMENT_REASON');

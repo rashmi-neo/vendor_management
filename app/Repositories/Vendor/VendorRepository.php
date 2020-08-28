@@ -7,6 +7,7 @@ use App\Model\Company;
 use App\Model\Category;
 use App\Model\VendorCategory;
 use App\Model\VendorDocument;
+use App\Model\Document;
 
 class VendorRepository implements VendorInterface{
 
@@ -217,6 +218,23 @@ class VendorRepository implements VendorInterface{
         $document->save();
 
         return $document;
+    }
+
+
+    /**
+     * Show Vendor document.
+     *
+     * @Author Bharti <bharti.tadvi@neosofttech.com>
+     * @param $vendorId
+     * @return $vendorDocuments
+    */
+    public function findVendorDocument($vendorId){
+        
+        $vendorDocuments = Document::with(['vendorDocument' => function ($query) use ($vendorId){
+            $query->where('vendor_id', $vendorId);
+        }])->get();
+
+        return $vendorDocuments;
     }
 
 }

@@ -6,13 +6,19 @@ return [
        'path' => public_path().DIRECTORY_SEPARATOR.'uploads'.DIRECTORY_SEPARATOR
     ],
 
+    'VENDOR_REGISTER' => [
+        'title' => 'New Vendor Registered',
+        'text' =>'has been updated password or mobile number.',
+        'type' => 'vendor_register',
+        'status' => 'unread'
+    ],
+
     'VENDOR_UPDATE' => [
         'title' => 'Email or mobile number updated',
         'text' =>'has been updated password or mobile number.',
         'type' => 'vendor_update',
         'status' => 'unread'
     ],
-
 
     'VERIFICATION_STATUS' => [
         'approved' => 'Approved',
@@ -68,6 +74,13 @@ return [
         'title' => 'Document status updated',
         'text' =>'has been updated document status.',
         'type' => 'document_status_update',
+        'status' => 'unread'
+    ],
+
+    'VENDOR_DOCUMENT_UPDATE'=>[
+        'title' => 'Document updated',
+        'text' =>'has been uploaded document.',
+        'type' => 'vendor_update',
         'status' => 'unread'
     ]
 ];

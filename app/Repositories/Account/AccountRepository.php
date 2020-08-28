@@ -68,6 +68,8 @@ class AccountRepository implements AccountInterface{
             $deleteVendorDocument = VendorDocument::where('id','=',$data->id)->delete();        
         }
 
+        $vendor = $this->findVendor();
+        
         $vendorDocument = New VendorDocument();
         $vendorDocument->vendor_id = $data->vendor_id;
         $vendorDocument->document_id = $data->document_id;
@@ -80,6 +82,22 @@ class AccountRepository implements AccountInterface{
         }
         
         $vendorDocument->save();
+
+
+        if($vendorDocument){
+            
+            //send notification to admin
+            $admin = User::where(['role_id'=>1])->first();
+            
+            $notification = Config::get('constants.VENDOR_DOCUMENT_UPDATE');
+            
+            if($admin)
+            {
+                $notificationDetail = ['user_id'=>$admin->id,'title'=>$notification['title'],'text'=>$vendor->first_name.' '.$vendor->last_name.' '.$notification['text'],
+                'type'=>$notification['type'],'status'=>$notification['status']]; 
+                $notification = $this->notificationRepository->save($notificationDetail);
+            }
+        }
 
         return $vendorDocument;
     }

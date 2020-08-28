@@ -71,9 +71,6 @@
 				{data: 'action',   name: 'action'},
 			],
 			"columnDefs": [{ className:"text-center", "targets":[8]} ],
-			"columnDefs": [
-                { "width": "70px", "targets": 8 }
-                ]
 		});
 	});
 </script>

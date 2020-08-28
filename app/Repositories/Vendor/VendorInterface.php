@@ -74,5 +74,16 @@ interface VendorInterface{
      */
     public function addReason($data);
 
+    /**
+     * Show vendor document.
+     *
+     * @Author Bharti <bharti.tadvi@neosofttech.com>
+     * @param $vendorId
+     * @return void
+    */
+    public function findVendorDocument($vendorId);
+
+    
+
 
 }

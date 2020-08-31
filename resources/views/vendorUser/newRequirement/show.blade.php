@@ -50,7 +50,7 @@
                      From Date  : 
                   </th>
                   <td>
-                     <span>{{$newRequirement->from_date}}</span>
+                     <span>{{date("jS-F-Y", strtotime($newRequirement->from_date))}}</span>
                   </td>
                </tr>
                <tr>
@@ -58,7 +58,7 @@
                      To Date  : 
                   </th>
                   <td>
-                     <span>{{$newRequirement->to_date}}</span>
+                     <span>{{date("jS-F-Y", strtotime($newRequirement->to_date))}}</span>
                   </td>
                </tr>
                <tr>
@@ -112,15 +112,6 @@
                      <span>{{$newRequirement->status}}</span>
                   </td>
                </tr>
-               <tr>
-                  <th>
-                    View Quotation detail  :
-                  </th>
-                  <td>
-                     <span><a href="{{ url('vendor/new/requirements/showQuotationDetail/'.$newRequirement->id.'/'.$assignVendor->id)}}"  rel="tooltip" title="Show Quotation Detail" class="view btn btn-secondary btn-sm viewQuotation">	<i class="fas fa-file"></i></a>&nbsp;</span>
-                  </td>
-               </tr>
-               <tr>
             <tbody>
          </table>     
       </div>

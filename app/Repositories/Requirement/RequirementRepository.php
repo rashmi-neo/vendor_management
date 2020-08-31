@@ -292,7 +292,33 @@ class RequirementRepository implements RequirementInterface{
         $quotationStatus = AssignVendor::with(['vendor','vendorQuotation'=>function ($query){
             $query->where('deleted_at',null)->whereIn('status',['approved']);
         }])->where('requirement_id',$id)->get();
-        return $quotationStatus;
+
+        foreach($quotationStatus as $approveStatus){
+              foreach($approveStatus->vendorQuotation as $quotationStatus){
+                if(isset($quotationStatus->status)){
+                 $vendorId = $approveStatus->vendor_id;
+                }
+              }  
+        }
+        
+        return $vendorId;
+
+        return Payment::where('requirement_id',$id)->get();
+
+        // return $quotationStatus;
+    }
+
+    /**
+     * Get payment receipt
+     *
+     * @Author Bharti <bharati.tadvi@neosofttech.com>
+     * @param $id
+     * @return $quotationStatus
+    */
+    public function getPaymentReceipt($id){
+
+        return Payment::where('requirement_id',$id)->first();
+
     }
     
     /**

@@ -30,7 +30,8 @@
                         <th>Title</th>
                         <th>Category</th>
                         <th>Priority</th>
-						<th>Date</th>
+						<th>From Date</th>
+						<th>To Date</th>
 						<th>Status</th>
 						<th>Action</th>
 					</tr>
@@ -156,12 +157,13 @@
                 {data: 'title', name: 'title'},
                 {data: 'category_id', name: 'category'},
                 {data: 'priority', name: 'priority'},
-                {data: 'created_at', name: 'date'},
+                {data: 'from_date', name: 'from_date'},
+                {data: 'to_date', name: 'to_date'},
                 {data: 'status', name: 'status'},
                 {data: 'action', name: 'action'},
             ],
             "columnDefs": [
-                { "width": "150px", "targets": 7 }
+                { "width": "150px", "targets": 8 }
                 ],
         });
     });
@@ -321,6 +323,7 @@
         $('.parsley-error').removeClass('parsley-error');
         $('.parsley-success').removeClass('parsley-success');
         $('.parsley-minlength').empty();
+        $('.parsley-maxlength').empty();
         $('.parsley-pattern').empty();
         $('#stars li.selected').removeClass('selected');
     });

@@ -51,8 +51,11 @@ class RequirementController extends Controller
 
             return Datatables::of($data)
             ->addIndexColumn()
-            ->editColumn('created_at', function ($row){
-                return date('d/m/y', strtotime($row->created_at) );
+            ->editColumn('from_date', function ($row){
+                return date("jS-F-Y", strtotime($row->from_date));
+            })
+            ->editColumn('to_date', function ($row){
+                return date("jS-F-Y", strtotime($row->to_date));
             })
             ->editColumn('category_id', function ($row){
                return $row->category->name;
@@ -180,9 +183,11 @@ class RequirementController extends Controller
         $showRequirementDetails = $this->requirementRepository->get($id);
         $requirementVendors = $this->requirementRepository->getAssignVendors($id);
 
-        $getQuotationStatus = $this->requirementRepository->getQuotationStatus($id);
-       
-        return view('admin.requirement.show',compact("showRequirementDetails","requirementVendors","getQuotationStatus"));
+        $approvedQuotationVendorId = $this->requirementRepository->getQuotationStatus($id);
+
+        $getPaymentreceipt = $this->requirementRepository->getPaymentReceipt($id);
+
+        return view('admin.requirement.show',compact("showRequirementDetails","requirementVendors","approvedQuotationVendorId","getPaymentreceipt"));
     }
 
     public function sendMailToVendor($requestData,$requirementTitle)
@@ -284,6 +289,10 @@ class RequirementController extends Controller
                 ->update(['status'=>'rejected']);
             }
         }
+        
+        Requirement::where('id','=',$assignVendor->requirement_id)
+            ->update(['status'=>'approved']);
+
         return true;        
     }
 

@@ -33,8 +33,7 @@ class VendorRequest extends FormRequest
             'middle_name' => 'max:50',
             'last_name' => 'required|max:50',
             'phone_number' => 'required|min:10|max:12',
-            'current_password' => ['required', new MatchOldPassword],
-            'new_password' => ['required'],
+            // 'current_password' => ['sometimes', new MatchOldPassword],
             'profile_image' => 'image|mimes:jpeg,png,jpg|max:1024',
         ];
     }

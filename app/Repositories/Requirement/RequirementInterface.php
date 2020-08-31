@@ -61,5 +61,7 @@ interface RequirementInterface{
 
     public function paymentReceipt($requestData);
 
+    public function getPaymentReceipt($id);
+
     public function requirementStatus($request);
 }

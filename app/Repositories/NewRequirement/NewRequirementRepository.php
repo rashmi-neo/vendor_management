@@ -53,7 +53,6 @@ class  NewRequirementRepository implements NewRequirementInterface{
     public function find($id)
     {
         return Requirement::find($id);
-
     }
 
     /**

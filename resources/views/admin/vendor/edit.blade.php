@@ -133,7 +133,7 @@
                      'data-parsley-trigger'=>"blur",
                      'data-parsley-required-message' => 'Company Name is required',
                      'data-parsley-minlength' => '5',
-                     'data-parsley-maxlength' => '50']) !!}
+                     'data-parsley-maxlength' => '200']) !!}
                   </div>
                   @error('company_name')
                   <span class="text-danger errormsg" role="alert">

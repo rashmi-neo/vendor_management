@@ -147,7 +147,7 @@
                      'data-parsley-trigger' => "input",
                      'data-parsley-trigger'=>"blur",
                      'data-parsley-minlength' => '5',
-                     'data-parsley-maxlength' => '50']) !!}
+                     'data-parsley-maxlength' => '200']) !!}
                   </div>
                   @error('address')
                   <span class="text-danger errormsg" role="alert">

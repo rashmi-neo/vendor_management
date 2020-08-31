@@ -227,6 +227,7 @@
         $('.parsley-error').removeClass('parsley-error');
         $('.parsley-success').removeClass('parsley-success');
         $('.parsley-minlength').empty();
+        $('.parsley-maxlength').empty();
     });
 </script>
 @endsection

@@ -198,7 +198,7 @@ class AccountRepository implements AccountInterface{
             $vendorCategory->save();
         }
        
-        $user = User::where('id','=',$vendor->user_id)->update(['email'=>$data->email,'password'=>Hash::make($data->new_password)]);
+        $user = User::where('id','=',$vendor->user_id)->update(['email'=>$data->email,'password'=>Hash::make($data->confirm_password)]);
 
         return $user;
     }

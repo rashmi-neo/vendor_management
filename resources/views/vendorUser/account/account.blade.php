@@ -148,15 +148,13 @@
                   </div>
                </div>
                   <div class="form-group row">
-                     {!! Form::label('current_password','Current Password:',['class'=>"col-sm-2 required col-form-label"],false) !!} 
+                     {!! Form::label('new password','New Password:',['class'=>"col-sm-2  col-form-label"],false) !!} 
                      <div class="col-sm-8">
-                        {!! Form::password('current_password', ['class' => 'form-control ','placeholder' => 'Current Password','id' => 'current_password',
-                        'data-parsley-required' => 'true',
-                        'data-parsley-required-message' => 'Password is required',
+                        {!! Form::password('password', ['class' => 'form-control ','placeholder' => 'New Password','id' => 'password',
                         'data-parsley-trigger' => "input",
                         'data-parsley-trigger'=>"blur",
                         'data-parsley-minlength' => '6']) !!}
-                        @error('current_password')
+                        @error('password')
                         <span class="text-danger errormsg" role="alert">
                            <p>{{ $message }}</p>
                         </span>
@@ -164,17 +162,17 @@
                      </div>
                   </div>
                   <div class="form-group row">
-                     {!! Form::label('new_password','New Password :',['class'=>"col-sm-2 required col-form-label"],false) !!} 
+                     {!! Form::label('confirm_password','Confirm Password :',['class'=>"col-sm-2  col-form-label"],false) !!} 
                      <div class="col-sm-8">
-                        {!! Form::password('new_password',array('class' => 'form-control','placeholder' => 'New  Password','id' => 'new_password',
-                        'data-parsley-required' => 'true',
-                        'data-parsley-required-message' => 'New Password is required',
+                        {!! Form::password('confirm_password',array('class' => 'form-control','placeholder' => 'Confirm  Password','id' => 'confirm_password',
                         'data-parsley-trigger' => "input",
+                        'data-parsley-equalto'=>'#password',
+                        'data-parsley-equalto-message' => 'Confirm  password should be same as new password',
                         'data-parsley-trigger'=>"blur",
                         'data-parsley-minlength' => '6',
-                        'data-parsley-maxlength' => '8')) !!}
+                        'data-parsley-maxlength' => '15')) !!}
                         
-                        @error('new_password')
+                        @error('confirm_password')
                         <span class="text-danger errormsg" role="alert">
                            <p>{{ $message }}</p>
                         </span>
@@ -235,7 +233,7 @@
                         'data-parsley-trigger' => "input",
                         'data-parsley-trigger'=>"blur",
                         'data-parsley-minlength' => '5',
-                        'data-parsley-maxlength' => '50']) !!}
+                        'data-parsley-maxlength' => '200']) !!}
                         
                         @error('company_address')
                         <span class="text-danger errormsg" role="alert">
@@ -273,7 +271,7 @@
                         'data-parsley-required-message' => 'State is required',
                         'data-parsley-trigger' => "input",
                         'data-parsley-trigger'=>"blur",
-                        'data-parsley-pattern'=>"^[a-zA-Z]+$",
+                        'data-parsley-pattern'=>"^[a-zA-Z ]+$",
                         'data-parsley-pattern-message' => 'Please enter only alphabets',
                         'data-parsley-maxlength' => '20']) !!}
                         
@@ -293,7 +291,7 @@
                         'data-parsley-required-message' => 'City is required',
                         'data-parsley-trigger' => "input",
                         'data-parsley-trigger'=>"blur",
-                        'data-parsley-pattern'=>"^[a-zA-Z]+$",
+                        'data-parsley-pattern'=>"^[a-zA-Z ]+$",
                         'data-parsley-pattern-message' => 'Please enter only alphabets',
                         'data-parsley-maxlength' => '20']) !!}
                         

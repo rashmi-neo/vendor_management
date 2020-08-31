@@ -65,7 +65,7 @@
 			   <div class="form-group mb-3">
 			      {!! Form::label('comment','Comment:',['class'=>"col-sm-2 col-form-label"],false) !!} 
                {!! Form::textarea('vendor_comment',null,['class'=>'form-control','id' => 'comment','rows' => 4, 'cols' => 80,'placeholder'=>'Comment','data-parsley-minlength' => '2',
-               'data-parsley-maxlength' => '100','data-parsley-trigger' => "input",
+               'data-parsley-maxlength' => '500','data-parsley-trigger' => "input",
                'data-parsley-trigger'=>"blur",]) !!}
             </div>
             </div>
@@ -109,7 +109,7 @@
 			],
 			"columnDefs": [{ className:"text-center", "targets":[8]} ],
          "columnDefs": [
-                { "width": "70px", "targets": 8 }
+                { "width": "100px", "targets": 8 }
                 ]
 		});
 	}); 
@@ -216,7 +216,8 @@
       $('.parsley-required').empty();
       $('.parsley-extension').empty();
       $('.parsley-error').removeClass('parsley-error');
-      $('.parsley-minlength').empty('');
+      $('.parsley-minlength').empty();
+      $('.parsley-maxlength').empty();
       $('.parsley-success').removeClass('parsley-success');
 
    });

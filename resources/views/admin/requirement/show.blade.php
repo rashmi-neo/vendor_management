@@ -52,6 +52,23 @@
                         <td>: {{ $showRequirementDetails->category->name }}</td>
                     </tr>
                     <tr>
+                        <th>From Date</th>
+                        <td>: {{date("jS-F-Y", strtotime($showRequirementDetails->from_date))}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>To  Date</th>
+                        <td>: {{date("jS-F-Y", strtotime($showRequirementDetails->to_date))}}</td>
+                    </tr>
+                    <tr>
+                        <th>Budget</th>
+                        <td>: {{ empty($showRequirementDetails->budget)? "-":$showRequirementDetails->budget}}</td>
+                    </tr>
+                    <tr>
+                        <th>Spacial Remark</th>
+                        <td>: {{ empty($showRequirementDetails->comment)? "-":$showRequirementDetails->comment}}</td>
+                    </tr>
+                    <tr>
                         <th>Description</th>
                         <td>:  {{ empty($showRequirementDetails->description)? "-":$showRequirementDetails->description}}</td>
                     </tr>
@@ -103,36 +120,37 @@
                 </table>
             </div>
             <div class="tab-pane fade" id="paymentTab" role="tabpanel" aria-labelledby="custom-tabs-four-messages-tab">
-            
+            <div class="float-right m-1">
+            <button href="#"  data-id=" {{ $showRequirementDetails->code }}"  onclick="openPaymentModal({{$showRequirementDetails->id}},{{ $approvedQuotationVendorId}})" class="uploadPaymentReceipt btn btn-primary btn-sm" data-toggle="modal" data-target="#uploadPaymentReceipt" rel="tooltip" title="Upload Payment Receipt"><i class="fas fa-plus"></i></button>&nbsp;
+            </div>
             <table id="assignVendorTable1" class="table table-bordered table-hover">
                     <thead>
                         <tr>
-                            <th>SrNo</th>
-                            <th>Vendor Name</th>
-                            <th>Quotation document</th>
-                            <th>Quotation Status</th>
-                            <th>Action</th>
+                        <th>SrNo</th>
+                        <th>Vendor Name</th>
+						<th>Payment date</th>
+						<th>Amount</th>
+						<th>Payment File</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($getQuotationStatus as $key=>$vendorRequirement)
-                        @foreach ($vendorRequirement->vendorQuotation as $statusVendor)
+                    @if(!empty($getPaymentreceipt))
                         <tr>
-                            <td>{{ $key+1 }}</td>
-                        <td>{{ $vendorRequirement->vendor->first_name . ' '.$vendorRequirement->vendor->last_name }}</td>
-                            <td>{{ $statusVendor->quotation_doc }}</td>
-                            @if($statusVendor->status)
-                            <td>Awarded</td>
-                            @endif
-                            <td class="text-center">
-                            <button href="#" onclick="openPaymentModal({{$vendorRequirement->requirement_id}},{{ $vendorRequirement->vendor->id}})" data-id="" class="uploadPaymentReceipt btn btn-primary btn-sm" 
-                                data-toggle="modal" data-target="#uploadPaymentReceipt" rel="tooltip" title="Upload Payment Receipt" {{ (empty($showRequirementDetails->payment)) ? "" : "disabled" }}>
-                            <i class="fas fa-plus"></i></button>&nbsp;
+                        <td>{{ $getPaymentreceipt->id }}</td>
+                        <td>{{ $getPaymentreceipt->vendor->first_name . ' '.$getPaymentreceipt->vendor->last_name }}</td>
+                            <td>{{ $getPaymentreceipt->payment_date }}</td>
+                            <td>{{ $getPaymentreceipt->amount }}</td>
+                            <td>
+                            <a href="{{ url('/') }}/uploads/{{ $getPaymentreceipt->receipt }}">{{ $getPaymentreceipt->receipt }} <i class="fa fa-download" aria-hidden="true"></i></a>
                             </td>
                         <tr>
-                        @endforeach
-                        @endforeach
                     </tbody>
+                    @else                        
+                    <tbody>
+                    <tr class="odd"><td valign="top" colspan="7" class="dataTables_empty text-center">No data available in table</td>
+                    </tr>
+                    </tbody>
+                    @endif
             </table>
             </div>
         </div>
@@ -293,6 +311,7 @@
         $('.parsley-error').removeClass('parsley-error');
         $('.parsley-success').removeClass('parsley-success');
         $('.parsley-minlength').empty();
+        $('.parsley-type').empty();
     });
 
     window.ParsleyValidator.addValidator('extension', function (value, requirement) {

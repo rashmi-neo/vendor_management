@@ -17,7 +17,7 @@ class CreateVmsCompanyDetailsTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('vendor_id')->unsigned();
             $table->string('company_name',50);
-            $table->string('address',50);
+            $table->string('address',200);
             $table->string('state',20);
             $table->string('city',20);
             $table->string('pincode',20);

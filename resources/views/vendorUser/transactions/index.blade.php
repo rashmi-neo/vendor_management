@@ -45,6 +45,7 @@
 			processing: true,
 			serverSide: true,
 			bLengthChange: false,
+			scrollX:        true,
 			ajax: "{{ route('transaction.index') }}",
 			columns: [
 				{data: 'DT_RowIndex', name: 'DT_RowIndex'},

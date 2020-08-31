@@ -52,7 +52,7 @@ class Requirement extends Model
         $value = str_replace("_"," ",$value);
         return ucfirst($value);
     }
-
+     
     public function vendor()
     {
       return $this->belongsToMany('App\Model\Vendor','vms_assign_vendors','vendor_id','requirement_id');

@@ -33,7 +33,7 @@ class VendorStoreRequest extends FormRequest
             'mobile_number' => 'required|min:10|max:12',
             'profile_image' => 'image|mimes:jpeg,png,jpg|max:1024',
             'company_name' => 'required|max:50',
-            'address' => 'required|max:50',
+            'address' => 'required|max:200',
             'category' => 'required',
             'state' => 'required|max:20',
             'city' => 'required|max:20',

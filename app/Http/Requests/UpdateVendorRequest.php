@@ -32,7 +32,7 @@ class UpdateVendorRequest extends FormRequest
             'last_name' => 'required|alpha|max:50',
             'mobile_number' => 'required|min:10|max:12',
             'company_name' => 'required|max:50',
-            'address' => 'required|max:50',
+            'address' => 'required|max:200',
             'profile_image' => 'image|mimes:jpeg,png,jpg|max:1024',
             'category' => 'required',
             'state' => 'required|max:20',

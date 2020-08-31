@@ -94,7 +94,7 @@
                     <div class="form-group row">
                         {!! Form::label('fromDate', 'From Date :',['class' => 'col-sm-3 required label_class']) !!}
                             <div class="col-sm-7">
-                                {!! Form::text('fromDate', $requirementEditDetails->from_date, ['class' => 'form-control ','data-date-format'=>'yyyy-mm-dd','id'=>'requirmentFromDate','placeholder' => 'Select From date',
+                                {!! Form::text('fromDate', $requirementEditDetails->from_date, ['class' => 'form-control ','data-date-format'=>'yyyy-mm-dd','id'=>'requirmentsFromDate','placeholder' => 'Select From date',
                                 'data-parsley-required' => 'true',
                                 'data-parsley-required-message' => 'Please select from date',
                                 'data-date-format'=>'YYYY/MM/DD',
@@ -188,11 +188,19 @@
     });
 
     $(function(){
-        var today = new Date();
+        $('#requirmentsFromDate').daterangepicker({
+            singleDatePicker: true,
+            showDropdowns: true,
+            locale: {
+            format: 'YYYY-MM-DD'
+            },
+        });
+    });
+
+    $(function(){
         $('#requirmentToDate').daterangepicker({
             singleDatePicker: true,
             showDropdowns: true,
-            minDate:today,
             locale: {
             format: 'YYYY-MM-DD'
             },
@@ -218,7 +226,7 @@
     window.ParsleyValidator
     .addValidator('maxdate', function (value, requirement) {
         
-        var fromDate = $('#requirmentFromDate').val();
+        var fromDate = $('#requirmentsFromDate').val();
         
         var toDate = Date.parse(value),
             startDate = Date.parse(fromDate);

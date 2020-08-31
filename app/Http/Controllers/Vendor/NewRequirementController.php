@@ -44,7 +44,11 @@ class NewRequirementController extends Controller
         $categories = $this->findCategory();
         
         $categoryName = [];
+
+        $currentDate = date('Y-m-d');
         
+        $vendorId = Vendor::where('user_id',\Auth::user()->id)->first();
+
         if($request->ajax()){
            
             $data = $this->newRequirementRepository->all();
@@ -54,11 +58,17 @@ class NewRequirementController extends Controller
             ->editColumn('priority',function ($row){
                 return empty($row->priority)? "-":$row->priority;
             })
+            ->editColumn('from_date', function ($row){
+                return date("jS-F-Y", strtotime($row->from_date));
+            })
+            ->editColumn('to_date', function ($row){
+                return date("jS-F-Y", strtotime($row->to_date));
+            })
             ->editColumn('category_name', function ($row){
                 return $row->category->name;
              })
-            ->addColumn('action', function($row){
-                return view('vendorUser.newRequirement.actions', compact('row'));
+            ->addColumn('action', function($row) use($currentDate,$vendorId){
+                return view('vendorUser.newRequirement.actions', compact('row','currentDate','vendorId'));
             })
             ->rawColumns(['action'])
             ->make(true);

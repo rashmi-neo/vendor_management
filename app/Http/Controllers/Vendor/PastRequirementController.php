@@ -37,6 +37,8 @@ class PastRequirementController extends Controller
         
         $categoryName = [];
         
+        $vendorId = Vendor::where('user_id',\Auth::user()->id)->first();
+
         if($request->ajax()){
            
             $data = $this->pastRequirementRepository->all();
@@ -49,8 +51,14 @@ class PastRequirementController extends Controller
             ->editColumn('category_name', function ($row){
                 return $row->category->name;
              })
-            ->addColumn('action', function($row){
-                return view('vendorUser.pastRequirement.actions', compact('row'));
+            ->editColumn('from_date', function ($row){
+                return date("jS-F-Y", strtotime($row->from_date));
+            })
+            ->editColumn('to_date', function ($row){
+                return date("jS-F-Y", strtotime($row->to_date));
+            })
+            ->addColumn('action', function($row) use ($vendorId){
+                return view('vendorUser.pastRequirement.actions', compact('row','vendorId'));
             })
             ->rawColumns(['action'])
             ->make(true);

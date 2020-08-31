@@ -206,7 +206,7 @@
                            'data-parsley-errors-container'=>'#addressError',
                            'data-parsley-trigger'=>"blur",
                            'data-parsley-minlength' => '5',
-                           'data-parsley-maxlength' => '50']) !!}
+                           'data-parsley-maxlength' => '200']) !!}
                            <div class="input-group-append">
                               <div class="input-group-text">
                                  <span class="fas fa-address-card"></span>
@@ -242,8 +242,11 @@
                            'data-parsley-required' => 'true',
                            'data-parsley-required-message' => 'State is required',
                            'data-parsley-trigger' => "input",
+                           'data-parsley-pattern' => '/^[a-zA-Z ]*$/',
+                           'data-parsley-pattern-message' => 'Please enter only alphabets',
                            'data-parsley-errors-container'=>'#stateError',
                            'data-parsley-trigger'=>"blur",
+                           'data-parsley-minlength' => '2',
                            'data-parsley-maxlength' => '20']) !!}
                            <div class="input-group-append">
                               <div class="input-group-text">
@@ -264,8 +267,11 @@
                            'data-parsley-required' => 'true',
                            'data-parsley-required-message' => 'City is required',
                            'data-parsley-trigger' => "input",
+                           'data-parsley-pattern' => '/^[a-zA-Z ]*$/',
+                           'data-parsley-pattern-message' => 'Please enter only alphabets',
                            'data-parsley-errors-container'=>'#cityError',
                            'data-parsley-trigger'=>"blur",
+                           'data-parsley-minlength' => '2',
                            'data-parsley-maxlength' => '20']) !!}
                            <div class="input-group-append">
                               <div class="input-group-text">

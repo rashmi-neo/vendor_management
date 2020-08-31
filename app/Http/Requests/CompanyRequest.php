@@ -25,9 +25,9 @@ class CompanyRequest extends FormRequest
     {
         return [
             'company_name' => 'required|max:50',
-            'company_address' => 'required|max:50',
-            'state' => 'required|alpha|max:20',
-            'city' => 'required|alpha|max:20',
+            'company_address' => 'required|max:200',
+            'state' => 'required|regex:/^[\pL\s\-]+$/u|max:50',
+            'city' => 'required|regex:/^[\pL\s\-]+$/u|max:50',
             'pincode' => 'required|min:6|max:10',
             'contact_number' => 'required|min:10|max:12',
         ];

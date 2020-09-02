@@ -149,7 +149,7 @@
                      'data-parsley-trigger' => "input",
                      'data-parsley-trigger'=>"blur",
                      'data-parsley-minlength' => '5',
-                     'data-parsley-maxlength' => '50']) !!}
+                     'data-parsley-maxlength' => '200']) !!}
                   </div>
                </div>
                <div class= "col-sm-6">

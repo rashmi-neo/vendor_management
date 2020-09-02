@@ -189,10 +189,16 @@
                
                if(result.success ==true){
                 toastr.success(result.message);
+                setTimeout(function () {
+                    location.reload(true);
+                }, 2000);
                }
 
                if(result.success ==false){
                 toastr.error(result.message);
+                setTimeout(function () {
+                    location.reload(false);
+                }, 2000);
                }
                
             },

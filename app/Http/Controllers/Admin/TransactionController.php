@@ -51,6 +51,9 @@ class TransactionController extends Controller
             ->addColumn('vendor_name', function($data){
                 return $data->vendor->first_name. ' '.$data->vendor->last_name;
             })
+            ->addColumn('payment_date', function($data){
+                return date("jS-F-Y", strtotime($data->payment_date));
+            })
             ->addColumn('action', function($row){
                 return view('admin.transactions.action', compact('row'));
             })

@@ -140,7 +140,8 @@
                         <tr>
                         <td>{{ $getPaymentreceipt->id }}</td>
                         <td>{{ $getPaymentreceipt->vendor->first_name . ' '.$getPaymentreceipt->vendor->last_name }}</td>
-                            <td>{{ $getPaymentreceipt->payment_date }}</td>
+                            <td>{{date("jS-F-Y", strtotime( $getPaymentreceipt->payment_date))}}
+                            </td>
                             <td>{{ $getPaymentreceipt->amount }}</td>
                             <td>
                             <a href="{{ url('/') }}/uploads/{{ $getPaymentreceipt->receipt }}">{{ $getPaymentreceipt->receipt }} <i class="fa fa-download" aria-hidden="true"></i></a>

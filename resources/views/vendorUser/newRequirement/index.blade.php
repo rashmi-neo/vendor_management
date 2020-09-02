@@ -109,7 +109,7 @@
 			],
 			"columnDefs": [{ className:"text-center", "targets":[8]} ],
          "columnDefs": [
-                { "width": "100px", "targets": 8 }
+                { "width": "200px", "targets": 8 }
                 ]
 		});
 	}); 

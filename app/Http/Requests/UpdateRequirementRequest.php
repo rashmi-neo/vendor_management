@@ -26,8 +26,8 @@ class UpdateRequirementRequest extends FormRequest
         return [
             'title' => 'required|min:2|max:50',
             'budget' => 'required|numeric',
-            'fromDate' => 'required',
-            'toDate' => 'required',
+            'fromDate' => 'required|date',
+            'toDate' => 'required|date|after_or_equal:fromDate',
             'priority' => 'required',
             'proposal_document' => 'file|max:10000|mimes:xls,pdf,xlsx,doc,docx',
             'description' => 'max:200',

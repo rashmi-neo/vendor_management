@@ -26,7 +26,7 @@ class PaymentReceiptRequest extends FormRequest
         return [
             'payment_file' => 'required|file|max:10000|mimes:pdf',
             'amount' => 'required',
-            'payment_date' => 'required',
+            'payment_date' => 'required|date',
         ];
     }
 }

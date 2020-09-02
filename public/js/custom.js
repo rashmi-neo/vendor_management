@@ -115,7 +115,7 @@ $("#category_id").click(function (e) {
     success: function(result){
         $("#vendor").empty();
         $.each(result,function(key,val){
-            $("#vendor").append('<option value='+val.vendor.id+' selected>'+val.vendor.first_name+'</option>');
+            $("#vendor").append('<option value='+val.vendor.id+' selected>'+val.vendor.first_name+ ' ' +val.vendor.last_name+'</option>');
         });
      }});
 });

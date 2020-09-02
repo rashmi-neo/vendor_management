@@ -115,7 +115,8 @@
                   {!! Form::password('password', ['class' => 'form-control','placeholder' => 'Password',
                   'data-parsley-trigger' => "input",
                   'data-parsley-trigger'=>"blur",
-                  'data-parsley-maxlength' => '8']) !!}
+                  'data-parsley-minlength' => '6',
+                  'data-parsley-maxlength' => '15']) !!}
                </div>
                <div class= "col-sm-6">
                <div class="form-group">

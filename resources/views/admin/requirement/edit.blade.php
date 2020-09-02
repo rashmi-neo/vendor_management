@@ -117,7 +117,8 @@
                                 'data-date-format'=>'YYYY/MM/DD',
                                 'data-date-maxDate'=>"YYYY/MM/DD",
                                 'data-parsley-maxdate'=>"From date",
-                                'data-parsley-trigger'=>"blur"]) !!}
+                                'data-parsley-trigger'=>"blur",
+                                'data-parsley-trigger'=>'change']) !!}
                              @error('toDate')
                              <span class="text-danger errormsg" role="alert">
                                 <p>{{ $message }}</p>
@@ -195,32 +196,37 @@
             format: 'YYYY-MM-DD'
             },
         });
-    });
-
-    $(function(){
+        $('input[id="requirmentsFromDate"]').on('apply.daterangepicker', function(ev, picker) {
+            fromMinDate = new Date($('#requirmentsFromDate').val());
         $('#requirmentToDate').daterangepicker({
             singleDatePicker: true,
             showDropdowns: true,
+            minDate:fromMinDate,
             locale: {
             format: 'YYYY-MM-DD'
             },
         });
+        });
     });
-// append the vendors as per category id.
-// $("#category").click(function (e) {
-//         e.preventDefault();
-//         var id= $(this).val();
-//         $.ajax({
-//         type: "GET",
-//         url: "../vendors/"+id,
-//         dataType: "json",
-//         success: function(result){
-//             $("#vendor").empty();
-//             $.each(result,function(key,val){
-//                 $("#vendor").append('<option value='+val.vendor.id+' selected>'+val.vendor.first_name+'</option>');
-//             });
-//          }});
-//     });
+
+    $(function() {
+        $("#requirmentToDate").daterangepicker({ 
+        singleDatePicker: true,
+        showDropdowns: true,
+        locale: {
+        format: 'YYYY-MM-DD'
+        },}).on('change', function(ev) {
+            if($(this).parsley().isValid()){
+                $('#requirmentToDate').removeClass('parsley-error').addClass('parsley-success');
+                $('.parsley-maxdate').empty();   
+            }
+
+            if(!$(this).parsley().isValid()){
+                $('#requirmentToDate').removeClass('parsley-success').addClass('parsley-error');
+                $('.parsley-maxdate').text("This date should be greater than or equal to From date");   
+            }
+        });
+    });
 </script>
 <script>
     window.ParsleyValidator

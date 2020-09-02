@@ -285,10 +285,11 @@ class RequirementRepository implements RequirementInterface{
      *
      * @Author Bharti <bharati.tadvi@neosofttech.com>
      * @param $id
-     * @return $quotationStatus
+     * @return $vendorId
     */
     public function getQuotationStatus($id){
         
+        $vendorId = "";
         $quotationStatus = AssignVendor::with(['vendor','vendorQuotation'=>function ($query){
             $query->where('deleted_at',null)->whereIn('status',['approved']);
         }])->where('requirement_id',$id)->get();
@@ -302,18 +303,14 @@ class RequirementRepository implements RequirementInterface{
         }
         
         return $vendorId;
-
-        return Payment::where('requirement_id',$id)->get();
-
-        // return $quotationStatus;
     }
 
     /**
-     * Get payment receipt
+     * Get payment receipt details
      *
      * @Author Bharti <bharati.tadvi@neosofttech.com>
      * @param $id
-     * @return $quotationStatus
+     * @return collection
     */
     public function getPaymentReceipt($id){
 

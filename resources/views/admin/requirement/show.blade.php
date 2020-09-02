@@ -121,7 +121,9 @@
             </div>
             <div class="tab-pane fade" id="paymentTab" role="tabpanel" aria-labelledby="custom-tabs-four-messages-tab">
             <div class="float-right m-1">
-            <button href="#"  data-id=" {{ $showRequirementDetails->code }}"  onclick="openPaymentModal({{$showRequirementDetails->id}},{{ $approvedQuotationVendorId}})" class="uploadPaymentReceipt btn btn-primary btn-sm" data-toggle="modal" data-target="#uploadPaymentReceipt" rel="tooltip" title="Upload Payment Receipt"><i class="fas fa-plus"></i></button>&nbsp;
+            @if(!empty($approvedQuotationVendorId))
+            <button href="#"  data-id=" {{ $showRequirementDetails->code }}"  onclick="openPaymentModal({{$showRequirementDetails->id}},{{ $approvedQuotationVendorId}})" class="uploadPaymentReceipt btn btn-primary btn-sm" data-toggle="modal" data-target="#uploadPaymentReceipt" rel="tooltip" title="Upload Payment Receipt" {{ (empty($showRequirementDetails->payment)) ? "" : "disabled" }}><i class="fas fa-plus"></i></button>&nbsp;
+            @endif
             </div>
             <table id="assignVendorTable1" class="table table-bordered table-hover">
                     <thead>

@@ -42,7 +42,7 @@
                            'data-parsley-trigger' => "input",
                            'data-parsley-trigger'=>"blur",
                            'data-parsley-errors-container'=>'#firstNameError',
-                           'data-parsley-pattern'=>"^[a-zA-Z]+$",
+                           'data-parsley-pattern'=>"^[a-zA-Z ]+$",
                            'data-parsley-pattern-message' => 'Please enter only alphabetical letters',
                            'data-parsley-minlength' => '2',
                            'data-parsley-maxlength' => '50']) !!}
@@ -65,7 +65,7 @@
                            'data-parsley-trigger' => "input",
                            'data-parsley-trigger'=>"blur",
                            'data-parsley-errors-container'=>'#middleNameError',
-                           'data-parsley-pattern'=>"^[a-zA-Z]+$",
+                           'data-parsley-pattern'=>"^[a-zA-Z ]+$",
                            'data-parsley-pattern-message' => 'Please enter only alphabetical letters',
                            'data-parsley-minlength' => '2',
                            'data-parsley-maxlength' => '50']) !!}   
@@ -90,7 +90,7 @@
                            'data-parsley-trigger' => "input",
                            'data-parsley-trigger'=>"blur",
                            'data-parsley-errors-container'=>'#lastNameError',
-                           'data-parsley-pattern'=>"^[a-zA-Z]+$",
+                           'data-parsley-pattern'=>"^[a-zA-Z ]+$",
                            'data-parsley-pattern-message' => 'Please enter only alphabetical letters',
                            'data-parsley-minlength' => '2',
                            'data-parsley-maxlength' => '50']) !!}

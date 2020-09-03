@@ -52,7 +52,7 @@
                         'data-parsley-required-message' => 'First name is required',
                         'data-parsley-trigger' => "input",
                         'data-parsley-trigger'=>"blur",
-                        'data-parsley-pattern'=>"^[a-zA-Z]+$",
+                        'data-parsley-pattern'=>"^[a-zA-Z ]+$",
                         'data-parsley-pattern-message' => 'Please enter only alphabets',
                         'data-parsley-minlength' => '2',
                         'data-parsley-maxlength' => '50']) !!}
@@ -69,7 +69,7 @@
                         {!! Form::text('middle_name', $vendor->middle_name, ['class' => 'form-control ','placeholder' => 'Middle Name',
                         'data-parsley-trigger' => "input",
                         'data-parsley-trigger'=>"blur",
-                        'data-parsley-pattern'=>"^[a-zA-Z]+$",
+                        'data-parsley-pattern'=>"^[a-zA-Z ]+$",
                         'data-parsley-pattern-message' => 'Please enter only alphabets',
                         'data-parsley-minlength' => '2',
                         'data-parsley-maxlength' => '50']) !!}
@@ -83,7 +83,7 @@
                         'data-parsley-required-message' => 'Last name is required',
                         'data-parsley-trigger' => "input",
                         'data-parsley-trigger'=>"blur",
-                        'data-parsley-pattern'=>"^[a-zA-Z]+$",
+                        'data-parsley-pattern'=>"^[a-zA-Z ]+$",
                         'data-parsley-pattern-message' => 'Please enter only alphabets',
                         'data-parsley-minlength' => '2',
                         'data-parsley-maxlength' => '50']) !!}

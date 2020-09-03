@@ -40,7 +40,7 @@ return [
 
     'QUOTATION_DOCUMENT' => [
         'title' => 'Quotation Document',
-        'text' =>'has been uploaded quotation.',
+        'text' =>'has been uploaded quotation',
         'type' => 'document_update',
         'status' => 'unread'
     ],
@@ -52,7 +52,7 @@ return [
     
     'ADMIN_COMMENT'=>[
         'title' => 'Admin added comment',
-        'text' =>'has been added comment.',
+        'text' =>'has been added comment',
         'type' => 'admin_comment',
         'status' => 'unread'
     ],

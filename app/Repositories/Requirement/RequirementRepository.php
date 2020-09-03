@@ -340,6 +340,7 @@ class RequirementRepository implements RequirementInterface{
         $payementReceipt->payment_date =$requestData->payment_date; 
         $payementReceipt->amount =$requestData->amount; 
         $payementReceipt->save();
+        
         return $payementReceipt;
 
     }

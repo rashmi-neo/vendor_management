@@ -34,7 +34,7 @@
                             <td>{{ empty($quotation->comment)?"-":$quotation->comment}}</td>
                             <td>{{ empty($quotation->admin_comment)? "-":$quotation->admin_comment}}</td>
                             <td>{{ ucfirst($quotation->status)}}</td>
-                            <td>
+                            <td width="100px" class="text-center">
                                 {{-- <button type="button" class="edit btn btn-primary btn-sm" title="add comment" onclick="openCommentModal({{ $vendor->vendor_id }},{{ $vendor->assign_vendors_id }})" id="comment_{{ $vendor->vendor_id }}" ><i class="fas fa-pencil-alt"></i></button> --}}
                               @if ($quotation->admin_comment == "" || $quotation->admin_comment == null)
                               <button type="button" class="edit btn btn-primary btn-sm" onclick="openCommentModal({{ $quotation->id }},{{ $quotation->assign_vendor_id }})" rel="tooltip" title="Add Admin Comment"  id="comment_{{ $quotation->assign_vendors_id }}" ><i class="fas fa-pencil-alt"></i></button>
@@ -174,7 +174,7 @@
                 dataType: "json",
                 success: function(result){
                 if(result)
-                {
+                {   
                     $('#modal-lg').modal('hide');
                     toastr.success('Comment added successfully');
                     setTimeout(function () {
@@ -209,14 +209,23 @@
             dataType: "json",
             success: function(result){
                 
-             if(result)
-             {
+                if(result.success == true)
+                {
                 $('#quotationStatus').modal('hide');
-                toastr.success('Status updated successfully');
+                toastr.success(result.message);
                 setTimeout(function () {
                     location.reload(true);
                 }, 2000);
-             }
+                }
+
+                if(result.success == false)
+                {
+                $('#quotationStatus').modal('hide');
+                toastr.error(result.message);
+                setTimeout(function () {
+                    location.reload(true);
+                }, 2000);
+                }
             }});
     });
 

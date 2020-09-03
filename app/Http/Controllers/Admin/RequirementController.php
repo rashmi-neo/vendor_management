@@ -224,7 +224,7 @@ class RequirementController extends Controller
             if($addComment){
                 
                 //send notification to vendor
-                $assignvendor =AssignVendor::where('id',$addComment->assign_vendor_id)->first();
+                $assignvendor = AssignVendor::where('id',$addComment->assign_vendor_id)->first();
                 
                 $vendor = vendor::where('id',$assignvendor->vendor_id)->first();
                 
@@ -234,7 +234,7 @@ class RequirementController extends Controller
 
                 if($admin)
                 {
-                    $notificationDetail = ['user_id'=>$vendor->user_id,'title'=>$notification['title'],'text'=>$userName.' '.$notification['text'],
+                    $notificationDetail = ['user_id'=>$vendor->user_id,'title'=>$notification['title'],'text'=>$userName.' '.$notification['text'].' '.'for'.' '.$assignvendor->requirement->title.'.',
                     'type'=>$notification['type'],'status'=>$notification['status']]; 
                     $notification = $this->notificationRepository->save($notificationDetail);
                 }
@@ -278,22 +278,41 @@ class RequirementController extends Controller
         $assignVendors = AssignVendor::with('requirement')
         ->where('requirement_id',$request->requirementId)->get();  
         
-        foreach($assignVendors as $assignVendor){
-            if($assignVendor->id == $request->assignVendorId){
-                VendorQuotation::where('assign_vendor_id',$request->assignVendorId)
-                ->where('id', $request->id)->update(['status'=>'approved']);
-            }
+        if (!empty($assignVendors)) {
 
-            if($assignVendor->id != $request->assignVendorId){
-                VendorQuotation::where('assign_vendor_id','=',$assignVendor->id)
-                ->update(['status'=>'rejected']);
+            foreach($assignVendors as $assignVendor){
+                if($assignVendor->id == $request->assignVendorId){
+                    VendorQuotation::where('assign_vendor_id',$request->assignVendorId)
+                    ->where('id', $request->id)->update(['status'=>'approved']);
+                }
+
+                if($assignVendor->id != $request->assignVendorId){
+                    VendorQuotation::where('assign_vendor_id','=',$assignVendor->id)
+                    ->update(['status'=>'rejected']);
+                }
             }
-        }
+            
+            Requirement::where('id','=',$request->requirementId)
+                ->update(['status'=>'approved']);
+
+            $response = response()->json([
+                'success' => true,
+                'message' => "Status updated successfully",
+            ]);
         
-        Requirement::where('id','=',$assignVendor->requirement_id)
-            ->update(['status'=>'approved']);
+            return $response;
+        
+        } else {
+            $response = response()->json([
+                'success' => false,
+                'message' => "Status not updated successfully",
+                'data' => [
+                'status_code' => 401
+                ]
+            ]);
 
-        return true;        
+            return $response;
+        }
     }
 
     /**

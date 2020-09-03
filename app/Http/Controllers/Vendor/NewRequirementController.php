@@ -177,7 +177,7 @@ class NewRequirementController extends Controller
             
             if($adminUser)
             {
-                $data = ['user_id'=>$adminUser->id,'title'=>$notification['title'],'text'=>$vendor->first_name.' '.$vendor->last_name.' '.$notification['text'],
+                $data = ['user_id'=>$adminUser->id,'title'=>$notification['title'],'text'=>$vendor->first_name.' '.$vendor->last_name.' '.$notification['text'].' '.'for'.' '.$newRequirement->requirement->title.'.',
                 'type'=>$notification['type'],'status'=>$notification['status']]; 
                 $notification = $this->notificationRepository->save($data);
             }

@@ -43,7 +43,7 @@ class ReportController extends Controller
         
         foreach($totalRequirementdate as $date){
             
-            $dateWiseData[] = $date ;
+            $dateWiseData[] = date("j-M-y", strtotime($date));
         }
 
         foreach($totalRequirement as $count){

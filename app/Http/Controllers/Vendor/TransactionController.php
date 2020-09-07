@@ -50,6 +50,9 @@ class TransactionController extends Controller
             ->addColumn('category', function($data){
                 return $data->requirement->category->name;
             })
+            ->addColumn('payment_date', function($data){
+                return date("jS-M-Y", strtotime($data->payment_date));
+            })
             ->addColumn('download_file', function($data){
                 return view('vendorUser.transactions.download_payment_file', compact('data'));
             })

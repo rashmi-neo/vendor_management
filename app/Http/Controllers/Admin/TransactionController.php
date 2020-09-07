@@ -52,7 +52,7 @@ class TransactionController extends Controller
                 return $data->vendor->first_name. ' '.$data->vendor->last_name;
             })
             ->addColumn('payment_date', function($data){
-                return date("jS-F-Y", strtotime($data->payment_date));
+                return date("jS-M-Y", strtotime($data->payment_date));
             })
             ->addColumn('action', function($row){
                 return view('admin.transactions.action', compact('row'));

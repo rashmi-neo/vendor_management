@@ -52,10 +52,10 @@ class PastRequirementController extends Controller
                 return $row->category->name;
              })
             ->editColumn('from_date', function ($row){
-                return date("jS-F-Y", strtotime($row->from_date));
+                return date("jS-M-Y", strtotime($row->from_date));
             })
             ->editColumn('to_date', function ($row){
-                return date("jS-F-Y", strtotime($row->to_date));
+                return date("jS-M-Y", strtotime($row->to_date));
             })
             ->addColumn('action', function($row) use ($vendorId){
                 return view('vendorUser.pastRequirement.actions', compact('row','vendorId'));

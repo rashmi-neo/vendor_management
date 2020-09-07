@@ -38,7 +38,7 @@
          <tbody>
          @foreach($quotations as $quotation)
             <tr>
-               <td>{{$quotation->id}}</td>
+               <td>{{$loop->iteration}}</td>
                <td>
                <a href="{{ url('/') }}/uploads/{{ $quotation->quotation_doc }}">{{ $quotation->quotation_doc }} <i class="fa fa-download" aria-hidden="true"></i></a>
                </td>

@@ -59,10 +59,10 @@ class NewRequirementController extends Controller
                 return empty($row->priority)? "-":$row->priority;
             })
             ->editColumn('from_date', function ($row){
-                return date("jS-F-Y", strtotime($row->from_date));
+                return date("jS-M-Y", strtotime($row->from_date));
             })
             ->editColumn('to_date', function ($row){
-                return date("jS-F-Y", strtotime($row->to_date));
+                return date("jS-M-Y", strtotime($row->to_date));
             })
             ->editColumn('category_name', function ($row){
                 return $row->category->name;

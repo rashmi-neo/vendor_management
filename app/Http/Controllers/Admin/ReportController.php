@@ -15,7 +15,7 @@ use DB;
 class ReportController extends Controller
 {
     /**
-    * Show  report .
+    * Show  Reports .
     *@author Bharti<bharti.tadvi@neosofttech.com>
     *
     *@param  void
@@ -23,12 +23,11 @@ class ReportController extends Controller
     */
     public function index(){
         
-        $countData=[];
-        $dateWiseData =[];
+        $countData = [];
+        $dateWiseData = [];
         $fillColors = [];
 
-        $vendors = Vendor::select(\DB::raw("COUNT(*) as count"))
-        ->pluck('count');
+        $vendors = Vendor::count();
         
         $completedRequirement = Requirement::where('status',['completed'])->count();
         
@@ -74,7 +73,7 @@ class ReportController extends Controller
     }
 
     /**
-    * Create ramdom colors.
+    * Create random colors.
     *@author Bharti<bharti.tadvi@neosofttech.com>
     *
     *@param  void

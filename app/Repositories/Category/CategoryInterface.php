@@ -17,7 +17,7 @@ interface CategoryInterface{
      * Get's all category.
      *
      *@Author Pooja <pooja.lavhat@neosofttech.com>
-     * @return $category
+     * @return void
      */
     public function all();
 

@@ -18,26 +18,24 @@ class ProfileRepository implements ProfileInterface{
      *
      *@Author Bharti <bharti.tadvi@neosofttech.com>
      *@param  void
-     *@return $users
+     *@return collection
      */
     public function all()
     {
-    	$users = User::where('role_id',1)->get();
-    	return $users;
+    	return  User::where('role_id',1)->get();
     }
 
     /**
      * Get's a User profile by it's ID
      *
      * @Author Bharti <bharati.tadvi@neosofttech.com>
-     * @param $id
+     * @param void
      * @return collection
      */
     public function findUser()
     {
        $userId = \Auth::user()->id; 
-       $user = User::where('id',$userId)->first();
-       return $user;
+       return User::where('id',$userId)->first();
     }
 
     /**

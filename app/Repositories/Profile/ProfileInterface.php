@@ -17,7 +17,7 @@ interface ProfileInterface{
      * Get's a User profile by it's ID
      *
      * @Author Bharti <bharati.tadvi@neosofttech.com>
-     * @param $id
+     * @param void
      */
     public function findUser();
 

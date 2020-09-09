@@ -18,17 +18,13 @@ class DashboardController extends Controller
     */
     public function index(){
         
-        $totalRequirement = Requirement::get();
-        $countRequirement = $totalRequirement->count();
+        $countRequirement = Requirement::count();
         
-        $completedRequirement = Requirement::whereIn('status',['completed'])->get();
-        $countCompletedRequirement = $completedRequirement->count();
+        $countCompletedRequirement = Requirement::whereIn('status',['completed'])->count();
         
-        $newRequirement = Requirement::whereIn('status',['in_progress','approved'])->get();
-        $countNewRequirement = $newRequirement->count();
+        $countNewRequirement = Requirement::whereIn('status',['in_progress','approved'])->count();
 
-        $users = User::where('is_verified','pending')->get();
-        $countPendingVerification = $users->count();
+        $countPendingVerification = User::where('is_verified','pending')->count();
         
         return view('admin.dashboard.dashboard',compact('countRequirement','countCompletedRequirement',
         'countNewRequirement','countPendingVerification'));

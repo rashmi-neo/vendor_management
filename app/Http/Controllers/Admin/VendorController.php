@@ -189,8 +189,7 @@ class VendorController extends Controller
     */
     public function show($id)
     {   
-        $vebdorId = $id;
-        $vendor = $this->vendorRepository->find($vebdorId);
+        $vendor = $this->vendorRepository->find($id);
         
         try {
             if($vendor){

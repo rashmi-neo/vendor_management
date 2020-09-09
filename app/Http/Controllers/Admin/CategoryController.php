@@ -60,6 +60,13 @@ class CategoryController extends Controller
     }
 
 
+    /**
+    * Create page of category.
+    *@author Pooja<pooja.lavhat@neosofttech.com>
+    * 
+    * @param void
+    * @return void
+    */
     public function create()
 	{
 	   return view('admin.category.create');
@@ -101,12 +108,11 @@ class CategoryController extends Controller
     */
     public function edit($id)
     {
-    	$categoryId = $id;
-        
+    	
         try {
-            $category = $this->categoryRepository->get($categoryId);
+            $category = $this->categoryRepository->get($id);
             if($category){
-                return view('admin.category.edit',compact('category','categoryId'));
+                return view('admin.category.edit',compact('category'));
             }else{
                 return redirect('admin/categories')->with('error', 'Category not found');
             }
@@ -161,8 +167,10 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $categoryId = $id; 
-    	$this->categoryRepository->delete($categoryId);
-        return response()->json(['success' => true],200);
+    	$deleteCategory = $this->categoryRepository->delete($id);
+
+        if (!empty($deleteCategory)) {
+            return response()->json(['success' => true],200);        
+        }
     }
 }

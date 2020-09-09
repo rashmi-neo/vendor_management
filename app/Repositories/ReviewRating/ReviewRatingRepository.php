@@ -15,7 +15,7 @@ class  ReviewRatingRepository implements ReviewRatingInterface{
     public $reviewRating;
 
     function __construct(ReviewRating $reviewRating) {
-	$this->reviewRating = $reviewRating;
+	    $this->reviewRating = $reviewRating;
     }
     
     /**
@@ -56,17 +56,17 @@ class  ReviewRatingRepository implements ReviewRatingInterface{
      *
      * @Author Bharti <bharati.tadvi@neosofttech.com>
      * @param $data
-     * @return collection
+     * @return $vendor_id
     */
     public function findVendorRequirement($data){
        
-        $assignVendor = AssignVendor::where('requirement_id',$data['requirementId'])->with(['vendor','requirement','vendorQuotation'=>function ($query){
+        $assignVendors = AssignVendor::where('requirement_id',$data['requirementId'])->with(['vendor','requirement','vendorQuotation'=>function ($query){
             $query->where('deleted_at',null)->where('status','approved');
         }])->get();
 
-        foreach($assignVendor as $datarequire){
-            if(!$datarequire->vendorQuotation->isEmpty()){
-                $vendor_id = $datarequire->vendor_id;
+        foreach($assignVendors as $assignVendor){
+            if(!$assignVendor->vendorQuotation->isEmpty()){
+                $vendor_id = $assignVendor->vendor_id;
             } 
         }
         return $vendor_id;     

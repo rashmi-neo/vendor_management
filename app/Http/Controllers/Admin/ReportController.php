@@ -33,11 +33,13 @@ class ReportController extends Controller
         
         $totalRequirement = DB::table('vms_requirements')
         ->select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as count'))
+        ->where('deleted_at', NULL)
         ->groupBy('date')
         ->pluck('count');
 
         $totalRequirementdate = DB::table('vms_requirements')
         ->select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as count'))
+        ->where('deleted_at', NULL)
         ->groupBy('date')
         ->pluck('date');
         

@@ -73,23 +73,7 @@
           </div>
         @enderror
         <span id="passwordError"></span>
-        <div class="form-control mb-3" id="imgCaptcha">
-          @captcha
-        </div>
-        <div class="form-group">
-          {!! Form::text('captcha', null, ['class' => 'form-control','placeholder'=>'Captcha',
-          'id'=>'captcha','autocomplete'=>'off',
-          'data-parsley-required' => 'true',
-          'data-parsley-required-message' => 'Please enter captcha',
-          'data-parsley-trigger' => "input",
-          'data-parsley-errors-container'=>'#captchaError']) !!}
-          </div>
-          @error('captcha')
-          <span class="text-danger errormsg" role="alert">
-           <p>{{ $message }}</p>
-          </span>
-         @enderror
-         <span id="captchaError"></span>
+        
         <div class="social-auth-links text-center mb-3">
         <button type="submit" class="btn btn-primary btn-block">Sign In</button>
         <a href="{{route('vendor.register')}}" class="btn btn-danger btn-block">Sign Up as Vendor</a>

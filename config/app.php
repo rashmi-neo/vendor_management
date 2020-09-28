@@ -165,7 +165,6 @@ return [
         /*
          * Package Service Providers...
          */
-        Igoshev\Captcha\Providers\CaptchaServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         ConsoleTVs\Charts\ChartsServiceProvider::class,
         
